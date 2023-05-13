@@ -10,34 +10,47 @@ material = {
     "Сталь звичайна": 1,
     "Сталь нержавіюча": 1.5
  }
+
+exceptable_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.']
+
 class MainWindow(QMainWindow):
 
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.setGeometry(500, 200, 300, 600)
+        self.setGeometry(500, 200, 600, 500)
         self.setWindowTitle("Calculator")
         
         
         self.perimetr_lalel = QLabel("Периметр", self)
         self.perimetr_lalel.setGeometry(10, 20, 100, 20)
-        self.perimetr_velue = QLineEdit("0.0", self)
-        self.perimetr_velue.setGeometry(120, 20, 100, 20)
+        self.perimetr_velue = QLineEdit(None, self)
+        self.perimetr_velue.setGeometry(120, 20, 40, 20)
 
         self.thickness_label = QLabel("Товщина матеріала", self)
         self.thickness_label.setGeometry(10, 45, 100, 20)
-        self.thickness_velue = QLineEdit("0.0", self)
-        self.thickness_velue.setGeometry(120, 45, 100, 20)
+        self.thickness_velue = QLineEdit(None, self)
+        self.thickness_velue.setGeometry(120, 45, 40, 20)
 
         self.material_label = QLabel("Оберіть матеріал", self)
         self.material_label.setGeometry(10, 70, 100, 20)
-        self.material_name = QLineEdit("Сталь звичайна", self)
-        self.material_name.setGeometry(120, 70, 100, 20)
+        self.material = QComboBox(self)
+        self.material.addItem("Сталь звичайна")
+        self.material.addItem("Сталь нержавіюча")
+        self.material.addItem("Алюміній")
+        self.material.addItem("Мідь")
+
+        self.material.setGeometry(120, 70, 150, 20)
 
         self.amount_holes_label = QLabel("Кількість отворів", self)
         self.amount_holes_label.setGeometry(10, 95, 100, 20)
-        self.amount_holes_value = QLineEdit("1", self)
-        self.amount_holes_value.setGeometry(120, 95, 100, 20)
+        # self.amount_holes_value = QLineEdit("1", self)
+        # self.amount_holes_value.setGeometry(120, 95, 100, 20)
+
+        self.amount_holes = QComboBox(self)
+        for i in range(1, 21):
+            self.amount_holes.addItem(str(i))
+        self.amount_holes.setGeometry(120, 95, 40, 20)
 
 
         self.btn = QPushButton("Розрахувати", self)
@@ -51,25 +64,58 @@ class MainWindow(QMainWindow):
         self.force_result_value = QLineEdit('N', self)
         self.force_result_value.setGeometry(120, 145, 40, 20)
 
-        self.manterial = QComboBox(self)
-        self.manterial.addItem("Алюміній")
-        self.manterial.addItem("Мідь")
-        self.manterial.addItem("Сталь звичайна")
-        self.manterial.addItem("Сталь нержавіюча")
-        self.manterial.setGeometry(10, 200, 150, 20)
+
 
     def calculate_tonage(self):
         coeff_material = self.coefficient_material()
-        result = 0.0352 * coeff_material * float(self.thickness_velue.text()) * float(self.perimetr_velue.text()) * float(self.amount_holes_value.text())
-        print(float(self.amount_holes_value.text()))
-        self.force_result_value.setText(str(result))
+        if not self.check_perimetr():
+            print("Периметр повинен мати числа 0-9 або кому чи крапку")
+        elif not self.check_thickness():
+            print("Товщина повинна мати числа 0-9 або кому чи крапку")
+        else:
+            result = 0.0352 * coeff_material
+            result = result * float(self.thickness_velue.text())
+            result = result * float(self.perimetr_velue.text())
+            result = round(result * float(self.amount_holes.currentText()), 2)
+            print(self.amount_holes.currentText())
+            self.force_result_value.setText(str(result))
 
 
     def coefficient_material(self) -> float:
         coeff = 0.0
-        coeff = material[self.material_name.text()]
+        coeff = material[self.material.currentText()]
         return coeff
 
+    def check_perimetr(self) -> bool:
+        print(self.perimetr_velue.text())
+        perimetr = str(self.perimetr_velue.text())
+        for letter in perimetr:
+            if letter not in exceptable_number:
+                self.force_result_value.setGeometry(120, 145, 250, 20)
+                self.force_result_value.setText("Периметр повинен мати числа 0-9 або кому чи крапку")
+                return False
+        if "," in perimetr:
+            perimetr.replace(",", ".", -1)
+        return True
+    
+    def check_number(test_number: str) -> float:
+        for letter in test_number:
+            if letter not in exceptable_number:
+                return 0.0
+        if "," in test_number:
+            test_number = test_number.replace(",", ".", -1)
+        return float(test_number)
+
+    def check_thickness(self) -> bool:
+        thickness = str(self.thickness_velue.text())
+        exceptable_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.']
+        for letter in thickness:
+            if letter not in exceptable_number:
+                self.force_result_value.setGeometry(120, 145, 400, 20)
+                self.force_result_value.setText("Товщина повинна мати числа 0-9 або кому чи крапку")
+                return False
+        
+        return True
 
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
