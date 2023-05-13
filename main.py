@@ -3,6 +3,7 @@ import sys
 from PyQt5.QtWidgets import *
 import PyQt5.QtGui as gui
 
+
 material = {
     "Алюміній": 0.5,
     "Мідь": 0.57,
@@ -50,6 +51,12 @@ class MainWindow(QMainWindow):
         self.force_result_value = QLineEdit('N', self)
         self.force_result_value.setGeometry(120, 145, 40, 20)
 
+        self.manterial = QComboBox(self)
+        self.manterial.addItem("Алюміній")
+        self.manterial.addItem("Мідь")
+        self.manterial.addItem("Сталь звичайна")
+        self.manterial.addItem("Сталь нержавіюча")
+        self.manterial.setGeometry(10, 200, 150, 20)
 
     def calculate_tonage(self):
         coeff_material = self.coefficient_material()
