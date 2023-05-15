@@ -33,7 +33,7 @@ class MainWindow(QMainWindow):
 
         self.message_perimeter = QLabel(None, self)
         self.message_perimeter.setGeometry(210,20, 150, 20)
-        if self.perimeter_velue == "0.0" or self.perimeter_velue == "0,0":
+        if self.perimeter_velue.text() == "0.0" or self.perimeter_velue.text() == "0,0":
             self.message_perimeter.setText("Периметр відсутній")
             print("Периметр відсутній")
 
@@ -51,7 +51,7 @@ class MainWindow(QMainWindow):
         self.message_thickness = QLabel(None, self)
         self.message_thickness.setGeometry(210,45, 150, 20)
 
-        if self.thickness_velue == "0.0" or self.thickness_velue == "0,0":
+        if self.thickness_velue.text() == "0.0" or self.thickness_velue.text() == "0,0":
             self.message_thickness.setText("Товщина відсутня")
             print("Товщина відсутня")        
 
@@ -94,12 +94,26 @@ class MainWindow(QMainWindow):
         coeff_material = self.coefficient_material()
         print(self.thickness_velue.text())
 
-
-        if not self.check_perimetr():
+        if self.perimeter_velue.text() == "0.0" or self.perimeter_velue.text() == "0,0" or self.perimeter_velue.text() is None:
+            self.message_perimeter.setText("Периметр відсутній")
+            print("Периметр відсутній")
+            self.force_result_value.setText("0.0")
+        elif self.thickness_velue.text() == "0.0" or self.thickness_velue.text() == "0,0" or self.thickness_velue.text() is None:
+            self.message_thickness.setText("Товщина відсутня")
+            print("Товщина відсутня")
+            self.force_result_value.setText("0.0")
+        elif not self.check_perimeter():
             print("Периметр повинен мати числа 0-9 або кому чи крапку")
+            self.message_perimeter.setText("Периметр повинен мати числа 0-9 або кому чи крапку")
+            #self.message_perimeter.setGeometry(210, 20, 200, 20)
+            self.force_result_value.setText("0.0")
         elif not self.check_thickness():
             print("Товщина повинна мати числа 0-9 або кому чи крапку")
+            self.message_thickness.setText("Товщина повинна мати числа 0-9 або кому чи крапку")
+            self.force_result_value.setText("0.0")
         else:
+            self.message_perimeter.setText("Периметр валідний")
+            self.message_thickness.setText("Товщина валідна")
             result = 0.0352 * coeff_material
             result = result * float(self.thickness_velue.text())
             result = result * float(self.perimeter_velue.text())
@@ -113,7 +127,7 @@ class MainWindow(QMainWindow):
         coeff = material[self.material.currentText()]
         return coeff
 
-    def check_perimetr(self) -> bool:
+    def check_perimeter(self) -> bool:
         print(self.perimeter_velue.text())
         perimetr = str(self.perimeter_velue.text())
         for letter in perimetr:
