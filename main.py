@@ -105,7 +105,7 @@ class MainWindow(QMainWindow):
         elif not self.check_perimeter():
             print("Периметр повинен мати числа 0-9 або кому чи крапку")
             self.message_perimeter.setText("Периметр повинен мати числа 0-9 або кому чи крапку")
-            #self.message_perimeter.setGeometry(210, 20, 200, 20)
+
             self.force_result_value.setText("0.0")
         elif not self.check_thickness():
             print("Товщина повинна мати числа 0-9 або кому чи крапку")
@@ -122,22 +122,65 @@ class MainWindow(QMainWindow):
             self.force_result_value.setText(str(result))
 
 
+    def calculate_tonage_new(self):
+        coeff_material = self.coefficient_material()
+
+        perimeter_list = self.check_number_new(self.perimeter_velue.text())
+
+        thickness_list = self.check_number_new(self.thickness_velue.text())
+
+        if perimeter_list[0] == 0:
+            self.message_perimeter.setText(perimeter_list[1])
+            self.force_result_value.setText("0.0")
+        elif thickness_list[0] == 0:
+            self.message_thickness.setText(thickness_list[1])
+            self.force_result_value.setText("0.0")
+        else:
+            result = 0.0352 * coeff_material
+            result = result * perimeter_list[1]
+            result = result * thickness_list[1]
+            result = round(result * float(self.amount_holes.currentText()), 2)
+            self.force_result_value.setText(str(result))
+        
+
     def coefficient_material(self) -> float:
         coeff = 0.0
         coeff = material[self.material.currentText()]
         return coeff
 
-    def check_perimeter(self) -> bool:
-        print(self.perimeter_velue.text())
-        perimetr = str(self.perimeter_velue.text())
-        for letter in perimetr:
+    def check_number_new(item_string: str) -> list:
+        result = [0, 'Статус']
+        item_string = item_string.strip()
+        if item_string == "0.0":
+            result[0] = 0
+            result[1] = "Відсутніє значення"
+            
+        for letter in item_string:
             if letter not in exceptable_number:
-                self.force_result_value.setGeometry(120, 145, 250, 20)
-                self.force_result_value.setText("Периметр повинен мати числа 0-9 або кому чи крапку")
-                return False
-        if "," in perimetr:
-            perimetr.replace(",", ".", -1)
-        return True
+                result[0] = 0
+                message = f"{letter} не корректний символ. (Можливі символи 0-9 , .)"
+                result[1] = message
+                return result
+        comma_count = item_string.count(",")
+        if comma_count > 1:
+            result[0] = 0
+            result[1] = "Забагато ком"
+            return result
+        
+        dot_count = item_string.count(".")
+        if dot_count > 1:
+            result[0] = 0
+            result[1] = "Забагато крапок"
+            return result
+        
+
+        result[1] = "Валідне знячення"
+
+        if "," in item_string:
+            item_string = item_string.replace(",", ".")
+        
+        result[0] = float(item_string)
+        return result
     
     def check_number(test_number: str) -> float:
         for letter in test_number:
@@ -157,7 +200,17 @@ class MainWindow(QMainWindow):
                 return False
         
         return True
-
+    
+    def check_perimeter(self) -> bool:
+        perimeter = str(self.perimeter_velue.text())
+        exceptable_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.']
+        for letter in perimeter:
+            if letter not in exceptable_number:
+                self.force_result_value.setGeometry(120, 145, 400, 20)
+                self.force_result_value.setText("Периметер повинен мати числа 0-9 або кому чи крапку")
+                return False
+        
+        return True
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
     main_window = MainWindow()
