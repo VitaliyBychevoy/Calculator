@@ -22,79 +22,100 @@ class MainWindow(QMainWindow):
 
         self.setGeometry(500, 200, 600, 300)
         self.setWindowTitle("Calculator")
-        
-        
+
+
+        #ПЕРИМЕТЕР
+        #Заголовок периметра
         self.perimeter_lalel = QLabel("Периметр", self)
         self.perimeter_lalel.setGeometry(10, 20, 100, 20)
+
+        #Значення периметра
         self.perimeter_velue = QLineEdit("0.0", self)
         self.perimeter_velue.setGeometry(120, 20, 40, 20)
 
-
+        #Розмірність периметра
         self.mm_label_perimeter = QLabel("мм", self)
         self.mm_label_perimeter.setGeometry(165, 20, 40, 20)
 
+        #Статус введенного периметра
         self.message_perimeter = QLabel(None, self)
         self.message_perimeter.setGeometry(190, 20, 150, 20)
-
         if self.perimeter_velue.text() in zero:
             self.message_perimeter.setText("Відсутнє значення")
 
 
+        #ТОВЩИНА
+        #Заголовок товщини       
         self.thickness_label = QLabel("Товщина матеріала", self)
         self.thickness_label.setGeometry(10, 45, 100, 20)
+
+        #Значення товщини
         self.thickness_velue = QLineEdit("0.0", self)
-
-
-
         self.thickness_velue.setGeometry(120, 45, 40, 20)
 
+        #Розмірність товщини
         self.mm_label_thickness = QLabel("мм", self)
         self.mm_label_thickness.setGeometry(165, 45, 40, 20)
-
+        
+        #Статус введенної товщини
         self.message_thickness = QLabel(None, self)
         self.message_thickness.setGeometry(190, 45, 150, 20)
-
         if self.thickness_velue.text() in zero:
             self.message_thickness.setText("Відсутнє значення")
 
 
+        #МАТЕРІАЛ
+        #Заголовок матеріала
         self.material_label = QLabel("Оберіть матеріал", self)
         self.material_label.setGeometry(10, 70, 100, 20)
+
+        #Список матеріалів
         self.material = QComboBox(self)
         self.material.addItem("Сталь звичайна")
         self.material.addItem("Сталь нержавіюча")
         self.material.addItem("Алюміній")
         self.material.addItem("Мідь")
-
         self.material.setGeometry(120, 70, 200, 20)
 
+
+        #ОТВОРИ
+        #Заголовок отворів
         self.amount_holes_label = QLabel("Кількість отворів", self)
         self.amount_holes_label.setGeometry(10, 95, 100, 20)
 
-
+        #Список отворів
         self.amount_holes = QComboBox(self)
         for i in range(1, 21):
             self.amount_holes.addItem(str(i))
         self.amount_holes.setGeometry(120, 95, 40, 20)
 
 
+        #КНОПКА ДЛЯ РОЗРАХУВАННЯ ЗУСИЛЛЯ
         self.btn = QPushButton("Розрахувати", self)
         self.btn.setGeometry(120, 120, 200, 20)
         self.btn.clicked.connect(self.calculate_tonage_new)
 
 
-
+        #ОТРИМАНЕ ЗУСИЛЛЯ
+        #Заголовок зусилля
         self.force_result_label = QLabel("Небхідне зусилля", self)
         self.force_result_label.setGeometry(10, 145, 100, 20)
+
+        #Значеня зусилля
         self.force_result_value = QLineEdit('?', self)
         self.force_result_value.setGeometry(120, 145, 40, 20)
 
+        #Розмірність зусилля
         self.tonage_label_force = QLabel("тонн(и)", self)
         self.tonage_label_force.setGeometry(165, 145, 40, 20)
 
 
+        #ФОРМІ
+        #Заголовок форми
         self.force_result_label = QLabel("Форма", self)
         self.force_result_label.setGeometry(330, 20, 40, 20)
+
+        #Cписок форм
         self.shape = QComboBox(self)
         self.shape.addItem("")
         self.shape.addItem("Коло")
@@ -108,12 +129,14 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Прямокутник з різними радіусами")
         self.shape.addItem("Шестикутник")
         self.shape.addItem("Овал з паралельними сторонами")
-        self.shape.setGeometry(380, 20, 210, 25)
+        self.shape.setGeometry(365, 20, 225, 25)
+        self.shape.currentTextChanged.connect(self.shape_handler)
 
-        self.btn_perimeter = QPushButton("Розрахувати периметер", self)
-        self.btn_perimeter.setGeometry(330, 55, 260, 25)
+        #Тестове повідомлення
+        self.test_message = QLabel(None, self)
+        self.test_message.setGeometry(330, 80, 250, 25) 
 
-
+    #Розрахунок навантаження
     def calculate_tonage_new(self):
         coeff_material = self.coefficient_material()
 
@@ -148,12 +171,13 @@ class MainWindow(QMainWindow):
             result = round(result * float(self.amount_holes.currentText()), 2)
             self.force_result_value.setText(str(result))
         
-
+    #Функція вертає коефіцієнт матеріала
     def coefficient_material(self) -> float:
         coeff = 0.0
         coeff = material[self.material.currentText()]
         return coeff
 
+    #Перевіряємо числові дані, які вводив користувач 
     def check_number_new(self,item_string: str) -> list:
         result = [0, "Валідне знячення"]
         item_string = item_string.strip()
@@ -186,7 +210,12 @@ class MainWindow(QMainWindow):
         
         result[0] = float(item_string)
         return result
-    
+
+    #Обробка списку форм
+    def shape_handler(self):
+        self.test_message.setText(self.shape.currentText())
+        
+           
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
     main_window = MainWindow()
