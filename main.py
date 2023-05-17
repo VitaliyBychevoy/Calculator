@@ -113,6 +113,7 @@ class MainWindow(QMainWindow):
         self.btn_perimeter = QPushButton("Розрахувати периметер", self)
         self.btn_perimeter.setGeometry(330, 55, 260, 25)
 
+
     def calculate_tonage_new(self):
         coeff_material = self.coefficient_material()
 
