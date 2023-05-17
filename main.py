@@ -108,7 +108,10 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Прямокутник з різними радіусами")
         self.shape.addItem("Шестикутник")
         self.shape.addItem("Овал з паралельними сторонами")
-        self.shape.setGeometry(380, 20, 220, 20)
+        self.shape.setGeometry(380, 20, 210, 25)
+
+        self.btn_perimeter = QPushButton("Розрахувати периметер", self)
+        self.btn_perimeter.setGeometry(330, 55, 260, 25)
 
     def calculate_tonage_new(self):
         coeff_material = self.coefficient_material()
