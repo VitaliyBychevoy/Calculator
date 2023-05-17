@@ -20,7 +20,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.setGeometry(500, 200, 600, 500)
+        self.setGeometry(500, 200, 600, 300)
         self.setWindowTitle("Calculator")
         
         
@@ -92,6 +92,24 @@ class MainWindow(QMainWindow):
         self.tonage_label_force = QLabel("тонн(и)", self)
         self.tonage_label_force.setGeometry(165, 145, 40, 20)
 
+
+        self.force_result_label = QLabel("Форма", self)
+        self.force_result_label.setGeometry(330, 20, 40, 20)
+        self.shape = QComboBox(self)
+        self.shape.addItem("")
+        self.shape.addItem("Коло")
+        self.shape.addItem("Напівколо")
+        self.shape.addItem("Квадрат")
+        self.shape.addItem("Квадрат з однаковими радіусами")
+        self.shape.addItem("Квадрат з різними радіусами")
+        self.shape.addItem("Квадрат у колі")
+        self.shape.addItem("Прямокутник")
+        self.shape.addItem("Прямокутник з однаковими радіусами")
+        self.shape.addItem("Прямокутник з різними радіусами")
+        self.shape.addItem("Шестикутник")
+        self.shape.addItem("Овал з паралельними сторонами")
+        self.shape.setGeometry(380, 20, 220, 20)
+
     def calculate_tonage_new(self):
         coeff_material = self.coefficient_material()
 
@@ -110,22 +128,16 @@ class MainWindow(QMainWindow):
             thickness_number = self.thickness_velue.text()
         thickness_list = self.check_number_new(thickness_number)
 
+        self.message_perimeter.setText(perimeter_list[1])
+        self.message_thickness.setText(thickness_list[1])
 
         if perimeter_list[0] == 0 and thickness_list[0] != 0:
-            self.message_perimeter.setText(perimeter_list[1])
-            self.message_thickness.setText(thickness_list[1])
             self.force_result_value.setText("?")
         elif thickness_list[0] == 0 and perimeter_list[0] != 0:
-            self.message_perimeter.setText(perimeter_list[1])
-            self.message_thickness.setText(thickness_list[1])
             self.force_result_value.setText("?")
         elif thickness_list[0] == 0 and perimeter_list[0] == 0:
-            self.message_perimeter.setText(perimeter_list[1])
-            self.message_thickness.setText(thickness_list[1])
             self.force_result_value.setText("?")
         else:
-            self.message_perimeter.setText(perimeter_list[1])
-            self.message_thickness.setText(thickness_list[1])
             result = 0.0352 * coeff_material
             result = result * perimeter_list[0]
             result = result * thickness_list[0]
@@ -141,7 +153,7 @@ class MainWindow(QMainWindow):
     def check_number_new(self,item_string: str) -> list:
         result = [0, "Валідне знячення"]
         item_string = item_string.strip()
-        if item_string == "0.0" or item_string == "0,0" or item_string == "0" or item_string == "":
+        if item_string in zero:
             result[0] = 0
             result[1] = "Відсутнє значення"
             return result
