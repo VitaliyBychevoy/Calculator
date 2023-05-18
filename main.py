@@ -134,7 +134,10 @@ class MainWindow(QMainWindow):
 
         #Тестове повідомлення
         self.test_message = QLabel(None, self)
-        self.test_message.setGeometry(330, 80, 250, 25) 
+        self.test_message.setGeometry(330, 80, 250, 500) 
+        self.test_img = gui.QPixmap("img/question.jpg")
+        self.test_message.setPixmap(self.test_img)
+        self.resize(self.test_img.width(), self.test_img.height())
 
     #Розрахунок навантаження
     def calculate_tonage_new(self):
@@ -213,8 +216,13 @@ class MainWindow(QMainWindow):
 
     #Обробка списку форм
     def shape_handler(self):
-        self.test_message.setText(self.shape.currentText())
-        
+        self.window_shape = QMdiSubWindow()
+
+        self.label_text = QLabel(self.shape.currentText(), self.window_shape)
+        #self.window_shape.setGeometry(800, 200, 250, 100)
+        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.show()
+        #self.test_message.setText(self.shape.currentText())
            
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
