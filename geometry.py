@@ -1,7 +1,7 @@
 class Perimeter():
     
-    def round():
-        pass
+    def round(diameter: float) -> float:
+        return round(diameter * 3.1415, 2)
 
     def halfround():
         pass

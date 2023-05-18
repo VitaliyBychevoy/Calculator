@@ -20,26 +20,26 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.setGeometry(500, 200, 600, 300)
+        self.setGeometry(500, 200, 330, 300)
         self.setWindowTitle("Calculator")
 
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
         self.perimeter_lalel = QLabel("Периметр", self)
-        self.perimeter_lalel.setGeometry(10, 20, 100, 20)
+        self.perimeter_lalel.setGeometry(10, 50, 100, 20)
 
         #Значення периметра
         self.perimeter_velue = QLineEdit("0.0", self)
-        self.perimeter_velue.setGeometry(120, 20, 40, 20)
+        self.perimeter_velue.setGeometry(120, 50, 40, 20)
 
         #Розмірність периметра
         self.mm_label_perimeter = QLabel("мм", self)
-        self.mm_label_perimeter.setGeometry(165, 20, 40, 20)
+        self.mm_label_perimeter.setGeometry(165, 50, 40, 20)
 
         #Статус введенного периметра
         self.message_perimeter = QLabel(None, self)
-        self.message_perimeter.setGeometry(190, 20, 150, 20)
+        self.message_perimeter.setGeometry(190, 50, 150, 20)
         if self.perimeter_velue.text() in zero:
             self.message_perimeter.setText("Відсутнє значення")
 
@@ -47,19 +47,19 @@ class MainWindow(QMainWindow):
         #ТОВЩИНА
         #Заголовок товщини       
         self.thickness_label = QLabel("Товщина матеріала", self)
-        self.thickness_label.setGeometry(10, 45, 100, 20)
+        self.thickness_label.setGeometry(10, 75, 100, 20)
 
         #Значення товщини
         self.thickness_velue = QLineEdit("0.0", self)
-        self.thickness_velue.setGeometry(120, 45, 40, 20)
+        self.thickness_velue.setGeometry(120, 75, 40, 20)
 
         #Розмірність товщини
         self.mm_label_thickness = QLabel("мм", self)
-        self.mm_label_thickness.setGeometry(165, 45, 40, 20)
+        self.mm_label_thickness.setGeometry(165, 75, 40, 20)
         
         #Статус введенної товщини
         self.message_thickness = QLabel(None, self)
-        self.message_thickness.setGeometry(190, 45, 150, 20)
+        self.message_thickness.setGeometry(190, 75, 150, 20)
         if self.thickness_velue.text() in zero:
             self.message_thickness.setText("Відсутнє значення")
 
@@ -67,7 +67,7 @@ class MainWindow(QMainWindow):
         #МАТЕРІАЛ
         #Заголовок матеріала
         self.material_label = QLabel("Оберіть матеріал", self)
-        self.material_label.setGeometry(10, 70, 100, 20)
+        self.material_label.setGeometry(10, 100, 100, 20)
 
         #Список матеріалів
         self.material = QComboBox(self)
@@ -75,45 +75,45 @@ class MainWindow(QMainWindow):
         self.material.addItem("Сталь нержавіюча")
         self.material.addItem("Алюміній")
         self.material.addItem("Мідь")
-        self.material.setGeometry(120, 70, 200, 20)
+        self.material.setGeometry(120, 100, 200, 20)
 
 
         #ОТВОРИ
         #Заголовок отворів
         self.amount_holes_label = QLabel("Кількість отворів", self)
-        self.amount_holes_label.setGeometry(10, 95, 100, 20)
+        self.amount_holes_label.setGeometry(10, 125, 100, 20)
 
         #Список отворів
         self.amount_holes = QComboBox(self)
         for i in range(1, 21):
             self.amount_holes.addItem(str(i))
-        self.amount_holes.setGeometry(120, 95, 40, 20)
+        self.amount_holes.setGeometry(120, 125, 40, 20)
 
 
         #КНОПКА ДЛЯ РОЗРАХУВАННЯ ЗУСИЛЛЯ
         self.btn = QPushButton("Розрахувати", self)
-        self.btn.setGeometry(120, 120, 200, 20)
+        self.btn.setGeometry(120, 150, 200, 20)
         self.btn.clicked.connect(self.calculate_tonage_new)
 
 
         #ОТРИМАНЕ ЗУСИЛЛЯ
         #Заголовок зусилля
         self.force_result_label = QLabel("Небхідне зусилля", self)
-        self.force_result_label.setGeometry(10, 145, 100, 20)
+        self.force_result_label.setGeometry(10, 175, 100, 20)
 
         #Значеня зусилля
         self.force_result_value = QLineEdit('?', self)
-        self.force_result_value.setGeometry(120, 145, 40, 20)
+        self.force_result_value.setGeometry(120, 175, 40, 20)
 
         #Розмірність зусилля
         self.tonage_label_force = QLabel("тонн(и)", self)
-        self.tonage_label_force.setGeometry(165, 145, 40, 20)
+        self.tonage_label_force.setGeometry(165, 175, 40, 20)
 
 
         #ФОРМІ
         #Заголовок форми
         self.force_result_label = QLabel("Форма", self)
-        self.force_result_label.setGeometry(330, 20, 40, 20)
+        self.force_result_label.setGeometry(10, 20, 40, 20)
 
         #Cписок форм
         self.shape = QComboBox(self)
@@ -129,15 +129,15 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Прямокутник з різними радіусами")
         self.shape.addItem("Шестикутник")
         self.shape.addItem("Овал з паралельними сторонами")
-        self.shape.setGeometry(365, 20, 225, 25)
+        self.shape.setGeometry(60, 20, 260, 25)
         self.shape.currentTextChanged.connect(self.shape_handler)
 
         #Тестове повідомлення
         self.test_message = QLabel(None, self)
-        self.test_message.setGeometry(330, 80, 250, 500) 
+        self.test_message.setGeometry(0, 80, 250, 500) 
         self.test_img = gui.QPixmap("img/question.jpg")
         self.test_message.setPixmap(self.test_img)
-        self.resize(self.test_img.width(), self.test_img.height())
+
 
     #Розрахунок навантаження
     def calculate_tonage_new(self):
@@ -216,14 +216,143 @@ class MainWindow(QMainWindow):
 
     #Обробка списку форм
     def shape_handler(self):
+        shape: str = self.shape.currentText()
+        if shape == "Коло":
+            self.round_handler(shape)
+        elif shape == "Напівколо":            
+            self.half_round_heandler(shape)
+        elif shape == "Квадрат":
+            self.square(shape)
+        elif shape == "Квадрат з однаковими радіусами":
+            self.square_one_radius(shape)
+        elif shape == "Квадрат з різними радіусами":
+            self.square_four_radius(shape)
+        elif shape == "Квадрат у колі":
+            self.square_in_round(shape)
+        elif shape == "Прямокутник":
+            self.rectangle(shape)
+        elif shape == "Прямокутник з однаковими радіусами":
+            self.rectangle_one_round(shape)
+        elif shape == "Прямокутник з різними радіусами":
+            self.rectangle_four_round(shape)
+        elif shape == "Шестикутник":
+            self.hexagon(shape)
+        elif shape == "Овал з паралельними сторонами":
+            self.oblong(shape)
+
+    def round_handler(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
-        self.label_text = QLabel(self.shape.currentText(), self.window_shape)
-        #self.window_shape.setGeometry(800, 200, 250, 100)
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.label_text.setGeometry(10, 10, 200, 20)
+
+        #ДІАМЕТР
+        #Заголовок диаметра
+        self.diameter_lalel = QLabel("D", self.window_shape)
+        self.diameter_lalel.setGeometry(10, 50, 10, 20)
+
+        #Значення диаметра
+        self.diameter_velue = QLineEdit("0.0", self.window_shape)
+        self.diameter_velue.setGeometry(25, 50, 40, 20)
+
+        #Розмірність диаметра
+        self.mm_label_d = QLabel("мм", self.window_shape)
+        self.mm_label_d.setGeometry(70, 50, 40, 20)
+
+        #Статус діаметра         
+        self.message_diameter = QLabel(None, self.window_shape)
+        self.message_diameter.setGeometry(120, 50, 150, 20)
+        if self.diameter_velue.text() in zero:
+            self.message_diameter.setText("Відсутнє значення")
+        
+        #Кнопка розрахунку
+        self.btn_d = QPushButton("Розрахувати периметр", self.window_shape)
+        self.btn_d.setGeometry(10, 80, 200, 20)
+        #self.btn.clicked.connect(self.calculate_tonage_new)
+
+        self.window_shape.show()
+    
+    def half_round_heandler(self, shape: str) -> None:
+        self.window_shape = QMdiSubWindow()
+
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 300, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
         self.window_shape.show()
-        #self.test_message.setText(self.shape.currentText())
-           
+
+    def square(self, shape: str) -> None:
+        self.window_shape = QMdiSubWindow()
+
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.show()
+
+    def square_one_radius(self, shape: str) -> None:
+        self.window_shape = QMdiSubWindow()
+
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.show()
+
+    def square_four_radius(self, shape: str) -> None:
+        self.window_shape = QMdiSubWindow()
+
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.show()
+
+    def square_in_round(self, shape: str) -> None:
+        self.window_shape = QMdiSubWindow()
+
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.show()
+
+    def rectangle(self, shape: str) -> None:        
+        self.window_shape = QMdiSubWindow()
+
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.show() 
+
+    def rectangle_one_round(self, shape: str) -> None:
+        self.window_shape = QMdiSubWindow()
+
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.show()
+
+    def rectangle_four_round(self, shape: str) -> None:
+        self.window_shape = QMdiSubWindow()
+
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.show()             
+
+    def hexagon(self, shape: str) -> None:
+        self.window_shape = QMdiSubWindow()
+
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.show()
+        
+    def oblong(self, shape: str) -> None:
+        self.window_shape = QMdiSubWindow()
+
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.show()
+
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
     main_window = MainWindow()
