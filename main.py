@@ -234,7 +234,9 @@ class MainWindow(QMainWindow):
             self.hexagon(shape)
         elif shape == "Овал з паралельними сторонами":
             self.oblong(shape)
-
+    
+    #КОЛО
+    #Вікно для кола
     def round_handler(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
@@ -266,7 +268,7 @@ class MainWindow(QMainWindow):
         #Кнопка розрахунку
         self.btn_d = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_d.setGeometry(10, 80, 200, 20)
-        #self.btn_d.clicked.connect(self.perim_round)
+        self.btn_d.clicked.connect(self.perim_round)
 
         #ПЕРИМЕТР
         #Заголовок периметра
@@ -274,7 +276,7 @@ class MainWindow(QMainWindow):
         self.Label_d_peremeter.setGeometry(10, 100, 90, 20)
         
         #Значення периметра
-        self.perimeter= QLineEdit("0.0", self.window_shape)
+        self.perimeter= QLabel("0.0", self.window_shape)
         self.perimeter.setGeometry(100, 100, 40, 20)
 
         #Розмірність диаметра
@@ -288,10 +290,22 @@ class MainWindow(QMainWindow):
 
 
         self.window_shape.show()
-    
-    def add_value(self):
-        self.perimeter_velue.setText(self.perimeter.text())
+    #Периметер кола  
+    def perim_round(self):
+        if self.diameter_velue.text() in zero:
+            self.diameter_velue.setText("0.0")
+            self.perimeter.setText("?")
+            self.message_diameter.setText("Відсутнє значення")
+        else:
+            diameter_list_d = self.check_number_new(self.diameter_velue.text())
+            self.message_diameter.setText(diameter_list_d[1])
 
+            if diameter_list_d[0] == 0:
+                self.perimeter.setText("?")
+            else:
+                self.perimeter.setText(str(g.Perimeter.round(float(diameter_list_d[0]))))
+
+    
     def half_round_heandler(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
@@ -299,9 +313,6 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(830, 200, 300, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
         self.window_shape.show()
-
-    def perim_round(self):
-        pass
 
     def square(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
@@ -374,6 +385,11 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(830, 200, 300, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
         self.window_shape.show()
+
+    #Передаэмо з вікна форми до головного вікна периметер
+    def add_value(self):
+        self.perimeter_velue.setText(self.perimeter.text())
+
 
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
