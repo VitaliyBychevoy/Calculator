@@ -132,12 +132,6 @@ class MainWindow(QMainWindow):
         self.shape.setGeometry(60, 20, 260, 25)
         self.shape.currentTextChanged.connect(self.shape_handler)
 
-        #Тестове повідомлення
-        self.test_message = QLabel(None, self)
-        self.test_message.setGeometry(0, 80, 250, 500) 
-        self.test_img = gui.QPixmap("img/question.jpg")
-        self.test_message.setPixmap(self.test_img)
-
 
     #Розрахунок навантаження
     def calculate_tonage_new(self):
