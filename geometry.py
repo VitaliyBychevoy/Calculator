@@ -18,8 +18,8 @@ class Perimeter():
     def square_in_round():
         pass
 
-    def rectangle():
-        pass
+    def rectangle(side_a: float, side_b: float) -> float:
+        return (side_a * 2) + (side_b * 2)
 
     def rectangle_one_radius():
         pass
