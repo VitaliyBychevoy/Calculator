@@ -6,8 +6,8 @@ class Perimeter():
     def halfround():
         pass
 
-    def square():
-        pass
+    def square(side: float) -> float:
+        return round(side * 4, 2)
 
     def square_one_radius():
         pass

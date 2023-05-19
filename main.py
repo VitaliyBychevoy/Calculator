@@ -120,16 +120,16 @@ class MainWindow(QMainWindow):
         self.shape = QComboBox(self)
         self.shape.addItem("")
         self.shape.addItem("Коло")
-        self.shape.addItem("Напівколо")
+        # self.shape.addItem("Напівколо")
         self.shape.addItem("Квадрат")
-        self.shape.addItem("Квадрат з однаковими радіусами")
-        self.shape.addItem("Квадрат з різними радіусами")
-        self.shape.addItem("Квадрат у колі")
-        self.shape.addItem("Прямокутник")
-        self.shape.addItem("Прямокутник з однаковими радіусами")
-        self.shape.addItem("Прямокутник з різними радіусами")
-        self.shape.addItem("Шестикутник")
-        self.shape.addItem("Овал з паралельними сторонами")
+        # self.shape.addItem("Квадрат з однаковими радіусами")
+        # self.shape.addItem("Квадрат з різними радіусами")
+        # self.shape.addItem("Квадрат у колі")
+        # self.shape.addItem("Прямокутник")
+        # self.shape.addItem("Прямокутник з однаковими радіусами")
+        # self.shape.addItem("Прямокутник з різними радіусами")
+        # self.shape.addItem("Шестикутник")
+        # self.shape.addItem("Овал з паралельними сторонами")
         self.shape.setGeometry(60, 20, 260, 25)
         self.shape.currentTextChanged.connect(self.shape_handler)
 
@@ -242,7 +242,7 @@ class MainWindow(QMainWindow):
 
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 300, 300)
-        self.label_text.setGeometry(10, 10, 200, 20)
+        self.label_text.setGeometry(120, 10, 200, 20)
 
         #ДІАМЕТР
         #Заголовок диаметра
@@ -259,7 +259,7 @@ class MainWindow(QMainWindow):
 
         #Статус діаметра         
         self.message_diameter = QLabel(None, self.window_shape)
-        self.message_diameter.setGeometry(120, 50, 150, 20)
+        self.message_diameter.setGeometry(100, 50, 150, 20)
         if self.diameter_velue.text() in zero:
             self.message_diameter.setText("Відсутнє значення")
         
@@ -267,25 +267,25 @@ class MainWindow(QMainWindow):
 
         #Кнопка розрахунку
         self.btn_d = QPushButton("Розрахувати периметр", self.window_shape)
-        self.btn_d.setGeometry(10, 80, 200, 20)
+        self.btn_d.setGeometry(10, 80, 200, 25)
         self.btn_d.clicked.connect(self.perim_round)
 
-        #ПЕРИМЕТР
+        #ПЕРИМЕТЕР
         #Заголовок периметра
         self.Label_d_peremeter = QLabel("Периметер кола", self.window_shape)
-        self.Label_d_peremeter.setGeometry(10, 100, 90, 20)
+        self.Label_d_peremeter.setGeometry(15, 110, 90, 20)
         
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
-        self.perimeter.setGeometry(100, 100, 40, 20)
+        self.perimeter.setGeometry(105, 110, 40, 20)
 
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(145, 100, 20, 20)
+        self.mm_result_perimeret.setGeometry(140, 110, 20, 20)
 
-        #Кнопка периметер діаметра до загального розраунку
+        #Кнопка периметер кола до загального розраунку
         self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.setGeometry(10, 140, 200, 20)
+        self.btn_add_perimeter.setGeometry(10, 140, 200, 25)
         self.btn_add_perimeter.clicked.connect(self.add_value)
 
 
@@ -305,7 +305,7 @@ class MainWindow(QMainWindow):
             else:
                 self.perimeter.setText(str(g.Perimeter.round(float(diameter_list_d[0]))))
 
-    
+    #НАПІВКОЛО
     def half_round_heandler(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
@@ -314,13 +314,71 @@ class MainWindow(QMainWindow):
         self.label_text.setGeometry(10, 10, 200, 20)
         self.window_shape.show()
 
+
+    #КВАДРАТ
+    #Вікно квадрата
     def square(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 300, 300)
-        self.label_text.setGeometry(10, 10, 200, 20)
+        self.label_text.setGeometry(120, 10, 200, 20)
+        
+        #Сторона
+        #Заголовок сторони
+        self.side_lalel = QLabel("A", self.window_shape)
+        self.side_lalel.setGeometry(10, 50, 10, 20)
+
+        #Значення диаметра
+        self.side_velue = QLineEdit("0.0", self.window_shape)
+        self.side_velue.setGeometry(25, 50, 40, 20)
+
+        #Розмірність диаметра
+        self.mm_label_side = QLabel("мм", self.window_shape)
+        self.mm_label_side.setGeometry(70, 50, 40, 20)
+
+        #Статус сторони       
+        self.message_side = QLabel(None, self.window_shape)
+        self.message_side.setGeometry(100, 50, 150, 20)
+        if self.side_velue.text() in zero:
+            self.message_side.setText("Відсутнє значення")        
+
+        #Кнопка розрахунку
+        self.btn_s = QPushButton("Розрахувати периметр", self.window_shape)
+        self.btn_s.setGeometry(10, 80, 200, 25)
+        self.btn_s.clicked.connect(self.perim_square)
+
+        #ПЕРИМЕТЕР
+        #Заголовок периметра
+        self.Label_s_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_s_peremeter.setGeometry(15, 110, 120, 20)
+        
+        #Значення периметра
+        self.perimeter= QLabel("0.0", self.window_shape)
+        self.perimeter.setGeometry(130, 110, 40, 20)
+
+        #Розмірність диаметра
+        self.mm_result_perimeret = QLabel("мм", self.window_shape)
+        self.mm_result_perimeret.setGeometry(160, 110, 20, 20)
+
+        #Кнопка периметер квадрата до загального розраунку
+        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter.setGeometry(10, 140, 200, 25)
+        self.btn_add_perimeter.clicked.connect(self.add_value)
+
         self.window_shape.show()
+
+
+    #Периметр квадрата
+    def perim_square(self) -> None:
+        square_list = self.check_number_new(self.side_velue.text())
+        self.message_side.setText(square_list[1])
+
+        if square_list[0] == 0:
+            self.perimeter.setText("?")
+        else:
+            self.perimeter.setText(str(g.Perimeter.square(float(square_list[0]))))                        
+
 
     def square_one_radius(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
