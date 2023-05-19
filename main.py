@@ -3,6 +3,7 @@ import sys
 from PyQt5.QtWidgets import *
 import PyQt5.QtGui as gui
 
+import geometry as g
 
 material = {
     "Алюміній": 0.5,
@@ -260,13 +261,37 @@ class MainWindow(QMainWindow):
         if self.diameter_velue.text() in zero:
             self.message_diameter.setText("Відсутнє значення")
         
+
+
         #Кнопка розрахунку
         self.btn_d = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_d.setGeometry(10, 80, 200, 20)
-        #self.btn.clicked.connect(self.calculate_tonage_new)
+        #self.btn_d.clicked.connect(self.perim_round)
+
+        #ПЕРИМЕТР
+        #Заголовок периметра
+        self.Label_d_peremeter = QLabel("Периметер кола", self.window_shape)
+        self.Label_d_peremeter.setGeometry(10, 100, 90, 20)
+        
+        #Значення периметра
+        self.perimeter= QLineEdit("0.0", self.window_shape)
+        self.perimeter.setGeometry(100, 100, 40, 20)
+
+        #Розмірність диаметра
+        self.mm_result_perimeret = QLabel("мм", self.window_shape)
+        self.mm_result_perimeret.setGeometry(145, 100, 20, 20)
+
+        #Кнопка периметер діаметра до загального розраунку
+        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter.setGeometry(10, 140, 200, 20)
+        self.btn_add_perimeter.clicked.connect(self.add_value)
+
 
         self.window_shape.show()
     
+    def add_value(self):
+        self.perimeter_velue.setText(self.perimeter.text())
+
     def half_round_heandler(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
@@ -274,6 +299,9 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(830, 200, 300, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
         self.window_shape.show()
+
+    def perim_round(self):
+        pass
 
     def square(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
