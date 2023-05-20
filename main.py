@@ -126,7 +126,7 @@ class MainWindow(QMainWindow):
         # self.shape.addItem("Квадрат з різними радіусами")
         # self.shape.addItem("Квадрат у колі")
         self.shape.addItem("Прямокутник")
-        # self.shape.addItem("Прямокутник з однаковими радіусами")
+        self.shape.addItem("Прямокутник з однаковими радіусами")
         # self.shape.addItem("Прямокутник з різними радіусами")
         # self.shape.addItem("Шестикутник")
         # self.shape.addItem("Овал з паралельними сторонами")
@@ -416,11 +416,11 @@ class MainWindow(QMainWindow):
         self.side_a_lalel = QLabel("A", self.window_shape)
         self.side_a_lalel.setGeometry(10, 50, 10, 20)
 
-        #Значення диаметра
+        #Значення сторони
         self.side_a_velue = QLineEdit("0.0", self.window_shape)
         self.side_a_velue.setGeometry(25, 50, 40, 20)
 
-        #Розмірність диаметра
+        #Розмірність сторони
         self.mm_label_side_a = QLabel("мм", self.window_shape)
         self.mm_label_side_a.setGeometry(70, 50, 40, 20)
 
@@ -435,11 +435,11 @@ class MainWindow(QMainWindow):
         self.side_b_lalel = QLabel("B", self.window_shape)
         self.side_b_lalel.setGeometry(10, 80, 10, 20)
 
-        #Значення диаметра
+        #Значення сторони
         self.side_b_velue = QLineEdit("0.0", self.window_shape)
         self.side_b_velue.setGeometry(25, 80, 40, 20)
 
-        #Розмірність диаметра
+        #Розмірність сторони
         self.mm_label_side_b = QLabel("мм", self.window_shape)
         self.mm_label_side_b.setGeometry(70, 80, 40, 20)
 
@@ -474,16 +474,131 @@ class MainWindow(QMainWindow):
 
         self.window_shape.show() 
 
+    #Периметер прямокутника
     def perim_rectangle(self):
-        pass
 
+        side_a_list = self.check_number_new(self.side_a_velue.text())
+        side_b_list = self.check_number_new(self.side_b_velue.text())
+
+        self.message_side_a.setText(side_a_list[1])
+        self.message_side_b.setText(side_b_list[1])
+
+        if side_a_list[0] != 0 and side_b_list[0] != 0:
+            self.perimeter.setText(str(g.Perimeter.rectangle(side_a_list[0], side_b_list[0]))) 
+        else:
+            self.perimeter.setText("?")                      
+     
+    #ПРЯМОКУТНИК З ОДНИМ РАДІУСОМ
+    #Вікно прямокутника з одним радіусом
     def rectangle_one_round(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 300, 300)
-        self.label_text.setGeometry(10, 10, 200, 20)
+        self.label_text.setGeometry(50, 10, 200, 20)
+
+        #Сторона A
+        #Заголовок сторони а
+        self.side_a_lalel_req = QLabel("A", self.window_shape)
+        self.side_a_lalel_req.setGeometry(10, 50, 10, 20)
+
+        #Значення сторони а
+        self.side_a_velue_req = QLineEdit("0.0", self.window_shape)
+        self.side_a_velue_req.setGeometry(25, 50, 40, 20)
+
+        #Розмірність сторони а
+        self.mm_label_side_a_req = QLabel("мм", self.window_shape)
+        self.mm_label_side_a_req.setGeometry(70, 50, 40, 20)
+
+        #Статус сторони       
+        self.message_side_a_req = QLabel(None, self.window_shape)
+        self.message_side_a_req.setGeometry(100, 50, 150, 20)
+        if self.side_a_velue_req.text() in zero:
+            self.message_side_a_req.setText("Відсутнє значення")
+
+        #Сторона B
+        #Заголовок сторони
+        self.side_b_lalel_req = QLabel("B", self.window_shape)
+        self.side_b_lalel_req.setGeometry(10, 80, 10, 20)
+
+        #Значення сторони
+        self.side_b_velue_req = QLineEdit("0.0", self.window_shape)
+        self.side_b_velue_req.setGeometry(25, 80, 40, 20)
+
+        #Розмірність сторони
+        self.mm_label_side_b_req = QLabel("мм", self.window_shape)
+        self.mm_label_side_b_req.setGeometry(70, 80, 40, 20)
+
+        #Статус сторони       
+        self.message_side_b_req = QLabel(None, self.window_shape)
+        self.message_side_b_req.setGeometry(100, 80, 150, 20)
+        if self.side_b_velue_req.text() in zero:
+            self.message_side_b_req.setText("Відсутнє значення")
+
+        #РАДІУС
+        #Заголовок радіуса
+        self.r_lalel_req = QLabel("R", self.window_shape)
+        self.r_lalel_req.setGeometry(10, 110, 10, 20)
+
+        #Значення радіуса
+        self.r_velue_req = QLineEdit("0.0", self.window_shape)
+        self.r_velue_req.setGeometry(25, 110, 40, 20)
+
+        #Розмірність радіуса
+        self.mm_label_r = QLabel("мм", self.window_shape)
+        self.mm_label_r.setGeometry(70, 110, 40, 20)
+
+        #Статус радіуса       
+        self.message_side_r_req = QLabel(None, self.window_shape)
+        self.message_side_r_req.setGeometry(100, 110, 150, 20)
+        if self.r_velue_req.text() in zero:
+            self.message_side_r_req.setText("Відсутнє значення")
+
+        #Кнопка розрахунку
+        self.btn_s_req = QPushButton("Розрахувати периметр", self.window_shape)
+        self.btn_s_req.setGeometry(10, 140, 200, 25)
+        self.btn_s_req.clicked.connect(self.perim_square)
+
+        #ПЕРИМЕТЕР
+        #Заголовок периметра
+        self.Label_s_peremeter_req = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_s_peremeter_req.setGeometry(15, 170, 120, 20)
+        
+        #Значення периметра
+        self.perimeter= QLabel("0.0", self.window_shape)
+        self.perimeter.setGeometry(130, 170, 40, 20)
+
+        #Розмірність диаметра
+        self.mm_result_perimeret_req = QLabel("мм", self.window_shape)
+        self.mm_result_perimeret_req.setGeometry(160, 170, 20, 20)
+
+        #Кнопка периметер квадрата до загального розраунку
+        self.btn_add_perimeter_req = QPushButton("Додати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter_req.setGeometry(10, 200, 200, 25)
+        self.btn_add_perimeter_req.clicked.connect(self.req_one_radius)    
+
+
         self.window_shape.show()
+    
+    #Периметр прямокутника с однаковими радіусами
+    def req_one_radius(self):
+        side_a_req_list = self.check_number_new(self.side_a_velue_req.text()) 
+        side_b_req_list = self.check_number_new(self.side_b_velue_req.text())
+        side_r_req_list = self.check_number_new(self.r_velue_req.text())
+
+
+        self.message_side_a_req.setText(side_a_req_list[1])
+        self.message_side_b_req.setText(side_b_req_list[1])
+        self.message_side_r_req.setText(side_r_req_list[1])
+
+        if side_a_req_list[0] != 0 and side_b_req_list[0] != 0 and side_r_req_list[0] != 0:
+            if side_r_req_list[0] > side_a_req_list[0] and side_r_req_list[0] > side_b_req_list[0]:
+                self.message_side_r_req.setText("Завеликий радіус")
+                self.perimeter.setText("?")
+            else:
+                self.perimeter.setText(str(g.Perimeter.rectangle_one_radius(side_a_req_list[0], side_b_req_list[0], side_r_req_list[0])))
+        else:
+            self.perimeter.setText("?")
 
     def rectangle_four_round(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
