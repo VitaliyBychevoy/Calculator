@@ -557,7 +557,7 @@ class MainWindow(QMainWindow):
         #Кнопка розрахунку
         self.btn_s_req = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_s_req.setGeometry(10, 140, 200, 25)
-        self.btn_s_req.clicked.connect(self.perim_square)
+        self.btn_s_req.clicked.connect(self.req_one_radius)
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
@@ -596,7 +596,11 @@ class MainWindow(QMainWindow):
                 self.message_side_r_req.setText("Завеликий радіус")
                 self.perimeter.setText("?")
             else:
+                print(side_a_req_list[0], " ", type(side_a_req_list[0]))
+                print(side_b_req_list[0], " ", type(side_b_req_list[0]))
+                print(side_r_req_list[0], " ", type(side_r_req_list[0]))
                 self.perimeter.setText(str(g.Perimeter.rectangle_one_radius(side_a_req_list[0], side_b_req_list[0], side_r_req_list[0])))
+                #self.perimeter.setText(str(g.Perimeter.rectangle(side_a_list[0], side_b_list[0]))) 
         else:
             self.perimeter.setText("?")
 
