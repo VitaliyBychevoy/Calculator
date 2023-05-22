@@ -575,9 +575,7 @@ class MainWindow(QMainWindow):
         #Кнопка периметер квадрата до загального розраунку
         self.btn_add_perimeter_req = QPushButton("Додати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter_req.setGeometry(10, 200, 200, 25)
-        self.btn_add_perimeter_req.clicked.connect(self.req_one_radius)    
-
-
+        self.btn_add_perimeter_req.clicked.connect(self.add_value)
         self.window_shape.show()
     
     #Периметр прямокутника с однаковими радіусами
@@ -591,16 +589,23 @@ class MainWindow(QMainWindow):
         self.message_side_b_req.setText(side_b_req_list[1])
         self.message_side_r_req.setText(side_r_req_list[1])
 
+        d = 2 * side_r_req_list[0]
+
         if side_a_req_list[0] != 0 and side_b_req_list[0] != 0 and side_r_req_list[0] != 0:
             if side_r_req_list[0] > side_a_req_list[0] and side_r_req_list[0] > side_b_req_list[0]:
                 self.message_side_r_req.setText("Завеликий радіус")
                 self.perimeter.setText("?")
+            elif side_a_req_list[0] <= side_b_req_list[0] and (side_a_req_list[0] - d) < 5:
+                self.message_side_r_req.setText("Завеликий радіус")
+                self.perimeter.setText("?")
+            elif side_b_req_list[0] <= side_a_req_list[0] and (side_b_req_list[0] - d) < 5:
+                self.message_side_r_req.setText("Завеликий радіус")
+                self.perimeter.setText("?")                
             else:
                 print(side_a_req_list[0], " ", type(side_a_req_list[0]))
                 print(side_b_req_list[0], " ", type(side_b_req_list[0]))
                 print(side_r_req_list[0], " ", type(side_r_req_list[0]))
                 self.perimeter.setText(str(g.Perimeter.rectangle_one_radius(side_a_req_list[0], side_b_req_list[0], side_r_req_list[0])))
-                #self.perimeter.setText(str(g.Perimeter.rectangle(side_a_list[0], side_b_list[0]))) 
         else:
             self.perimeter.setText("?")
 
@@ -630,7 +635,8 @@ class MainWindow(QMainWindow):
 
     #Передаэмо з вікна форми до головного вікна периметер
     def add_value(self):
-        self.perimeter_velue.setText(self.perimeter.text())
+        if self.perimeter.text() != "?":
+            self.perimeter_velue.setText(self.perimeter.text())
 
 
 if __name__ == '__main__':
