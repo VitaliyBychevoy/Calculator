@@ -471,7 +471,7 @@ class MainWindow(QMainWindow):
             self.perimeter.setText("?")
         pass
 
-    #ПРЯМОКУТНИК З РІЗНИМИ РАДІУСАМИ
+    #КВАДРАТ З РІЗНИМИ РАДІУСАМИ
     #Вікно квадрата з різними радіусами
     def square_four_radius(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
@@ -581,11 +581,45 @@ class MainWindow(QMainWindow):
         self.btn_square_four_radius.setGeometry(10, 200, 200, 25)
         self.btn_square_four_radius.clicked.connect(self.perim_square_four_radius)
 
+        #ПЕРИМЕТЕР
+        #Заголовок периметра
+        self.Label_sfr_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_sfr_peremeter.setGeometry(15, 230, 120, 20)
+        
+        #Значення периметра
+        self.perimeter= QLabel("0.0", self.window_shape)
+        self.perimeter.setGeometry(130, 230, 40, 20)
+        
+        #Розмірність приметра
+        self.mm_result_perimeret = QLabel("мм", self.window_shape)
+        self.mm_result_perimeret.setGeometry(160, 230, 20, 20)
+
+        #Кнопка периметер квадрата до загального розраунку
+        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter.setGeometry(10, 260, 200, 25)
+        self.btn_add_perimeter.clicked.connect(self.add_value)
+
         self.window_shape.show()
 
     #Периметер квадрата з різними радіусами
     def perim_square_four_radius(self) -> None:
-        pass
+
+        side_sfr_list = self.check_number_new(self.side_four_radius_lalel_velue.text())
+        r1_sfr_list = self.check_number_new(self.r1_square_velue.text())
+        r2_sfr_list = self.check_number_new(self.r2_square_velue.text())
+        r3_sfr_list = self.check_number_new(self.r3_square_velue.text())
+        r4_sfr_list = self.check_number_new(self.r4_square_velue.text())
+
+        self.message_side_side_four_radius.setText(side_sfr_list[1])
+        self.message_r1_square.setText(r1_sfr_list[1]) 
+        self.message_r2_square.setText(r2_sfr_list[1])
+        self.message_r3_square.setText(r3_sfr_list[1])
+        self.message_r4_square.setText(r4_sfr_list[1])
+
+        if side_sfr_list[0] != 0 and r1_sfr_list[0] != 0 and r2_sfr_list[0] != 0 and r3_sfr_list[0] != 0 and r4_sfr_list[0] != 0:
+            pass
+        else:
+            self.perimeter.setText('?')
 
 
     def square_in_round(self, shape: str) -> None:
