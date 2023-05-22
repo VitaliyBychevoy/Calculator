@@ -122,8 +122,8 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Коло")
         # self.shape.addItem("Напівколо")
         self.shape.addItem("Квадрат")
-        # self.shape.addItem("Квадрат з однаковими радіусами")
-        # self.shape.addItem("Квадрат з різними радіусами")
+        self.shape.addItem("Квадрат з однаковими радіусами")
+        self.shape.addItem("Квадрат з різними радіусами")
         # self.shape.addItem("Квадрат у колі")
         self.shape.addItem("Прямокутник")
         self.shape.addItem("Прямокутник з однаковими радіусами")
@@ -377,21 +377,216 @@ class MainWindow(QMainWindow):
         else:
             self.perimeter.setText(str(g.Perimeter.square(float(square_list[0]))))                        
 
+    #КВАДРАТ З ОДНАКОВИМИ РАДІУСАМИ
+    #Вікно квадрата з однаковими радіусами
     def square_one_radius(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 300, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
-        self.window_shape.show()
 
+
+        #Сторона 
+        #Заголовок сторони
+        self.side_one_round_square_lalel = QLabel("A", self.window_shape)
+        self.side_one_round_square_lalel.setGeometry(10, 50, 10, 20)
+
+        #Значення сторони
+        self.side_one_round_square_velue = QLineEdit("0.0", self.window_shape)
+        self.side_one_round_square_velue.setGeometry(25, 50, 40, 20)
+
+        #Розмірність сторони
+        self.mm_label_side_one_round_square = QLabel("мм", self.window_shape)
+        self.mm_label_side_one_round_square.setGeometry(70, 50, 40, 20)
+
+        #Статус сторони       
+        self.message_side_one_round_square = QLabel(None, self.window_shape)
+        self.message_side_one_round_square.setGeometry(100, 50, 150, 20)
+        if self.side_one_round_square_velue.text() in zero:
+            self.message_side_one_round_square.setText("Відсутнє значення")
+
+        #Радіус
+        #Заголовок радіуса
+        self.radius_one_round_square_lalel = QLabel("R", self.window_shape)
+        self.radius_one_round_square_lalel.setGeometry(10, 80, 10, 20)
+
+        #Значення радіуса
+        self.radius_one_round_square_velue = QLineEdit("0.0", self.window_shape)
+        self.radius_one_round_square_velue.setGeometry(25, 80, 40, 20)
+
+        #Розмірність радіуса
+        self.mm_label_radius_one_round_square = QLabel("мм", self.window_shape)
+        self.mm_label_radius_one_round_square.setGeometry(70, 80, 40, 20)
+
+        #Статус радіуса       
+        self.message_radius_one_round_square = QLabel(None, self.window_shape)
+        self.message_radius_one_round_square.setGeometry(100, 80, 150, 20)
+        if self.radius_one_round_square_velue.text() in zero:
+            self.message_radius_one_round_square.setText("Відсутнє значення")
+
+        #Кнопка розрахунку
+        self.btn_square_one_radius = QPushButton("Розрахувати периметр", self.window_shape)
+        self.btn_square_one_radius.setGeometry(10, 110, 200, 25)
+        self.btn_square_one_radius.clicked.connect(self.perim_square_one_radius)
+        
+        #ПЕРИМЕТЕР
+        #Заголовок периметра
+        self.label_square_one_radius_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.label_square_one_radius_peremeter.setGeometry(15, 140, 120, 20)
+        
+        #Значення периметра
+        self.perimeter= QLabel("0.0", self.window_shape)
+        self.perimeter.setGeometry(130, 140, 40, 20)
+
+        #Розмірність периметра
+        self.mm_result_perimeret = QLabel("мм", self.window_shape)
+        self.mm_result_perimeret.setGeometry(160, 140, 20, 20)
+
+        #Кнопка периметер квадрата до загального розраунку
+        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter.setGeometry(10, 170, 200, 25)
+        self.btn_add_perimeter.clicked.connect(self.add_value)
+        self.window_shape.show()
+    
+    #Периметер квадрата з однаковими радіусами
+    def perim_square_one_radius(self):
+
+        side_list_qor = self.check_number_new(self.side_one_round_square_velue.text())
+        radius_list_qor = self.check_number_new(self.radius_one_round_square_velue.text())
+
+        self.message_side_one_round_square.setText(side_list_qor[1])
+        self.message_radius_one_round_square.setText(radius_list_qor[1])        
+
+        if side_list_qor[0] != 0 and radius_list_qor[0] != 0:
+            if side_list_qor[0] - (2 * radius_list_qor[0]) < 5:
+                self.message_radius_one_round_square.setText("Завеликий радіус")
+                self.perimeter.setText("?")
+            else:
+                print(side_list_qor[0], " ", type(side_list_qor[0]))
+                print(radius_list_qor[0], " ", type(radius_list_qor[0]))
+                self.perimeter.setText(str(g.Perimeter.square_one_radius(side_list_qor[0], radius_list_qor[0])))
+                #self.perimeter.setText(str(g.Perimeter.rectangle(side_a_list[0], side_b_list[0]))) 
+        else:
+            self.perimeter.setText("?")
+        pass
+
+    #ПРЯМОКУТНИК З РІЗНИМИ РАДІУСАМИ
+    #Вікно квадрата з різними радіусами
     def square_four_radius(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 300, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
+
+
+        #Сторона 
+        #Заголовок сторони
+        self.side_four_radius_lalel = QLabel("A", self.window_shape)
+        self.side_four_radius_lalel.setGeometry(10, 50, 10, 20)
+
+        #Значення сторони
+        self.side_four_radius_lalel_velue = QLineEdit("0.0", self.window_shape)
+        self.side_four_radius_lalel_velue.setGeometry(25, 50, 40, 20)
+
+        #Розмірність сторони
+        self.mm_label_side_four_radius_lalel = QLabel("мм", self.window_shape)
+        self.mm_label_side_four_radius_lalel.setGeometry(70, 50, 40, 20)
+
+        #Статус сторони       
+        self.message_side_side_four_radius = QLabel(None, self.window_shape)
+        self.message_side_side_four_radius.setGeometry(100, 50, 150, 20)
+        if self.message_side_side_four_radius.text() in zero:
+            self.message_side_side_four_radius.setText("Відсутнє значення")
+
+        #Радіус R1
+        #Заголовок радіуса
+        self.r1_square_lalel = QLabel("R1", self.window_shape)
+        self.r1_square_lalel.setGeometry(10, 80, 20, 20)
+
+        #Значення радіуса
+        self.r1_square_velue = QLineEdit("0.0", self.window_shape)
+        self.r1_square_velue.setGeometry(25, 80, 40, 20)
+
+        #Розмірність радіуса
+        self.mm_label_r1 = QLabel("мм", self.window_shape)
+        self.mm_label_r1.setGeometry(70, 80, 40, 20)
+
+        #Статус радіуса       
+        self.message_r1_square = QLabel(None, self.window_shape)
+        self.message_r1_square.setGeometry(100, 80, 150, 20)
+        if self.r1_square_velue.text() in zero:
+            self.message_r1_square.setText("Відсутнє значення")
+
+        #Радіус R2
+        #Заголовок радіуса
+        self.r2_square_lalel = QLabel("R2", self.window_shape)
+        self.r2_square_lalel.setGeometry(10, 110, 20, 20)
+
+        #Значення радіуса
+        self.r2_square_velue = QLineEdit("0.0", self.window_shape)
+        self.r2_square_velue.setGeometry(25, 110, 40, 20)
+
+        #Розмірність радіуса
+        self.mm_label_r2 = QLabel("мм", self.window_shape)
+        self.mm_label_r2.setGeometry(70, 110, 40, 20)
+
+        #Статус радіуса       
+        self.message_r2_square = QLabel(None, self.window_shape)
+        self.message_r2_square.setGeometry(100, 110, 150, 20)
+        if self.r2_square_velue.text() in zero:
+            self.message_r2_square.setText("Відсутнє значення")
+
+        #Радіус R3
+        #Заголовок радіуса
+        self.r3_square_lalel = QLabel("R3", self.window_shape)
+        self.r3_square_lalel.setGeometry(10, 140, 20, 20)
+
+        #Значення радіуса
+        self.r3_square_velue = QLineEdit("0.0", self.window_shape)
+        self.r3_square_velue.setGeometry(25, 140, 40, 20)
+
+        #Розмірність радіуса
+        self.mm_label_r3 = QLabel("мм", self.window_shape)
+        self.mm_label_r3.setGeometry(70, 140, 40, 20)
+
+        #Статус радіуса       
+        self.message_r3_square = QLabel(None, self.window_shape)
+        self.message_r3_square.setGeometry(100, 140, 150, 20)
+        if self.r3_square_velue.text() in zero:
+            self.message_r3_square.setText("Відсутнє значення")
+
+        #Радіус R4
+        #Заголовок радіуса
+        self.r4_square_lalel = QLabel("R4", self.window_shape)
+        self.r4_square_lalel.setGeometry(10, 170, 20, 20)
+
+        #Значення радіуса
+        self.r4_square_velue = QLineEdit("0.0", self.window_shape)
+        self.r4_square_velue.setGeometry(25, 170, 40, 20)
+
+        #Розмірність радіуса
+        self.mm_label_r4 = QLabel("мм", self.window_shape)
+        self.mm_label_r4.setGeometry(70, 170, 40, 20)
+
+        #Статус радіуса       
+        self.message_r4_square = QLabel(None, self.window_shape)
+        self.message_r4_square.setGeometry(100, 170, 150, 20)
+        if self.r4_square_velue.text() in zero:
+            self.message_r4_square.setText("Відсутнє значення")            
+        
+        #Кнопка розрахунку
+        self.btn_square_four_radius = QPushButton("Розрахувати периметр", self.window_shape)
+        self.btn_square_four_radius.setGeometry(10, 200, 200, 25)
+        self.btn_square_four_radius.clicked.connect(self.perim_square_four_radius)
+
         self.window_shape.show()
+
+    #Периметер квадрата з різними радіусами
+    def perim_square_four_radius(self) -> None:
+        pass
+
 
     def square_in_round(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()

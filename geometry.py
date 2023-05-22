@@ -10,7 +10,7 @@ class Perimeter():
         return round(side * 4, 2)
 
     def square_one_radius(side: float, radius: float) -> float:
-        return (2 * 3.1415 * radius) + (4 * (side - (radius * 2)))
+        return round((2 * 3.1415 * radius) + (4 * (side - (radius * 2))), 2)
 
     def square_four_radius():
         pass
