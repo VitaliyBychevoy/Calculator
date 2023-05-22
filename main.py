@@ -617,10 +617,38 @@ class MainWindow(QMainWindow):
         self.message_r4_square.setText(r4_sfr_list[1])
 
         if side_sfr_list[0] != 0 and r1_sfr_list[0] != 0 and r2_sfr_list[0] != 0 and r3_sfr_list[0] != 0 and r4_sfr_list[0] != 0:
-            pass
+            s1 = side_sfr_list[0] - r1_sfr_list[0] - r2_sfr_list[0]
+            s2 = side_sfr_list[0] - r2_sfr_list[0] - r3_sfr_list[0]
+            s3 = side_sfr_list[0] - r3_sfr_list[0] - r4_sfr_list[0]
+            s4 = side_sfr_list[0] - r4_sfr_list[0] - r1_sfr_list[0]
+            if s1 < 5 or s2 < 5 or s3 < 5 or s4 < 5:
+                if s1 < 5:
+                    self.perimeter.setText('?')
+                    self.message_r1_square.setText("Завеликий радіус")
+                    self.message_r2_square.setText("Завеликий радіус")
+                if s2 < 5:
+                    self.perimeter.setText('?')
+                    self.message_r2_square.setText("Завеликий радіус")
+                    self.message_r3_square.setText("Завеликий радіус")
+                if s3 < 5:
+                    self.perimeter.setText('?')
+                    self.message_r3_square.setText("Завеликий радіус")
+                    self.message_r4_square.setText("Завеликий радіус")
+                if s4 < 5:
+                    self.perimeter.setText('?')
+                    self.message_r4_square.setText("Завеликий радіус")
+                    self.message_r1_square.setText("Завеликий радіус")
+            else:
+                self.mm_result_perimeret.setGeometry(170, 230, 20, 20)
+                self.perimeter.setText(str(g.Perimeter.square_four_radius(
+                    side_sfr_list[0], 
+                    r1_sfr_list[0],
+                    r2_sfr_list[0],
+                    r3_sfr_list[0],
+                    r4_sfr_list[0]
+                    )))                           
         else:
             self.perimeter.setText('?')
-
 
     def square_in_round(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
