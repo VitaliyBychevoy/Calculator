@@ -31,7 +31,6 @@ class Perimeter():
 
         return round(s1 + s2 + s3 + s4 + arc1 + arc2 + arc3 + arc4, 2)
         
-
     def square_in_round():
         pass
 
@@ -63,5 +62,30 @@ class Perimeter():
 
     def rectangle_in_round():
         pass
-
+        
+    def hexagon_a(a: float) -> float:
+        return round(a * 6, 2)
     
+    def a_hexagon_d(d: float) -> float:
+        return round(d * 0.5, 2)
+    
+    def a_hexagon_h(h: float) -> float:
+        return round(0.57735 * h, 2)
+
+    def hexagon_h(h: float) -> float:
+        return (((h * 0.5) / 0.866) * 6, 2)
+    
+    def h_hexagon_a(a: float) -> float:
+        return round(a / 0.57735, 2)
+
+    def h_hexagon_d(d: float) -> float:
+        return round(d * 0.866, 2)
+    
+    def hexagon_d(d: float) -> float:
+        return(d * 0.5 * 6 , 2)
+        
+    def d_hexagon_a(a: float) -> float:
+        return (a * 2, 2)
+
+    def d_hexagon_h(h: float) -> float:
+        return(h / 0.866, 2)
