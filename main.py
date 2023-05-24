@@ -128,7 +128,7 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Прямокутник")
         self.shape.addItem("Прямокутник з однаковими радіусами")
         self.shape.addItem("Прямокутник з різними радіусами")
-        # self.shape.addItem("Шестикутник")
+        self.shape.addItem("Шестигранник")
         # self.shape.addItem("Овал з паралельними сторонами")
         self.shape.setGeometry(60, 20, 260, 25)
         self.shape.currentTextChanged.connect(self.shape_handler)
@@ -230,7 +230,7 @@ class MainWindow(QMainWindow):
             self.rectangle_one_round(shape)
         elif shape == "Прямокутник з різними радіусами":
             self.rectangle_four_round(shape)
-        elif shape == "Шестикутник":
+        elif shape == "Шестигранник":
             self.hexagon(shape)
         elif shape == "Овал з паралельними сторонами":
             self.oblong(shape)
@@ -263,8 +263,6 @@ class MainWindow(QMainWindow):
         if self.diameter_velue.text() in zero:
             self.message_diameter.setText("Відсутнє значення")
         
-
-
         #Кнопка розрахунку
         self.btn_d = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_d.setGeometry(10, 80, 200, 25)
@@ -304,6 +302,7 @@ class MainWindow(QMainWindow):
                 self.perimeter.setText("?")
             else:
                 self.perimeter.setText(str(g.Perimeter.round(float(diameter_list_d[0]))))
+    #КІНЕУЬ КОЛО
 
     #НАПІВКОЛО
     def half_round_heandler(self, shape: str) -> None:
@@ -376,6 +375,7 @@ class MainWindow(QMainWindow):
             self.perimeter.setText("?")
         else:
             self.perimeter.setText(str(g.Perimeter.square(float(square_list[0]))))                        
+    #КІНЕЦЬ КВАДРАТ
 
     #КВАДРАТ З ОДНАКОВИМИ РАДІУСАМИ
     #Вікно квадрата з однаковими радіусами
@@ -470,6 +470,7 @@ class MainWindow(QMainWindow):
         else:
             self.perimeter.setText("?")
         pass
+    #КІНЕЦЬ КВАДРАТ З ОДНАКОВИМИ РАДІУСАМИ
 
     #КВАДРАТ З РІЗНИМИ РАДІУСАМИ
     #Вікно квадрата з різними радіусами
@@ -479,7 +480,6 @@ class MainWindow(QMainWindow):
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
-
 
         #Сторона 
         #Заголовок сторони
@@ -649,7 +649,8 @@ class MainWindow(QMainWindow):
                     )))                           
         else:
             self.perimeter.setText('?')
-
+    #КІНЕЦЬ КВАДРАТ З РІЗНИМИ РАДІУСАМИ
+    
     def square_in_round(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
@@ -743,7 +744,8 @@ class MainWindow(QMainWindow):
             self.perimeter.setText(str(g.Perimeter.rectangle(side_a_list[0], side_b_list[0]))) 
         else:
             self.perimeter.setText("?")                      
-     
+    #КІНЕЦЬ ПРЯМОКУТНИК
+
     #ПРЯМОКУТНИК З ОДНИМ РАДІУСОМ
     #Вікно прямокутника з одним радіусом
     def rectangle_one_round(self, shape: str) -> None:
@@ -864,6 +866,7 @@ class MainWindow(QMainWindow):
                 self.perimeter.setText(str(g.Perimeter.rectangle_one_radius(side_a_req_list[0], side_b_req_list[0], side_r_req_list[0])))
         else:
             self.perimeter.setText("?")
+    #КІНЕЦЬ ПРЯМОКУТНИК З ОДНИМ РАДІУСОМ
 
     #ПРЯМОКУТНИК З РІНИМИ РАДИУСАМИ
     #Вікно прямокутника з різними радіусами
@@ -1064,15 +1067,124 @@ class MainWindow(QMainWindow):
                     ))) 
         else:
             self.perimeter.setText('?')
+    #КІНЕЦЬ ПРЯМОКУТНИК З РІНИМИ РАДИУСАМИ
 
+    #ШЕСТИГАРННИК
+    #Вікно шестигранника
     def hexagon(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 300, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
-        self.window_shape.show()
+
+        #Сторона 
+        #Заголовок сторони
+        self.hex_a_lalel = QLabel("A", self.window_shape)
+        self.hex_a_lalel.setGeometry(10, 30, 10, 20)
+
+        #Значення сторони
+        self.hex_a_velue = QLineEdit("0.0", self.window_shape)
+        self.hex_a_velue.setGeometry(25, 30, 40, 20)
+
+        #Розмірність сторони
+        self.mm_hex_a_lalel = QLabel("мм", self.window_shape)
+        self.mm_hex_a_lalel.setGeometry(70, 30, 40, 20)
+
+        #Статус сторони       
+        self.message_hex_a = QLabel(None, self.window_shape)
+        self.message_hex_a.setGeometry(100, 30, 150, 20)
+        if self.hex_a_velue.text() in zero:
+            self.message_hex_a.setText("Відсутнє значення")
+
+        #Кнопка розрахунку
+        self.btn_hex_a = QPushButton("Розрахувати периметр по А", self.window_shape)
+        self.btn_hex_a.setGeometry(10, 55, 200, 25)
+        self.btn_hex_a.clicked.connect(self.perim_hex_a)
+
+        #Висота
+        #Заголовок висоти
+        self.hex_h_lalel = QLabel("H", self.window_shape)
+        self.hex_h_lalel.setGeometry(10, 90, 10, 20)
+
+        #Значення висоти
+        self.hex_h_velue = QLineEdit("0.0", self.window_shape)
+        self.hex_h_velue.setGeometry(25, 90, 40, 20)
+
+        #Розмірність сторони
+        self.mm_hex_h_lalel = QLabel("мм", self.window_shape)
+        self.mm_hex_h_lalel.setGeometry(70, 90, 40, 20)
+
+        #Статус сторони       
+        self.message_hex_h = QLabel(None, self.window_shape)
+        self.message_hex_h.setGeometry(100, 90, 150, 20)
+        if self.hex_h_velue.text() in zero:
+            self.message_hex_h.setText("Відсутнє значення")
         
+        #Кнопка розрахунку
+        self.btn_hex_h = QPushButton("Розрахувати периметр по H", self.window_shape)
+        self.btn_hex_h.setGeometry(10, 115, 200, 25)
+        self.btn_hex_h.clicked.connect(self.perim_hex_h)
+
+        #Діаметр
+        #Заголовок діаметра
+        self.hex_d_lalel = QLabel("D", self.window_shape)
+        self.hex_d_lalel.setGeometry(10, 160, 10, 20)
+
+        #Значення висоти
+        self.hex_d_velue = QLineEdit("0.0", self.window_shape)
+        self.hex_d_velue.setGeometry(25, 160, 40, 20)
+
+        #Розмірність сторони
+        self.mm_hex_d_lalel = QLabel("мм", self.window_shape)
+        self.mm_hex_d_lalel.setGeometry(70, 160, 40, 20)
+
+        #Статус сторони       
+        self.message_hex_d = QLabel(None, self.window_shape)
+        self.message_hex_d.setGeometry(100, 160, 150, 20)
+        if self.hex_d_velue.text() in zero:
+            self.message_hex_d.setText("Відсутнє значення")
+
+        #Кнопка розрахунку
+        self.btn_hex_d = QPushButton("Розрахувати периметр по D", self.window_shape)
+        self.btn_hex_d.setGeometry(10, 185, 200, 25)
+        self.btn_hex_d.clicked.connect(self.perim_hex_d)
+
+        #ПЕРИМЕТЕР
+        #Заголовок периметра
+        self.Label_d_peremeter = QLabel("Периметер кола", self.window_shape)
+        self.Label_d_peremeter.setGeometry(15, 230, 90, 20)
+        
+        #Значення периметра
+        self.perimeter= QLabel("0.0", self.window_shape)
+        self.perimeter.setGeometry(105, 230, 40, 20)
+
+        #Розмірність диаметра
+        self.mm_result_perimeret = QLabel("мм", self.window_shape)
+        self.mm_result_perimeret.setGeometry(140, 230, 20, 20)
+
+        #Кнопка периметер кола до загального розраунку
+        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter.setGeometry(10, 260, 200, 25)
+        self.btn_add_perimeter.clicked.connect(self.add_value)
+
+        self.window_shape.show()
+    
+
+    def perim_hex_a(self):
+        pass
+
+    def perim_hex_h(self):
+        pass
+
+    def perim_hex_d(self):
+        pass
+
+    #Периметр шестигранника
+    def perim_hexagon(self) -> None:
+        pass
+
+
     def oblong(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
