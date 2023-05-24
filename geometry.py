@@ -65,27 +65,37 @@ class Perimeter():
         
     def hexagon_a(a: float) -> float:
         return round(a * 6, 2)
+
+    def hexagon_h(h: float) -> float:
+        return round(h * 0.5 / 0.866 * 6, 2)
     
+    def hexagon_d(d: float) -> float:
+        return round(d * 0.5 * 6 , 2)
+        
+
+
+class Hexagon():
+
+    #Сторона шестикутника по описаному діаметру кола
     def a_hexagon_d(d: float) -> float:
         return round(d * 0.5, 2)
     
+    #Сторона шестикутника по відстані проміж паралельними сторонами
     def a_hexagon_h(h: float) -> float:
         return round(0.57735 * h, 2)
 
-    def hexagon_h(h: float) -> float:
-        return (((h * 0.5) / 0.866) * 6, 2)
-    
+    #Відстань проміж паралельними сторонами по стороні
     def h_hexagon_a(a: float) -> float:
-        return round(a / 0.57735, 2)
+        return round((a / 0.57735), 2)
 
+    #Відстань проміж паралельними сторонами по описаному діаметру кола
     def h_hexagon_d(d: float) -> float:
-        return round(d * 0.866, 2)
+        return round((d * 0.866), 2)
     
-    def hexagon_d(d: float) -> float:
-        return(d * 0.5 * 6 , 2)
-        
+    #Діаметр описаного кола по стороні
     def d_hexagon_a(a: float) -> float:
-        return (a * 2, 2)
+        return round((a * 2), 2)
 
+    #Діаметр описаного кола по відстані проміж паралельними сторонами
     def d_hexagon_h(h: float) -> float:
-        return(h / 0.866, 2)
+        return round((h / 0.866), 2)

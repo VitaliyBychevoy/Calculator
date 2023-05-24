@@ -129,7 +129,7 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Прямокутник з однаковими радіусами")
         self.shape.addItem("Прямокутник з різними радіусами")
         self.shape.addItem("Шестигранник")
-        # self.shape.addItem("Овал з паралельними сторонами")
+        self.shape.addItem("Овал з паралельними сторонами")
         self.shape.setGeometry(60, 20, 260, 25)
         self.shape.currentTextChanged.connect(self.shape_handler)
 
@@ -1170,29 +1170,123 @@ class MainWindow(QMainWindow):
 
         self.window_shape.show()
     
-
+    #Периметр шестирганника по стороні А
     def perim_hex_a(self):
-        pass
+        hex_a_list = self.check_number_new(self.hex_a_velue.text())
+        self.message_hex_a.setText(hex_a_list[1])
 
+        if hex_a_list[0] != 0:
+            self.hex_h_velue.setText(str(g.Hexagon.h_hexagon_a(hex_a_list[0])))
+            self.hex_d_velue.setText(str(g.Hexagon.d_hexagon_a(hex_a_list[0])))
+            self.perimeter.setText(str(g.Perimeter.hexagon_a(hex_a_list[0])))
+        else:
+            self.hex_h_velue.setText("0.0")
+            self.hex_d_velue.setText("0.0")
+            self.perimeter.setText("?")      
+
+    #Периметр шестирганника по відстані проміж паралельними сторонами H
     def perim_hex_h(self):
-        pass
+        hex_h_list = self.check_number_new(self.hex_h_velue.text())
+        self.message_hex_h.setText(hex_h_list[1])
 
+        if hex_h_list[0] != 0:
+            self.hex_a_velue.setText(str(g.Hexagon.a_hexagon_h(hex_h_list[0])))
+            self.hex_d_velue.setText(str(g.Hexagon.d_hexagon_h(hex_h_list[0])))
+            self.perimeter.setText(str(g.Perimeter.hexagon_h(hex_h_list[0])))
+        else:
+            self.hex_a_velue.setText("0.0")
+            self.hex_d_velue.setText("0.0")
+            self.perimeter.setText("?")
+
+    #Периметр шестирганника по діаметру описаного кола
     def perim_hex_d(self):
-        pass
+        hex_d_list = self.check_number_new(self.hex_d_velue.text())
+        self.message_hex_d.setText(hex_d_list[1])
 
-    #Периметр шестигранника
-    def perim_hexagon(self) -> None:
-        pass
+        if hex_d_list[0] != 0:
+            self.hex_a_velue.setText(str(g.Hexagon.a_hexagon_d(hex_d_list[0])))
+            self.hex_h_velue.setText(str(g.Hexagon.h_hexagon_d(hex_d_list[0])))
+            self.perimeter.setText(str(g.Perimeter.hexagon_d(hex_d_list[0])))               
+        else:
+            self.hex_a_velue.setText("0.0")
+            self.hex_h_velue.setText("0.0")
+            self.perimeter.setText("?")   
 
-
+    #ОВАЛ
+    #Вікно овала
     def oblong(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
-
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 300, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
+
+        #Сторона A
+        #Заголовок сторони а
+        self.oblong_side_a_lalel = QLabel("A", self.window_shape)
+        self.oblong_side_a_lalel.setGeometry(10, 50, 10, 20)
+
+        #Значення сторони а
+        self.oblong_side_a_velue = QLineEdit("0.0", self.window_shape)
+        self.oblong_side_a_velue.setGeometry(25, 50, 40, 20)
+
+        #Розмірність сторони а
+        self.mm_label_oblong_side_a = QLabel("мм", self.window_shape)
+        self.mm_label_oblong_side_a.setGeometry(70, 50, 40, 20)
+
+        #Статус сторони       
+        self.message_oblong_side_a = QLabel(None, self.window_shape)
+        self.message_oblong_side_a.setGeometry(100, 50, 150, 20)
+        if self.oblong_side_a_velue.text() in zero:
+            self.message_oblong_side_a.setText("Відсутнє значення")
+
+
+        #Сторона B
+        #Заголовок сторони b
+        self.oblong_side_b_lalel = QLabel("B", self.window_shape)
+        self.oblong_side_b_lalel.setGeometry(10, 80, 10, 20)
+
+        #Значення сторони b
+        self.oblong_side_b_velue = QLineEdit("0.0", self.window_shape)
+        self.oblong_side_b_velue.setGeometry(25, 80, 40, 20)
+
+        #Розмірність сторони b
+        self.mm_label_oblong_side_a = QLabel("мм", self.window_shape)
+        self.mm_label_oblong_side_a.setGeometry(70, 80, 40, 20)
+
+        #Статус сторони       
+        self.message_oblong_side_a = QLabel(None, self.window_shape)
+        self.message_oblong_side_a.setGeometry(100, 80, 150, 20)
+        if self.oblong_side_a_velue.text() in zero:
+            self.message_oblong_side_a.setText("Відсутнє значення")
+        
+        #Кнопка розрахунку
+        self.btn_oblong = QPushButton("Розрахувати периметер", self.window_shape)
+        self.btn_oblong.setGeometry(10, 110, 200, 20)
+        self.btn_oblong.clicked.connect(self.perim_oblong)
+
+        #ПЕРИМЕТЕР
+        #Заголовок периметра
+        self.Label_s_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_s_peremeter.setGeometry(15, 110, 120, 20)
+        
+        #Значення периметра
+        self.perimeter= QLabel("0.0", self.window_shape)
+        self.perimeter.setGeometry(130, 110, 40, 20)
+
+        #Розмірність диаметра
+        self.mm_result_perimeret = QLabel("мм", self.window_shape)
+        self.mm_result_perimeret.setGeometry(160, 110, 20, 20)
+
+        #Кнопка периметер квадрата до загального розраунку
+        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter.setGeometry(10, 140, 200, 25)
+        self.btn_add_perimeter.clicked.connect(self.add_value)
+
         self.window_shape.show()
 
+    #Периметер овала
+    def perim_oblong(self) -> None:
+        pass
     #Передаэмо з вікна форми до головного вікна периметер
     def add_value(self):
         if self.perimeter.text() != "?":
