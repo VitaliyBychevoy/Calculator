@@ -1293,6 +1293,15 @@ class MainWindow(QMainWindow):
         self.message_oblong_side_a.setText(oblong_a_list[1])
         self.message_oblong_side_b.setText(oblong_b_list[1])
 
+        if oblong_a_list[0] <= oblong_b_list[0]:
+            self.message_oblong_side_a.setText("Замале значення")
+            self.message_oblong_side_b.setText("Завелике значення")
+            self.perimeter.setText("?")
+        else:
+            if oblong_a_list[0] != 0 and oblong_b_list[0] != 0:
+                self.perimeter.setText(str(g.Perimeter.oblong(oblong_a_list[0], oblong_b_list[0])))
+            else:
+                self.perimeter.setText("?")
 
 
     #Передаэмо з вікна форми до головного вікна периметер
