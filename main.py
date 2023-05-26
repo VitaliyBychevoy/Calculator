@@ -24,7 +24,6 @@ class MainWindow(QMainWindow):
         self.setGeometry(500, 200, 330, 300)
         self.setWindowTitle("Calculator")
 
-
         #ПЕРИМЕТЕР
         #Заголовок периметра
         self.perimeter_lalel = QLabel("Периметр", self)
@@ -43,7 +42,6 @@ class MainWindow(QMainWindow):
         self.message_perimeter.setGeometry(190, 50, 150, 20)
         if self.perimeter_velue.text() in zero:
             self.message_perimeter.setText("Відсутнє значення")
-
 
         #ТОВЩИНА
         #Заголовок товщини       
@@ -64,7 +62,6 @@ class MainWindow(QMainWindow):
         if self.thickness_velue.text() in zero:
             self.message_thickness.setText("Відсутнє значення")
 
-
         #МАТЕРІАЛ
         #Заголовок матеріала
         self.material_label = QLabel("Оберіть матеріал", self)
@@ -78,7 +75,6 @@ class MainWindow(QMainWindow):
         self.material.addItem("Мідь")
         self.material.setGeometry(120, 100, 200, 20)
 
-
         #ОТВОРИ
         #Заголовок отворів
         self.amount_holes_label = QLabel("Кількість отворів", self)
@@ -89,7 +85,6 @@ class MainWindow(QMainWindow):
         for i in range(1, 21):
             self.amount_holes.addItem(str(i))
         self.amount_holes.setGeometry(120, 125, 40, 20)
-
 
         #КНОПКА ДЛЯ РОЗРАХУВАННЯ ЗУСИЛЛЯ
         self.btn = QPushButton("Розрахувати", self)
@@ -130,9 +125,10 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Прямокутник з різними радіусами")
         self.shape.addItem("Шестигранник")
         self.shape.addItem("Овал з паралельними сторонами")
+        #self.shape.addItem("Трикутник рівносторонній")
+        #self.shape.addItem("Трикутник рівнобедрений")        
         self.shape.setGeometry(60, 20, 260, 25)
         self.shape.currentTextChanged.connect(self.shape_handler)
-
 
     #Розрахунок навантаження
     def calculate_tonage_new(self):
@@ -234,6 +230,8 @@ class MainWindow(QMainWindow):
             self.hexagon(shape)
         elif shape == "Овал з паралельними сторонами":
             self.oblong(shape)
+        elif shape == "Трикутник рівносторонні":
+            self.equilateral_triangle(shape)
     
     #КОЛО
     #Вікно для кола
@@ -1239,7 +1237,6 @@ class MainWindow(QMainWindow):
         if self.oblong_side_a_velue.text() in zero:
             self.message_oblong_side_a.setText("Відсутнє значення")
 
-
         #Сторона B
         #Заголовок сторони b
         self.oblong_side_b_lalel = QLabel("B", self.window_shape)
@@ -1303,6 +1300,26 @@ class MainWindow(QMainWindow):
             else:
                 self.perimeter.setText("?")
 
+    def equilateral_triangle(self, shape: str) -> None:
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.show()
+
+    def perim_eq_riangle(self) -> None:
+        pass
+
+
+    def isosceles_triangle(self, shape: str) -> None:
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.show()
+
+
+
+    def perim_isosceles_triangle(self) -> None:
+        pass
 
     #Передаэмо з вікна форми до головного вікна периметер
     def add_value(self):
