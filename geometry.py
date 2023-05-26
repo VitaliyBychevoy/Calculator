@@ -72,6 +72,8 @@ class Perimeter():
     def hexagon_d(d: float) -> float:
         return round(d * 0.5 * 6 , 2)
         
+    def oblong(side_a: float, side_b: float) -> float:
+        return round(((side_a - side_b) + (side_b * 3,1415)), 2)
 
 
 class Hexagon():

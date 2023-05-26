@@ -1250,14 +1250,14 @@ class MainWindow(QMainWindow):
         self.oblong_side_b_velue.setGeometry(25, 80, 40, 20)
 
         #Розмірність сторони b
-        self.mm_label_oblong_side_a = QLabel("мм", self.window_shape)
-        self.mm_label_oblong_side_a.setGeometry(70, 80, 40, 20)
+        self.mm_label_oblong_side_b = QLabel("мм", self.window_shape)
+        self.mm_label_oblong_side_b.setGeometry(70, 80, 40, 20)
 
         #Статус сторони       
-        self.message_oblong_side_a = QLabel(None, self.window_shape)
-        self.message_oblong_side_a.setGeometry(100, 80, 150, 20)
+        self.message_oblong_side_b = QLabel(None, self.window_shape)
+        self.message_oblong_side_b.setGeometry(100, 80, 150, 20)
         if self.oblong_side_a_velue.text() in zero:
-            self.message_oblong_side_a.setText("Відсутнє значення")
+            self.message_oblong_side_b.setText("Відсутнє значення")
         
         #Кнопка розрахунку
         self.btn_oblong = QPushButton("Розрахувати периметер", self.window_shape)
@@ -1267,26 +1267,34 @@ class MainWindow(QMainWindow):
         #ПЕРИМЕТЕР
         #Заголовок периметра
         self.Label_s_peremeter = QLabel("Периметер квадрата", self.window_shape)
-        self.Label_s_peremeter.setGeometry(15, 110, 120, 20)
+        self.Label_s_peremeter.setGeometry(15, 140, 120, 20)
         
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
-        self.perimeter.setGeometry(130, 110, 40, 20)
+        self.perimeter.setGeometry(130, 140, 40, 20)
 
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(160, 110, 20, 20)
+        self.mm_result_perimeret.setGeometry(160, 140, 20, 20)
 
         #Кнопка периметер квадрата до загального розраунку
         self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.setGeometry(10, 140, 200, 25)
+        self.btn_add_perimeter.setGeometry(10, 170, 200, 25)
         self.btn_add_perimeter.clicked.connect(self.add_value)
 
         self.window_shape.show()
 
     #Периметер овала
     def perim_oblong(self) -> None:
-        pass
+
+        oblong_a_list = self.check_number_new(self.oblong_side_a_velue.text())
+        oblong_b_list = self.check_number_new(self.oblong_side_b_velue.text())
+
+        self.message_oblong_side_a.setText(oblong_a_list[1])
+        self.message_oblong_side_b.setText(oblong_b_list[1])
+
+
+
     #Передаэмо з вікна форми до головного вікна периметер
     def add_value(self):
         if self.perimeter.text() != "?":
