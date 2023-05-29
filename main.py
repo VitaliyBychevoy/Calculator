@@ -1516,9 +1516,17 @@ class MainWindow(QMainWindow):
         self.message_side_a_is_tr.setText(side_a_list[1])
         self.message_side_b_is_tr.setText(side_b_list[1])
 
+
         if side_a_list[0] != 0 and side_b_list[0] != 0:
-            self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
-            self.height_is_tr_velue.setText(str(g.Isosceles_triangle.height_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
+            if side_a_list[0] * 2 <= side_b_list[0]:
+                self.message_side_a_is_tr.setText("Завелика сторона")
+                self.message_side_b_is_tr.setText("Замала сторона")
+                self.height_is_tr_velue.setText("?")
+                self.perimeter.setText("?")
+            else:
+                self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
+                self.perimeter.setGeometry(125, 210, 40, 20)
+                self.height_is_tr_velue.setText(str(g.Isosceles_triangle.height_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
         else:
             self.perimeter.setText("?")
 
@@ -1532,8 +1540,15 @@ class MainWindow(QMainWindow):
         self.message_height_is_tr.setText(height_list[1])
 
         if side_a_list[0] != 0 and height_list[0] != 0:
-            self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_height(side_a_list[0], height_list[0])))
-            self.side_b_is_tr_lalel.setText(str(g.Isosceles_triangle.side_b_is_tr_side_a_height(side_a_list[0], height_list[0])))       
+            if side_a_list[0] <= height_list[0]:
+                self.message_side_a_is_tr.setText("Замала сторона")
+                self.message_side_b_is_tr.setText("?")
+                self.message_height_is_tr.setText("Завелика сторона")
+                self.perimeter.setText("?")
+            else:
+                self.perimeter.setGeometry(125, 210, 40, 20)
+                self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_height(side_a_list[0], height_list[0])))
+                self.side_b_is_tr_velue.setText(str(g.Isosceles_triangle.side_b_is_tr_side_a_height(side_a_list[0], height_list[0])))       
         else:
             self.perimeter.setText("?")
 
@@ -1546,6 +1561,7 @@ class MainWindow(QMainWindow):
         self.message_height_is_tr.setText(height_list[1])
 
         if side_b_list[0] != 0 and height_list[0]:
+            self.perimeter.setGeometry(125, 210, 40, 20)
             self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_height_side_b(height_list[0], side_b_list[0])))
             self.side_a_is_tr_velue.setText(str(g.Isosceles_triangle.side_a_is_tr_side_b_height(side_b_list[0], height_list[0])))  
         else:

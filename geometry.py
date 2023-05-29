@@ -126,13 +126,13 @@ class Isosceles_triangle():
         return round(2 * ((height ** 2 + (side_b * 0.5) ** 2) ** 0.5) + side_b, 2)
     
     def perim_is_tr_side_a_height(side_a: float, height: float) -> float:
-        return round((side_a * 2) + 2 * (((height ** 2) - (side_a ** 2)) ** 0.5), 2)
+        return round((side_a * 2) + 2 * (((side_a ** 2) - (height ** 2)) ** 0.5), 2)
     
-    def height_is_tr_side_a_b(side_a: float, side_b: float) -> float:
+    def height_is_tr_side_a_b(side_a:  float, side_b: float) -> float:
         return round((((side_a ** 2) - ((side_b * 0.5) ** 2)) ** 0.5), 2)
     
     def side_a_is_tr_side_b_height(side_b: float, height: float) -> float:
         return round( ((height ** 2) + ((side_b * 0.5) ** 2)) ** 0.5 , 2)
     
     def side_b_is_tr_side_a_height(side_a: float, height: float) -> float:
-        return round(2 * (((height ** 2) + (side_a ** 2)) ** 0.5) , 2)
+        return round(2 * (((side_a ** 2) - (height** 2)) ** 0.5) , 2)
