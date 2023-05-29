@@ -125,8 +125,8 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Прямокутник з різними радіусами")
         self.shape.addItem("Шестигранник")
         self.shape.addItem("Овал з паралельними сторонами")
-        #self.shape.addItem("Трикутник рівносторонній")
-        #self.shape.addItem("Трикутник рівнобедрений")        
+        self.shape.addItem("Трикутник рівносторонній")
+        self.shape.addItem("Трикутник рівнобедрений")        
         self.shape.setGeometry(60, 20, 260, 25)
         self.shape.currentTextChanged.connect(self.shape_handler)
 
@@ -230,9 +230,13 @@ class MainWindow(QMainWindow):
             self.hexagon(shape)
         elif shape == "Овал з паралельними сторонами":
             self.oblong(shape)
-        elif shape == "Трикутник рівносторонні":
+        elif shape == "Трикутник рівносторонній":
             self.equilateral_triangle(shape)
-    
+        elif shape == "Трикутник рівнобедрений":
+            self.isosceles_triangle(shape)
+
+
+
     #КОЛО
     #Вікно для кола
     def round_handler(self, shape: str) -> None:
@@ -1300,26 +1304,253 @@ class MainWindow(QMainWindow):
             else:
                 self.perimeter.setText("?")
 
+    #ТРИКУТНИК РІВНОСТОРОННІЙ
+    #Вікно трикутника рівносоторонній
     def equilateral_triangle(self, shape: str) -> None:
+        self.window_shape = QMdiSubWindow()
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
+
+        #Сторона A
+        #Заголовок сторони а
+        self.eq_tr_side_lalel = QLabel("A", self.window_shape)
+        self.eq_tr_side_lalel.setGeometry(10, 50, 10, 20)
+        
+        #Значення сторони
+        self.eq_tr_side_velue = QLineEdit("0.0", self.window_shape)
+        self.eq_tr_side_velue.setGeometry(25, 50, 40, 20)
+
+        #Розмірність сторони
+        self.mm_eq_tr_side_lalel = QLabel("мм", self.window_shape)
+        self.mm_eq_tr_side_lalel.setGeometry(70, 50, 40, 20)
+
+        #Статус сторони       
+        self.message_eq_tr_side = QLabel(None, self.window_shape)
+        self.message_eq_tr_side.setGeometry(100, 50, 150, 20)
+        if self.eq_tr_side_velue.text() in zero:
+            self.message_eq_tr_side.setText("Відсутнє значення")
+
+        #Кнопка розрахунку через сторону А
+        self.btn_eq_tr_a = QPushButton("Розрахувати периметер", self.window_shape)
+        self.btn_eq_tr_a.setGeometry(10, 80, 200, 20)
+        self.btn_eq_tr_a.clicked.connect(self.perim_eq_riangle_a)
+
+        #Сторона H
+        #Заголовок висоти h
+        self.eq_tr_height_lalel = QLabel("H", self.window_shape)
+        self.eq_tr_height_lalel.setGeometry(10, 110, 10, 20)
+        
+        #Значення висоти
+        self.eq_tr_height_velue = QLineEdit("0.0", self.window_shape)
+        self.eq_tr_height_velue.setGeometry(25, 110, 40, 20)
+
+        #Розмірність висоти
+        self.mm_eq_tr_height_lalel = QLabel("мм", self.window_shape)
+        self.mm_eq_tr_height_lalel.setGeometry(70, 110, 40, 20)
+
+        #Статус сторони       
+        self.message_eq_tr_height = QLabel(None, self.window_shape)
+        self.message_eq_tr_height.setGeometry(100, 110, 150, 20)
+        if self.eq_tr_height_velue.text() in zero:
+            self.message_eq_tr_height.setText("Відсутнє значення")
+
+        #Кнопка розрахунку через висоту H
+        self.btn_eq_tr_h = QPushButton("Розрахувати периметер", self.window_shape)
+        self.btn_eq_tr_h.setGeometry(10, 140, 200, 20)
+        self.btn_eq_tr_h.clicked.connect(self.perim_eq_riangle_h)
+
+        #ПЕРИМЕТЕР
+        #Заголовок периметра
+        self.Label_s_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_s_peremeter.setGeometry(15, 170, 120, 20)
+        
+        #Значення периметра
+        self.perimeter= QLabel("0.0", self.window_shape)
+        self.perimeter.setGeometry(130, 170, 40, 20)
+
+        #Розмірність диаметра
+        self.mm_result_perimeret = QLabel("мм", self.window_shape)
+        self.mm_result_perimeret.setGeometry(160, 170, 20, 20)
+
+        #Кнопка периметер квадрата до загального розраунку
+        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter.setGeometry(10, 200, 200, 25)
+        self.btn_add_perimeter.clicked.connect(self.add_value)
+
         self.window_shape.show()
 
-    def perim_eq_riangle(self) -> None:
-        pass
+    #Периметер рівносторонього трикутника через сторону
+    def perim_eq_riangle_a(self) -> None:
+        side_a_list = self.check_number_new(self.eq_tr_side_velue.text())
+        print(side_a_list[0], " ", type(side_a_list[0]))
+        self.message_eq_tr_side.setText(side_a_list[1])
 
+        if side_a_list[0] != 0:
+            self.perimeter.setText(str(g.Equilateral_triangle.perim_eq_tr_side(side_a_list[0])))
+            self.eq_tr_height_velue.setText(str(g.Equilateral_triangle.height_eq_tr_side(side_a_list[0])))        
+        else:
+            self.eq_tr_height_velue.setText("0.0")
+            self.perimeter.setText("?")
 
+    #Периметер рівносторонього трикутника через висоту
+    def perim_eq_riangle_h(self) -> None:
+        height_h_list = self.check_number_new(self.eq_tr_height_velue.text())
+
+        self.message_eq_tr_height.setText(height_h_list[1])
+
+        if height_h_list[0] != 0:
+            self.perimeter.setText(str(g.Equilateral_triangle.perim_eq_tr_height(height_h_list[0])))
+            self.eq_tr_side_velue.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
+        else:
+            self.eq_tr_side_velue.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
+            self.perimeter.setText("?")
+
+    #РІВНОБЕДРЕНИЙ ТРИКУТНИК
+    #Вікно рівнобедреного трикутника
     def isosceles_triangle(self, shape: str) -> None:
+        self.window_shape = QMdiSubWindow()
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
+
+        #Сторона A
+        #Заголовок сторони
+        self.side_a_is_tr_lalel = QLabel("A", self.window_shape)
+        self.side_a_is_tr_lalel.setGeometry(10, 30, 10, 20)
+
+        #Значення сторони
+        self.side_a_is_tr_velue = QLineEdit("0.0", self.window_shape)
+        self.side_a_is_tr_velue.setGeometry(25, 30, 40, 20)
+
+        #Розмірність сторони
+        self.mm_side_a_is_tr_lalel = QLabel("мм", self.window_shape)
+        self.mm_side_a_is_tr_lalel.setGeometry(70, 30, 40, 20)
+
+        #Статус сторони       
+        self.message_side_a_is_tr = QLabel(None, self.window_shape)
+        self.message_side_a_is_tr.setGeometry(100, 30, 150, 20)
+        if self.side_a_is_tr_velue.text() in zero:
+            self.message_side_a_is_tr.setText("Відсутнє значення")
+
+        #Сторона B
+        #Заголовок сторони
+        self.side_b_is_tr_lalel = QLabel("B", self.window_shape)
+        self.side_b_is_tr_lalel.setGeometry(10, 60, 10, 20)
+
+        #Значення сторони
+        self.side_b_is_tr_velue = QLineEdit("0.0", self.window_shape)
+        self.side_b_is_tr_velue.setGeometry(25, 60, 40, 20)
+
+        #Розмірність сторони
+        self.mm_side_b_is_tr_lalel = QLabel("мм", self.window_shape)
+        self.mm_side_b_is_tr_lalel.setGeometry(70, 60, 40, 20)
+
+        #Статус сторони       
+        self.message_side_b_is_tr = QLabel(None, self.window_shape)
+        self.message_side_b_is_tr.setGeometry(100, 60, 150, 20)
+        if self.side_b_is_tr_velue.text() in zero:
+            self.message_side_b_is_tr.setText("Відсутнє значення")
+
+        #Висота H
+        #Заголовок сторони
+        self.height_is_tr_lalel = QLabel("H", self.window_shape)
+        self.height_is_tr_lalel.setGeometry(10, 90, 10, 20)
+
+        #Значення сторони
+        self.height_is_tr_velue = QLineEdit("0.0", self.window_shape)
+        self.height_is_tr_velue.setGeometry(25, 90, 40, 20)
+
+        #Розмірність сторони
+        self.mm_height_is_tr_lalel = QLabel("мм", self.window_shape)
+        self.mm_height_is_tr_lalel.setGeometry(70, 90, 40, 20)
+
+        #Статус сторони       
+        self.message_height_is_tr = QLabel(None, self.window_shape)
+        self.message_height_is_tr.setGeometry(100, 90, 150, 20)
+        if self.height_is_tr_velue.text() in zero:
+            self.message_height_is_tr.setText("Відсутнє значення")
+
+        #Кнопка розрахунку через сторону А та сторону В
+        self.btn_perim_is_tr_a_b = QPushButton("Розрахувати периметер (по А, В)", self.window_shape)
+        self.btn_perim_is_tr_a_b.setGeometry(10, 120, 200, 20)
+        self.btn_perim_is_tr_a_b.clicked.connect(self.perim_is_tr_a_b)
+
+        #Кнопка розрахунку через сторону А та сторону H
+        self.btn_perim_is_tr_a_h = QPushButton("Розрахувати периметер (по А, Н)", self.window_shape)
+        self.btn_perim_is_tr_a_h.setGeometry(10, 150, 200, 20)
+        self.btn_perim_is_tr_a_h.clicked.connect(self.perim_is_tr_a_h)
+
+        #Кнопка розрахунку через сторону B та сторону H
+        self.btn_perim_is_tr_b_h = QPushButton("Розрахувати периметер (по B, Н)", self.window_shape)
+        self.btn_perim_is_tr_b_h.setGeometry(10, 180, 200, 20)
+        self.btn_perim_is_tr_b_h.clicked.connect(self.perim_is_tr_b_h)
+
+
+        #ПЕРИМЕТЕР
+        #Заголовок периметра
+        self.Label_s_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_s_peremeter.setGeometry(15, 210, 120, 20)
+        
+        #Значення периметра
+        self.perimeter= QLabel("0.0", self.window_shape)
+        self.perimeter.setGeometry(130, 210, 40, 20)
+
+        #Розмірність диаметра
+        self.mm_result_perimeret = QLabel("мм", self.window_shape)
+        self.mm_result_perimeret.setGeometry(160, 210, 20, 20)
+
+        #Кнопка периметер квадрата до загального розраунку
+        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter.setGeometry(10, 240, 200, 25)
+        self.btn_add_perimeter.clicked.connect(self.add_value)
+
         self.window_shape.show()
 
+    #Периметер рівнобедреного трикутника через дві сторони
+    def perim_is_tr_a_b(self) -> None:
+        
+        side_a_list = self.check_number_new(self.side_a_is_tr_velue.text())
+        side_b_list = self.check_number_new(self.side_b_is_tr_velue.text())
+        
+        self.message_side_a_is_tr.setText(side_a_list[1])
+        self.message_side_b_is_tr.setText(side_b_list[1])
 
+        if side_a_list[0] != 0 and side_b_list[0] != 0:
+            self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
+            self.height_is_tr_velue.setText(str(g.Isosceles_triangle.height_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
+        else:
+            self.perimeter.setText("?")
 
-    def perim_isosceles_triangle(self) -> None:
-        pass
+    #Периметер рівнобедреного трикутника через довгу сторону та висоту
+    def perim_is_tr_a_h(self) -> None:
+
+        side_a_list = self.check_number_new(self.side_a_is_tr_velue.text())
+        height_list = self.check_number_new(self.height_is_tr_velue.text())
+        
+        self.message_side_a_is_tr.setText(side_a_list[1]) 
+        self.message_height_is_tr.setText(height_list[1])
+
+        if side_a_list[0] != 0 and height_list[0] != 0:
+            self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_height(side_a_list[0], height_list[0])))
+            self.side_b_is_tr_lalel.setText(str(g.Isosceles_triangle.side_b_is_tr_side_a_height(side_a_list[0], height_list[0])))       
+        else:
+            self.perimeter.setText("?")
+
+    #Периметер рівнобедреного трикутника через коротку сторону та висоту
+    def perim_is_tr_b_h(self) -> None:
+        side_b_list = self.check_number_new(self.side_b_is_tr_velue.text())
+        height_list = self.check_number_new(self.height_is_tr_velue.text())
+
+        self.message_side_b_is_tr.setText(side_b_list[1]) 
+        self.message_height_is_tr.setText(height_list[1])
+
+        if side_b_list[0] != 0 and height_list[0]:
+            self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_height_side_b(height_list[0], side_b_list[0])))
+            self.side_a_is_tr_velue.setText(str(g.Isosceles_triangle.side_a_is_tr_side_b_height(side_b_list[0], height_list[0])))  
+        else:
+            self.perimeter.setText("?")
+
 
     #Передаэмо з вікна форми до головного вікна периметер
     def add_value(self):

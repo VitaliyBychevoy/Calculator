@@ -75,7 +75,6 @@ class Perimeter():
     def oblong(side_a: float, side_b: float) -> float:
         return round((((side_a - side_b) * 2)+ (side_b * 3.1415)), 2)
 
-
 class Hexagon():
 
     #Сторона шестикутника по описаному діаметру кола
@@ -101,3 +100,39 @@ class Hexagon():
     #Діаметр описаного кола по відстані проміж паралельними сторонами
     def d_hexagon_h(h: float) -> float:
         return round((h / 0.866), 2)
+    
+
+class Equilateral_triangle():
+
+    def perim_eq_tr_side(side: float) -> float:
+        return round((3 * side), 2)
+
+    def perim_eq_tr_height(height: float) -> float:
+        return round((height / 0.866) * 3, 2)
+
+    def side_eq_tr_height(height: float) -> float:
+        return round((height / 0.866) , 2)
+
+    def height_eq_tr_side(side: float) -> float:
+        return round((side * 0.866), 2)
+
+
+class Isosceles_triangle():
+
+    def perim_is_tr_side_a_b(side_a: float, side_b: float) -> float:
+        return round((2 * side_a + side_b), 2)
+    
+    def perim_is_tr_height_side_b(height: float, side_b: float) -> float:
+        return round(2 * ((height ** 2 + (side_b * 0.5) ** 2) ** 0.5) + side_b, 2)
+    
+    def perim_is_tr_side_a_height(side_a: float, height: float) -> float:
+        return round((side_a * 2) + 2 * (((height ** 2) - (side_a ** 2)) ** 0.5), 2)
+    
+    def height_is_tr_side_a_b(side_a: float, side_b: float) -> float:
+        return round((((side_a ** 2) - ((side_b * 0.5) ** 2)) ** 0.5), 2)
+    
+    def side_a_is_tr_side_b_height(side_b: float, height: float) -> float:
+        return round( ((height ** 2) + ((side_b * 0.5) ** 2)) ** 0.5 , 2)
+    
+    def side_b_is_tr_side_a_height(side_a: float, height: float) -> float:
+        return round(2 * (((height ** 2) + (side_a ** 2)) ** 0.5) , 2)
