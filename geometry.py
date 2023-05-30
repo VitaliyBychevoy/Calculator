@@ -1,3 +1,5 @@
+import math
+
 class Perimeter():
     
     def round(diameter: float) -> float:
@@ -136,3 +138,14 @@ class Isosceles_triangle():
     
     def side_b_is_tr_side_a_height(side_a: float, height: float) -> float:
         return round(2 * (((side_a ** 2) - (height** 2)) ** 0.5) , 2)
+
+
+class Square_in_round():
+
+    def perimeter_square_in_round(side_sir: float, diameter_sir: float):
+        m = round((((diameter_sir ** 2) - (side_sir ** 2)) ** 0.5), 4)
+        c = round(diameter_sir * 3.1415, 4)
+        k_1 = m / 2
+        l_ab = round((math.asin(k_1/(diameter_sir * 0.5)) * 2) * (diameter_sir / 2), 2)
+        p =  round(((4 * m) + (c - (4 * l_ab))), 2)
+        return p 

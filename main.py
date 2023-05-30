@@ -119,7 +119,7 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Квадрат")
         self.shape.addItem("Квадрат з однаковими радіусами")
         self.shape.addItem("Квадрат з різними радіусами")
-        # self.shape.addItem("Квадрат у колі")
+        self.shape.addItem("Квадрат у колі")
         self.shape.addItem("Прямокутник")
         self.shape.addItem("Прямокутник з однаковими радіусами")
         self.shape.addItem("Прямокутник з різними радіусами")
@@ -234,8 +234,6 @@ class MainWindow(QMainWindow):
             self.equilateral_triangle(shape)
         elif shape == "Трикутник рівнобедрений":
             self.isosceles_triangle(shape)
-
-
 
     #КОЛО
     #Вікно для кола
@@ -387,7 +385,6 @@ class MainWindow(QMainWindow):
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
-
 
         #Сторона 
         #Заголовок сторони
@@ -653,13 +650,97 @@ class MainWindow(QMainWindow):
             self.perimeter.setText('?')
     #КІНЕЦЬ КВАДРАТ З РІЗНИМИ РАДІУСАМИ
     
+    #КВАДРАТ УКОЛІ
+    #Вікно квадрата у колі
     def square_in_round(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
-
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 300, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
+
+        #Сторона квадрата у колі
+        #Заголовок сторони
+        self.side_sir_lalel = QLabel("A", self.window_shape)
+        self.side_sir_lalel.setGeometry(10, 50, 10, 20)
+
+        #Значення сторони
+        self.side_sir_velue = QLineEdit("0.0", self.window_shape)
+        self.side_sir_velue.setGeometry(25, 50, 40, 20)
+
+        #Розмірність сторони
+        self.mm_label_sir = QLabel("мм", self.window_shape)
+        self.mm_label_sir.setGeometry(70, 50, 40, 20)
+
+        #Статус сторони       
+        self.message_side_sir = QLabel(None, self.window_shape)
+        self.message_side_sir.setGeometry(100, 50, 150, 20)
+        if self.side_sir_velue.text() in zero:
+            self.message_side_sir.setText("Відсутнє значення")
+
+        #Діаметер
+        #Заголовок 
+        self.diameter_sir_lalel = QLabel("D", self.window_shape)
+        self.diameter_sir_lalel.setGeometry(10, 80, 10, 20)
+
+        #Значення діаметра
+        self.diameter_sir_value = QLineEdit("0.0", self.window_shape)
+        self.diameter_sir_value.setGeometry(25, 80, 40, 20)
+
+        #Розмірність діаметра
+        self.mm_label_diameter_sir = QLabel("мм", self.window_shape)
+        self.mm_label_diameter_sir.setGeometry(70, 80, 40, 20)
+
+        #Статус діаметра    
+        self.message_diameter_sir = QLabel(None, self.window_shape)
+        self.message_diameter_sir.setGeometry(100, 80, 150, 20)
+        if self.diameter_sir_value.text() in zero:
+            self.message_diameter_sir.setText("Відсутнє значення")
+
+        #Кнопка розрахунку
+        self.btn_perimeter = QPushButton("Розрахувати периметр", self.window_shape)
+        self.btn_perimeter.setGeometry(10, 110, 200, 25)
+        self.btn_perimeter.clicked.connect(self.perim_sir)
+
+        #ПЕРИМЕТЕР
+        #Заголовок периметра
+        self.Label_sfr_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_sfr_peremeter.setGeometry(15, 140, 120, 20)
+        
+        #Значення периметра
+        self.perimeter= QLabel("0.0", self.window_shape)
+        self.perimeter.setGeometry(130, 140, 40, 20)
+        
+        #Розмірність приметра
+        self.mm_result_perimeret = QLabel("мм", self.window_shape)
+        self.mm_result_perimeret.setGeometry(160, 140, 20, 20)
+
+
+        #Кнопка периметер квадрата до загального розраунку
+        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter.setGeometry(10, 170, 200, 25)
+        self.btn_add_perimeter.clicked.connect(self.add_value)
+
         self.window_shape.show()
+    
+    #Периметер квадрата у колі
+    def perim_sir(self) -> None:
+
+        list_side_sir = self.check_number_new(self.side_sir_velue.text())
+        list_diameter = self.check_number_new(self.diameter_sir_value.text())
+
+        self.message_side_sir.setText(list_side_sir[1])
+        self.message_diameter_sir.setText(list_diameter[1])
+        
+        if list_diameter[0] != 0 and list_side_sir[0] != 0:
+            if (list_side_sir[0] / 0.707106) <= list_diameter[0]:
+                self.message_side_sir.setText("Замала сторона")
+                self.message_diameter_sir.setText("Завеликий діаметер")
+                self.perimeter.setText("?")
+            else:
+                self.perimeter.setText(str(g.Square_in_round.perimeter_square_in_round(list_side_sir[0], list_diameter[0])))  
+                self.perimeter.setGeometry(125, 140, 40, 20)
+        else:
+            self.perimeter.setText("?")
 
     #ПРЯМОКУТНИК
     #вікно прямокутника
@@ -1566,7 +1647,6 @@ class MainWindow(QMainWindow):
             self.side_a_is_tr_velue.setText(str(g.Isosceles_triangle.side_a_is_tr_side_b_height(side_b_list[0], height_list[0])))  
         else:
             self.perimeter.setText("?")
-
 
     #Передаэмо з вікна форми до головного вікна периметер
     def add_value(self):
