@@ -142,7 +142,7 @@ class Isosceles_triangle():
 
 class Square_in_round():
 
-    def perimeter_square_in_round(side_sir: float, diameter_sir: float):
+    def perimeter_square_in_round(side_sir: float, diameter_sir: float) -> float:
         m = round((((diameter_sir ** 2) - (side_sir ** 2)) ** 0.5), 4)
         c = round(diameter_sir * 3.1415, 4)
         k_1 = m / 2
@@ -153,10 +153,19 @@ class Square_in_round():
 
 class Incomplete_circle():
 
+    def get_h_form_height(diameter: float, height: float) -> float:
+        return round(height - (diameter * 0.5), 2)
+    
     def perim_in_circle(diameter: float, height: float):
-        pass
+        c = diameter * 3.1415
+        h = Incomplete_circle.get_h_form_height(diameter, height)
 
 
-    def lenght_chold(diameter: float, height: float):
-        pass
+
+
+    def lenght_chold(diameter: float, height: float) -> float:
+        h = Incomplete_circle.get_h_form_height(diameter, height)
+        lenght = 2 * ((((diameter * 0.5) ** 2) - (h ** 2)) ** 0.5)
+        return round(lenght, 2)
+
 
