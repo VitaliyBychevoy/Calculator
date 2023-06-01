@@ -149,3 +149,14 @@ class Square_in_round():
         l_ab = round((math.asin(k_1/(diameter_sir * 0.5)) * 2) * (diameter_sir / 2), 2)
         p =  round(((4 * m) + (c - (4 * l_ab))), 2)
         return p 
+    
+
+class Incomplete_circle():
+
+    def perim_in_circle(diameter: float, height: float):
+        pass
+
+
+    def lenght_chold(diameter: float, height: float):
+        pass
+

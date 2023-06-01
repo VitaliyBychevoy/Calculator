@@ -115,7 +115,7 @@ class MainWindow(QMainWindow):
         self.shape = QComboBox(self)
         self.shape.addItem("")
         self.shape.addItem("Коло")
-        # self.shape.addItem("Напівколо")
+        self.shape.addItem("Напівколо")
         self.shape.addItem("Квадрат")
         self.shape.addItem("Квадрат з однаковими радіусами")
         self.shape.addItem("Квадрат з різними радіусами")
