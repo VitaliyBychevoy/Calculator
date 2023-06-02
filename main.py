@@ -307,11 +307,111 @@ class MainWindow(QMainWindow):
     #НАПІВКОЛО
     def half_round_heandler(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
-
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
+
+        #ДІАМЕТР
+        #Заголовок диаметра
+        self.diameter_hr_lalel = QLabel("D", self.window_shape)
+        self.diameter_hr_lalel.setGeometry(10, 30, 10, 20)
+
+        #Значення диаметра
+        self.diameter_hr_velue = QLineEdit("0.0", self.window_shape)
+        self.diameter_hr_velue.setGeometry(25, 30, 40, 20)
+
+        #Розмірність диаметра
+        self.mm_label_d_hr = QLabel("мм", self.window_shape)
+        self.mm_label_d_hr.setGeometry(70, 30, 40, 20)
+
+        #Статус діаметра         
+        self.message_diameter_hr = QLabel(None, self.window_shape)
+        self.message_diameter_hr.setGeometry(100, 30, 150, 20)
+        if self.diameter_hr_velue.text() in zero:
+            self.message_diameter_hr.setText("Відсутнє значення")     
+
+        #Висота
+        #Заголовок висоти
+        self.height_hr_lalel = QLabel("H", self.window_shape)
+        self.height_hr_lalel.setGeometry(10, 60, 10, 20)
+
+        #Значення висоти
+        self.height_hr_velue = QLineEdit("0.0", self.window_shape)
+        self.height_hr_velue.setGeometry(25, 60, 40, 20)
+
+        #Розмірність висоти
+        self.mm_label_h_hr = QLabel("мм", self.window_shape)
+        self.mm_label_h_hr.setGeometry(70, 60, 40, 20)
+
+        #Статус висоти         
+        self.message_height_hr = QLabel(None, self.window_shape)
+        self.message_height_hr.setGeometry(100, 60, 150, 20)
+        if self.height_hr_velue.text() in zero:
+            self.message_height_hr.setText("Відсутнє значення")
+
+        #Кнопка розрахунку
+        self.btn_perim = QPushButton("Розрахувати периметер по H", self.window_shape)
+        self.btn_perim.setGeometry(10, 90, 200, 25)
+        self.btn_perim.clicked.connect(self.perim_half_round_height)
+
+        #ХОРДА
+        #Заголовок хорди
+        self.lenght_hr_lalel = QLabel("L", self.window_shape)
+        self.lenght_hr_lalel.setGeometry(10, 120, 10, 20)
+
+        #Значення хорди
+        self.lenght_hr_velue = QLabel("0.0", self.window_shape)
+        self.lenght_hr_velue.setGeometry(25, 120, 40, 20)
+
+        #Розмірність хорди
+        self.mm_label_length_hr = QLabel("мм", self.window_shape)
+        self.mm_label_length_hr.setGeometry(70, 120, 40, 20)
+
+
+        #ПЕРИМЕТЕР
+        #Заголовок периметра
+        self.Label_d_peremeter = QLabel("Периметер", self.window_shape)
+        self.Label_d_peremeter.setGeometry(15, 150, 120, 20)
+        
+        #Значення периметра
+        self.perimeter= QLabel("0.0", self.window_shape)
+        self.perimeter.setGeometry(105, 150, 40, 20)
+
+        #Розмірність периметра
+        self.mm_result_perimeret = QLabel("мм", self.window_shape)
+        self.mm_result_perimeret.setGeometry(140, 150, 20, 20)
+
+        #Кнопка периметер кола до загального розраунку
+        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter.setGeometry(10, 180, 200, 25)
+        self.btn_add_perimeter.clicked.connect(self.add_value)
+
         self.window_shape.show()
+
+    #Периметер напівкільця
+    def perim_half_round_height(self):
+
+        diameter_list = self.check_number_new(self.diameter_hr_velue.text())
+        height_list = self.check_number_new(self.height_hr_velue.text())
+
+        self.message_diameter_hr.setText(diameter_list[1])
+        self.message_height_hr.setText(height_list[1])
+
+        if diameter_list[0] != 0 and height_list[0] != 0:
+            if height_list[0] > (diameter_list[0] / 2):
+                #Висота більша за радіус
+                pass
+            elif height_list[0] == (diameter_list[0] / 2):
+
+                self.lenght_hr_velue.setText(str(height_list[0] * 2))
+                #Висота дорівнює радіусу
+                pass
+            elif height_list[0] < (diameter_list[0] / 2):
+                #Висота меньша за радіус
+                pass
+        else:
+            self.perimeter.setText("?")
+        
 
     #КВАДРАТ
     #Вікно квадрата
