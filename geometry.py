@@ -155,17 +155,20 @@ class Incomplete_circle():
 
     def get_h_form_height(diameter: float, height: float) -> float:
         return round(height - (diameter * 0.5), 2)
-    
-    def perim_in_circle(diameter: float, height: float):
-        c = diameter * 3.1415
-        h = Incomplete_circle.get_h_form_height(diameter, height)
-
-
-
 
     def lenght_chold(diameter: float, height: float) -> float:
         h = Incomplete_circle.get_h_form_height(diameter, height)
         lenght = 2 * ((((diameter * 0.5) ** 2) - (h ** 2)) ** 0.5)
         return round(lenght, 2)
+    
+    def perim_in_circle(diameter: float, height: float):
+        c = diameter * 3.1415
+        h = Incomplete_circle.get_h_form_height(diameter, height)
+        x = ((0.5 * diameter * 8 * ((diameter * diameter) - h)) +  (4 * ((0.5 * diameter) - h))) ** 0.5
+        l = Incomplete_circle.lenght_chold(diameter, height)
+        return round((l + c - x), 2 )
+
+
+
 
 
