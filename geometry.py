@@ -161,14 +161,21 @@ class Incomplete_circle():
         lenght = 2 * ((((diameter * 0.5) ** 2) - (h ** 2)) ** 0.5)
         return round(lenght, 2)
     
-    def perim_in_circle(diameter: float, height: float):
+    def perim_in_circle(diameter: float, height: float) -> float:
         c = diameter * 3.1415
         h = Incomplete_circle.get_h_form_height(diameter, height)
         x = ((0.5 * diameter * 8 * ((diameter * diameter) - h)) +  (4 * ((0.5 * diameter) - h))) ** 0.5
         l = Incomplete_circle.lenght_chold(diameter, height)
         return round((l + c - x), 2 )
 
+    #Висота дорівнює радіусу
+    def perim_half_round(diameter: float, height: float) -> float:
+        p = (diameter * 3.1415 * 0.5) + diameter
+        return round(p, 2)
 
+    def perim_half_round_height_less_round(diameter: float, height: float) -> float:
+        s = 0.0
+        return round(s, 2)
 
 
 
