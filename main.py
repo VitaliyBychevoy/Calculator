@@ -400,12 +400,14 @@ class MainWindow(QMainWindow):
         if diameter_list[0] != 0 and height_list[0] != 0:
             if height_list[0] > (diameter_list[0] / 2):
                 #Висота більша за радіус
-                pass
+                self.perimeter.setText(str(g.Incomplete_circle.perim_in_circle(diameter_list[0], height_list[0])))
+                self.lenght_hr_velue.setText(str(g.Incomplete_circle.lenght_chold(diameter_list[0], height_list[0])))
             elif height_list[0] == (diameter_list[0] / 2):
-
-                self.lenght_hr_velue.setText(str(height_list[0] * 2))
                 #Висота дорівнює радіусу
-                pass
+                self.perimeter.setText(str(g.Incomplete_circle.perim_half_round(diameter_list[0], height_list[0])))
+                self.lenght_hr_velue.setText(str(height_list[0] * 2))
+
+
             elif height_list[0] < (diameter_list[0] / 2):
                 #Висота меньша за радіус
                 pass
