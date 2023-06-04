@@ -244,6 +244,15 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(120, 10, 200, 20)
 
+        self.image_round = gui.QPixmap("img/Round.jpg")
+
+
+
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(260 / 1.039), 260)
+        self.image_lable.setPixmap(self.image_round)
+        self.image_lable.setScaledContents(True)
+        
         #ДІАМЕТР
         #Заголовок диаметра
         self.diameter_lalel = QLabel("D", self.window_shape)
