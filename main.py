@@ -243,11 +243,7 @@ class MainWindow(QMainWindow):
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(120, 10, 200, 20)
-
         self.image_round = gui.QPixmap("img/Round.jpg")
-
-
-
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(230, 30, int(260 / 1.039), 260)
         self.image_lable.setPixmap(self.image_round)
@@ -320,6 +316,12 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
 
+        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.label_text.setGeometry(120, 10, 200, 20)
+
+
+
         #ДІАМЕТР
         #Заголовок диаметра
         self.diameter_hr_lalel = QLabel("D", self.window_shape)
@@ -358,10 +360,19 @@ class MainWindow(QMainWindow):
         if self.height_hr_velue.text() in zero:
             self.message_height_hr.setText("Відсутнє значення")
 
+        self.image_half_round = gui.QPixmap("img/Half_round_1.jpg")
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(260 * 1.387 ), 260)
+        self.image_lable.setPixmap(self.image_half_round )
+        self.image_lable.setScaledContents(True)
+
+
         #Кнопка розрахунку
         self.btn_perim = QPushButton("Розрахувати периметер по H", self.window_shape)
         self.btn_perim.setGeometry(10, 90, 200, 25)
         self.btn_perim.clicked.connect(self.perim_half_round_height)
+
+
 
         #ХОРДА
         #Заголовок хорди
