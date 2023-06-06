@@ -175,6 +175,19 @@ class MainWindow(QMainWindow):
     def check_number_new(self,item_string: str) -> list:
         result = [0, "Валідне знячення"]
         item_string = item_string.strip()
+
+        count_dot, count_comma = item_string.count('.'), item_string.count(',')
+
+        if count_dot > 1:
+            result[0]  = 0
+            result[1] = "Забагато крапок"
+            return result
+
+        if count_comma > 1:
+            result[0]  = 0
+            result[1] = "Забагато ком"
+            return result
+              
         if item_string in zero:
             result[0] = 0
             result[1] = "Відсутнє значення"
@@ -307,7 +320,7 @@ class MainWindow(QMainWindow):
                 self.perimeter.setText("?")
             else:
                 self.perimeter.setText(str(g.Perimeter.round(float(diameter_list_d[0]))))
-    #КІНЕУЬ КОЛО
+    #КІНЕЦЬ КОЛО
 
     #НАПІВКОЛО
     def half_round_heandler(self, shape: str) -> None:
@@ -438,7 +451,7 @@ class MainWindow(QMainWindow):
                 self.perimeter.setText(str(p))
         else:
             self.perimeter.setText("?")
-        
+    #КІНЕЦЬ НАПІВКОЛО 
 
     #КВАДРАТ
     #Вікно квадрата
@@ -801,9 +814,14 @@ class MainWindow(QMainWindow):
     def square_in_round(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
 
+        self.image_round = gui.QPixmap("img/square_in_round.jpg")
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(260 * 1.045), 260)
+        self.image_lable.setPixmap(self.image_round)
+        self.image_lable.setScaledContents(True)
         #Сторона квадрата у колі
         #Заголовок сторони
         self.side_sir_lalel = QLabel("A", self.window_shape)
@@ -887,6 +905,7 @@ class MainWindow(QMainWindow):
                 self.perimeter.setGeometry(125, 140, 40, 20)
         else:
             self.perimeter.setText("?")
+    #КІНЕЦЬ КВАДРАТ УКОЛІ
 
     #ПРЯМОКУТНИК
     #вікно прямокутника
@@ -896,6 +915,12 @@ class MainWindow(QMainWindow):
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(120, 10, 200, 20)
+
+        self.image_round = gui.QPixmap("img/rectangle.jpg")
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(260 * 0.823), 260)
+        self.image_lable.setPixmap(self.image_round)
+        self.image_lable.setScaledContents(True)
 
         #Сторона A
         #Заголовок сторони
@@ -984,6 +1009,12 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(50, 10, 200, 20)
 
+        self.image_round = gui.QPixmap("img/rectangle_one_radius.jpg")
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(260 * 0.948), 260)
+        self.image_lable.setPixmap(self.image_round)
+        self.image_lable.setScaledContents(True)
+
         #Сторона A
         #Заголовок сторони а
         self.side_a_lalel_req = QLabel("A", self.window_shape)
@@ -1071,7 +1102,6 @@ class MainWindow(QMainWindow):
         side_b_req_list = self.check_number_new(self.side_b_velue_req.text())
         side_r_req_list = self.check_number_new(self.r_velue_req.text())
 
-
         self.message_side_a_req.setText(side_a_req_list[1])
         self.message_side_b_req.setText(side_b_req_list[1])
         self.message_side_r_req.setText(side_r_req_list[1])
@@ -1106,6 +1136,11 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(80, 10, 200, 20)
 
+        self.image_round = gui.QPixmap("img/rectangle_four_radius.jpg")
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(260 * 1.186), 260)
+        self.image_lable.setPixmap(self.image_round)
+        self.image_lable.setScaledContents(True)
         #Сторона A
         #Заголовок сторони
         self.side_a_four_radius_lalel_rfr = QLabel("A", self.window_shape)
@@ -1304,8 +1339,14 @@ class MainWindow(QMainWindow):
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
+
+        self.image_round = gui.QPixmap("img/hexagon.jpg")
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(260 * 0.872), 260)
+        self.image_lable.setPixmap(self.image_round)
+        self.image_lable.setScaledContents(True)
 
         #Сторона 
         #Заголовок сторони
@@ -1441,13 +1482,22 @@ class MainWindow(QMainWindow):
             self.hex_h_velue.setText("0.0")
             self.perimeter.setText("?")   
 
+    #КІНЕЦЬ ШЕСТИГАРННИК
+
     #ОВАЛ
     #Вікно овала
     def oblong(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 300, 300)
+        self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
+
+
+        self.image_round = gui.QPixmap("img/oblong.jpg")
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(200 / 0.577), 200)
+        self.image_lable.setPixmap(self.image_round)
+        self.image_lable.setScaledContents(True)
 
         #Сторона A
         #Заголовок сторони а
@@ -1530,6 +1580,7 @@ class MainWindow(QMainWindow):
                 self.perimeter.setText(str(g.Perimeter.oblong(oblong_a_list[0], oblong_b_list[0])))
             else:
                 self.perimeter.setText("?")
+    #КІНЕЦЬ ОВАЛ
 
     #ТРИКУТНИК РІВНОСТОРОННІЙ
     #Вікно трикутника рівносоторонній
@@ -1538,6 +1589,12 @@ class MainWindow(QMainWindow):
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
+
+        self.image_round = gui.QPixmap("img/Triangle_60.jpg")
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(260 * 1.325), 260)
+        self.image_lable.setPixmap(self.image_round)
+        self.image_lable.setScaledContents(True)
 
         #Сторона A
         #Заголовок сторони а
@@ -1632,6 +1689,7 @@ class MainWindow(QMainWindow):
         else:
             self.eq_tr_side_velue.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
             self.perimeter.setText("?")
+    #КІНЕЦЬ ТРИКУТНИК РІВНОСТОРОННІЙ
 
     #РІВНОБЕДРЕНИЙ ТРИКУТНИК
     #Вікно рівнобедреного трикутника
@@ -1641,6 +1699,11 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
 
+        self.image_round = gui.QPixmap("img/Treangle_.jpg")
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(260 * 0.955), 260)
+        self.image_lable.setPixmap(self.image_round)
+        self.image_lable.setScaledContents(True)
         #Сторона A
         #Заголовок сторони
         self.side_a_is_tr_lalel = QLabel("A", self.window_shape)
@@ -1798,7 +1861,7 @@ class MainWindow(QMainWindow):
     def add_value(self):
         if self.perimeter.text() != "?":
             self.perimeter_velue.setText(self.perimeter.text())
-
+    #КІНЕЦЬ РІВНОБЕДРЕНИЙ ТРИКУТНИК
 
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
