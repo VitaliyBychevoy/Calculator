@@ -173,50 +173,53 @@ class MainWindow(QMainWindow):
 
     #Перевіряємо числові дані, які вводив користувач 
     def check_number_new(self,item_string: str) -> list:
+
         result = [0, "Валідне знячення"]
         item_string = item_string.strip()
 
         count_dot, count_comma = item_string.count('.'), item_string.count(',')
 
-        if count_dot > 1:
+        if count_dot >= 1 and count_comma  >= 1:
+            result[0]  = 0
+            result[1] = "Або . або ,"
+            return result            
+        elif count_dot > 1 and count_comma  == 0:
             result[0]  = 0
             result[1] = "Забагато крапок"
             return result
-
-        if count_comma > 1:
+        elif count_comma > 1 and count_dot == 0:
             result[0]  = 0
             result[1] = "Забагато ком"
             return result
-              
-        if item_string in zero:
+        elif item_string in zero:
             result[0] = 0
             result[1] = "Відсутнє значення"
             return result
-        
-        for letter in item_string:
-            if letter not in exceptable_number:
+        else:
+            for letter in item_string:
+                if letter not in exceptable_number:
+                    result[0] = 0
+                    message = f'"{letter}" э некоректний символ'
+                    result[1] = message
+                    return result
+            comma_count = item_string.count(",")
+            if comma_count > 1:
                 result[0] = 0
-                message = f'"{letter}" э не коректний символ'
-                result[1] = message
+                result[1] = "Забагато ком"
                 return result
-        comma_count = item_string.count(",")
-        if comma_count > 1:
-            result[0] = 0
-            result[1] = "Забагато ком"
+            
+            dot_count = item_string.count(".")
+            if dot_count > 1:
+                result[0] = 0
+                result[1] = "Забагато крапок"
+                return result
+            
+            result[1] = "Валідне знячення"
+            if "," in item_string:
+                item_string = item_string.replace(",", ".")
+            
+            result[0] = float(item_string)
             return result
-        
-        dot_count = item_string.count(".")
-        if dot_count > 1:
-            result[0] = 0
-            result[1] = "Забагато крапок"
-            return result
-        
-        result[1] = "Валідне знячення"
-        if "," in item_string:
-            item_string = item_string.replace(",", ".")
-        
-        result[0] = float(item_string)
-        return result
 
     #Обробка списку форм
     def shape_handler(self):
@@ -288,7 +291,7 @@ class MainWindow(QMainWindow):
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_d_peremeter = QLabel("Периметер кола", self.window_shape)
+        self.Label_d_peremeter = QLabel("Периметр кола", self.window_shape)
         self.Label_d_peremeter.setGeometry(15, 110, 90, 20)
         
         #Значення периметра
@@ -332,8 +335,6 @@ class MainWindow(QMainWindow):
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(120, 10, 200, 20)
-
-
 
         #ДІАМЕТР
         #Заголовок диаметра
@@ -379,9 +380,8 @@ class MainWindow(QMainWindow):
         self.image_lable.setPixmap(self.image_half_round )
         self.image_lable.setScaledContents(True)
 
-
         #Кнопка розрахунку
-        self.btn_perim = QPushButton("Розрахувати периметер по H", self.window_shape)
+        self.btn_perim = QPushButton("Розрахувати периметр по H", self.window_shape)
         self.btn_perim.setGeometry(10, 90, 200, 25)
         self.btn_perim.clicked.connect(self.perim_half_round_height)
 
@@ -440,8 +440,6 @@ class MainWindow(QMainWindow):
                 #Висота дорівнює радіусу
                 self.perimeter.setText(str(g.Incomplete_circle.perim_half_round(diameter_list[0], height_list[0])))
                 self.lenght_hr_velue.setText(str(height_list[0] * 2))
-
-
             elif height_list[0] < (diameter_list[0] / 2):
                 #Висота меньша за радіус
                 #self.lenght_hr_velue.setText(str(g.Incomplete_circle.chold_length(diameter_list[0], height_list[0])))
@@ -494,7 +492,7 @@ class MainWindow(QMainWindow):
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_s_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_s_peremeter = QLabel("Периметр квадрата", self.window_shape)
         self.Label_s_peremeter.setGeometry(15, 110, 120, 20)
         
         #Значення периметра
@@ -584,7 +582,7 @@ class MainWindow(QMainWindow):
         
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.label_square_one_radius_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.label_square_one_radius_peremeter = QLabel("Периметр квадрата", self.window_shape)
         self.label_square_one_radius_peremeter.setGeometry(15, 140, 120, 20)
         
         #Значення периметра
@@ -618,7 +616,6 @@ class MainWindow(QMainWindow):
                 print(side_list_qor[0], " ", type(side_list_qor[0]))
                 print(radius_list_qor[0], " ", type(radius_list_qor[0]))
                 self.perimeter.setText(str(g.Perimeter.square_one_radius(side_list_qor[0], radius_list_qor[0])))
-                #self.perimeter.setText(str(g.Perimeter.rectangle(side_a_list[0], side_b_list[0]))) 
         else:
             self.perimeter.setText("?")
         pass
@@ -741,7 +738,7 @@ class MainWindow(QMainWindow):
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_sfr_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_sfr_peremeter = QLabel("Периметр квадрата", self.window_shape)
         self.Label_sfr_peremeter.setGeometry(15, 230, 120, 20)
         
         #Значення периметра
@@ -867,7 +864,7 @@ class MainWindow(QMainWindow):
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_sfr_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_sfr_peremeter = QLabel("Периметр квадрата", self.window_shape)
         self.Label_sfr_peremeter.setGeometry(15, 140, 120, 20)
         
         #Значення периметра
@@ -1079,7 +1076,7 @@ class MainWindow(QMainWindow):
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_s_peremeter_req = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_s_peremeter_req = QLabel("Периметр квадрата", self.window_shape)
         self.Label_s_peremeter_req.setGeometry(15, 170, 120, 20)
         
         #Значення периметра
@@ -1422,7 +1419,7 @@ class MainWindow(QMainWindow):
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_d_peremeter = QLabel("Периметер кола", self.window_shape)
+        self.Label_d_peremeter = QLabel("Периметр кола", self.window_shape)
         self.Label_d_peremeter.setGeometry(15, 230, 90, 20)
         
         #Значення периметра
@@ -1481,7 +1478,6 @@ class MainWindow(QMainWindow):
             self.hex_a_velue.setText("0.0")
             self.hex_h_velue.setText("0.0")
             self.perimeter.setText("?")   
-
     #КІНЕЦЬ ШЕСТИГАРННИК
 
     #ОВАЛ
@@ -1538,13 +1534,13 @@ class MainWindow(QMainWindow):
             self.message_oblong_side_b.setText("Відсутнє значення")
         
         #Кнопка розрахунку
-        self.btn_oblong = QPushButton("Розрахувати периметер", self.window_shape)
+        self.btn_oblong = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_oblong.setGeometry(10, 110, 200, 20)
         self.btn_oblong.clicked.connect(self.perim_oblong)
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_s_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_s_peremeter = QLabel("Периметр квадрата", self.window_shape)
         self.Label_s_peremeter.setGeometry(15, 140, 120, 20)
         
         #Значення периметра
@@ -1616,7 +1612,7 @@ class MainWindow(QMainWindow):
             self.message_eq_tr_side.setText("Відсутнє значення")
 
         #Кнопка розрахунку через сторону А
-        self.btn_eq_tr_a = QPushButton("Розрахувати периметер", self.window_shape)
+        self.btn_eq_tr_a = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_eq_tr_a.setGeometry(10, 80, 200, 20)
         self.btn_eq_tr_a.clicked.connect(self.perim_eq_riangle_a)
 
@@ -1640,13 +1636,13 @@ class MainWindow(QMainWindow):
             self.message_eq_tr_height.setText("Відсутнє значення")
 
         #Кнопка розрахунку через висоту H
-        self.btn_eq_tr_h = QPushButton("Розрахувати периметер", self.window_shape)
+        self.btn_eq_tr_h = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_eq_tr_h.setGeometry(10, 140, 200, 20)
         self.btn_eq_tr_h.clicked.connect(self.perim_eq_riangle_h)
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_s_peremeter = QLabel("Периметер квадрата", self.window_shape)
+        self.Label_s_peremeter = QLabel("Периметр квадрата", self.window_shape)
         self.Label_s_peremeter.setGeometry(15, 170, 120, 20)
         
         #Значення периметра
@@ -1762,17 +1758,17 @@ class MainWindow(QMainWindow):
             self.message_height_is_tr.setText("Відсутнє значення")
 
         #Кнопка розрахунку через сторону А та сторону В
-        self.btn_perim_is_tr_a_b = QPushButton("Розрахувати периметер (по А, В)", self.window_shape)
+        self.btn_perim_is_tr_a_b = QPushButton("Розрахувати периметр (по А, В)", self.window_shape)
         self.btn_perim_is_tr_a_b.setGeometry(10, 120, 200, 20)
         self.btn_perim_is_tr_a_b.clicked.connect(self.perim_is_tr_a_b)
 
         #Кнопка розрахунку через сторону А та сторону H
-        self.btn_perim_is_tr_a_h = QPushButton("Розрахувати периметер (по А, Н)", self.window_shape)
+        self.btn_perim_is_tr_a_h = QPushButton("Розрахувати периметр (по А, Н)", self.window_shape)
         self.btn_perim_is_tr_a_h.setGeometry(10, 150, 200, 20)
         self.btn_perim_is_tr_a_h.clicked.connect(self.perim_is_tr_a_h)
 
         #Кнопка розрахунку через сторону B та сторону H
-        self.btn_perim_is_tr_b_h = QPushButton("Розрахувати периметер (по B, Н)", self.window_shape)
+        self.btn_perim_is_tr_b_h = QPushButton("Розрахувати периметр (по B, Н)", self.window_shape)
         self.btn_perim_is_tr_b_h.setGeometry(10, 180, 200, 20)
         self.btn_perim_is_tr_b_h.clicked.connect(self.perim_is_tr_b_h)
 
