@@ -448,6 +448,12 @@ class MainWindow(QMainWindow):
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(120, 10, 200, 20)
+
+        self.image_round = gui.QPixmap("img/square.jpg")
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(260 / 1.023), 260)
+        self.image_lable.setPixmap(self.image_round)
+        self.image_lable.setScaledContents(True)
         
         #Сторона
         #Заголовок сторони
@@ -512,6 +518,13 @@ class MainWindow(QMainWindow):
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
+
+        self.image_round = gui.QPixmap("img/square_one_radius.jpg")
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(260 * 1.16), 260)
+        self.image_lable.setPixmap(self.image_round)
+        self.image_lable.setScaledContents(True)
+
 
         #Сторона 
         #Заголовок сторони
@@ -606,6 +619,12 @@ class MainWindow(QMainWindow):
         self.label_text = QLabel(shape, self.window_shape)
         self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
+
+        self.image_round = gui.QPixmap("img/square_four_radiuses.jpg")
+        self.image_lable = QLabel(self.window_shape)
+        self.image_lable.setGeometry(230, 30, int(260 * 1.336), 260)
+        self.image_lable.setPixmap(self.image_round)
+        self.image_lable.setScaledContents(True)
 
         #Сторона 
         #Заголовок сторони
