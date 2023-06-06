@@ -130,6 +130,12 @@ class MainWindow(QMainWindow):
         self.shape.setGeometry(60, 20, 260, 25)
         self.shape.currentTextChanged.connect(self.shape_handler)
 
+
+    def paintEvent(self, a0: gui.QPaintEvent) -> None:
+        painter = gui.QPainter(self)
+        pixmap = gui.QPixmap("img/1_1.jpg")
+        painter.drawPixmap(self.rect(), pixmap)
+
     #Розрахунок навантаження
     def calculate_tonage_new(self):
         coeff_material = self.coefficient_material()
@@ -1862,5 +1868,8 @@ class MainWindow(QMainWindow):
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
     main_window = MainWindow()
+    palette = gui.QPalette()
+    palette.setBrush(gui.QPalette.Background, gui.QBrush(gui.QPixmap("image/1.jpg")))
+    main_window .setPalette(palette)
     main_window.show()
     sys.exit(my_app.exec_())
