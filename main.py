@@ -28,10 +28,12 @@ class MainWindow(QMainWindow):
         #Заголовок периметра
         self.perimeter_lalel = QLabel("Периметр", self)
         self.perimeter_lalel.setGeometry(10, 50, 100, 20)
+        self.perimeter_lalel.setStyleSheet("color: lightgreen;")
 
         #Значення периметра
         self.perimeter_velue = QLineEdit("0.0", self)
         self.perimeter_velue.setGeometry(120, 50, 40, 20)
+        self.perimeter_velue.setStyleSheet("background-color: lightgreen; border: 2px solid blue;")
 
         #Розмірність периметра
         self.mm_label_perimeter = QLabel("мм", self)
@@ -47,10 +49,12 @@ class MainWindow(QMainWindow):
         #Заголовок товщини       
         self.thickness_label = QLabel("Товщина матеріала", self)
         self.thickness_label.setGeometry(10, 75, 100, 20)
+        self.thickness_label.setStyleSheet("color: coral;")
 
         #Значення товщини
         self.thickness_velue = QLineEdit("0.0", self)
         self.thickness_velue.setGeometry(120, 75, 40, 20)
+        self.thickness_velue.setStyleSheet("background-color: coral; border: 2px solid blue;")
 
         #Розмірність товщини
         self.mm_label_thickness = QLabel("мм", self)
@@ -66,6 +70,7 @@ class MainWindow(QMainWindow):
         #Заголовок матеріала
         self.material_label = QLabel("Оберіть матеріал", self)
         self.material_label.setGeometry(10, 100, 100, 20)
+        self.material_label.setStyleSheet("color: Yellow;")
 
         #Список матеріалів
         self.material = QComboBox(self)
@@ -74,21 +79,32 @@ class MainWindow(QMainWindow):
         self.material.addItem("Алюміній")
         self.material.addItem("Мідь")
         self.material.setGeometry(120, 100, 200, 20)
+        self.material.setStyleSheet("color: Teal; background-color: Yellow; border: 2px solid blue;")
 
         #ОТВОРИ
         #Заголовок отворів
         self.amount_holes_label = QLabel("Кількість отворів", self)
         self.amount_holes_label.setGeometry(10, 125, 100, 20)
+        self.amount_holes_label.setStyleSheet("color: MediumAquaMarine;")
 
         #Список отворів
         self.amount_holes = QComboBox(self)
-        for i in range(1, 21):
+        for i in range(1, 37):
             self.amount_holes.addItem(str(i))
         self.amount_holes.setGeometry(120, 125, 40, 20)
+        self.amount_holes.setStyleSheet("color: Olive; background-color: MediumAquaMarine; border: 2px solid blue;")
+        
 
         #КНОПКА ДЛЯ РОЗРАХУВАННЯ ЗУСИЛЛЯ
         self.btn = QPushButton("Розрахувати", self)
         self.btn.setGeometry(120, 150, 200, 20)
+        self.btn.setStyleSheet(
+            "color: #fff; cursor: pointer;"
+            "touch-action: manipulation;"
+            "background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);"
+            "box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;"\
+            "transform: translateY(-2px);"
+            )
         self.btn.clicked.connect(self.calculate_tonage_new)
 
 
@@ -110,6 +126,7 @@ class MainWindow(QMainWindow):
         #Заголовок форми
         self.force_result_label = QLabel("Форма", self)
         self.force_result_label.setGeometry(10, 20, 40, 20)
+        self.force_result_label.setStyleSheet("color: Cornsilk;")
 
         #Cписок форм
         self.shape = QComboBox(self)
@@ -129,11 +146,11 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Трикутник рівнобедрений")        
         self.shape.setGeometry(60, 20, 260, 25)
         self.shape.currentTextChanged.connect(self.shape_handler)
-
+        self.shape.setStyleSheet("color: DarkGreen; background-color: Cornsilk; border: 2px solid blue;")
 
     def paintEvent(self, a0: gui.QPaintEvent) -> None:
         painter = gui.QPainter(self)
-        pixmap = gui.QPixmap("img/1_1.jpg")
+        pixmap = gui.QPixmap("img/main_1.jpg")
         painter.drawPixmap(self.rect(), pixmap)
 
     #Розрахунок навантаження
