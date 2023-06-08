@@ -16,8 +16,8 @@ exceptable_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.']
 
 zero = ['0', '0,0', '0.0','']
 
-error_value_style: str = "color: red; text-shadow: 1px 1px 1px red, 2px 2px 1px yellow;"
-valide_value_style: str = "color: green; text-shadow: 1px 1px 1px red, 2px 2px 1px yellow;"
+error_value_style: str = "color: red;"
+valide_value_style: str = "color: green;"
 
 class MainWindow(QMainWindow):
 
@@ -37,6 +37,7 @@ class MainWindow(QMainWindow):
         self.perimeter_velue = QLineEdit("0.0", self)
         self.perimeter_velue.setGeometry(120, 50, 40, 20)
         self.perimeter_velue.setStyleSheet("background-color: lightgreen; border: 2px solid blue;")
+
 
         #Розмірність периметра
         self.mm_label_perimeter = QLabel("мм", self)
@@ -85,6 +86,16 @@ class MainWindow(QMainWindow):
         self.material.addItem("Мідь")
         self.material.setGeometry(120, 100, 200, 20)
         self.material.setStyleSheet("color: Olive; background-color: Yellow; ")
+        self.material.setStyleSheet(
+            "box-shadow: 0 2px 3px rgba($demo-blue, 0.1) inset; border-color: $demo-blue;"
+            "border: $border-width solid $demo-border;"
+            "border-radius: 0;"
+            "font-weight: 400;"
+            "color: inherit;"
+            "padding: 11px 15px;"
+            "line-height: normal;"
+            "transition: border-color 0.2s ease,"
+            "outline 0.2s ease;")
 
         #ОТВОРИ
         #Заголовок отворів
@@ -101,16 +112,17 @@ class MainWindow(QMainWindow):
         
 
         #КНОПКА ДЛЯ РОЗРАХУВАННЯ ЗУСИЛЛЯ
-        self.btn = QPushButton("Розрахувати", self)
+        self.btn = QPushButton("Розрахувати зусилля", self)
         self.btn.setGeometry(120, 150, 200, 20)
-        # self.btn.setStyleSheet(
-        #     #"color: #FFFFFF; cursor: pointer;"
-        #     #"touch-action: manipulation;"
-        #     #"background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);"
-        #     #"border-radius: 5px;"
+        self.btn.setStyleSheet(
+        "color: #008CBA; "
+#"touch-action: manipulation;"
+        "background-color: yellow;"
+        #"background-image: linear-gradient(144deg,#1140FF, #5112F3 70%,#00DDEB);"
+        "border-radius: 10px;"
         #     #"box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;"\
-        #     #"transform: translateY(-2px);"
-        #     )
+             #"transform: translateY(-2px);"
+             )
         self.btn.clicked.connect(self.calculate_tonage_new)
 
 
@@ -192,6 +204,7 @@ class MainWindow(QMainWindow):
             result = result * perimeter_list[0]
             result = result * thickness_list[0]
             result = round(result * float(self.amount_holes.currentText()), 2)
+            self.message_perimeter.setStyleSheet(valide_value_style)
             self.force_result_value.setText(str(result))
         
     #Функція вертає коефіцієнт матеріала
@@ -203,7 +216,7 @@ class MainWindow(QMainWindow):
     #Перевіряємо числові дані, які вводив користувач 
     def check_number_new(self,item_string: str) -> list:
 
-        result = [0, "Валідне знячення"]
+        result = [0, "Валідне значення"]
         item_string = item_string.strip()
 
         count_dot, count_comma = item_string.count('.'), item_string.count(',')
@@ -279,6 +292,10 @@ class MainWindow(QMainWindow):
         elif shape == "Трикутник рівнобедрений":
             self.isosceles_triangle(shape)
 
+    def validation_value(self) -> None:
+        
+        pass
+
     #КОЛО
     #Вікно для кола
     def round_handler(self, shape: str) -> None:
@@ -311,7 +328,7 @@ class MainWindow(QMainWindow):
         self.message_diameter.setGeometry(100, 50, 150, 20)
         if self.diameter_velue.text() in zero:
             self.message_diameter.setText("Відсутнє значення")
-        
+
         #Кнопка розрахунку
         self.btn_d = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_d.setGeometry(10, 80, 200, 25)
@@ -351,6 +368,7 @@ class MainWindow(QMainWindow):
                 self.perimeter.setText("?")
             else:
                 self.perimeter.setText(str(g.Perimeter.round(float(diameter_list_d[0]))))
+                self.message_diameter.styleSheet("color: green;")
     #КІНЕЦЬ КОЛО
 
     #НАПІВКОЛО
