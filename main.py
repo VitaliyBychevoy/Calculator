@@ -16,6 +16,9 @@ exceptable_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.']
 
 zero = ['0', '0,0', '0.0','']
 
+error_value_style: str = "color: red; text-shadow: 1px 1px 1px red, 2px 2px 1px yellow;"
+valide_value_style: str = "color: green; text-shadow: 1px 1px 1px red, 2px 2px 1px yellow;"
+
 class MainWindow(QMainWindow):
 
     def __init__(self):
@@ -44,6 +47,7 @@ class MainWindow(QMainWindow):
         self.message_perimeter.setGeometry(190, 50, 150, 20)
         if self.perimeter_velue.text() in zero:
             self.message_perimeter.setText("Відсутнє значення")
+            self.message_perimeter.setStyleSheet(error_value_style)
 
         #ТОВЩИНА
         #Заголовок товщини       
@@ -65,6 +69,7 @@ class MainWindow(QMainWindow):
         self.message_thickness.setGeometry(190, 75, 150, 20)
         if self.thickness_velue.text() in zero:
             self.message_thickness.setText("Відсутнє значення")
+            self.message_thickness.setStyleSheet(error_value_style)
 
         #МАТЕРІАЛ
         #Заголовок матеріала
@@ -79,7 +84,7 @@ class MainWindow(QMainWindow):
         self.material.addItem("Алюміній")
         self.material.addItem("Мідь")
         self.material.setGeometry(120, 100, 200, 20)
-        self.material.setStyleSheet("color: Teal; background-color: Yellow; border: 2px solid blue;")
+        self.material.setStyleSheet("color: Olive; background-color: Yellow; ")
 
         #ОТВОРИ
         #Заголовок отворів
@@ -98,13 +103,14 @@ class MainWindow(QMainWindow):
         #КНОПКА ДЛЯ РОЗРАХУВАННЯ ЗУСИЛЛЯ
         self.btn = QPushButton("Розрахувати", self)
         self.btn.setGeometry(120, 150, 200, 20)
-        self.btn.setStyleSheet(
-            "color: #fff; cursor: pointer;"
-            "touch-action: manipulation;"
-            "background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);"
-            "box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;"\
-            "transform: translateY(-2px);"
-            )
+        # self.btn.setStyleSheet(
+        #     #"color: #FFFFFF; cursor: pointer;"
+        #     #"touch-action: manipulation;"
+        #     #"background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);"
+        #     #"border-radius: 5px;"
+        #     #"box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;"\
+        #     #"transform: translateY(-2px);"
+        #     )
         self.btn.clicked.connect(self.calculate_tonage_new)
 
 
@@ -240,7 +246,6 @@ class MainWindow(QMainWindow):
             result[1] = "Валідне знячення"
             if "," in item_string:
                 item_string = item_string.replace(",", ".")
-            
             result[0] = float(item_string)
             return result
 
@@ -1886,7 +1891,7 @@ if __name__ == '__main__':
     my_app = QApplication(sys.argv)
     main_window = MainWindow()
     palette = gui.QPalette()
-    palette.setBrush(gui.QPalette.Background, gui.QBrush(gui.QPixmap("image/1.jpg")))
+    palette.setBrush(gui.QPalette.Background, gui.QBrush(gui.QPixmap("img/4.jpg")))
     main_window .setPalette(palette)
     main_window.show()
     sys.exit(my_app.exec_())
