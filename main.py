@@ -52,9 +52,13 @@ class MainWindow(QMainWindow):
 
         #ТОВЩИНА
         #Заголовок товщини       
-        self.thickness_label = QLabel("Товщина матеріала", self)
+        self.thickness_label = QLabel("Товщина", self)
         self.thickness_label.setGeometry(10, 75, 100, 20)
         self.thickness_label.setStyleSheet("color: coral;")
+        f_1 = gui.QFont("Gost type A", 14)
+        #f_1.bold()
+        self.thickness_label.setFont(f_1)
+
 
         #Значення товщини
         self.thickness_velue = QLineEdit("0.0", self)
@@ -116,13 +120,9 @@ class MainWindow(QMainWindow):
         self.btn.setGeometry(120, 150, 200, 20)
         self.btn.setStyleSheet(
         "color: #008CBA; "
-#"touch-action: manipulation;"
         "background-color: yellow;"
-        #"background-image: linear-gradient(144deg,#1140FF, #5112F3 70%,#00DDEB);"
         "border-radius: 10px;"
-        #     #"box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;"\
-             #"transform: translateY(-2px);"
-             )
+        )
         self.btn.clicked.connect(self.calculate_tonage_new)
 
 
