@@ -28,7 +28,6 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Calculator")
 
         gui.QFontDatabase.addApplicationFont("img/fonts/Kareliac bold.otf")
-        gui.QFontDatabase.addApplicationFont("img/fonts/HighlanderStd BoldItalic.otf")
         font_1 = gui.QFont("KareliaC", 14)
         font_2 = gui.QFont("Times New Roman", 12)
         font_3 = gui.QFont("KareliaC", 12)
@@ -42,17 +41,21 @@ class MainWindow(QMainWindow):
 
         #Значення периметра
         self.perimeter_velue = QLineEdit("0.0", self)
-        self.perimeter_velue.setGeometry(120, 50, 40, 20)
+        self.perimeter_velue.setGeometry(120, 50, 70, 20)
         self.perimeter_velue.setStyleSheet("background-color: lightgreen; border: 2px solid blue;")
+        self.perimeter_velue.setFont(font_3)
 
 
         #Розмірність периметра
         self.mm_label_perimeter = QLabel("мм", self)
-        self.mm_label_perimeter.setGeometry(165, 50, 40, 20)
+        self.mm_label_perimeter.setGeometry(200, 50, 50, 20)
+        self.mm_label_perimeter.setStyleSheet("color: lightgreen;")
+        self.mm_label_perimeter.setFont(font_1)
 
         #Статус введенного периметра
         self.message_perimeter = QLabel(None, self)
-        self.message_perimeter.setGeometry(190, 50, 150, 20)
+        self.message_perimeter.setGeometry(240, 50, 170, 20)
+        self.message_perimeter.setFont(font_4)
         if self.perimeter_velue.text() in zero:
             self.message_perimeter.setText("Відсутнє значення")
             self.message_perimeter.setStyleSheet(error_value_style)
