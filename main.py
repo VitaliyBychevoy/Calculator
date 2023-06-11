@@ -6,10 +6,10 @@ import PyQt5.QtGui as gui
 import geometry as g
 
 material = {
-    "Алюмiнiй": 0.5,
-    "Мiдь": 0.57,
+    "Алюміній": 0.5,
+    "Мідь": 0.57,
     "Сталь звичайна": 1,
-    "Сталь нержавiюча": 1.5
+    "Сталь неравіюча": 1.5
  }
 
 exceptable_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.']
@@ -27,11 +27,16 @@ class MainWindow(QMainWindow):
         self.setGeometry(500, 200, 380, 300)
         self.setWindowTitle("Calculator")
 
-        gui.QFontDatabase.addApplicationFont("img/fonts/Kareliac bold.otf")
-        font_1 = gui.QFont("KareliaC", 14)
-        font_2 = gui.QFont("Times New Roman", 12)
-        font_3 = gui.QFont("KareliaC", 12)
-        font_4 = gui.QFont("KareliaC", 10)
+        gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
+
+        gui.QFontDatabase.addApplicationFont("fonts/v_CCYadaYadaYadaInt.ttf")
+        gui.QFontDatabase.addApplicationFont("fonts/Aver_Bold_Italic.ttf")
+        gui.QFontDatabase.addApplicationFont("fonts/v_WhizBang.ttf")          
+        #font_1 = gui.QFont("KareliaC", 14)
+        font_1 = gui.QFont("v_CCYadaYadaYadaInt", 14)
+        font_2 = gui.QFont("Aver", 11)
+        font_3 = gui.QFont("v_CCYadaYadaYadaInt", 12)
+        font_4 = gui.QFont("v_WhizBang", 10)
         #ПЕРИМЕТЕР
         #Заголовок периметра
         self.perimeter_lalel = QLabel("Периметр", self)
@@ -42,7 +47,7 @@ class MainWindow(QMainWindow):
         #Значення периметра
         self.perimeter_velue = QLineEdit("0.0", self)
         self.perimeter_velue.setGeometry(120, 50, 70, 20)
-        self.perimeter_velue.setStyleSheet("background-color: lightgreen; border: 2px solid blue;")
+        self.perimeter_velue.setStyleSheet("background-color: lightgreen; color: #008CBA; border: 2px solid blue; border-radius: 10px;")
         self.perimeter_velue.setFont(font_3)
 
 
@@ -65,30 +70,31 @@ class MainWindow(QMainWindow):
         self.thickness_label = QLabel("Товщина", self)
         self.thickness_label.setGeometry(10, 75, 100, 20)
         self.thickness_label.setStyleSheet("color: coral;")
-        f_1 = gui.QFont("Baskerville Old Face", 14)
-        #f_1.bold()
         self.thickness_label.setFont(font_1)
-
 
         #Значення товщини
         self.thickness_velue = QLineEdit("0.0", self)
-        self.thickness_velue.setGeometry(120, 75, 40, 20)
-        self.thickness_velue.setStyleSheet("background-color: coral; border: 2px solid blue;")
+        self.thickness_velue.setGeometry(120, 75, 70, 20)
+        self.thickness_velue.setStyleSheet("background-color: coral; color: #008CBA; border: 2px solid blue; border-radius: 10px;")
+        self.thickness_velue.setFont(font_3)
 
         #Розмірність товщини
         self.mm_label_thickness = QLabel("мм", self)
-        self.mm_label_thickness.setGeometry(165, 75, 40, 20)
+        self.mm_label_thickness.setGeometry(200, 75, 50, 20)
+        self.mm_label_thickness.setStyleSheet("color: coral;")
+        self.mm_label_thickness.setFont(font_1)
         
         #Статус введенної товщини
         self.message_thickness = QLabel(None, self)
-        self.message_thickness.setGeometry(190, 75, 150, 20)
+        self.message_thickness.setGeometry(240, 75, 170, 20)        
+        self.message_thickness.setFont(font_4)
         if self.thickness_velue.text() in zero:
             self.message_thickness.setText("Відсутнє значення")
             self.message_thickness.setStyleSheet(error_value_style)
 
         #МАТЕРІАЛ
         #Заголовок матеріала
-        self.material_label = QLabel("Матерiал", self)
+        self.material_label = QLabel("Матеріал", self)
         self.material_label.setGeometry(10, 100, 100, 20)
         self.material_label.setStyleSheet("color: Yellow;")
         self.material_label.setFont(font_1)
@@ -97,9 +103,9 @@ class MainWindow(QMainWindow):
         # усі літери і у назвах матеріалу англійські
         self.material = QComboBox(self)
         self.material.addItem("Сталь звичайна") 
-        self.material.addItem("Сталь нержавiюча")
-        self.material.addItem("Алюмiнiй")
-        self.material.addItem("Мiдь")
+        self.material.addItem("Сталь неравіюча")
+        self.material.addItem("Алюміній")
+        self.material.addItem("Мідь")
         self.material.setGeometry(120, 100, 200, 20)
         self.material.setStyleSheet("color: MediumAquaMarine; background-color: Yellow; ")
         self.material.setFont(font_4)
@@ -115,8 +121,8 @@ class MainWindow(QMainWindow):
         self.amount_holes = QComboBox(self)
         for i in range(1, 37):
             self.amount_holes.addItem(str(i))
-        self.amount_holes.setGeometry(120, 125, 50, 20)
-        self.amount_holes.setStyleSheet("color: Olive; background-color: MediumAquaMarine; border: 2px solid blue;")
+        self.amount_holes.setGeometry(120, 125, 60, 20)
+        self.amount_holes.setStyleSheet("color: Olive; background-color: MediumAquaMarine; border: 2px solid blue; border-radius: 10px;")
         self.amount_holes.setFont(font_3)
 
         #КНОПКА ДЛЯ РОЗРАХУВАННЯ ЗУСИЛЛЯ
@@ -143,17 +149,21 @@ class MainWindow(QMainWindow):
 
         #Значеня зусилля
         self.force_result_value = QLineEdit('?', self)
-        self.force_result_value.setGeometry(120, 195, 50, 25)
+        self.force_result_value.setGeometry(120, 195, 70, 25)
         self.force_result_value.setFont(font_1)
         self.force_result_value.setStyleSheet(
+        "border-radius: 10px;"
         "border: 2px solid green;"
         "color: blue;"
         )
 
         #Розмірність зусилля
         self.tonage_label_force = QLabel("тонн(и)", self)
-        self.tonage_label_force.setGeometry(175, 195, 60, 20)
-
+        self.tonage_label_force.setGeometry(195, 195, 90, 20)
+        self.tonage_label_force.setFont(font_1)
+        self.tonage_label_force.setStyleSheet(
+            "color: blue;"
+        )
 
         #ФОРМІ
         #Заголовок форми
@@ -180,7 +190,7 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Трикутник рівнобедрений")        
         self.shape.setGeometry(80, 20, 290, 25)
         self.shape.currentTextChanged.connect(self.shape_handler)
-        self.shape.setStyleSheet("color: DarkGreen; background-color: Cornsilk; border: 2px solid blue;")
+        self.shape.setStyleSheet("color: DarkGreen; background-color: Cornsilk; border: 2px solid blue; border-radius: 10px; display: none;")
         self.shape.setFont(font_2)
 
     def paintEvent(self, a0: gui.QPaintEvent) -> None:
@@ -309,10 +319,6 @@ class MainWindow(QMainWindow):
         elif shape == "Трикутник рівнобедрений":
             self.isosceles_triangle(shape)
 
-    def validation_value(self) -> None:
-        
-        pass
-
     #КОЛО
     #Вікно для кола
     def round_handler(self, shape: str) -> None:
@@ -326,6 +332,7 @@ class MainWindow(QMainWindow):
         self.image_lable.setGeometry(230, 30, int(260 / 1.039), 260)
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
+
         
         #ДІАМЕТР
         #Заголовок диаметра
