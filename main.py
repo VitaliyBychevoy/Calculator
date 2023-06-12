@@ -9,34 +9,25 @@ material = {
     "Алюміній": 0.5,
     "Мідь": 0.57,
     "Сталь звичайна": 1,
-    "Сталь неравіюча": 1.5
+    "Сталь нержавіюча": 1.5
  }
 
 exceptable_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.']
 
 zero = ['0', '0,0', '0.0','']
 
-error_value_style: str = "color: red;"
-valide_value_style: str = "color: green;"
+error_value_style: str = "background-color: red; color: white; border-radius: 10px; "
+valide_value_style: str = "background-color: green; color: white; border-radius: 10px; "
 
 class MainWindow(QMainWindow):
 
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.setGeometry(500, 200, 380, 300)
-        self.setWindowTitle("Calculator")
+        self.setGeometry(500, 200, 450, 300)
+        self.setWindowTitle("Calculator tonnage")
 
         gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
-
-        gui.QFontDatabase.addApplicationFont("fonts/v_CCYadaYadaYadaInt.ttf")
-        gui.QFontDatabase.addApplicationFont("fonts/Aver_Bold_Italic.ttf")
-        gui.QFontDatabase.addApplicationFont("fonts/v_WhizBang.ttf")          
-        #font_1 = gui.QFont("KareliaC", 14)
-        font_1 = gui.QFont("v_CCYadaYadaYadaInt", 14)
-        font_2 = gui.QFont("Aver", 11)
-        font_3 = gui.QFont("v_CCYadaYadaYadaInt", 12)
-        font_4 = gui.QFont("v_WhizBang", 10)
         #ПЕРИМЕТЕР
         #Заголовок периметра
         self.perimeter_lalel = QLabel("Периметр", self)
@@ -47,22 +38,24 @@ class MainWindow(QMainWindow):
         #Значення периметра
         self.perimeter_velue = QLineEdit("0.0", self)
         self.perimeter_velue.setGeometry(120, 50, 70, 20)
-        self.perimeter_velue.setStyleSheet("background-color: lightgreen; color: #008CBA; border: 2px solid blue; border-radius: 10px;")
+        self.perimeter_velue.setStyleSheet(
+            "background-color: lightgreen; color: #008CBA; border: 2px solid blue; border-radius: 10px; text-align: center;"
+            )
         self.perimeter_velue.setFont(font_3)
 
 
         #Розмірність периметра
         self.mm_label_perimeter = QLabel("мм", self)
-        self.mm_label_perimeter.setGeometry(200, 50, 50, 20)
+        self.mm_label_perimeter.setGeometry(195, 50, 70, 20)
         self.mm_label_perimeter.setStyleSheet("color: lightgreen;")
         self.mm_label_perimeter.setFont(font_1)
 
         #Статус введенного периметра
         self.message_perimeter = QLabel(None, self)
-        self.message_perimeter.setGeometry(240, 50, 170, 20)
+        self.message_perimeter.setGeometry(230, 50, 210, 20)
         self.message_perimeter.setFont(font_4)
         if self.perimeter_velue.text() in zero:
-            self.message_perimeter.setText("Відсутнє значення")
+            self.message_perimeter.setText(" Відсутнє значення")
             self.message_perimeter.setStyleSheet(error_value_style)
 
         #ТОВЩИНА
@@ -75,21 +68,21 @@ class MainWindow(QMainWindow):
         #Значення товщини
         self.thickness_velue = QLineEdit("0.0", self)
         self.thickness_velue.setGeometry(120, 75, 70, 20)
-        self.thickness_velue.setStyleSheet("background-color: coral; color: #008CBA; border: 2px solid blue; border-radius: 10px;")
+        self.thickness_velue.setStyleSheet("background-color: coral; color: #008CBA; border: 2px solid blue; border-radius: 10px; text-align: center;")
         self.thickness_velue.setFont(font_3)
 
         #Розмірність товщини
         self.mm_label_thickness = QLabel("мм", self)
-        self.mm_label_thickness.setGeometry(200, 75, 50, 20)
+        self.mm_label_thickness.setGeometry(195, 75, 50, 20)
         self.mm_label_thickness.setStyleSheet("color: coral;")
         self.mm_label_thickness.setFont(font_1)
         
         #Статус введенної товщини
         self.message_thickness = QLabel(None, self)
-        self.message_thickness.setGeometry(240, 75, 170, 20)        
+        self.message_thickness.setGeometry(230, 75, 210, 20)        
         self.message_thickness.setFont(font_4)
         if self.thickness_velue.text() in zero:
-            self.message_thickness.setText("Відсутнє значення")
+            self.message_thickness.setText(" Відсутнє значення")
             self.message_thickness.setStyleSheet(error_value_style)
 
         #МАТЕРІАЛ
@@ -103,10 +96,10 @@ class MainWindow(QMainWindow):
         # усі літери і у назвах матеріалу англійські
         self.material = QComboBox(self)
         self.material.addItem("Сталь звичайна") 
-        self.material.addItem("Сталь неравіюча")
+        self.material.addItem("Сталь нержавіюча")
         self.material.addItem("Алюміній")
         self.material.addItem("Мідь")
-        self.material.setGeometry(120, 100, 200, 20)
+        self.material.setGeometry(120, 100, 320, 20)
         self.material.setStyleSheet("color: MediumAquaMarine; background-color: Yellow; ")
         self.material.setFont(font_4)
 
@@ -127,7 +120,7 @@ class MainWindow(QMainWindow):
 
         #КНОПКА ДЛЯ РОЗРАХУВАННЯ ЗУСИЛЛЯ
         self.btn = QPushButton("Розрахувати зусилля", self)
-        self.btn.setGeometry(120, 150, 200, 40)
+        self.btn.setGeometry(120, 150, 320, 40)
         self.btn.setStyleSheet(
         "color: #008CBA; "
         "background-color: yellow;"
@@ -142,27 +135,28 @@ class MainWindow(QMainWindow):
         #Заголовок зусилля
         self.force_result_label = QLabel("Зусилля", self)
         self.force_result_label.setGeometry(10, 195, 100, 25)
-        self.force_result_label.setFont(font_1)
+        self.force_result_label.setFont(font_0)
         self.force_result_label.setStyleSheet(
-            "color: blue;"
+            "color: #F0F8FF;"
         )
 
         #Значеня зусилля
         self.force_result_value = QLineEdit('?', self)
         self.force_result_value.setGeometry(120, 195, 70, 25)
-        self.force_result_value.setFont(font_1)
+        self.force_result_value.setFont(font_0)
         self.force_result_value.setStyleSheet(
         "border-radius: 10px;"
         "border: 2px solid green;"
-        "color: blue;"
+        "align: center;"
+        "color: #660099;"
         )
 
         #Розмірність зусилля
         self.tonage_label_force = QLabel("тонн(и)", self)
         self.tonage_label_force.setGeometry(195, 195, 90, 20)
-        self.tonage_label_force.setFont(font_1)
+        self.tonage_label_force.setFont(font_0)
         self.tonage_label_force.setStyleSheet(
-            "color: blue;"
+            "color: #F0F8FF;"
         )
 
         #ФОРМІ
@@ -188,7 +182,7 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Овал з паралельними сторонами")
         self.shape.addItem("Трикутник рівносторонній")
         self.shape.addItem("Трикутник рівнобедрений")        
-        self.shape.setGeometry(80, 20, 290, 25)
+        self.shape.setGeometry(120, 20, 320, 25)
         self.shape.currentTextChanged.connect(self.shape_handler)
         self.shape.setStyleSheet("color: DarkGreen; background-color: Cornsilk; border: 2px solid blue; border-radius: 10px; display: none;")
         self.shape.setFont(font_2)
@@ -232,6 +226,7 @@ class MainWindow(QMainWindow):
             result = result * thickness_list[0]
             result = round(result * float(self.amount_holes.currentText()), 2)
             self.message_perimeter.setStyleSheet(valide_value_style)
+            self.message_thickness.setStyleSheet(valide_value_style)
             self.force_result_value.setText(str(result))
         
     #Функція вертає коефіцієнт матеріала
@@ -243,47 +238,47 @@ class MainWindow(QMainWindow):
     #Перевіряємо числові дані, які вводив користувач 
     def check_number_new(self,item_string: str) -> list:
 
-        result = [0, "Валідне значення"]
+        result = [0, " Валідне значення"]
         item_string = item_string.strip()
 
         count_dot, count_comma = item_string.count('.'), item_string.count(',')
 
         if count_dot >= 1 and count_comma  >= 1:
             result[0]  = 0
-            result[1] = "Або . або ,"
+            result[1] = " Або . або ,"
             return result            
         elif count_dot > 1 and count_comma  == 0:
             result[0]  = 0
-            result[1] = "Забагато крапок"
+            result[1] = " Забагато крапок"
             return result
         elif count_comma > 1 and count_dot == 0:
             result[0]  = 0
-            result[1] = "Забагато ком"
+            result[1] = " Забагато ком"
             return result
         elif item_string in zero:
             result[0] = 0
-            result[1] = "Відсутнє значення"
+            result[1] = " Відсутнє значення"
             return result
         else:
             for letter in item_string:
                 if letter not in exceptable_number:
                     result[0] = 0
-                    message = f'"{letter}" э некоректний символ'
+                    message = f' "{letter}" э некоректний символ'
                     result[1] = message
                     return result
             comma_count = item_string.count(",")
             if comma_count > 1:
                 result[0] = 0
-                result[1] = "Забагато ком"
+                result[1] = " Забагато ком"
                 return result
             
             dot_count = item_string.count(".")
             if dot_count > 1:
                 result[0] = 0
-                result[1] = "Забагато крапок"
+                result[1] = " Забагато крапок"
                 return result
             
-            result[1] = "Валідне знячення"
+            result[1] = " Валідне знячення"
             if "," in item_string:
                 item_string = item_string.replace(",", ".")
             result[0] = float(item_string)
@@ -325,7 +320,7 @@ class MainWindow(QMainWindow):
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(120, 10, 200, 20)
         self.image_round = gui.QPixmap("img/Round.jpg")
         self.image_lable = QLabel(self.window_shape)
@@ -350,8 +345,10 @@ class MainWindow(QMainWindow):
         #Статус діаметра         
         self.message_diameter = QLabel(None, self.window_shape)
         self.message_diameter.setGeometry(100, 50, 150, 20)
+
         if self.diameter_velue.text() in zero:
             self.message_diameter.setText("Відсутнє значення")
+            self.message_diameter.setFont(font_4)
 
         #Кнопка розрахунку
         self.btn_d = QPushButton("Розрахувати периметр", self.window_shape)
@@ -399,11 +396,10 @@ class MainWindow(QMainWindow):
     def half_round_heandler(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
 
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
         self.label_text.setGeometry(120, 10, 200, 20)
 
         #ДІАМЕТР
@@ -421,7 +417,7 @@ class MainWindow(QMainWindow):
 
         #Статус діаметра         
         self.message_diameter_hr = QLabel(None, self.window_shape)
-        self.message_diameter_hr.setGeometry(100, 30, 150, 20)
+        self.message_diameter_hr.setGeometry(100, 30, 170, 20)
         if self.diameter_hr_velue.text() in zero:
             self.message_diameter_hr.setText("Відсутнє значення")     
 
@@ -527,7 +523,7 @@ class MainWindow(QMainWindow):
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(120, 10, 200, 20)
 
         self.image_round = gui.QPixmap("img/square.jpg")
@@ -597,7 +593,7 @@ class MainWindow(QMainWindow):
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
 
         self.image_round = gui.QPixmap("img/square_one_radius.jpg")
@@ -697,7 +693,7 @@ class MainWindow(QMainWindow):
         self.window_shape = QMdiSubWindow()
         
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
 
         self.image_round = gui.QPixmap("img/square_four_radiuses.jpg")
@@ -881,7 +877,7 @@ class MainWindow(QMainWindow):
     def square_in_round(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
 
         self.image_round = gui.QPixmap("img/square_in_round.jpg")
@@ -980,7 +976,7 @@ class MainWindow(QMainWindow):
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(120, 10, 200, 20)
 
         self.image_round = gui.QPixmap("img/rectangle.jpg")
@@ -1073,7 +1069,7 @@ class MainWindow(QMainWindow):
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(50, 10, 200, 20)
 
         self.image_round = gui.QPixmap("img/rectangle_one_radius.jpg")
@@ -1200,7 +1196,7 @@ class MainWindow(QMainWindow):
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(80, 10, 200, 20)
 
         self.image_round = gui.QPixmap("img/rectangle_four_radius.jpg")
@@ -1406,7 +1402,7 @@ class MainWindow(QMainWindow):
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
 
         self.image_round = gui.QPixmap("img/hexagon.jpg")
@@ -1555,7 +1551,7 @@ class MainWindow(QMainWindow):
     def oblong(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
 
 
@@ -1653,7 +1649,7 @@ class MainWindow(QMainWindow):
     def equilateral_triangle(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
 
         self.image_round = gui.QPixmap("img/Triangle_60.jpg")
@@ -1762,7 +1758,7 @@ class MainWindow(QMainWindow):
     def isosceles_triangle(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(830, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 300)
         self.label_text.setGeometry(10, 10, 200, 20)
 
         self.image_round = gui.QPixmap("img/Treangle_.jpg")
@@ -1931,6 +1927,15 @@ class MainWindow(QMainWindow):
 
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
+    gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
+    gui.QFontDatabase.addApplicationFont("fonts/v_CCYadaYadaYadaInt.ttf")
+    gui.QFontDatabase.addApplicationFont("fonts/Aver_Bold_Italic.ttf")
+    gui.QFontDatabase.addApplicationFont("fonts/v_WhizBang.ttf")
+    font_0 = gui.QFont("KareliaC", 16)
+    font_1 = gui.QFont("v_CCYadaYadaYadaInt", 14)
+    font_2 = gui.QFont("Aver", 11)
+    font_3 = gui.QFont("v_CCYadaYadaYadaInt", 12)
+    font_4 = gui.QFont("v_WhizBang", 10)
     main_window = MainWindow()
     main_window.show()
     sys.exit(my_app.exec_())
