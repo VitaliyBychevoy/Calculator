@@ -2,6 +2,7 @@ import sys
 
 from PyQt5.QtWidgets import *
 import PyQt5.QtGui as gui
+import PyQt5.QtCore as core_qt
 
 import geometry as g
 
@@ -33,6 +34,7 @@ class MainWindow(QMainWindow):
         self.perimeter_lalel = QLabel("Периметр", self)
         self.perimeter_lalel.setGeometry(10, 50, 100, 20)
         self.perimeter_lalel.setStyleSheet("color: lightgreen;")
+        #self.perimeter_lalel.setAlignment()
         self.perimeter_lalel.setFont(font_1)
 
         #Значення периметра
@@ -100,7 +102,7 @@ class MainWindow(QMainWindow):
         self.material.addItem("Алюміній")
         self.material.addItem("Мідь")
         self.material.setGeometry(120, 100, 320, 20)
-        self.material.setStyleSheet("color: MediumAquaMarine; background-color: Yellow; ")
+        self.material.setStyleSheet("color: MediumAquaMarine; background-color: Yellow; border: 2px solid blue; ")
         self.material.setFont(font_4)
 
         #ОТВОРИ
@@ -115,7 +117,7 @@ class MainWindow(QMainWindow):
         for i in range(1, 37):
             self.amount_holes.addItem(str(i))
         self.amount_holes.setGeometry(120, 125, 60, 20)
-        self.amount_holes.setStyleSheet("color: Olive; background-color: MediumAquaMarine; border: 2px solid blue; border-radius: 10px;")
+        self.amount_holes.setStyleSheet("color: Olive; background-color: MediumAquaMarine; border: 2px solid blue;")
         self.amount_holes.setFont(font_3)
 
         #КНОПКА ДЛЯ РОЗРАХУВАННЯ ЗУСИЛЛЯ
@@ -184,7 +186,14 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Трикутник рівнобедрений")        
         self.shape.setGeometry(120, 20, 320, 25)
         self.shape.currentTextChanged.connect(self.shape_handler)
-        self.shape.setStyleSheet("color: DarkGreen; background-color: Cornsilk; border: 2px solid blue; border-radius: 10px; display: none;")
+        self.shape.setStyleSheet(
+            "color: DarkGreen; "
+            "background-color: Cornsilk; "
+            "border: 2px solid blue; "
+            "display: none;"
+            "appearence: none;"
+            "pointer-events: none;"
+            )
         self.shape.setFont(font_2)
 
     def paintEvent(self, a0: gui.QPaintEvent) -> None:
