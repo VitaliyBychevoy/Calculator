@@ -2,7 +2,7 @@ import sys
 
 from PyQt5.QtWidgets import *
 import PyQt5.QtGui as gui
-import PyQt5.QtCore as core_qt
+from PyQt5 import QtCore
 
 import geometry as g
 
@@ -17,8 +17,13 @@ exceptable_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.']
 
 zero = ['0', '0,0', '0.0','']
 
-error_value_style: str = "background-color: red; color: white; border-radius: 10px; "
-valide_value_style: str = "background-color: green; color: white; border-radius: 10px; "
+error_value_style: str = "background-color: red; color: white; border-radius: 10px;"
+valide_value_style: str = "background-color: green; color: white; border-radius: 10px;"
+error_width_1: int = 150
+error_width_2: int = 210
+valid_width: int = 150
+
+message_width: int = 150
 
 class MainWindow(QMainWindow):
 
@@ -34,12 +39,13 @@ class MainWindow(QMainWindow):
         self.perimeter_lalel = QLabel("Периметр", self)
         self.perimeter_lalel.setGeometry(10, 50, 100, 20)
         self.perimeter_lalel.setStyleSheet("color: lightgreen;")
-        #self.perimeter_lalel.setAlignment()
+
         self.perimeter_lalel.setFont(font_1)
 
         #Значення периметра
         self.perimeter_velue = QLineEdit("0.0", self)
         self.perimeter_velue.setGeometry(120, 50, 70, 20)
+        self.perimeter_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.perimeter_velue.setStyleSheet(
             "background-color: lightgreen; color: #008CBA; border: 2px solid blue; border-radius: 10px; text-align: center;"
             )
@@ -54,10 +60,13 @@ class MainWindow(QMainWindow):
 
         #Статус введенного периметра
         self.message_perimeter = QLabel(None, self)
-        self.message_perimeter.setGeometry(230, 50, 210, 20)
+        self.message_perimeter.setGeometry(230, 50, 150, 20)
         self.message_perimeter.setFont(font_4)
         if self.perimeter_velue.text() in zero:
-            self.message_perimeter.setText(" Відсутнє значення")
+            self.message_perimeter.setText("Відсутнє значення")
+            self.message_perimeter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.message_perimeter.setGeometry(230, 50, message_width, 20)
+
             self.message_perimeter.setStyleSheet(error_value_style)
 
         #ТОВЩИНА
@@ -70,6 +79,7 @@ class MainWindow(QMainWindow):
         #Значення товщини
         self.thickness_velue = QLineEdit("0.0", self)
         self.thickness_velue.setGeometry(120, 75, 70, 20)
+        self.thickness_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.thickness_velue.setStyleSheet("background-color: coral; color: #008CBA; border: 2px solid blue; border-radius: 10px; text-align: center;")
         self.thickness_velue.setFont(font_3)
 
@@ -81,10 +91,12 @@ class MainWindow(QMainWindow):
         
         #Статус введенної товщини
         self.message_thickness = QLabel(None, self)
-        self.message_thickness.setGeometry(230, 75, 210, 20)        
+        self.message_thickness.setGeometry(230, 75, message_width, 20)
+        self.message_thickness.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)      
         self.message_thickness.setFont(font_4)
         if self.thickness_velue.text() in zero:
-            self.message_thickness.setText(" Відсутнє значення")
+            self.message_thickness.setText("Відсутнє значення")
+
             self.message_thickness.setStyleSheet(error_value_style)
 
         #МАТЕРІАЛ
@@ -144,7 +156,8 @@ class MainWindow(QMainWindow):
 
         #Значеня зусилля
         self.force_result_value = QLineEdit('?', self)
-        self.force_result_value.setGeometry(120, 195, 70, 25)
+        self.force_result_value.setGeometry(120, 195, 100, 25)
+        self.force_result_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)    
         self.force_result_value.setFont(font_0)
         self.force_result_value.setStyleSheet(
         "border-radius: 10px;"
@@ -155,7 +168,7 @@ class MainWindow(QMainWindow):
 
         #Розмірність зусилля
         self.tonage_label_force = QLabel("тонн(и)", self)
-        self.tonage_label_force.setGeometry(195, 195, 90, 20)
+        self.tonage_label_force.setGeometry(195, 195, 100, 20)
         self.tonage_label_force.setFont(font_0)
         self.tonage_label_force.setStyleSheet(
             "color: #F0F8FF;"
@@ -205,39 +218,66 @@ class MainWindow(QMainWindow):
     def calculate_tonage_new(self):
         coeff_material = self.coefficient_material()
 
-        if self.perimeter_velue.text() == '':
-            perimeter_number: str = "0.0"
-            self.perimeter_velue.setText("0.0")
-        else:
-            perimeter_number = self.perimeter_velue.text()
-        perimeter_list = self.check_number_new(perimeter_number)
+        
+        # if self.perimeter_velue.text() == '':
+        #     perimeter_number: str = "0.0"
+        #     self.perimeter_velue.setText("0.0")
+        # else:
+        #     perimeter_number = self.perimeter_velue.text()
+        # perimeter_list = self.check_number_new(perimeter_number)
 
 
-        if self.thickness_velue.text() == '':
-            thickness_number: str = "0.0"
-            self.thickness_velue.setText("0.0")
-        else:
-            thickness_number = self.thickness_velue.text()
-        thickness_list = self.check_number_new(thickness_number)
+        # if self.thickness_velue.text() == '':
+        #     thickness_number: str = "0.0"
+        #     self.thickness_velue.setText("0.0")
+        # else:
+        #     thickness_number = self.thickness_velue.text()
+        # thickness_list = self.check_number_new(thickness_number)
 
-        self.message_perimeter.setText(perimeter_list[1])
+        # self.message_perimeter.setText(perimeter_list[1])
+        # self.message_thickness.setText(thickness_list[1])
+
+        # if perimeter_list[0] == 0 and thickness_list[0] != 0:
+        #     self.force_result_value.setText("?")
+        # elif thickness_list[0] == 0 and perimeter_list[0] != 0:
+        #     self.force_result_value.setText("?")
+        # elif thickness_list[0] == 0 and perimeter_list[0] == 0:
+        #     self.force_result_value.setText("?")
+        # else:
+        #     result = 0.0352 * coeff_material
+        #     result = result * perimeter_list[0]
+        #     result = result * thickness_list[0]
+        #     result = round(result * float(self.amount_holes.currentText()), 2)
+        #     self.message_perimeter.setStyleSheet(valide_value_style)
+        #     self.message_thickness.setStyleSheet(valide_value_style)
+        #     self.force_result_value.setText(str(result))
+        
+        perimetr_list = self.check_number_new(self.perimeter_velue.text())
+        thickness_list = self.check_number_new(self.thickness_velue.text()) 
+
+        self.message_perimeter.setText(perimetr_list[1])
         self.message_thickness.setText(thickness_list[1])
 
-        if perimeter_list[0] == 0 and thickness_list[0] != 0:
-            self.force_result_value.setText("?")
-        elif thickness_list[0] == 0 and perimeter_list[0] != 0:
-            self.force_result_value.setText("?")
-        elif thickness_list[0] == 0 and perimeter_list[0] == 0:
-            self.force_result_value.setText("?")
-        else:
+        if perimetr_list[1][-1] == "л":
+            self.message_perimeter.setGeometry(230, 50, 210, 20)
+        
+        if thickness_list[1][-1] == "л":
+            self.message_thickness.setGeometry(230, 75, 210, 20)
+
+        if perimetr_list[0] != 0 and thickness_list[0] != 0:
             result = 0.0352 * coeff_material
-            result = result * perimeter_list[0]
+            result = result * perimetr_list[0]
             result = result * thickness_list[0]
             result = round(result * float(self.amount_holes.currentText()), 2)
+            self.perimeter_velue.setText(str(round(perimetr_list[0], 1)))
+            self.thickness_velue.setText(str(round(thickness_list[0], 2)))
             self.message_perimeter.setStyleSheet(valide_value_style)
             self.message_thickness.setStyleSheet(valide_value_style)
             self.force_result_value.setText(str(result))
-        
+        else:
+            self.force_result_value.setText("?")
+
+
     #Функція вертає коефіцієнт матеріала
     def coefficient_material(self) -> float:
         coeff = 0.0
@@ -258,36 +298,36 @@ class MainWindow(QMainWindow):
             return result            
         elif count_dot > 1 and count_comma  == 0:
             result[0]  = 0
-            result[1] = " Забагато крапок"
+            result[1] = "Забагато крапок"
             return result
         elif count_comma > 1 and count_dot == 0:
             result[0]  = 0
-            result[1] = " Забагато ком"
+            result[1] = "Забагато ком"
             return result
         elif item_string in zero:
             result[0] = 0
-            result[1] = " Відсутнє значення"
+            result[1] = "Відсутнє значення"
             return result
         else:
             for letter in item_string:
                 if letter not in exceptable_number:
                     result[0] = 0
-                    message = f' "{letter}" э некоректний символ'
+                    message = f'"{letter}" э некоректний символ'
                     result[1] = message
                     return result
             comma_count = item_string.count(",")
             if comma_count > 1:
                 result[0] = 0
-                result[1] = " Забагато ком"
+                result[1] = "Забагато ком"
                 return result
             
             dot_count = item_string.count(".")
             if dot_count > 1:
                 result[0] = 0
-                result[1] = " Забагато крапок"
+                result[1] = "Забагато крапок"
                 return result
             
-            result[1] = " Валідне знячення"
+            result[1] = "Валідне знячення"
             if "," in item_string:
                 item_string = item_string.replace(",", ".")
             result[0] = float(item_string)
