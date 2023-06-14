@@ -39,7 +39,6 @@ class MainWindow(QMainWindow):
         self.perimeter_lalel = QLabel("Периметр", self)
         self.perimeter_lalel.setGeometry(10, 50, 100, 20)
         self.perimeter_lalel.setStyleSheet("color: lightgreen;")
-
         self.perimeter_lalel.setFont(font_1)
 
         #Значення периметра
@@ -47,7 +46,10 @@ class MainWindow(QMainWindow):
         self.perimeter_velue.setGeometry(120, 50, 70, 20)
         self.perimeter_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.perimeter_velue.setStyleSheet(
-            "background-color: lightgreen; color: #008CBA; border: 2px solid blue; border-radius: 10px; text-align: center;"
+            "background-color: lightgreen;"
+            "color: #008CBA;"
+            "border: 2px solid blue;"
+            "border-radius: 10px; text-align: center;"
             )
         self.perimeter_velue.setFont(font_3)
 
@@ -162,13 +164,12 @@ class MainWindow(QMainWindow):
         self.force_result_value.setStyleSheet(
         "border-radius: 10px;"
         "border: 2px solid green;"
-        "align: center;"
         "color: #660099;"
         )
 
         #Розмірність зусилля
         self.tonage_label_force = QLabel("тонн(и)", self)
-        self.tonage_label_force.setGeometry(195, 195, 100, 20)
+        self.tonage_label_force.setGeometry(230, 195, 100, 20)
         self.tonage_label_force.setFont(font_0)
         self.tonage_label_force.setStyleSheet(
             "color: #F0F8FF;"
@@ -203,9 +204,6 @@ class MainWindow(QMainWindow):
             "color: DarkGreen; "
             "background-color: Cornsilk; "
             "border: 2px solid blue; "
-            "display: none;"
-            "appearence: none;"
-            "pointer-events: none;"
             )
         self.shape.setFont(font_2)
 
@@ -217,40 +215,6 @@ class MainWindow(QMainWindow):
     #Розрахунок навантаження
     def calculate_tonage_new(self):
         coeff_material = self.coefficient_material()
-
-        
-        # if self.perimeter_velue.text() == '':
-        #     perimeter_number: str = "0.0"
-        #     self.perimeter_velue.setText("0.0")
-        # else:
-        #     perimeter_number = self.perimeter_velue.text()
-        # perimeter_list = self.check_number_new(perimeter_number)
-
-
-        # if self.thickness_velue.text() == '':
-        #     thickness_number: str = "0.0"
-        #     self.thickness_velue.setText("0.0")
-        # else:
-        #     thickness_number = self.thickness_velue.text()
-        # thickness_list = self.check_number_new(thickness_number)
-
-        # self.message_perimeter.setText(perimeter_list[1])
-        # self.message_thickness.setText(thickness_list[1])
-
-        # if perimeter_list[0] == 0 and thickness_list[0] != 0:
-        #     self.force_result_value.setText("?")
-        # elif thickness_list[0] == 0 and perimeter_list[0] != 0:
-        #     self.force_result_value.setText("?")
-        # elif thickness_list[0] == 0 and perimeter_list[0] == 0:
-        #     self.force_result_value.setText("?")
-        # else:
-        #     result = 0.0352 * coeff_material
-        #     result = result * perimeter_list[0]
-        #     result = result * thickness_list[0]
-        #     result = round(result * float(self.amount_holes.currentText()), 2)
-        #     self.message_perimeter.setStyleSheet(valide_value_style)
-        #     self.message_thickness.setStyleSheet(valide_value_style)
-        #     self.force_result_value.setText(str(result))
         
         perimetr_list = self.check_number_new(self.perimeter_velue.text())
         thickness_list = self.check_number_new(self.thickness_velue.text()) 
@@ -277,6 +241,18 @@ class MainWindow(QMainWindow):
         else:
             self.force_result_value.setText("?")
 
+        if perimetr_list[0] == 0 :
+            self.message_perimeter.setStyleSheet(error_value_style)
+        else:
+            self.message_perimeter.setStyleSheet(valide_value_style)
+            self.message_perimeter.setGeometry(230, 50, perimetr_list[2], 20)
+
+        if thickness_list[0] == 0:
+            self.message_thickness.setStyleSheet(error_value_style)
+        else:
+            self.message_thickness.setStyleSheet(valide_value_style)
+            self.message_thickness.setGeometry(230, 75, thickness_list[2], 20)
+
 
     #Функція вертає коефіцієнт матеріала
     def coefficient_material(self) -> float:
@@ -287,7 +263,7 @@ class MainWindow(QMainWindow):
     #Перевіряємо числові дані, які вводив користувач 
     def check_number_new(self,item_string: str) -> list:
 
-        result = [0, " Валідне значення"]
+        result = [0, " Валідне значення", 150]
         item_string = item_string.strip()
 
         count_dot, count_comma = item_string.count('.'), item_string.count(',')
@@ -295,18 +271,22 @@ class MainWindow(QMainWindow):
         if count_dot >= 1 and count_comma  >= 1:
             result[0]  = 0
             result[1] = " Або . або ,"
+            result[2] = 150             
             return result            
         elif count_dot > 1 and count_comma  == 0:
             result[0]  = 0
             result[1] = "Забагато крапок"
+            result[2] = 150
             return result
         elif count_comma > 1 and count_dot == 0:
             result[0]  = 0
             result[1] = "Забагато ком"
+            result[2] = 150
             return result
         elif item_string in zero:
             result[0] = 0
             result[1] = "Відсутнє значення"
+            result[2] = 150
             return result
         else:
             for letter in item_string:
@@ -314,6 +294,7 @@ class MainWindow(QMainWindow):
                     result[0] = 0
                     message = f'"{letter}" э некоректний символ'
                     result[1] = message
+                    result[2] = 210
                     return result
             comma_count = item_string.count(",")
             if comma_count > 1:
@@ -325,6 +306,7 @@ class MainWindow(QMainWindow):
             if dot_count > 1:
                 result[0] = 0
                 result[1] = "Забагато крапок"
+                result[2] = 150
                 return result
             
             result[1] = "Валідне знячення"
@@ -369,59 +351,92 @@ class MainWindow(QMainWindow):
         self.window_shape = QMdiSubWindow()
 
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(950, 200, 600, 300)
-        self.label_text.setGeometry(120, 10, 200, 20)
+        self.window_shape.setGeometry(950, 200, 370, 500)
+        self.label_text.setGeometry(150, 10, 200, 20)
         self.image_round = gui.QPixmap("img/Round.jpg")
         self.image_lable = QLabel(self.window_shape)
-        self.image_lable.setGeometry(230, 30, int(260 / 1.039), 260)
+        #self.image_lable.setGeometry(20, 30, int(300 / 1.039), 300)
+        self.image_lable.setGeometry(40, 30, 290, 300)
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
-
         
         #ДІАМЕТР
         #Заголовок диаметра
         self.diameter_lalel = QLabel("D", self.window_shape)
-        self.diameter_lalel.setGeometry(10, 50, 10, 20)
+        self.diameter_lalel.setGeometry(10, 350, 15, 20)
+        self.diameter_lalel.setStyleSheet("color: #E0FFFF;")
+        self.diameter_lalel.setFont(font_1)
+
 
         #Значення диаметра
         self.diameter_velue = QLineEdit("0.0", self.window_shape)
-        self.diameter_velue.setGeometry(25, 50, 40, 20)
+        self.diameter_velue.setGeometry(35, 350, 70, 20)
+        self.diameter_velue.setFont(font_3)
+        self.diameter_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.diameter_velue.setStyleSheet(
+            "background-color: #E0FFFF;"
+            "color: #008CBA;"
+            "border: 2px solid blue;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність диаметра
         self.mm_label_d = QLabel("мм", self.window_shape)
-        self.mm_label_d.setGeometry(70, 50, 40, 20)
+        self.mm_label_d.setGeometry(110, 350, 70, 20)
+        self.mm_label_d.setFont(font_1)
+        self.mm_label_d.setStyleSheet("color: #E0FFFF;")
 
         #Статус діаметра         
         self.message_diameter = QLabel(None, self.window_shape)
-        self.message_diameter.setGeometry(100, 50, 150, 20)
+        self.message_diameter.setGeometry(145, 350, 210, 20)
+
 
         if self.diameter_velue.text() in zero:
             self.message_diameter.setText("Відсутнє значення")
             self.message_diameter.setFont(font_4)
+            self.message_diameter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_diameter.setStyleSheet(error_value_style)
+
 
         #Кнопка розрахунку
         self.btn_d = QPushButton("Розрахувати периметр", self.window_shape)
-        self.btn_d.setGeometry(10, 80, 200, 25)
+        self.btn_d.setGeometry(10, 380, 350, 30)
         self.btn_d.clicked.connect(self.perim_round)
-
+        self.btn_d.setStyleSheet(
+        "color: #E6E6FA;"
+        "background-color: YellowGreen;"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
         #ПЕРИМЕТЕР
         #Заголовок периметра
         self.Label_d_peremeter = QLabel("Периметр кола", self.window_shape)
-        self.Label_d_peremeter.setGeometry(15, 110, 90, 20)
-        
+        self.Label_d_peremeter.setGeometry(15, 420, 150, 20)
+        self.Label_d_peremeter.setStyleSheet("color: YellowGreen;")
+        self.Label_d_peremeter.setFont(font_1)
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
-        self.perimeter.setGeometry(105, 110, 40, 20)
-
+        self.perimeter.setGeometry(165, 420, 90, 20)
+        self.perimeter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.perimeter.setStyleSheet("color: YellowGreen;")
+        self.perimeter.setFont(font_1)
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(140, 110, 20, 20)
-
+        self.mm_result_perimeret.setGeometry(255, 420, 50, 20)
+        self.mm_result_perimeret.setStyleSheet("color: YellowGreen;")
+        self.mm_result_perimeret.setFont(font_1)
         #Кнопка периметер кола до загального розраунку
         self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.setGeometry(10, 140, 200, 25)
+        self.btn_add_perimeter.setGeometry(10, 450, 350, 30)
         self.btn_add_perimeter.clicked.connect(self.add_value)
-
+        self.btn_add_perimeter.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: #800080;"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
 
         self.window_shape.show()
     #Периметер кола  
@@ -438,7 +453,7 @@ class MainWindow(QMainWindow):
                 self.perimeter.setText("?")
             else:
                 self.perimeter.setText(str(g.Perimeter.round(float(diameter_list_d[0]))))
-                self.message_diameter.styleSheet("color: green;")
+                self.message_diameter.setStyleSheet("color: green;")
     #КІНЕЦЬ КОЛО
 
     #НАПІВКОЛО
@@ -1972,6 +1987,12 @@ class MainWindow(QMainWindow):
     def add_value(self):
         if self.perimeter.text() != "?":
             self.perimeter_velue.setText(self.perimeter.text())
+        if self.perimeter_velue.text() in zero:
+            self.message_perimeter.setText("Відсутнє значення")
+            self.message_perimeter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.message_perimeter.setGeometry(230, 50, 150, 20)
+            self.message_perimeter.setStyleSheet(error_value_style)
+
     #КІНЕЦЬ РІВНОБЕДРЕНИЙ ТРИКУТНИК
 
 if __name__ == '__main__':
