@@ -98,7 +98,6 @@ class MainWindow(QMainWindow):
         self.message_thickness.setFont(font_4)
         if self.thickness_velue.text() in zero:
             self.message_thickness.setText("Відсутнє значення")
-
             self.message_thickness.setStyleSheet(error_value_style)
 
         #МАТЕРІАЛ
@@ -138,12 +137,13 @@ class MainWindow(QMainWindow):
         self.btn = QPushButton("Розрахувати зусилля", self)
         self.btn.setGeometry(120, 150, 320, 40)
         self.btn.setStyleSheet(
-        "color: #008CBA; "
-        "background-color: yellow;"
+        "color: white; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(127,255,212), stop:1 rgb(100,149,237));"
         "border-radius: 10px;"
         "font-size: 16px;"
         "font-weight: bold;"
         )
+
         self.btn.clicked.connect(self.calculate_tonage_new)
 
 
@@ -349,24 +349,21 @@ class MainWindow(QMainWindow):
     #Вікно для кола
     def round_handler(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
-
-        self.label_text = QLabel(shape, self.window_shape)
+        self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
-        self.label_text.setGeometry(150, 10, 200, 20)
         self.image_round = gui.QPixmap("img/Round.jpg")
         self.image_lable = QLabel(self.window_shape)
-        #self.image_lable.setGeometry(20, 30, int(300 / 1.039), 300)
         self.image_lable.setGeometry(40, 30, 290, 300)
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
-        
+        self.window_shape.setStyleSheet("background-color: white;")
+
         #ДІАМЕТР
         #Заголовок диаметра
         self.diameter_lalel = QLabel("D", self.window_shape)
         self.diameter_lalel.setGeometry(10, 350, 15, 20)
-        self.diameter_lalel.setStyleSheet("color: #E0FFFF;")
+        self.diameter_lalel.setStyleSheet("color: #7B68EE;")
         self.diameter_lalel.setFont(font_1)
-
 
         #Значення диаметра
         self.diameter_velue = QLineEdit("0.0", self.window_shape)
@@ -374,8 +371,8 @@ class MainWindow(QMainWindow):
         self.diameter_velue.setFont(font_3)
         self.diameter_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.diameter_velue.setStyleSheet(
-            "background-color: #E0FFFF;"
-            "color: #008CBA;"
+            "background-color: #7B68EE;"
+            "color: #FFFFE0;"
             "border: 2px solid blue;"
             "border-radius: 10px; text-align: center;"
             )
@@ -384,11 +381,11 @@ class MainWindow(QMainWindow):
         self.mm_label_d = QLabel("мм", self.window_shape)
         self.mm_label_d.setGeometry(110, 350, 70, 20)
         self.mm_label_d.setFont(font_1)
-        self.mm_label_d.setStyleSheet("color: #E0FFFF;")
+        self.mm_label_d.setStyleSheet("color: #7B68EE;")
 
         #Статус діаметра         
         self.message_diameter = QLabel(None, self.window_shape)
-        self.message_diameter.setGeometry(145, 350, 210, 20)
+        self.message_diameter.setGeometry(145, 350, 150, 20)
 
 
         if self.diameter_velue.text() in zero:
@@ -404,7 +401,7 @@ class MainWindow(QMainWindow):
         self.btn_d.clicked.connect(self.perim_round)
         self.btn_d.setStyleSheet(
         "color: #E6E6FA;"
-        "background-color: YellowGreen;"
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(106,90,205), stop:1 rgb(0,255,255));"
         "border-radius: 10px;"
         "font-size: 16px;"
         "font-weight: bold;"
@@ -427,12 +424,12 @@ class MainWindow(QMainWindow):
         self.mm_result_perimeret.setStyleSheet("color: YellowGreen;")
         self.mm_result_perimeret.setFont(font_1)
         #Кнопка периметер кола до загального розраунку
-        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.setGeometry(10, 450, 350, 30)
         self.btn_add_perimeter.clicked.connect(self.add_value)
         self.btn_add_perimeter.setStyleSheet(
         "color: #FFEFD5; "
-        "background-color: #800080;"
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(34,139,34), stop:1 rgb(127,255,0));"
         "border-radius: 10px;"
         "font-size: 16px;"
         "font-weight: bold;"
@@ -441,19 +438,20 @@ class MainWindow(QMainWindow):
         self.window_shape.show()
     #Периметер кола  
     def perim_round(self):
-        if self.diameter_velue.text() in zero:
-            self.diameter_velue.setText("0.0")
-            self.perimeter.setText("?")
-            self.message_diameter.setText("Відсутнє значення")
-        else:
-            diameter_list_d = self.check_number_new(self.diameter_velue.text())
-            self.message_diameter.setText(diameter_list_d[1])
 
-            if diameter_list_d[0] == 0:
-                self.perimeter.setText("?")
-            else:
-                self.perimeter.setText(str(g.Perimeter.round(float(diameter_list_d[0]))))
-                self.message_diameter.setStyleSheet("color: green;")
+        diameter_list_d = self.check_number_new(self.diameter_velue.text())
+        self.message_diameter.setText(diameter_list_d[1])
+
+        if diameter_list_d[0] == 0:
+            self.message_diameter.setGeometry(145, 350, diameter_list_d[2], 20)
+            self.message_diameter.setStyleSheet(error_value_style)
+            self.perimeter.setText("?")
+        else:
+            self.perimeter.setText(str(g.Perimeter.round(float(diameter_list_d[0]))))
+            self.diameter_velue.setText(str(round(diameter_list_d[0], 2)))
+            self.message_diameter.setGeometry(145, 350, 150, 20)
+            self.message_diameter.setStyleSheet(valide_value_style)
+
     #КІНЕЦЬ КОЛО
 
     #НАПІВКОЛО
