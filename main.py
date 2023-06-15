@@ -15,7 +15,7 @@ material = {
 
 exceptable_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.']
 
-zero = ['0', '0,0', '0.0','']
+zero = ['0', '0,0', '0.0', '', '.', ',']
 
 error_value_style: str = "background-color: red; color: white; border-radius: 10px;"
 valide_value_style: str = "background-color: green; color: white; border-radius: 10px;"
@@ -31,7 +31,8 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
 
         self.setGeometry(500, 200, 450, 300)
-        self.setWindowTitle("Calculator tonnage")
+        self.setWindowTitle("Cluster force")
+
 
         gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
         #ПЕРИМЕТЕР
@@ -163,7 +164,7 @@ class MainWindow(QMainWindow):
         self.force_result_value.setFont(font_0)
         self.force_result_value.setStyleSheet(
         "border-radius: 10px;"
-        "border: 2px solid green;"
+        "border: 2px solid rgb(0, 255, 255);"
         "color: #660099;"
         )
 
@@ -357,6 +358,7 @@ class MainWindow(QMainWindow):
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
         self.window_shape.setStyleSheet("background-color: white;")
+        self.window_shape.setFixedSize(370, 500)
 
         #ДІАМЕТР
         #Заголовок диаметра
@@ -406,7 +408,7 @@ class MainWindow(QMainWindow):
         "font-size: 16px;"
         "font-weight: bold;"
         )
-        #ПЕРИМЕТЕР
+        #ПЕРИМЕТР
         #Заголовок периметра
         self.Label_d_peremeter = QLabel("Периметр кола", self.window_shape)
         self.Label_d_peremeter.setGeometry(15, 420, 150, 20)
@@ -458,11 +460,13 @@ class MainWindow(QMainWindow):
     def half_round_heandler(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
         self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(950, 200, 600, 300)
+        self.window_shape.setGeometry(950, 200, 600, 500)
+        self.window_shape.setFixedSize(600, 500)
+        self.window_shape.setStyleSheet("background-color: white;")
         self.label_text.setGeometry(10, 10, 200, 20)
-
         self.label_text = QLabel(shape, self.window_shape)
         self.label_text.setGeometry(120, 10, 200, 20)
+
 
         #ДІАМЕТР
         #Заголовок диаметра
@@ -486,12 +490,20 @@ class MainWindow(QMainWindow):
         #Висота
         #Заголовок висоти
         self.height_hr_lalel = QLabel("H", self.window_shape)
-        self.height_hr_lalel.setGeometry(10, 60, 10, 20)
-
+        #self.height_hr_lalel.setGeometry(10, 60, 10, 20)
+        self.height_hr_lalel.setGeometry(10, 320, 15, 20)
         #Значення висоти
         self.height_hr_velue = QLineEdit("0.0", self.window_shape)
-        self.height_hr_velue.setGeometry(25, 60, 40, 20)
-
+        #self.height_hr_velue.setGeometry(25, 60, 40, 20)
+        self.height_hr_velue.setGeometry(35, 320, 70, 20)
+        self.height_hr_velue.setFont(font_3)
+        self.height_hr_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.height_hr_velue.setStyleSheet(
+            "background-color: #D2691E;"
+            "color: #00FFFF;"
+            "border: 2px solid #FFFF00;"
+            "border-radius: 10px; text-align: center;"
+            )
         #Розмірність висоти
         self.mm_label_h_hr = QLabel("мм", self.window_shape)
         self.mm_label_h_hr.setGeometry(70, 60, 40, 20)
@@ -509,43 +521,66 @@ class MainWindow(QMainWindow):
         self.image_lable.setScaledContents(True)
 
         #Кнопка розрахунку
-        self.btn_perim = QPushButton("Розрахувати периметр по H", self.window_shape)
-        self.btn_perim.setGeometry(10, 90, 200, 25)
+        self.btn_perim = QPushButton("Розрахувати периметр та довжину хорди", self.window_shape)
         self.btn_perim.clicked.connect(self.perim_half_round_height)
-
-
+        self.btn_perim.setGeometry(10, 350, 350, 30)
+        self.btn_perim.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
+        "border-radius: 10px;"
+        "font-size: 14px;"
+        "font-weight: bold;"
+        )
 
         #ХОРДА
         #Заголовок хорди
-        self.lenght_hr_lalel = QLabel("L", self.window_shape)
-        self.lenght_hr_lalel.setGeometry(10, 120, 10, 20)
+        self.lenght_hr_lalel = QLabel("Хорда L", self.window_shape)
+        self.lenght_hr_lalel.setGeometry(15, 390, 150, 20)
+        self.lenght_hr_lalel.setStyleSheet("color: #4682B4;")
+        self.lenght_hr_lalel.setFont(font_1)
 
         #Значення хорди
         self.lenght_hr_velue = QLabel("0.0", self.window_shape)
-        self.lenght_hr_velue.setGeometry(25, 120, 40, 20)
+        self.lenght_hr_velue.setGeometry(165, 390, 90, 20)
+        self.lenght_hr_velue.setStyleSheet("color: #4682B4;")
+        self.lenght_hr_velue.setFont(font_1)
 
         #Розмірність хорди
         self.mm_label_length_hr = QLabel("мм", self.window_shape)
-        self.mm_label_length_hr.setGeometry(70, 120, 40, 20)
+        self.mm_label_length_hr.setGeometry(255, 390, 50, 20)
+        self.mm_label_length_hr.setStyleSheet("color: #4682B4;")
+        self.mm_label_length_hr.setFont(font_1)
 
-
-        #ПЕРИМЕТЕР
+        #ПЕРИМЕТР
         #Заголовок периметра
-        self.Label_d_peremeter = QLabel("Периметер", self.window_shape)
-        self.Label_d_peremeter.setGeometry(15, 150, 120, 20)
-        
+        self.Label_d_peremeter = QLabel("Периметр", self.window_shape)
+        self.Label_d_peremeter.setGeometry(15, 420, 150, 20)
+        self.Label_d_peremeter.setStyleSheet("color: #800080;")
+        self.Label_d_peremeter.setFont(font_1)
+
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
-        self.perimeter.setGeometry(105, 150, 40, 20)
+        self.perimeter.setGeometry(165, 420, 90, 20)
+        self.perimeter.setStyleSheet("color: #800080;")
+        self.perimeter.setFont(font_1)
 
         #Розмірність периметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(140, 150, 20, 20)
+        self.mm_result_perimeret.setGeometry(255, 420, 50, 20)
+        self.mm_result_perimeret.setStyleSheet("color: #800080;")
+        self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер кола до загального розраунку
-        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.setGeometry(10, 180, 200, 25)
+        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
+        self.btn_add_perimeter.setGeometry(10, 450, 350, 30)
+        self.btn_add_perimeter.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
 
         self.window_shape.show()
 
@@ -576,6 +611,7 @@ class MainWindow(QMainWindow):
                 p = round((g.Incomplete_circle.perim_half_round_height_less_radius(diameter_list[0], height_list[0])), 2)
                 self.perimeter.setText(str(p))
         else:
+            self.lenght_hr_velue.setText("?")
             self.perimeter.setText("?")
     #КІНЕЦЬ НАПІВКОЛО 
 
@@ -1985,6 +2021,9 @@ class MainWindow(QMainWindow):
     def add_value(self):
         if self.perimeter.text() != "?":
             self.perimeter_velue.setText(self.perimeter.text())
+            self.message_perimeter.setStyleSheet(valide_value_style)
+            self.message_perimeter.setText("Валідне значення")
+            self.message_perimeter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         if self.perimeter_velue.text() in zero:
             self.message_perimeter.setText("Відсутнє значення")
             self.message_perimeter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -2005,5 +2044,6 @@ if __name__ == '__main__':
     font_3 = gui.QFont("v_CCYadaYadaYadaInt", 12)
     font_4 = gui.QFont("v_WhizBang", 10)
     main_window = MainWindow()
+    main_window.setFixedSize(450, 230)
     main_window.show()
     sys.exit(my_app.exec_())
