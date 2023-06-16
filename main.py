@@ -459,42 +459,55 @@ class MainWindow(QMainWindow):
     #НАПІВКОЛО
     def half_round_heandler(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
-        self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(950, 200, 600, 500)
-        self.window_shape.setFixedSize(600, 500)
+        self.window_shape.setWindowTitle(shape)
         self.window_shape.setStyleSheet("background-color: white;")
-        self.label_text.setGeometry(10, 10, 200, 20)
-        self.label_text = QLabel(shape, self.window_shape)
-        self.label_text.setGeometry(120, 10, 200, 20)
+        self.window_shape.setGeometry(950, 200, 370, 500)
 
 
         #ДІАМЕТР
         #Заголовок диаметра
         self.diameter_hr_lalel = QLabel("D", self.window_shape)
-        self.diameter_hr_lalel.setGeometry(10, 30, 10, 20)
+        self.diameter_hr_lalel.setGeometry(15, 290, 15, 20)
+        self.diameter_hr_lalel.setStyleSheet("color: #adff2f;")
+        self.diameter_hr_lalel.setFont(font_1)
 
         #Значення диаметра
         self.diameter_hr_velue = QLineEdit("0.0", self.window_shape)
-        self.diameter_hr_velue.setGeometry(25, 30, 40, 20)
+        self.diameter_hr_velue.setGeometry(35, 290, 70, 20)
+        self.diameter_hr_velue.setFont(font_3)
+        self.diameter_hr_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.diameter_hr_velue.setStyleSheet(
+            "background-color: #adff2f;"
+            "color: #191970;"
+            "border: 2px solid blue;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність диаметра
         self.mm_label_d_hr = QLabel("мм", self.window_shape)
-        self.mm_label_d_hr.setGeometry(70, 30, 40, 20)
+        self.mm_label_d_hr.setGeometry(110, 290, 70, 20)
+        self.mm_label_d_hr.setStyleSheet("color: #adff2f;")
+        self.mm_label_d_hr.setFont(font_1)
+
 
         #Статус діаметра         
         self.message_diameter_hr = QLabel(None, self.window_shape)
-        self.message_diameter_hr.setGeometry(100, 30, 170, 20)
+        self.message_diameter_hr.setGeometry(145, 290, 150, 20)
         if self.diameter_hr_velue.text() in zero:
-            self.message_diameter_hr.setText("Відсутнє значення")     
+            self.message_diameter_hr.setText("Відсутнє значення")
+            self.message_diameter_hr.setFont(font_4)
+            self.message_diameter_hr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_diameter_hr.setStyleSheet(error_value_style)      
 
         #Висота
         #Заголовок висоти
         self.height_hr_lalel = QLabel("H", self.window_shape)
-        #self.height_hr_lalel.setGeometry(10, 60, 10, 20)
-        self.height_hr_lalel.setGeometry(10, 320, 15, 20)
+        self.height_hr_lalel.setGeometry(15, 320, 15, 20)
+        self.height_hr_lalel.setStyleSheet("color: #D2691E;")
+        self.height_hr_lalel.setFont(font_1)
+
         #Значення висоти
         self.height_hr_velue = QLineEdit("0.0", self.window_shape)
-        #self.height_hr_velue.setGeometry(25, 60, 40, 20)
         self.height_hr_velue.setGeometry(35, 320, 70, 20)
         self.height_hr_velue.setFont(font_3)
         self.height_hr_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -504,19 +517,26 @@ class MainWindow(QMainWindow):
             "border: 2px solid #FFFF00;"
             "border-radius: 10px; text-align: center;"
             )
+        
         #Розмірність висоти
         self.mm_label_h_hr = QLabel("мм", self.window_shape)
-        self.mm_label_h_hr.setGeometry(70, 60, 40, 20)
+        self.mm_label_h_hr.setGeometry(110, 320, 70, 20)
+        self.mm_label_h_hr.setStyleSheet("color: #D2691E;")
+        self.mm_label_h_hr.setFont(font_1)
 
         #Статус висоти         
         self.message_height_hr = QLabel(None, self.window_shape)
-        self.message_height_hr.setGeometry(100, 60, 150, 20)
+        self.message_height_hr.setGeometry(145, 320, 150, 20)
+
         if self.height_hr_velue.text() in zero:
             self.message_height_hr.setText("Відсутнє значення")
+            self.message_height_hr.setFont(font_4)
+            self.message_height_hr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_height_hr.setStyleSheet(error_value_style)         
 
         self.image_half_round = gui.QPixmap("img/Half_round_1.jpg")
         self.image_lable = QLabel(self.window_shape)
-        self.image_lable.setGeometry(230, 30, int(260 * 1.387 ), 260)
+        self.image_lable.setGeometry(12, 10, int(250 * 1.387 ), 250)
         self.image_lable.setPixmap(self.image_half_round )
         self.image_lable.setScaledContents(True)
 
