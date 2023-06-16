@@ -613,26 +613,47 @@ class MainWindow(QMainWindow):
         self.message_diameter_hr.setText(diameter_list[1])
         self.message_height_hr.setText(height_list[1])
 
+        self.message_diameter_hr.setGeometry(145, 290, diameter_list[2], 20)
+        self.message_diameter_hr.setStyleSheet(error_value_style)
+        self.message_height_hr.setGeometry(145, 320, height_list[2], 20)
+        self.message_height_hr.setStyleSheet(error_value_style)
+        self.lenght_hr_velue.setText("?")
+        self.perimeter.setText("?")
+
+        if diameter_list[0] != 0:
+            self.message_diameter_hr.setGeometry(145, 290, diameter_list[2], 20)
+            self.message_diameter_hr.setStyleSheet(valide_value_style)
+            self.diameter_hr_velue.setText(str(round(diameter_list[0], 2)))
+        if height_list[0] != 0:
+            self.message_height_hr.setGeometry(145, 320, height_list[2], 20)
+            self.message_height_hr.setStyleSheet(valide_value_style)
+            self.height_hr_velue.setText(str(round(height_list[0], 2)))
+
         if diameter_list[0] != 0 and height_list[0] != 0:
-            if height_list[0] > (diameter_list[0] / 2):
-                #Висота більша за радіус
-                self.perimeter.setText(str(g.Incomplete_circle.perim_in_circle(diameter_list[0], height_list[0])))
-                l = round(g.Incomplete_circle.lenght_chold(diameter_list[0], height_list[0]), 2)
-                self.lenght_hr_velue.setText(str(l))
-            elif height_list[0] == (diameter_list[0] / 2):
-                #Висота дорівнює радіусу
-                self.perimeter.setText(str(g.Incomplete_circle.perim_half_round(diameter_list[0], height_list[0])))
-                self.lenght_hr_velue.setText(str(height_list[0] * 2))
-            elif height_list[0] < (diameter_list[0] / 2):
-                #Висота меньша за радіус
-                #self.lenght_hr_velue.setText(str(g.Incomplete_circle.chold_length(diameter_list[0], height_list[0])))
-                l = round(g.Incomplete_circle.lenght_chold(diameter_list[0], height_list[0]), 2)
-                self.lenght_hr_velue.setText(str(l))
-                p = round((g.Incomplete_circle.perim_half_round_height_less_radius(diameter_list[0], height_list[0])), 2)
-                self.perimeter.setText(str(p))
-        else:
-            self.lenght_hr_velue.setText("?")
-            self.perimeter.setText("?")
+            if diameter_list[0] <= height_list[0]:
+                self.message_diameter_hr.setText("Замалий розмір D")
+                self.message_diameter_hr.setGeometry(145, 290, 190, 20)
+                self.message_diameter_hr.setStyleSheet(error_value_style)
+                self.message_height_hr.setText("Завеликий розмір H")
+                self.message_height_hr.setGeometry(145, 320, 190, 20)
+                self.message_height_hr.setStyleSheet(error_value_style)
+            else:
+                if height_list[0] > (diameter_list[0] / 2):
+                    #Висота більша за радіус
+                    self.perimeter.setText(str(g.Incomplete_circle.perim_in_circle(diameter_list[0], height_list[0])))
+                    l = round(g.Incomplete_circle.lenght_chold(diameter_list[0], height_list[0]), 2)
+                    self.lenght_hr_velue.setText(str(l))
+                elif height_list[0] == (diameter_list[0] / 2):
+                    #Висота дорівнює радіусу
+                    self.perimeter.setText(str(g.Incomplete_circle.perim_half_round(diameter_list[0], height_list[0])))
+                    self.lenght_hr_velue.setText(str(height_list[0] * 2))
+                elif height_list[0] < (diameter_list[0] / 2):
+                    #Висота меньша за радіус
+                    l = round(g.Incomplete_circle.lenght_chold(diameter_list[0], height_list[0]), 2)
+                    self.lenght_hr_velue.setText(str(l))
+                    p = round((g.Incomplete_circle.perim_half_round_height_less_radius(diameter_list[0], height_list[0])), 2)
+                    self.perimeter.setText(str(p))
+
     #КІНЕЦЬ НАПІВКОЛО 
 
     #КВАДРАТ
