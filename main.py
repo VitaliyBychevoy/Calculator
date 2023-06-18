@@ -881,8 +881,7 @@ class MainWindow(QMainWindow):
         #Кнопка периметер квадрата до загального розраунку
         self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
-        self.btn_add_perimeter.setGeometry(10, 450, 350, 30)
-        self.btn_add_perimeter.clicked.connect(self.add_value)        
+        self.btn_add_perimeter.setGeometry(10, 450, 350, 30)      
         self.btn_add_perimeter.setStyleSheet(
         "color: #FFEFD5; "
         "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
@@ -904,15 +903,25 @@ class MainWindow(QMainWindow):
         self.message_radius_one_round_square.setText(radius_list_qor[1])        
         self.message_radius_one_round_square.setGeometry(150, 350, radius_list_qor[2], 20)
 
+        if side_list_qor[0] == 0:
+            self.message_side_one_round_square.setStyleSheet(error_value_style)
+        
+        if radius_list_qor[0] == 0:
+            self.message_radius_one_round_square.setStyleSheet(error_value_style)
+
         if side_list_qor[0] != 0 and radius_list_qor[0] != 0:
             if side_list_qor[0] - (2 * radius_list_qor[0]) < 0:
                 self.message_radius_one_round_square.setText("Завеликий радіус")
+                self.message_side_one_round_square.setText("Замала сторона")
+                self.message_radius_one_round_square.setStyleSheet(error_value_style)
+                self.message_side_one_round_square.setStyleSheet(error_value_style)
                 self.perimeter.setText("?")
             else:
                 print(side_list_qor[0], " ", type(side_list_qor[0]))
                 print(radius_list_qor[0], " ", type(radius_list_qor[0]))
                 self.perimeter.setText(str(g.Perimeter.square_one_radius(side_list_qor[0], radius_list_qor[0])))
-                self.message_side_one_round_square.setStyleSheet(valide_value_style) 
+                self.message_side_one_round_square.setStyleSheet(valide_value_style)
+                self.message_radius_one_round_square.setStyleSheet(valide_value_style)
         else:
             self.perimeter.setText("?")
         pass
@@ -922,10 +931,9 @@ class MainWindow(QMainWindow):
     #Вікно квадрата з різними радіусами
     def square_four_radius(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
-        
-        self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(950, 200, 600, 300)
-        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.setWindowTitle(shape)
+        self.window_shape.setGeometry(950, 200, 600, 700)
+
 
         self.image_round = gui.QPixmap("img/square_four_radiuses.jpg")
         self.image_lable = QLabel(self.window_shape)
@@ -1051,9 +1059,16 @@ class MainWindow(QMainWindow):
         self.mm_result_perimeret.setGeometry(160, 230, 20, 20)
 
         #Кнопка периметер квадрата до загального розраунку
-        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.setGeometry(10, 260, 200, 25)
+        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
+        self.btn_add_perimeter.setGeometry(10, 650, 350, 30)      
+        self.btn_add_perimeter.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
 
         self.window_shape.show()
 
