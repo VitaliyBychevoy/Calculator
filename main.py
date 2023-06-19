@@ -1015,7 +1015,7 @@ class MainWindow(QMainWindow):
         #Заголовок радіуса
         self.r2_square_label = QLabel("R2", self.window_shape)
         self.r2_square_label.setGeometry(15, 360, 30, 20)
-        self.r2_square_label.setStyleSheet("color: #00FF00;")
+        self.r2_square_label.setStyleSheet("color: #3CB371;")
         self.r2_square_label.setFont(font_1)
 
         #Значення радіуса
@@ -1024,16 +1024,16 @@ class MainWindow(QMainWindow):
         self.r2_square_velue.setFont(font_3)
         self.r2_square_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.r2_square_velue.setStyleSheet(
-            "background-color: #00FF00;"
+            "background-color: #3CB371;"
             "color: white;"
-            "border: 2px solid #0000FF;"
+            "border: 2px solid #00FF00;"
             "border-radius: 10px; text-align: center;"
             )
 
         #Розмірність радіуса
         self.mm_label_r2 = QLabel("мм", self.window_shape)
         self.mm_label_r2.setGeometry(135, 360, 70, 20)
-        self.mm_label_r2.setStyleSheet("color: #00FF00;")
+        self.mm_label_r2.setStyleSheet("color: #3CB371;")
         self.mm_label_r2.setFont(font_1)
 
         #Статус радіуса       
@@ -1254,76 +1254,127 @@ class MainWindow(QMainWindow):
     #Вікно квадрата у колі
     def square_in_round(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
-        self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(950, 200, 600, 300)
-        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.setWindowTitle(shape)
+        self.window_shape.setGeometry(950, 200, 370, 500)
+        self.window_shape.setStyleSheet("background-color: white;")
+        self.window_shape.setFixedSize(370, 500)
 
         self.image_round = gui.QPixmap("img/square_in_round.jpg")
         self.image_lable = QLabel(self.window_shape)
-        self.image_lable.setGeometry(230, 30, int(260 * 1.045), 260)
+        self.image_lable.setGeometry(49, 30, int(260 * 1.045), 260)
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
+
         #Сторона квадрата у колі
         #Заголовок сторони
-        self.side_sir_lalel = QLabel("A", self.window_shape)
-        self.side_sir_lalel.setGeometry(10, 50, 10, 20)
+        self.side_sir_label = QLabel("A", self.window_shape)
+        self.side_sir_label.setGeometry(15, 320, 15, 20)
+        self.side_sir_label.setStyleSheet("color: #5F9EA0;")
+        self.side_sir_label.setFont(font_1)
 
         #Значення сторони
         self.side_sir_velue = QLineEdit("0.0", self.window_shape)
-        self.side_sir_velue.setGeometry(25, 50, 40, 20)
+        self.side_sir_velue.setGeometry(35, 320, 80, 20)
+        self.side_sir_velue.setFont(font_3)
+        self.side_sir_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_sir_velue.setStyleSheet(
+            "background-color: #5F9EA0;"
+            "color: #00FFFF;"
+            "border: 2px solid #00FF00;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність сторони
         self.mm_label_sir = QLabel("мм", self.window_shape)
-        self.mm_label_sir.setGeometry(70, 50, 40, 20)
+        self.mm_label_sir.setGeometry(120, 320, 70, 20)
+        self.mm_label_sir.setStyleSheet("color: #5F9EA0;")
+        self.mm_label_sir.setFont(font_1)
 
         #Статус сторони       
         self.message_side_sir = QLabel(None, self.window_shape)
-        self.message_side_sir.setGeometry(100, 50, 150, 20)
+        self.message_side_sir.setGeometry(150, 320, 150, 20)
         if self.side_sir_velue.text() in zero:
             self.message_side_sir.setText("Відсутнє значення")
+            self.message_side_sir.setFont(font_4)
+            self.message_side_sir.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_side_sir.setStyleSheet(error_value_style)  
 
         #Діаметер
         #Заголовок 
         self.diameter_sir_lalel = QLabel("D", self.window_shape)
-        self.diameter_sir_lalel.setGeometry(10, 80, 10, 20)
+        self.diameter_sir_lalel.setGeometry(15, 350, 15, 20)
+        self.diameter_sir_lalel.setStyleSheet("color: #8A2BE2;")
+        self.diameter_sir_lalel.setFont(font_1)
 
         #Значення діаметра
         self.diameter_sir_value = QLineEdit("0.0", self.window_shape)
-        self.diameter_sir_value.setGeometry(25, 80, 40, 20)
+        self.diameter_sir_value.setGeometry(35, 350, 80, 20)
+        self.diameter_sir_value.setFont(font_3)
+        self.diameter_sir_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.diameter_sir_value.setStyleSheet(
+            "background-color: #8A2BE2;"
+            "color: #00FFFF;"
+            "border: 2px solid #00FF00;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність діаметра
         self.mm_label_diameter_sir = QLabel("мм", self.window_shape)
-        self.mm_label_diameter_sir.setGeometry(70, 80, 40, 20)
+        self.mm_label_diameter_sir.setGeometry(120, 350, 70, 20)
+        self.mm_label_diameter_sir.setStyleSheet("color: #8A2BE2;")
+        self.mm_label_diameter_sir.setFont(font_1)
 
         #Статус діаметра    
         self.message_diameter_sir = QLabel(None, self.window_shape)
-        self.message_diameter_sir.setGeometry(100, 80, 150, 20)
+        self.message_diameter_sir.setGeometry(150, 350, 150, 20)
         if self.diameter_sir_value.text() in zero:
             self.message_diameter_sir.setText("Відсутнє значення")
+            self.message_diameter_sir.setFont(font_4)
+            self.message_diameter_sir.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_diameter_sir.setStyleSheet(error_value_style)   
 
         #Кнопка розрахунку
         self.btn_perimeter = QPushButton("Розрахувати периметр", self.window_shape)
-        self.btn_perimeter.setGeometry(10, 110, 200, 25)
         self.btn_perimeter.clicked.connect(self.perim_sir)
+        self.btn_perimeter.setGeometry(10, 380, 350, 30)
+        self.btn_perimeter.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
+        "border-radius: 10px;"
+        "font-size: 14px;"
+        "font-weight: bold;"
+        )
 
-        #ПЕРИМЕТЕР
+        #ПЕРИМЕТР
         #Заголовок периметра
-        self.Label_sfr_peremeter = QLabel("Периметр квадрата", self.window_shape)
-        self.Label_sfr_peremeter.setGeometry(15, 140, 120, 20)
+        self.Label_sfr_peremeter = QLabel("Периметр", self.window_shape)
+        self.Label_sfr_peremeter.setGeometry(15, 420, 150, 20)
+        self.Label_sfr_peremeter.setStyleSheet("color: #4682B4;")
+        self.Label_sfr_peremeter.setFont(font_1)
         
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
-        self.perimeter.setGeometry(130, 140, 40, 20)
-        
+        self.perimeter.setGeometry(165, 420, 90, 20)
+        self.perimeter.setStyleSheet("color: #4682B4;")
+        self.perimeter.setFont(font_1)
+    
         #Розмірність приметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(160, 140, 20, 20)
-
+        self.mm_result_perimeret.setGeometry(255, 420, 50, 20)
+        self.mm_result_perimeret.setStyleSheet("color: #4682B4;")
+        self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
-        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.setGeometry(10, 170, 200, 25)
+        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
+        self.btn_add_perimeter.setGeometry(10, 450, 350, 30)      
+        self.btn_add_perimeter.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
 
         self.window_shape.show()
     
@@ -1335,15 +1386,43 @@ class MainWindow(QMainWindow):
 
         self.message_side_sir.setText(list_side_sir[1])
         self.message_diameter_sir.setText(list_diameter[1])
+
+        self.message_side_sir.setGeometry(150, 320, list_side_sir[2], 20)
+        self.message_diameter_sir.setGeometry(150, 350, list_diameter[2], 20)
         
+        if list_diameter[0] != 0:
+            self.message_diameter_sir.setStyleSheet(valide_value_style)
+        else:
+            self.message_diameter_sir.setStyleSheet(error_value_style)                          
+
+        if list_side_sir[0] != 0:
+            self.message_side_sir.setStyleSheet(valide_value_style)
+        else:
+            self.message_side_sir.setStyleSheet(error_value_style)                      
+
         if list_diameter[0] != 0 and list_side_sir[0] != 0:
+            self.message_side_sir.setStyleSheet(error_value_style)
+            self.message_diameter_sir.setStyleSheet(error_value_style)
             if (list_side_sir[0] / 0.707106) <= list_diameter[0]:
                 self.message_side_sir.setText("Замала сторона")
                 self.message_diameter_sir.setText("Завеликий діаметер")
+                self.message_side_sir.setGeometry(150, 320, 150, 20)
+                self.message_diameter_sir.setGeometry(150, 350, 150, 20)
                 self.perimeter.setText("?")
+                self.message_side_sir.setStyleSheet(error_value_style)
+                self.message_diameter_sir.setStyleSheet(error_value_style)
+            elif list_diameter[0] <= list_side_sir[0]:
+                self.message_side_sir.setText("Завелика сторона")
+                self.message_diameter_sir.setText("Замалий діаметер")
+                self.perimeter.setText("?")
+                self.message_side_sir.setStyleSheet(error_value_style)
+                self.message_diameter_sir.setStyleSheet(error_value_style)
+                self.message_side_sir.setGeometry(150, 320, 150, 20)
+                self.message_diameter_sir.setGeometry(150, 350, 150, 20)            
             else:
-                self.perimeter.setText(str(g.Square_in_round.perimeter_square_in_round(list_side_sir[0], list_diameter[0])))  
-                self.perimeter.setGeometry(125, 140, 40, 20)
+                self.perimeter.setText(str(g.Square_in_round.perimeter_square_in_round(list_side_sir[0], list_diameter[0])))
+                self.message_side_sir.setStyleSheet(valide_value_style)
+                self.message_diameter_sir.setStyleSheet(valide_value_style)
         else:
             self.perimeter.setText("?")
     #КІНЕЦЬ КВАДРАТ УКОЛІ
@@ -1352,10 +1431,9 @@ class MainWindow(QMainWindow):
     #вікно прямокутника
     def rectangle(self, shape: str) -> None:        
         self.window_shape = QMdiSubWindow()
-
-        self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(950, 200, 600, 300)
-        self.label_text.setGeometry(120, 10, 200, 20)
+        self.window_shape.setWindowTitle(shape)
+        self.window_shape.setGeometry(950, 200, 600, 500)
+        self.window_shape.setStyleSheet("background-color: white;")
 
         self.image_round = gui.QPixmap("img/rectangle.jpg")
         self.image_lable = QLabel(self.window_shape)
@@ -1397,32 +1475,58 @@ class MainWindow(QMainWindow):
 
         #Статус сторони       
         self.message_side_b = QLabel(None, self.window_shape)
-        self.message_side_b.setGeometry(100, 80, 150, 20)
+        self.message_side_b.setGeometry(150, 350, 150, 20)
         if self.side_b_velue.text() in zero:
-            self.message_side_b.setText("Відсутнє значення") 
+            self.message_side_b.setText("Відсутнє значення")
+            self.message_side_b.setFont(font_4)
+            self.message_side_b.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_side_b.setStyleSheet(error_value_style)  
+
+
 
         #Кнопка розрахунку
         self.btn_rectangle = QPushButton("Розрахувати периметр", self.window_shape)
-        self.btn_rectangle.setGeometry(10, 110, 200, 25)
         self.btn_rectangle.clicked.connect(self.perim_rectangle)
+        self.btn_rectangle.setGeometry(10, 380, 350, 30)
+        self.btn_rectangle.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
+        "border-radius: 10px;"
+        "font-size: 14px;"
+        "font-weight: bold;"
+        )
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_rect_peremeter = QLabel("Периметер квадрата", self.window_shape)
-        self.Label_rect_peremeter.setGeometry(15, 140, 120, 20)
+        self.Label_rect_peremeter = QLabel("Периметр", self.window_shape)
+        #self.Label_rect_peremeter.setGeometry(15, 140, 120, 20)
+        self.Label_rect_peremeter.setGeometry(15, 420, 150, 20)
+        self.Label_rect_peremeter.setStyleSheet("color: #4682B4;")
+        self.Label_rect_peremeter.setFont(font_1)
         
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
-        self.perimeter.setGeometry(130, 140, 40, 20)
-        
+        self.perimeter.setGeometry(165, 420, 90, 20)
+        self.perimeter.setStyleSheet("color: #4682B4;")
+        self.perimeter.setFont(font_1)
+
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(160, 140, 20, 20)
+        self.mm_result_perimeret.setGeometry(255, 420, 50, 20)
+        self.mm_result_perimeret.setStyleSheet("color: #4682B4;")
+        self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
-        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.setGeometry(10, 170, 200, 25)
+        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
+        self.btn_add_perimeter.setGeometry(10, 450, 350, 30)      
+        self.btn_add_perimeter.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
 
         self.window_shape.show() 
 
