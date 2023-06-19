@@ -998,7 +998,7 @@ class MainWindow(QMainWindow):
 
         #Статус радіуса       
         self.message_r2_square = QLabel(None, self.window_shape)
-        self.message_r2_square.setGeometry(100, 110, 150, 20)
+        self.message_r2_square.setGeometry(140, 110, 150, 20)
         if self.r2_square_velue.text() in zero:
             self.message_r2_square.setText("Відсутнє значення")
 
@@ -1024,39 +1024,67 @@ class MainWindow(QMainWindow):
         #Радіус R4
         #Заголовок радіуса
         self.r4_square_lalel = QLabel("R4", self.window_shape)
-        self.r4_square_lalel.setGeometry(10, 170, 20, 20)
+        self.r4_square_lalel.setGeometry(15, 550, 30, 20)
+        self.r4_square_lalel.setStyleSheet("color: #2E2B5F;")
+        self.r4_square_lalel.setFont(font_1)
 
         #Значення радіуса
         self.r4_square_velue = QLineEdit("0.0", self.window_shape)
-        self.r4_square_velue.setGeometry(25, 170, 40, 20)
+        self.r4_square_velue.setGeometry(50, 550, 80, 20)
+        self.r4_square_velue.setFont(font_3)
+        self.r4_square_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.r4_square_velue.setStyleSheet(
+            "background-color: #2E2B5F;"
+            "color: white;"
+            "border: 2px solid #00FF00;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність радіуса
         self.mm_label_r4 = QLabel("мм", self.window_shape)
-        self.mm_label_r4.setGeometry(70, 170, 40, 20)
+        self.mm_label_r4.setGeometry(130, 550, 70, 20)
+        self.mm_label_r4.setStyleSheet("color: #2E2B5F;")
+        self.mm_label_r4.setFont(font_1)
 
         #Статус радіуса       
         self.message_r4_square = QLabel(None, self.window_shape)
-        self.message_r4_square.setGeometry(100, 170, 150, 20)
+        self.message_r4_square.setGeometry(160, 550, 150, 20)
         if self.r4_square_velue.text() in zero:
-            self.message_r4_square.setText("Відсутнє значення")            
+            self.message_r4_square.setText("Відсутнє значення")  
+            self.message_r4_square.setFont(font_4)
+            self.message_r4_square.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_r4_square.setStyleSheet(error_value_style)           
         
         #Кнопка розрахунку
         self.btn_square_four_radius = QPushButton("Розрахувати периметр", self.window_shape)
-        self.btn_square_four_radius.setGeometry(10, 200, 200, 25)
         self.btn_square_four_radius.clicked.connect(self.perim_square_four_radius)
+        self.btn_square_four_radius.setGeometry(10, 580, 350, 30)
+        self.btn_square_four_radius.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
+        "border-radius: 10px;"
+        "font-size: 14px;"
+        "font-weight: bold;"
+        )
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_sfr_peremeter = QLabel("Периметр квадрата", self.window_shape)
-        self.Label_sfr_peremeter.setGeometry(15, 230, 120, 20)
+        self.Label_sfr_peremeter = QLabel("Периметр", self.window_shape)
+        self.Label_sfr_peremeter.setGeometry(15, 620, 150, 20)
+        self.Label_sfr_peremeter.setStyleSheet("color: #8B00FF;")
+        self.Label_sfr_peremeter.setFont(font_1)
         
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
-        self.perimeter.setGeometry(130, 230, 40, 20)
+        self.perimeter.setGeometry(165, 620, 90, 20)
+        self.perimeter.setStyleSheet("color: #8B00FF;")
+        self.perimeter.setFont(font_1)
         
         #Розмірність приметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(160, 230, 20, 20)
+        self.mm_result_perimeret.setGeometry(255, 620, 50, 20)
+        self.mm_result_perimeret.setStyleSheet("color: #8B00FF;")
+        self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
         self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
@@ -1092,25 +1120,25 @@ class MainWindow(QMainWindow):
             s2 = side_sfr_list[0] - r2_sfr_list[0] - r3_sfr_list[0]
             s3 = side_sfr_list[0] - r3_sfr_list[0] - r4_sfr_list[0]
             s4 = side_sfr_list[0] - r4_sfr_list[0] - r1_sfr_list[0]
-            if s1 < 5 or s2 < 5 or s3 < 5 or s4 < 5:
-                if s1 < 5:
+            if s1 < 0 or s2 < 0 or s3 < 0 or s4 < 0:
+                if s1 < 0:
                     self.perimeter.setText('?')
                     self.message_r1_square.setText("Завеликий радіус")
                     self.message_r2_square.setText("Завеликий радіус")
-                if s2 < 5:
+                if s2 < 0:
                     self.perimeter.setText('?')
                     self.message_r2_square.setText("Завеликий радіус")
                     self.message_r3_square.setText("Завеликий радіус")
-                if s3 < 5:
+                if s3 < 0:
                     self.perimeter.setText('?')
                     self.message_r3_square.setText("Завеликий радіус")
                     self.message_r4_square.setText("Завеликий радіус")
-                if s4 < 5:
+                if s4 < 0:
                     self.perimeter.setText('?')
                     self.message_r4_square.setText("Завеликий радіус")
                     self.message_r1_square.setText("Завеликий радіус")
             else:
-                self.mm_result_perimeret.setGeometry(170, 230, 20, 20)
+                #self.mm_result_perimeret.setGeometry(170, 230, 20, 20)
                 self.perimeter.setText(str(g.Perimeter.square_four_radius(
                     side_sfr_list[0], 
                     r1_sfr_list[0],
