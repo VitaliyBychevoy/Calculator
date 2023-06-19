@@ -1058,7 +1058,7 @@ class MainWindow(QMainWindow):
         #Кнопка розрахунку
         self.btn_square_four_radius = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_square_four_radius.clicked.connect(self.perim_square_four_radius)
-        self.btn_square_four_radius.setGeometry(10, 580, 350, 30)
+        self.btn_square_four_radius.setGeometry(10, 580, 360, 30)
         self.btn_square_four_radius.setStyleSheet(
         "color: #FFEFD5; "
         "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
@@ -1089,7 +1089,7 @@ class MainWindow(QMainWindow):
         #Кнопка периметер квадрата до загального розраунку
         self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
-        self.btn_add_perimeter.setGeometry(10, 650, 350, 30)      
+        self.btn_add_perimeter.setGeometry(10, 650, 360, 30)      
         self.btn_add_perimeter.setStyleSheet(
         "color: #FFEFD5; "
         "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
@@ -1110,10 +1110,16 @@ class MainWindow(QMainWindow):
         r4_sfr_list = self.check_number_new(self.r4_square_velue.text())
 
         self.message_side_side_four_radius.setText(side_sfr_list[1])
-        self.message_r1_square.setText(r1_sfr_list[1]) 
+        self.message_side_side_four_radius.setGeometry(160, 430, side_sfr_list[2], 20) 
+        self.message_r1_square.setText(r1_sfr_list[1])
+        self.message_r1_square.setGeometry(160, 460, r1_sfr_list[2], 20) 
         self.message_r2_square.setText(r2_sfr_list[1])
+        self.message_r2_square.setGeometry(160, 490, r2_sfr_list[2], 20)
         self.message_r3_square.setText(r3_sfr_list[1])
+        self.message_r3_square.setGeometry(160, 520, r3_sfr_list[2], 20)
         self.message_r4_square.setText(r4_sfr_list[1])
+        self.message_r4_square.setGeometry(160, 550, r4_sfr_list[2], 20)
+
 
         if side_sfr_list[0] != 0 and r1_sfr_list[0] != 0 and r2_sfr_list[0] != 0 and r3_sfr_list[0] != 0 and r4_sfr_list[0] != 0:
             s1 = side_sfr_list[0] - r1_sfr_list[0] - r2_sfr_list[0]
