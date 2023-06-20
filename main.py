@@ -1420,6 +1420,8 @@ class MainWindow(QMainWindow):
                 self.message_side_sir.setGeometry(150, 320, 150, 20)
                 self.message_diameter_sir.setGeometry(150, 350, 150, 20)            
             else:
+                self.side_sir_velue.setText(str(round(list_side_sir[0], 2)))
+                self.diameter_sir_value.setText(str(round(list_diameter[0], 2)))
                 self.perimeter.setText(str(g.Square_in_round.perimeter_square_in_round(list_side_sir[0], list_diameter[0])))
                 self.message_side_sir.setStyleSheet(valide_value_style)
                 self.message_diameter_sir.setStyleSheet(valide_value_style)
@@ -1563,8 +1565,24 @@ class MainWindow(QMainWindow):
         self.message_side_a.setText(side_a_list[1])
         self.message_side_b.setText(side_b_list[1])
 
+        self.message_side_a.setGeometry(150, 320, side_a_list[2], 20)
+        self.message_side_b.setGeometry(150, 350, side_b_list[2], 20)
+
+        if side_a_list[0] == 0:
+            self.message_side_a.setStyleSheet(error_value_style)
+        else:
+            self.message_side_a.setStyleSheet(valide_value_style)                    
+
+        if side_b_list[0] == 0:
+            self.message_side_b.setStyleSheet(error_value_style)
+        else:
+            self.message_side_b.setStyleSheet(valide_value_style)  
+
         if side_a_list[0] != 0 and side_b_list[0] != 0:
-            self.perimeter.setText(str(g.Perimeter.rectangle(side_a_list[0], side_b_list[0]))) 
+            self.side_a_velue.setText(str(round(side_a_list[0], 2)))
+            self.side_b_velue.setText(str(round(side_b_list[0], 2)))
+            p = g.Perimeter.rectangle(side_a_list[0], side_b_list[0])
+            self.perimeter.setText(str(round(p, 2)))
         else:
             self.perimeter.setText("?")                      
     #КІНЕЦЬ ПРЯМОКУТНИК
