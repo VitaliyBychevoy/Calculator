@@ -951,11 +951,11 @@ class MainWindow(QMainWindow):
         self.side_four_radius_lalel.setFont(font_1)
 
         #Значення сторони
-        self.side_four_radius_lalel_velue = QLineEdit("0.0", self.window_shape)
-        self.side_four_radius_lalel_velue.setGeometry(50, 300, 80, 20)
-        self.side_four_radius_lalel_velue.setFont(font_3)
-        self.side_four_radius_lalel_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_four_radius_lalel_velue.setStyleSheet(
+        self.side_four_radius_velue = QLineEdit("0.0", self.window_shape)
+        self.side_four_radius_velue.setGeometry(50, 300, 80, 20)
+        self.side_four_radius_velue.setFont(font_3)
+        self.side_four_radius_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_four_radius_velue.setStyleSheet(
             "background-color: #FF7F00;"
             "color: white;"
             "border: 2px solid #00FF00;"
@@ -1162,7 +1162,7 @@ class MainWindow(QMainWindow):
     #Периметер квадрата з різними радіусами
     def perim_square_four_radius(self) -> None:
 
-        side_sfr_list = self.check_number_new(self.side_four_radius_lalel_velue.text())
+        side_sfr_list = self.check_number_new(self.side_four_radius_velue.text())
         r1_sfr_list = self.check_number_new(self.r1_square_velue.text())
         r2_sfr_list = self.check_number_new(self.r2_square_velue.text())
         r3_sfr_list = self.check_number_new(self.r3_square_velue.text())
@@ -1214,31 +1214,44 @@ class MainWindow(QMainWindow):
                 self.message_side_four_radius.setText("Замала сторона")
                 self.message_side_four_radius.setStyleSheet(error_value_style)
                 if s1 < 0:
+                    self.r3_square_velue.setText(str(round(r3_sfr_list[0],2)))
+                    self.r4_square_velue.setText(str(round(r4_sfr_list[0],2)))
                     self.perimeter.setText('?')
                     self.message_r1_square.setText("Завеликий радіус")
                     self.message_r1_square.setStyleSheet(error_value_style)
                     self.message_r2_square.setText("Завеликий радіус")
                     self.message_r2_square.setStyleSheet(error_value_style)
                 if s2 < 0:
+                    self.r1_square_velue.setText(str(round(r1_sfr_list[0],2)))
+                    self.r4_square_velue.setText(str(round(r4_sfr_list[0],2)))
                     self.perimeter.setText('?')
                     self.message_r2_square.setText("Завеликий радіус")
                     self.message_r2_square.setStyleSheet(error_value_style)
                     self.message_r3_square.setText("Завеликий радіус")
                     self.message_r3_square.setStyleSheet(error_value_style)
                 if s3 < 0:
+                    self.r1_square_velue.setText(str(round(r1_sfr_list[0],2)))
+                    self.r2_square_velue.setText(str(round(r2_sfr_list[0],2)))
                     self.perimeter.setText('?')
                     self.message_r3_square.setText("Завеликий радіус")
                     self.message_r3_square.setStyleSheet(error_value_style)
                     self.message_r4_square.setText("Завеликий радіус")
                     self.message_r4_square.setStyleSheet(error_value_style)
                 if s4 < 0:
+                    self.r2_square_velue.setText(str(round(r2_sfr_list[0],2)))
+                    self.r3_square_velue.setText(str(round(r3_sfr_list[0],2)))
                     self.perimeter.setText('?')
                     self.message_r4_square.setText("Завеликий радіус")
                     self.message_r4_square.setStyleSheet(error_value_style)
                     self.message_r1_square.setText("Завеликий радіус")
                     self.message_r1_square.setStyleSheet(error_value_style)
             else:
-                #self.mm_result_perimeret.setGeometry(170, 230, 20, 20)
+                
+                self.side_sir_velue.setText(str(round(side_sfr_list[0], 2)))
+                self.r1_square_velue.setText(str(round(r1_sfr_list[0],2)))
+                self.r2_square_velue.setText(str(round(r2_sfr_list[0],2)))
+                self.r3_square_velue.setText(str(round(r3_sfr_list[0],2)))
+                self.r4_square_velue.setText(str(round(r4_sfr_list[0],2)))
                 self.perimeter.setText(str(g.Perimeter.square_four_radius(
                     side_sfr_list[0], 
                     r1_sfr_list[0],
