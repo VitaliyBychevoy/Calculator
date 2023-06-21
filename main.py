@@ -193,8 +193,8 @@ class MainWindow(QMainWindow):
         self.shape.addItem("Квадрат з різними радіусами")
         self.shape.addItem("Квадрат у колі")
         self.shape.addItem("Прямокутник")
-        self.shape.addItem("Прямокутник з однаковими радіусами")
-        self.shape.addItem("Прямокутник з різними радіусами")
+        self.shape.addItem("Прямокутник з радіусом")
+        self.shape.addItem("Прямокутник з радіусами")
         self.shape.addItem("Шестигранник")
         self.shape.addItem("Овал з паралельними сторонами")
         self.shape.addItem("Трикутник рівносторонній")
@@ -333,9 +333,9 @@ class MainWindow(QMainWindow):
             self.square_in_round(shape)
         elif shape == "Прямокутник":
             self.rectangle(shape)
-        elif shape == "Прямокутник з однаковими радіусами":
+        elif shape == "Прямокутник з радіусом":
             self.rectangle_one_round(shape)
-        elif shape == "Прямокутник з різними радіусами":
+        elif shape == "Прямокутник з радіусами":
             self.rectangle_four_round(shape)
         elif shape == "Шестигранник":
             self.hexagon(shape)
@@ -1776,22 +1776,54 @@ class MainWindow(QMainWindow):
         self.message_side_b_req.setText(side_b_req_list[1])
         self.message_side_r_req.setText(side_r_req_list[1])
 
+        self.message_side_a_req.setGeometry(150, 310, side_a_req_list[2], 20)
+        self.message_side_b_req.setGeometry(150, 340, side_b_req_list[2], 20)
+        self.message_side_r_req.setGeometry(150, 370, side_r_req_list[2], 20)
+
+        if side_a_req_list[0] != 0:
+            self.message_side_a_req.setStyleSheet(valide_value_style)
+        else:
+            self.message_side_a_req.setStyleSheet(error_value_style)
+
+        if side_b_req_list[0] != 0:
+            self.message_side_b_req.setStyleSheet(valide_value_style)
+        else:
+            self.message_side_b_req.setStyleSheet(error_value_style)            
+
+        if side_r_req_list[0] != 0:
+            self.message_side_r_req.setStyleSheet(valide_value_style)
+        else:
+            self.message_side_r_req.setStyleSheet(error_value_style)           
+
         d = 2 * side_r_req_list[0]
 
         if side_a_req_list[0] != 0 and side_b_req_list[0] != 0 and side_r_req_list[0] != 0:
-            if side_r_req_list[0] > side_a_req_list[0] and side_r_req_list[0] > side_b_req_list[0]:
+            if d > side_a_req_list[0] and d > side_b_req_list[0]:
+                self.message_side_a_req.setText("Замала сторона")
+                self.message_side_a_req.setStyleSheet(error_value_style)
+                self.message_side_b_req.setText("Замала сторона")
+                self.message_side_b_req.setStyleSheet(error_value_style) 
+                self.message_side_r_req.setText("Завеликий радіус")
+                self.message_side_r_req.setStyleSheet(error_value_style) 
+                self.perimeter.setText("?")              
+            elif side_r_req_list[0] > side_a_req_list[0] and side_r_req_list[0] > side_b_req_list[0]:
+                self.message_side_r_req.setStyleSheet(error_value_style)
                 self.message_side_r_req.setText("Завеликий радіус")
                 self.perimeter.setText("?")
-            elif side_a_req_list[0] <= side_b_req_list[0] and (side_a_req_list[0] - d) < 5:
+            elif side_a_req_list[0] <= side_b_req_list[0] and (side_a_req_list[0] - d) < 0:
+                self.message_side_a_req.setText("Замала сторона")
+                self.message_side_a_req.setStyleSheet(error_value_style) 
+                self.message_side_r_req.setStyleSheet(error_value_style) 
                 self.message_side_r_req.setText("Завеликий радіус")
+                self.message_side_r_req.setStyleSheet(error_value_style) 
                 self.perimeter.setText("?")
-            elif side_b_req_list[0] <= side_a_req_list[0] and (side_b_req_list[0] - d) < 5:
+            elif side_b_req_list[0] <= side_a_req_list[0] and (side_b_req_list[0] - d) < 0:
+                self.message_side_b_req.setText("Замала сторона")
+                self.message_side_b_req.setStyleSheet(error_value_style) 
                 self.message_side_r_req.setText("Завеликий радіус")
+                self.message_side_r_req.setStyleSheet(error_value_style) 
                 self.perimeter.setText("?")                
             else:
-                print(side_a_req_list[0], " ", type(side_a_req_list[0]))
-                print(side_b_req_list[0], " ", type(side_b_req_list[0]))
-                print(side_r_req_list[0], " ", type(side_r_req_list[0]))
                 self.perimeter.setText(str(g.Perimeter.rectangle_one_radius(side_a_req_list[0], side_b_req_list[0], side_r_req_list[0])))
         else:
             self.perimeter.setText("?")
