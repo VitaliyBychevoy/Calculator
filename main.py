@@ -1885,46 +1885,75 @@ class MainWindow(QMainWindow):
         #Радіус R1
         #Заголовок радіуса
         self.r1_square_lalel_rfr = QLabel("R1", self.window_shape)
-        self.r1_square_lalel_rfr.setGeometry(10, 90, 20, 20)
+        self.r1_square_lalel_rfr.setGeometry(15, 330, 30, 20)
+        self.r1_square_lalel_rfr.setStyleSheet("color: #FFD700;")
+        self.r1_square_lalel_rfr.setFont(font_1)
 
         #Значення радіуса
         self.r1_square_velue_rfr = QLineEdit("0.0", self.window_shape)
-        self.r1_square_velue_rfr.setGeometry(25, 90, 40, 20)
+        self.r1_square_velue_rfr.setGeometry(50, 330, 80, 20)
+        self.r1_square_velue_rfr.setFont(font_3)
+        self.r1_square_velue_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.r1_square_velue_rfr.setStyleSheet(
+            "background-color: #FFD700;"
+            "color: white;"
+            "border: 2px solid #00FF00;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність радіуса
         self.mm_label_r1_rfr = QLabel("мм", self.window_shape)
-        self.mm_label_r1_rfr.setGeometry(70, 90, 40, 20)
+        self.mm_label_r1_rfr.setGeometry(135, 330, 70, 20)
+        self.mm_label_r1_rfr.setStyleSheet("color: #FFD700;")
+        self.mm_label_r1_rfr.setFont(font_1)
 
         #Статус радіуса       
         self.message_r1_square_rfr = QLabel(None, self.window_shape)
-        self.message_r1_square_rfr.setGeometry(100, 90, 150, 20)
+        self.message_r1_square_rfr.setGeometry(170, 330, 150, 20)
         if self.r1_square_velue_rfr.text() in zero:
             self.message_r1_square_rfr.setText("Відсутнє значення")
+            self.message_r1_square_rfr.setFont(font_4)
+            self.message_r1_square_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_r1_square_rfr.setStyleSheet(error_value_style) 
 
         #Радіус R2
         #Заголовок радіуса
         self.r2_square_lalel_rfr = QLabel("R2", self.window_shape)
-        self.r2_square_lalel_rfr.setGeometry(10, 120, 20, 20)
+        self.r2_square_lalel_rfr.setGeometry(15, 360, 30, 20)
+        self.r2_square_lalel_rfr.setStyleSheet("color: #3CB371;")
+        self.r2_square_lalel_rfr.setFont(font_1)
 
         #Значення радіуса
         self.r2_square_velue_rfr = QLineEdit("0.0", self.window_shape)
-        self.r2_square_velue_rfr.setGeometry(25, 120, 40, 20)
+        self.r2_square_velue_rfr.setGeometry(50, 360, 80, 20)
+        self.r2_square_velue_rfr.setFont(font_3)
+        self.r2_square_velue_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.r2_square_velue_rfr.setStyleSheet(
+            "background-color: #3CB371;"
+            "color: white;"
+            "border: 2px solid #00FF00;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність радіуса
         self.mm_label_r2_rfr= QLabel("мм", self.window_shape)
-        self.mm_label_r2_rfr.setGeometry(70, 120, 40, 20)
+        self.mm_label_r2_rfr.setGeometry(135, 360, 70, 20)
+        self.mm_label_r2_rfr.setStyleSheet("color: #3CB371;")
+        self.mm_label_r2_rfr.setFont(font_1)
 
         #Статус радіуса       
         self.message_r2_square_rfr = QLabel(None, self.window_shape)
-        self.message_r2_square_rfr.setGeometry(100, 120, 150, 20)
+        self.message_r2_square_rfr.setGeometry(170, 360, 150, 20)
         if self.r2_square_velue_rfr.text() in zero:
             self.message_r2_square_rfr.setText("Відсутнє значення")
-
+            self.message_r2_square_rfr.setFont(font_4)
+            self.message_r2_square_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_r2_square_rfr.setStyleSheet(error_value_style) 
         #Радіус R3
         #Заголовок радіуса
         self.r3_square_lalel_rfr = QLabel("R3", self.window_shape)
         self.r3_square_lalel_rfr.setGeometry(15, 390, 30, 20)
-        self.r3_square_lalel_rfr.setStyleSheet("color: #2E2B5F;")
+        self.r3_square_lalel_rfr.setStyleSheet("color: #0000FF;")
         self.r3_square_lalel_rfr.setFont(font_1)
 
         #Значення радіуса
@@ -1933,7 +1962,7 @@ class MainWindow(QMainWindow):
         self.r3_square_velue_rfr.setFont(font_3)
         self.r3_square_velue_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.r3_square_velue_rfr.setStyleSheet(
-            "background-color: #2E2B5F;"
+            "background-color: #0000FF;"
             "color: white;"
             "border: 2px solid #00FF00;"
             "border-radius: 10px; text-align: center;"
@@ -1942,7 +1971,7 @@ class MainWindow(QMainWindow):
         #Розмірність радіуса
         self.mm_label_r3_rfr = QLabel("мм", self.window_shape)
         self.mm_label_r3_rfr.setGeometry(135, 390, 70, 20)
-        self.mm_label_r3_rfr.setStyleSheet("color: #2E2B5F;")
+        self.mm_label_r3_rfr.setStyleSheet("color: #0000FF;")
         self.mm_label_r3_rfr.setFont(font_1)
 
         #Статус радіуса       
