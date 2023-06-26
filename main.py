@@ -1855,32 +1855,53 @@ class MainWindow(QMainWindow):
 
         #Розмірність сторони
         self.mm_label_side_a_four_radius_lalel = QLabel("мм", self.window_shape)
-        self.mm_label_side_a_four_radius_lalel.setGeometry(70, 30, 40, 20)
+        self.mm_label_side_a_four_radius_lalel.setGeometry(135, 270, 70, 20)
+        self.mm_label_side_a_four_radius_lalel.setStyleSheet("color: #DAA520;")
+        self.mm_label_side_a_four_radius_lalel.setFont(font_1)
 
         #Статус сторони       
         self.message_side_a_four_radius = QLabel(None, self.window_shape)
-        self.message_side_a_four_radius.setGeometry(100, 30, 150, 20)
+        self.message_side_a_four_radius.setGeometry(170, 270, 150, 20)
         if self.message_side_a_four_radius.text() in zero:
             self.message_side_a_four_radius.setText("Відсутнє значення")
+            self.message_side_a_four_radius.setFont(font_4)
+            self.message_side_a_four_radius.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_side_a_four_radius.setStyleSheet(error_value_style) 
 
         #Сторона B
         #Заголовок сторони
         self.side_b_four_radius_lalel_rfr = QLabel("B", self.window_shape)
-        self.side_b_four_radius_lalel_rfr.setGeometry(10, 60, 10, 20)
+        self.side_b_four_radius_lalel_rfr.setGeometry(15, 300, 30, 20)
+        self.side_b_four_radius_lalel_rfr.setStyleSheet("color: #FF7F00;")
+        self.side_b_four_radius_lalel_rfr.setFont(font_1)
 
         #Значення сторони
         self.side_b_four_radius_lalel_velue = QLineEdit("0.0", self.window_shape)
-        self.side_b_four_radius_lalel_velue.setGeometry(25, 60, 40, 20)
+        self.side_b_four_radius_lalel_velue.setGeometry(50, 300, 80, 20)
+        self.side_b_four_radius_lalel_velue.setFont(font_3)
+        self.side_b_four_radius_lalel_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_b_four_radius_lalel_velue.setStyleSheet(
+            "background-color: #FF7F00;"
+            "color: white;"
+            "border: 2px solid #00FF00;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність сторони
         self.mm_label_side_b_four_radius_lalel = QLabel("мм", self.window_shape)
-        self.mm_label_side_b_four_radius_lalel.setGeometry(70, 60, 40, 20)
+        self.mm_label_side_b_four_radius_lalel.setGeometry(135, 300, 70, 20)
+        self.mm_label_side_b_four_radius_lalel.setStyleSheet("color: #FF7F00;")
+        self.mm_label_side_b_four_radius_lalel.setFont(font_1)
+
 
         #Статус сторони       
         self.message_side_b_four_radius = QLabel(None, self.window_shape)
-        self.message_side_b_four_radius.setGeometry(100, 60, 150, 20)
+        self.message_side_b_four_radius.setGeometry(170, 300, 150, 20)
         if self.message_side_b_four_radius.text() in zero:
             self.message_side_b_four_radius.setText("Відсутнє значення")
+            self.message_side_b_four_radius.setFont(font_4)
+            self.message_side_b_four_radius.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_side_b_four_radius.setStyleSheet(error_value_style) 
 
         #Радіус R1
         #Заголовок радіуса
