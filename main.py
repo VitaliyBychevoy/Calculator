@@ -1833,26 +1833,35 @@ class MainWindow(QMainWindow):
     #Вікно прямокутника з різними радіусами
     def rectangle_four_round(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
-
-        self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(950, 200, 620, 560)
-        self.label_text.setGeometry(80, 10, 200, 20)
-
+        self.window_shape.setGeometry(950, 200, 390, 560)
+        self.window_shape.setFixedSize(390, 560)
+        self.window_shape.setWindowTitle(shape)
+        self.window_shape.setStyleSheet("background-color: white;")
         self.image_round = gui.QPixmap("img/rectangle_four_radius.jpg")
         self.image_lable = QLabel(self.window_shape)
-        self.image_lable.setGeometry(230, 30, int(260 * 1.186), 260)
+        self.image_lable.setGeometry(47, 10, int(250 * 1.186), 250)
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
+
         
         #Сторона A
         #Заголовок сторони
         self.side_a_four_radius_lalel_rfr = QLabel("A", self.window_shape)
-        self.side_a_four_radius_lalel_rfr.setGeometry(10, 30, 10, 20)
+        self.side_a_four_radius_lalel_rfr.setGeometry(15, 270, 30, 20)
+        self.side_a_four_radius_lalel_rfr.setStyleSheet("color: #DAA520;")
+        self.side_a_four_radius_lalel_rfr.setFont(font_1)
 
         #Значення сторони
         self.side_a_four_radius_lalel_velue = QLineEdit("0.0", self.window_shape)
-        self.side_a_four_radius_lalel_velue.setGeometry(25, 30, 40, 20)
-
+        self.side_a_four_radius_lalel_velue.setGeometry(50, 270, 80, 20)
+        self.side_a_four_radius_lalel_velue.setFont(font_3)
+        self.side_a_four_radius_lalel_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_a_four_radius_lalel_velue.setStyleSheet(
+            "background-color: #DAA520;"
+            "color: white;"
+            "border: 2px solid #00FF00;"
+            "border-radius: 10px; text-align: center;"
+            )
         #Розмірність сторони
         self.mm_label_side_a_four_radius_lalel = QLabel("мм", self.window_shape)
         self.mm_label_side_a_four_radius_lalel.setGeometry(135, 270, 70, 20)
@@ -2108,20 +2117,20 @@ class MainWindow(QMainWindow):
             s_3_rfr = list_s1[0] - list_r3[0] - list_r4[0]
             s_4_rfr = list_s2[0] - list_r4[0] - list_r1[0]    
 
-            if s_1_rfr < 5 or s_2_rfr < 5 or s_3_rfr < 5 or s_4_rfr < 5:
-                if s_1_rfr < 5:
+            if s_1_rfr < 0 or s_2_rfr < 0 or s_3_rfr < 0 or s_4_rfr < 0:
+                if s_1_rfr < 0:
                     self.perimeter.setText('?')
                     self.message_r1_square_rfr.setText(list_r1[1])
                     self.message_r2_square_rfr.setText(list_r2[1])
-                if s_2_rfr < 5:
+                if s_2_rfr < 0:
                     self.perimeter.setText('?')
                     self.message_r2_square_rfr.setText(list_r2[1])
                     self.message_r3_square_rfr.setText(list_r3[1])
-                if s_3_rfr < 5:
+                if s_3_rfr < 0:
                     self.perimeter.setText('?')
                     self.message_r3_square_rfr.setText(list_r3[1])
                     self.message_r4_square_rfr.setText(list_r4[1])
-                if s_4_rfr < 5:
+                if s_4_rfr < 0:
                     self.perimeter.setText('?')
                     self.message_r4_square_rfr.setText(list_r4[1])
                     self.message_r1_square_rfr.setText(list_r1[1])                                    
