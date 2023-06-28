@@ -2064,7 +2064,7 @@ class MainWindow(QMainWindow):
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_rfr_peremeter = QLabel("Периметер", self.window_shape)
+        self.Label_rfr_peremeter = QLabel("Периметр", self.window_shape)
         self.Label_rfr_peremeter.setGeometry(15, 490, 150, 20)
         self.Label_rfr_peremeter.setStyleSheet("color: #8B00FF;")
         self.Label_rfr_peremeter.setFont(font_1)
@@ -2111,6 +2111,43 @@ class MainWindow(QMainWindow):
         self.message_r3_square_rfr.setText(list_r3[1])
         self.message_r4_square_rfr.setText(list_r4[1])
 
+        self.message_side_a_four_radius.setGeometry(170, 270, list_s1[2], 20)
+        self.message_side_b_four_radius.setGeometry(170, 300, list_s2[2], 20)
+        self.message_r1_square_rfr.setGeometry(170, 330, list_r1[2], 20)
+        self.message_r2_square_rfr.setGeometry(170, 360, list_r2[2], 20)
+        self.message_r3_square_rfr.setGeometry(170, 390, list_r3[2], 20)
+        self.message_r4_square_rfr.setGeometry(170, 420, list_r4[2], 20)
+
+        if list_s1[0] != 0:
+            self.message_side_a_four_radius.setStyleSheet(valide_value_style)
+        else:
+            self.message_side_a_four_radius.setStyleSheet(error_value_style)
+
+        if list_s2[0] != 0:
+            self.message_side_b_four_radius.setStyleSheet(valide_value_style)
+        else:
+            self.message_side_b_four_radius.setStyleSheet(error_value_style)
+
+        if list_r1[0] != 0:
+            self.message_r1_square_rfr.setStyleSheet(valide_value_style)
+        else:
+            self.message_r1_square_rfr.setStyleSheet(error_value_style)
+
+        if list_r2[0] != 0:
+            self.message_r2_square_rfr.setStyleSheet(valide_value_style)
+        else:
+            self.message_r2_square_rfr.setStyleSheet(error_value_style) 
+
+        if list_r3[0] != 0:
+            self.message_r3_square_rfr.setStyleSheet(valide_value_style)
+        else:
+            self.message_r3_square_rfr.setStyleSheet(error_value_style) 
+
+        if list_r4[0] != 0:
+            self.message_r4_square_rfr.setStyleSheet(valide_value_style)
+        else:
+            self.message_r4_square_rfr.setStyleSheet(error_value_style)
+
         if list_s1[0] != 0 and list_s2[0] != 0 and list_r1[0] != 0 and list_r2[0] != 0 and list_r3[0] != 0 and list_r4[0] != 0:
             s_1_rfr = list_s1[0] - list_r1[0] - list_r2[0]
             s_2_rfr = list_s2[0] - list_r2[0] - list_r3[0]
@@ -2120,6 +2157,8 @@ class MainWindow(QMainWindow):
             if s_1_rfr < 0 or s_2_rfr < 0 or s_3_rfr < 0 or s_4_rfr < 0:
                 if s_1_rfr < 0:
                     self.perimeter.setText('?')
+                    self.message_side_a_four_radius.setStyleSheet(error_value_style)
+                    self.message_side_a_four_radius.setText("Замалий розмір")
                     self.message_r1_square_rfr.setText(list_r1[1])
                     self.message_r2_square_rfr.setText(list_r2[1])
                 if s_2_rfr < 0:
