@@ -1846,17 +1846,17 @@ class MainWindow(QMainWindow):
         
         #Сторона A
         #Заголовок сторони
-        self.side_a_four_radius_lalel_rfr = QLabel("A", self.window_shape)
-        self.side_a_four_radius_lalel_rfr.setGeometry(15, 270, 30, 20)
-        self.side_a_four_radius_lalel_rfr.setStyleSheet("color: #DAA520;")
-        self.side_a_four_radius_lalel_rfr.setFont(font_1)
+        self.side_a_four_radius_label_rfr = QLabel("A", self.window_shape)
+        self.side_a_four_radius_label_rfr.setGeometry(15, 270, 30, 20)
+        self.side_a_four_radius_label_rfr.setStyleSheet("color: #DAA520;")
+        self.side_a_four_radius_label_rfr.setFont(font_1)
 
         #Значення сторони
-        self.side_a_four_radius_lalel_velue = QLineEdit("0.0", self.window_shape)
-        self.side_a_four_radius_lalel_velue.setGeometry(50, 270, 80, 20)
-        self.side_a_four_radius_lalel_velue.setFont(font_3)
-        self.side_a_four_radius_lalel_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_a_four_radius_lalel_velue.setStyleSheet(
+        self.side_a_four_radius_velue = QLineEdit("0.0", self.window_shape)
+        self.side_a_four_radius_velue.setGeometry(50, 270, 80, 20)
+        self.side_a_four_radius_velue.setFont(font_3)
+        self.side_a_four_radius_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_a_four_radius_velue.setStyleSheet(
             "background-color: #DAA520;"
             "color: white;"
             "border: 2px solid #00FF00;"
@@ -2097,7 +2097,7 @@ class MainWindow(QMainWindow):
 
     #Периметер прямокутника з різними радіусами
     def perim_rectangle_four_radius(self) -> None:
-        list_s1 = self.check_number_new(self.side_a_four_radius_lalel_velue.text())
+        list_s1 = self.check_number_new(self.side_a_four_radius_velue.text())
         list_s2 = self.check_number_new(self.side_b_four_radius_lalel_velue.text())
         list_r1 = self.check_number_new(self.r1_square_velue_rfr.text())
         list_r2 = self.check_number_new(self.r2_square_velue_rfr.text())
@@ -2120,6 +2120,7 @@ class MainWindow(QMainWindow):
 
         if list_s1[0] != 0:
             self.message_side_a_four_radius.setStyleSheet(valide_value_style)
+            self.side_a_four_radius_velue.setText(str(float(round(list_s1[0], 2))))
         else:
             self.message_side_a_four_radius.setStyleSheet(error_value_style)
 
@@ -2149,6 +2150,7 @@ class MainWindow(QMainWindow):
             self.message_r4_square_rfr.setStyleSheet(error_value_style)
 
         if list_s1[0] != 0 and list_s2[0] != 0 and list_r1[0] != 0 and list_r2[0] != 0 and list_r3[0] != 0 and list_r4[0] != 0:
+
             s_1_rfr = list_s1[0] - list_r1[0] - list_r2[0]
             s_2_rfr = list_s2[0] - list_r2[0] - list_r3[0]
             s_3_rfr = list_s1[0] - list_r3[0] - list_r4[0]
@@ -2157,24 +2159,63 @@ class MainWindow(QMainWindow):
             if s_1_rfr < 0 or s_2_rfr < 0 or s_3_rfr < 0 or s_4_rfr < 0:
                 if s_1_rfr < 0:
                     self.perimeter.setText('?')
+
                     self.message_side_a_four_radius.setStyleSheet(error_value_style)
-                    self.message_side_a_four_radius.setText("Замалий розмір")
-                    self.message_r1_square_rfr.setText(list_r1[1])
-                    self.message_r2_square_rfr.setText(list_r2[1])
+                    self.message_side_a_four_radius.setText("Замала сторона")
+                    self.message_side_a_four_radius.setGeometry(170, 270, 150, 20)
+
+                    self.message_r1_square_rfr.setText("Завеликий радіус")
+                    self.message_r1_square_rfr.setStyleSheet(error_value_style)
+                    self.message_r1_square_rfr.setGeometry(170, 330, 150, 20)
+
+                    self.message_r2_square_rfr.setText("Завеликий радіус")
+                    self.message_r2_square_rfr.setStyleSheet(error_value_style)
+                    self.message_r2_square_rfr.setGeometry(170, 360, 150, 20)
+                    
                 if s_2_rfr < 0:
                     self.perimeter.setText('?')
-                    self.message_r2_square_rfr.setText(list_r2[1])
-                    self.message_r3_square_rfr.setText(list_r3[1])
+                    self.message_side_b_four_radius.setText("Замала сторона")
+                    self.message_side_b_four_radius.setGeometry(170, 300, 150, 20)
+                    self.message_side_b_four_radius.setStyleSheet(error_value_style)
+
+                    self.message_r2_square_rfr.setText("Завеликий радіус")
+                    self.message_r2_square_rfr.setStyleSheet(error_value_style)
+                    self.message_r2_square_rfr.setGeometry(170, 360, 150, 20)
+                    
+                    self.message_r3_square_rfr.setText("Завеликий радіус")
+                    self.message_r3_square_rfr.setStyleSheet(error_value_style)
+                    self.message_r3_square_rfr.setGeometry(170, 390, 150, 20)
+
                 if s_3_rfr < 0:
                     self.perimeter.setText('?')
-                    self.message_r3_square_rfr.setText(list_r3[1])
-                    self.message_r4_square_rfr.setText(list_r4[1])
+
+                    self.message_side_a_four_radius.setStyleSheet(error_value_style)
+                    self.message_side_a_four_radius.setText("Замала сторона")
+                    self.message_side_a_four_radius.setGeometry(170, 270, 150, 20)
+
+                    self.message_r3_square_rfr.setText("Завеликий радіус")
+                    self.message_r3_square_rfr.setStyleSheet(error_value_style)
+                    self.message_r3_square_rfr.setGeometry(170, 390, 150, 20)
+
+                    self.message_r4_square_rfr.setText("Завеликий радіус")
+                    self.message_r4_square_rfr.setStyleSheet(error_value_style)
+                    self.message_r4_square_rfr.setGeometry(170, 420, 150, 20)
                 if s_4_rfr < 0:
                     self.perimeter.setText('?')
-                    self.message_r4_square_rfr.setText(list_r4[1])
-                    self.message_r1_square_rfr.setText(list_r1[1])                                    
+
+                    self.message_side_b_four_radius.setText("Замала сторона")
+                    self.message_side_b_four_radius.setGeometry(170, 300, 150, 20)
+                    self.message_side_b_four_radius.setStyleSheet(error_value_style)
+
+                    self.message_r4_square_rfr.setText("Завеликий радіус")
+                    self.message_r4_square_rfr.setStyleSheet(error_value_style)
+                    self.message_r4_square_rfr.setGeometry(170, 420, 150, 20)
+
+                    self.message_r1_square_rfr.setText("Завеликий радіус")
+                    self.message_r1_square_rfr.setStyleSheet(error_value_style)
+                    self.message_r1_square_rfr.setGeometry(170, 330, 150, 20)                                  
             else:
-                self.mm_result_perimeret.setGeometry(170, 240, 20, 20)
+                #self.mm_result_perimeret.setGeometry(170, 240, 20, 20)
                 self.perimeter.setText(str(g.Perimeter.rectangle_four_radius(
                     list_s1[0], 
                     list_s2[0], 
