@@ -1885,11 +1885,11 @@ class MainWindow(QMainWindow):
         self.side_b_four_radius_lalel_rfr.setFont(font_1)
 
         #Значення сторони
-        self.side_b_four_radius_lalel_velue = QLineEdit("0.0", self.window_shape)
-        self.side_b_four_radius_lalel_velue.setGeometry(50, 300, 80, 20)
-        self.side_b_four_radius_lalel_velue.setFont(font_3)
-        self.side_b_four_radius_lalel_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_b_four_radius_lalel_velue.setStyleSheet(
+        self.side_b_four_radius_velue = QLineEdit("0.0", self.window_shape)
+        self.side_b_four_radius_velue.setGeometry(50, 300, 80, 20)
+        self.side_b_four_radius_velue.setFont(font_3)
+        self.side_b_four_radius_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_b_four_radius_velue.setStyleSheet(
             "background-color: #FF7F00;"
             "color: white;"
             "border: 2px solid #00FF00;"
@@ -2098,7 +2098,7 @@ class MainWindow(QMainWindow):
     #Периметер прямокутника з різними радіусами
     def perim_rectangle_four_radius(self) -> None:
         list_s1 = self.check_number_new(self.side_a_four_radius_velue.text())
-        list_s2 = self.check_number_new(self.side_b_four_radius_lalel_velue.text())
+        list_s2 = self.check_number_new(self.side_b_four_radius_velue.text())
         list_r1 = self.check_number_new(self.r1_square_velue_rfr.text())
         list_r2 = self.check_number_new(self.r2_square_velue_rfr.text())
         list_r3 = self.check_number_new(self.r3_square_velue_rfr.text())
@@ -2126,26 +2126,31 @@ class MainWindow(QMainWindow):
 
         if list_s2[0] != 0:
             self.message_side_b_four_radius.setStyleSheet(valide_value_style)
+            self.side_b_four_radius_velue.setText(str(float(round(list_s2[0], 2))))
         else:
             self.message_side_b_four_radius.setStyleSheet(error_value_style)
 
         if list_r1[0] != 0:
             self.message_r1_square_rfr.setStyleSheet(valide_value_style)
+            self.r1_square_velue_rfr.setText(str(float(round(list_r1[0], 2))))
         else:
             self.message_r1_square_rfr.setStyleSheet(error_value_style)
 
         if list_r2[0] != 0:
             self.message_r2_square_rfr.setStyleSheet(valide_value_style)
+            self.r2_square_velue_rfr.setText(str(float(round(list_r2[0], 2))))
         else:
             self.message_r2_square_rfr.setStyleSheet(error_value_style) 
 
         if list_r3[0] != 0:
             self.message_r3_square_rfr.setStyleSheet(valide_value_style)
+            self.r3_square_velue_rfr.setText(str(float(round(list_r3[0], 2))))
         else:
             self.message_r3_square_rfr.setStyleSheet(error_value_style) 
 
         if list_r4[0] != 0:
             self.message_r4_square_rfr.setStyleSheet(valide_value_style)
+            self.r4_square_velue_rfr.setText(str(float(round(list_r4[0], 2))))
         else:
             self.message_r4_square_rfr.setStyleSheet(error_value_style)
 
