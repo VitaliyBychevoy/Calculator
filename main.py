@@ -2332,7 +2332,7 @@ class MainWindow(QMainWindow):
         self.btn_hex_h = QPushButton("Розрахувати периметр по H", self.window_shape)
         self.btn_hex_h.clicked.connect(self.perim_hex_h)
         self.btn_hex_h.setGeometry(10, 390, 370, 30)  
-        self.btn_hex_h.clicked.connect(self.perim_hex_d)
+        self.btn_hex_h.clicked.connect(self.perim_hex_h)
         self.btn_hex_h.setStyleSheet(
         "color: #FFEFD5;"
         "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(106, 90, 205), stop:1 rgb(32, 178, 170));"
@@ -2462,26 +2462,16 @@ class MainWindow(QMainWindow):
         self.message_hex_d.setGeometry(170, 450, 150, 20)
         if hex_h_list[0] != 0:
             print("If")
+            self.message_hex_h.setStyleSheet(valide_value_style)
             self.message_hex_a.setStyleSheet(valide_value_style)
             self.message_hex_d.setStyleSheet(valide_value_style)
             self.message_hex_a.setText("Валідне значення")
             self.message_hex_d.setText("Валідне значення")
-            self.message_hex_h.setStyleSheet(valide_value_style)
+            self.hex_h_velue.setText(str(round(hex_h_list[0], 2)))
             self.hex_a_velue.setText(str(g.Hexagon.a_hexagon_h(hex_h_list[0])))
             self.hex_d_velue.setText(str(g.Hexagon.d_hexagon_h(hex_h_list[0])))
             self.perimeter.setText(str(g.Perimeter.hexagon_h(hex_h_list[0])))
         else:
-            # print("else")
-            # self.message_hex_a.setStyleSheet(error_value_style)
-            # self.message_hex_d.setStyleSheet(error_value_style)
-            # self.message_hex_h.setStyleSheet(error_value_style)
-            # self.message_hex_a.setText("Відсутнє значення")
-            # self.message_hex_h.setText(hex_h_list[1])
-            # self.message_hex_h.setGeometry(170, 360, hex_h_list[2], 20)
-            # self.message_hex_d.setText("Відсутнє значення")
-            # self.hex_a_velue.setText("0.0")
-            # self.hex_d_velue.setText("0.0")
-            # self.perimeter.setText("?")
             self.message_hex_h.setStyleSheet(error_value_style)
             self.message_hex_d.setStyleSheet(error_value_style)
             self.message_hex_a.setStyleSheet(error_value_style)
