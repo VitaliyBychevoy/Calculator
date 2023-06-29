@@ -1824,7 +1824,11 @@ class MainWindow(QMainWindow):
                 self.message_side_r_req.setStyleSheet(error_value_style) 
                 self.perimeter.setText("?")                
             else:
-                self.perimeter.setText(str(g.Perimeter.rectangle_one_radius(side_a_req_list[0], side_b_req_list[0], side_r_req_list[0])))
+                self.perimeter.setText(str(g.Perimeter.rectangle_one_radius(
+                    side_a_req_list[0], 
+                    side_b_req_list[0], 
+                    side_r_req_list[0]
+                    )))
         else:
             self.perimeter.setText("?")
     #КІНЕЦЬ ПРЯМОКУТНИК З ОДНИМ РАДІУСОМ
@@ -2243,6 +2247,7 @@ class MainWindow(QMainWindow):
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setStyleSheet("background-color: white;")
         self.image_round = gui.QPixmap("img/hexagon.jpg")
+
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(72, 10, int(250 * 0.872), 250)
         self.image_lable.setPixmap(self.image_round)
@@ -2453,15 +2458,11 @@ class MainWindow(QMainWindow):
     #Периметр шестирганника по відстані проміж паралельними сторонами H
     def perim_hex_h(self):
         hex_h_list = self.check_number_new(self.hex_h_velue.text())
-        print(hex_h_list[0])
-        print(hex_h_list[1])
-        print(hex_h_list[2])
         self.message_hex_h.setText(hex_h_list[1])
         self.message_hex_h.setGeometry(170, 360, hex_h_list[2], 20)
         self.message_hex_a.setGeometry(170, 270, 150, 20)
         self.message_hex_d.setGeometry(170, 450, 150, 20)
         if hex_h_list[0] != 0:
-            print("If")
             self.message_hex_h.setStyleSheet(valide_value_style)
             self.message_hex_a.setStyleSheet(valide_value_style)
             self.message_hex_d.setStyleSheet(valide_value_style)
