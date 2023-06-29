@@ -2238,105 +2238,186 @@ class MainWindow(QMainWindow):
     def hexagon(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
 
-        self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(950, 200, 600, 300)
-        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.setGeometry(950, 200, 390, 600)
 
+        self.window_shape.setWindowTitle(shape)
+        self.window_shape.setStyleSheet("background-color: white;")
         self.image_round = gui.QPixmap("img/hexagon.jpg")
         self.image_lable = QLabel(self.window_shape)
-        self.image_lable.setGeometry(230, 30, int(260 * 0.872), 260)
+        self.image_lable.setGeometry(72, 10, int(250 * 0.872), 250)
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
 
         #Сторона 
         #Заголовок сторони
-        self.hex_a_lalel = QLabel("A", self.window_shape)
-        self.hex_a_lalel.setGeometry(10, 30, 10, 20)
+        self.hex_a_label = QLabel("A", self.window_shape)
+        self.hex_a_label.setGeometry(15, 270, 30, 20)
+        self.hex_a_label.setStyleSheet("color: #4682B4;")
+        self.hex_a_label.setFont(font_1)        
 
         #Значення сторони
         self.hex_a_velue = QLineEdit("0.0", self.window_shape)
-        self.hex_a_velue.setGeometry(25, 30, 40, 20)
+        self.hex_a_velue.setGeometry(50, 270, 80, 20)
+        self.hex_a_velue.setFont(font_3)
+        self.hex_a_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.hex_a_velue.setStyleSheet(
+            "background-color: #4682B4;"
+            "color: white;"
+            "border: 2px solid #00FF00;"
+            "border-radius: 10px; text-align: center;"
+            )        
 
         #Розмірність сторони
-        self.mm_hex_a_lalel = QLabel("мм", self.window_shape)
-        self.mm_hex_a_lalel.setGeometry(70, 30, 40, 20)
+        self.mm_hex_a_label = QLabel("мм", self.window_shape)
+        self.mm_hex_a_label.setGeometry(135, 270, 70, 20)
+        self.mm_hex_a_label.setStyleSheet("color: #4682B4;")
+        self.mm_hex_a_label.setFont(font_1)
 
         #Статус сторони       
         self.message_hex_a = QLabel(None, self.window_shape)
-        self.message_hex_a.setGeometry(100, 30, 150, 20)
+        self.message_hex_a.setGeometry(170, 270, 150, 20)
         if self.hex_a_velue.text() in zero:
             self.message_hex_a.setText("Відсутнє значення")
+            self.message_hex_a.setFont(font_4)
+            self.message_hex_a.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_hex_a.setStyleSheet(error_value_style)
 
         #Кнопка розрахунку
         self.btn_hex_a = QPushButton("Розрахувати периметр по А", self.window_shape)
-        self.btn_hex_a.setGeometry(10, 55, 200, 25)
+        self.btn_hex_a.setGeometry(10, 300, 370, 30)
         self.btn_hex_a.clicked.connect(self.perim_hex_a)
+        self.btn_hex_a.setStyleSheet(
+        "color: #FFEFD5;"
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(188, 143, 143), stop:1 rgb(123, 104, 238));"
+        "border-radius: 10px;"
+        "font-size: 14px;"
+        "font-weight: bold;"
+        )
 
         #Висота
         #Заголовок висоти
-        self.hex_h_lalel = QLabel("H", self.window_shape)
-        self.hex_h_lalel.setGeometry(10, 90, 10, 20)
+        self.hex_h_label = QLabel("H", self.window_shape)
+        self.hex_h_label.setGeometry(15, 360, 30, 20)
+        self.hex_h_label.setStyleSheet("color: #FF8C00;")
+        self.hex_h_label.setFont(font_1)
 
         #Значення висоти
         self.hex_h_velue = QLineEdit("0.0", self.window_shape)
-        self.hex_h_velue.setGeometry(25, 90, 40, 20)
+        self.hex_h_velue.setGeometry(50, 360, 80, 20)
+        self.hex_h_velue.setFont(font_3)
+        self.hex_h_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.hex_h_velue.setStyleSheet(
+            "background-color: #FF8C00;"
+            "color: white;"
+            "border: 2px solid #00FF00;"
+            "border-radius: 10px; text-align: center;"
+            )        
 
         #Розмірність сторони
-        self.mm_hex_h_lalel = QLabel("мм", self.window_shape)
-        self.mm_hex_h_lalel.setGeometry(70, 90, 40, 20)
+        self.mm_hex_h_label = QLabel("мм", self.window_shape)
+        self.mm_hex_h_label.setGeometry(135, 360, 70, 20)
+        self.mm_hex_h_label.setStyleSheet("color: #FF8C00;")
+        self.mm_hex_h_label.setFont(font_1)
 
         #Статус сторони       
         self.message_hex_h = QLabel(None, self.window_shape)
-        self.message_hex_h.setGeometry(100, 90, 150, 20)
+        self.message_hex_h.setGeometry(170, 360, 150, 20)
         if self.hex_h_velue.text() in zero:
             self.message_hex_h.setText("Відсутнє значення")
+            self.message_hex_h.setFont(font_4)
+            self.message_hex_h.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_hex_h.setStyleSheet(error_value_style)
         
         #Кнопка розрахунку
         self.btn_hex_h = QPushButton("Розрахувати периметр по H", self.window_shape)
-        self.btn_hex_h.setGeometry(10, 115, 200, 25)
         self.btn_hex_h.clicked.connect(self.perim_hex_h)
+        self.btn_hex_h.setGeometry(10, 390, 370, 30)  
+        self.btn_hex_h.clicked.connect(self.perim_hex_d)
+        self.btn_hex_h.setStyleSheet(
+        "color: #FFEFD5;"
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(106, 90, 205), stop:1 rgb(32, 178, 170));"
+        "border-radius: 10px;"
+        "font-size: 14px;"
+        "font-weight: bold;"
+        )
 
         #Діаметр
         #Заголовок діаметра
-        self.hex_d_lalel = QLabel("D", self.window_shape)
-        self.hex_d_lalel.setGeometry(10, 160, 10, 20)
+        self.hex_d_label = QLabel("D", self.window_shape)
+        self.hex_d_label.setGeometry(15, 450, 30, 20)
+        self.hex_d_label.setStyleSheet("color: #008080;")
+        self.hex_d_label.setFont(font_1)
 
         #Значення висоти
         self.hex_d_velue = QLineEdit("0.0", self.window_shape)
-        self.hex_d_velue.setGeometry(25, 160, 40, 20)
+        self.hex_d_velue.setGeometry(50, 450, 80, 20)
+        self.hex_d_velue.setFont(font_3)
+        self.hex_d_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.hex_d_velue.setStyleSheet(
+            "background-color: #008080;"
+            "color: white;"
+            "border: 2px solid #00FF00;"
+            "border-radius: 10px; text-align: center;"
+            )        
 
         #Розмірність сторони
-        self.mm_hex_d_lalel = QLabel("мм", self.window_shape)
-        self.mm_hex_d_lalel.setGeometry(70, 160, 40, 20)
+        self.mm_hex_d_label = QLabel("мм", self.window_shape)
+        self.mm_hex_d_label.setGeometry(135, 450, 70, 20)
+        self.mm_hex_d_label.setStyleSheet("color: #008080;")
+        self.mm_hex_d_label.setFont(font_1)
 
         #Статус сторони       
         self.message_hex_d = QLabel(None, self.window_shape)
-        self.message_hex_d.setGeometry(100, 160, 150, 20)
+        self.message_hex_d.setGeometry(170, 450, 150, 20)
         if self.hex_d_velue.text() in zero:
             self.message_hex_d.setText("Відсутнє значення")
-
+            self.message_hex_d.setFont(font_4)
+            self.message_hex_d.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_hex_d.setStyleSheet(error_value_style)
+  
         #Кнопка розрахунку
         self.btn_hex_d = QPushButton("Розрахувати периметр по D", self.window_shape)
-        self.btn_hex_d.setGeometry(10, 185, 200, 25)
+        self.btn_hex_d.setGeometry(10, 480, 370, 30)  
         self.btn_hex_d.clicked.connect(self.perim_hex_d)
+        self.btn_hex_d.setStyleSheet(
+        "color: #FFEFD5;"
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(60, 179, 113), stop:1 rgb(128, 128, 0));"
+        "border-radius: 10px;"
+        "font-size: 14px;"
+        "font-weight: bold;"
+        )
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_d_peremeter = QLabel("Периметр кола", self.window_shape)
-        self.Label_d_peremeter.setGeometry(15, 230, 90, 20)
-        
+        self.Label_d_peremeter = QLabel("Периметр", self.window_shape)
+        self.Label_d_peremeter.setGeometry(15, 530, 150, 20)
+        self.Label_d_peremeter.setStyleSheet("color: #8B00FF;")
+        self.Label_d_peremeter.setFont(font_1)
+
+
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
-        self.perimeter.setGeometry(105, 230, 40, 20)
+        self.perimeter.setGeometry(165, 530, 90, 20)
+        self.perimeter.setStyleSheet("color: #8B00FF;")
+        self.perimeter.setFont(font_1)
 
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(140, 230, 20, 20)
+        self.mm_result_perimeret.setGeometry(255, 530, 50, 20)
+        self.mm_result_perimeret.setStyleSheet("color: #8B00FF;")
+        self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер кола до загального розраунку
-        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.setGeometry(10, 260, 200, 25)
+        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
+        self.btn_add_perimeter.setGeometry(10, 560, 370, 30)      
+        self.btn_add_perimeter.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
 
         self.window_shape.show()
     
