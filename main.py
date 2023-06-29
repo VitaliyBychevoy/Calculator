@@ -2252,7 +2252,7 @@ class MainWindow(QMainWindow):
         self.image_lable.setGeometry(72, 10, int(250 * 0.872), 250)
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
-
+        self.window_shape.setFixedSize(390, 600)
         #Сторона 
         #Заголовок сторони
         self.hex_a_label = QLabel("A", self.window_shape)
@@ -2514,10 +2514,9 @@ class MainWindow(QMainWindow):
     #Вікно овала
     def oblong(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
-        self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(950, 200, 600, 300)
-        self.label_text.setGeometry(10, 10, 200, 20)
-
+        self.window_shape.setWindowTitle(shape)
+        self.window_shape.setGeometry(950, 200, 600, 600)
+        self.window_shape.setStyleSheet("background-color: white;")
 
         self.image_round = gui.QPixmap("img/oblong.jpg")
         self.image_lable = QLabel(self.window_shape)
