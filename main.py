@@ -2525,7 +2525,6 @@ class MainWindow(QMainWindow):
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
 
-
         #Сторона A
         #Заголовок сторони а
         self.oblong_side_a_label = QLabel("A", self.window_shape)
@@ -2544,7 +2543,6 @@ class MainWindow(QMainWindow):
             "border: 2px solid blue;"
             "border-radius: 10px; text-align: center;"
             )
-
 
         #Розмірність сторони а
         self.mm_label_oblong_side_a = QLabel("мм", self.window_shape)
@@ -2623,7 +2621,6 @@ class MainWindow(QMainWindow):
         self.perimeter.setStyleSheet("color: #8B00FF;")
         self.perimeter.setFont(font_1)
 
-
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
         self.mm_result_perimeret.setGeometry(255, 340, 50, 20)
@@ -2678,6 +2675,8 @@ class MainWindow(QMainWindow):
                 self.message_oblong_side_a.setStyleSheet(valide_value_style)
                 self.message_oblong_side_b.setStyleSheet(valide_value_style)
                 self.perimeter.setText(str(g.Perimeter.oblong(oblong_a_list[0], oblong_b_list[0])))
+                self.oblong_side_a_velue.setText(str(round(oblong_a_list[0], 2)))
+                self.oblong_side_b_velue.setText(str(round(oblong_b_list[0], 2)))
         else:
             self.perimeter.setText("?")
     #КІНЕЦЬ ОВАЛ
@@ -2686,88 +2685,143 @@ class MainWindow(QMainWindow):
     #Вікно трикутника рівносоторонній
     def equilateral_triangle(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
-        self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(950, 200, 600, 300)
-        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.setWindowTitle(shape)
+        self.window_shape.setGeometry(950, 200, 370, 520)
+        self.window_shape.setStyleSheet("background-color: white;")
 
         self.image_round = gui.QPixmap("img/Triangle_60.jpg")
         self.image_lable = QLabel(self.window_shape)
-        self.image_lable.setGeometry(230, 30, int(260 * 1.325), 260)
+        self.image_lable.setGeometry(13, 10, int(260 * 1.325), 260)
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
 
         #Сторона A
         #Заголовок сторони а
         self.eq_tr_side_lalel = QLabel("A", self.window_shape)
-        self.eq_tr_side_lalel.setGeometry(10, 50, 10, 20)
+        self.eq_tr_side_lalel.setGeometry(15, 300, 15, 20)
+        self.eq_tr_side_lalel.setStyleSheet("color:  #DAA520;")
+        self.eq_tr_side_lalel.setFont(font_1)
         
         #Значення сторони
         self.eq_tr_side_velue = QLineEdit("0.0", self.window_shape)
-        self.eq_tr_side_velue.setGeometry(25, 50, 40, 20)
+
+        self.eq_tr_side_velue.setGeometry(35, 300, 80, 20)
+        self.eq_tr_side_velue.setFont(font_3)
+        self.eq_tr_side_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.eq_tr_side_velue.setStyleSheet(
+            "background-color: #DAA520;"
+            "color: #FFFFE0;"
+            "border: 2px solid blue;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність сторони
         self.mm_eq_tr_side_lalel = QLabel("мм", self.window_shape)
-        self.mm_eq_tr_side_lalel.setGeometry(70, 50, 40, 20)
+        self.mm_eq_tr_side_lalel.setGeometry(120, 300, 70, 20)
+        self.mm_eq_tr_side_lalel.setStyleSheet("color: #DAA520;")
+        self.mm_eq_tr_side_lalel.setFont(font_1)
 
         #Статус сторони       
         self.message_eq_tr_side = QLabel(None, self.window_shape)
-        self.message_eq_tr_side.setGeometry(100, 50, 150, 20)
+        self.message_eq_tr_side.setGeometry(150, 300, 150, 20)
         if self.eq_tr_side_velue.text() in zero:
             self.message_eq_tr_side.setText("Відсутнє значення")
+            self.message_eq_tr_side.setFont(font_4)
+            self.message_eq_tr_side.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_eq_tr_side.setStyleSheet(error_value_style) 
 
         #Кнопка розрахунку через сторону А
-        self.btn_eq_tr_a = QPushButton("Розрахувати периметр", self.window_shape)
-        self.btn_eq_tr_a.setGeometry(10, 80, 200, 20)
+        self.btn_eq_tr_a = QPushButton("Розрахувати периметр по A", self.window_shape)
         self.btn_eq_tr_a.clicked.connect(self.perim_eq_riangle_a)
+        self.btn_eq_tr_a.setGeometry(10, 330, 350, 30)
+        self.btn_eq_tr_a.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 99, 71), stop:1 rgb(30, 144, 255));"
+        "border-radius: 10px;"
+        "font-size: 14px;"
+        "font-weight: bold;"
+        )
 
         #Сторона H
         #Заголовок висоти h
-        self.eq_tr_height_lalel = QLabel("H", self.window_shape)
-        self.eq_tr_height_lalel.setGeometry(10, 110, 10, 20)
-        
+        self.eq_tr_height_label = QLabel("H", self.window_shape)
+        self.eq_tr_height_label.setGeometry(15, 380, 15, 20)
+        self.eq_tr_height_label.setStyleSheet("color: #5F9EA0;")
+        self.eq_tr_height_label.setFont(font_1)
+
         #Значення висоти
         self.eq_tr_height_velue = QLineEdit("0.0", self.window_shape)
-        self.eq_tr_height_velue.setGeometry(25, 110, 40, 20)
+        self.eq_tr_height_velue.setGeometry(35, 380, 80, 20)
+        self.eq_tr_height_velue.setFont(font_3)
+        self.eq_tr_height_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.eq_tr_height_velue.setStyleSheet(
+            "background-color: #5F9EA0;"
+            "color: #FFFFE0;"
+            "border: 2px solid blue;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність висоти
-        self.mm_eq_tr_height_lalel = QLabel("мм", self.window_shape)
-        self.mm_eq_tr_height_lalel.setGeometry(70, 110, 40, 20)
-
+        self.mm_eq_tr_height_label = QLabel("мм", self.window_shape)
+        self.mm_eq_tr_height_label.setGeometry(120, 380, 70, 20)
+        self.mm_eq_tr_height_label.setStyleSheet("color: #5F9EA0;")
+        self.mm_eq_tr_height_label.setFont(font_1)
         #Статус сторони       
         self.message_eq_tr_height = QLabel(None, self.window_shape)
-        self.message_eq_tr_height.setGeometry(100, 110, 150, 20)
+        self.message_eq_tr_height.setGeometry(150, 380, 150, 20)
         if self.eq_tr_height_velue.text() in zero:
             self.message_eq_tr_height.setText("Відсутнє значення")
+            self.message_eq_tr_height.setFont(font_4)
+            self.message_eq_tr_height.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_eq_tr_height.setStyleSheet(error_value_style) 
 
         #Кнопка розрахунку через висоту H
-        self.btn_eq_tr_h = QPushButton("Розрахувати периметр", self.window_shape)
-        self.btn_eq_tr_h.setGeometry(10, 140, 200, 20)
+        self.btn_eq_tr_h = QPushButton("Розрахувати периметр по H", self.window_shape)
         self.btn_eq_tr_h.clicked.connect(self.perim_eq_riangle_h)
+        self.btn_eq_tr_h.setGeometry(10, 410, 350, 30)
+        self.btn_eq_tr_h.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(107, 142, 35), stop:1 rgb(50, 205, 50));"
+        "border-radius: 10px;"
+        "font-size: 14px;"
+        "font-weight: bold;"
+        )
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_s_peremeter = QLabel("Периметр квадрата", self.window_shape)
-        self.Label_s_peremeter.setGeometry(15, 170, 120, 20)
+        self.Label_s_peremeter = QLabel("Периметр", self.window_shape)
+        self.Label_s_peremeter.setGeometry(15, 450, 150, 20)
+        self.Label_s_peremeter.setStyleSheet("color: #8B00FF;")
+        self.Label_s_peremeter.setFont(font_1)
         
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
-        self.perimeter.setGeometry(130, 170, 40, 20)
+        self.perimeter.setGeometry(165, 450, 90, 20)
+        self.perimeter.setStyleSheet("color: #8B00FF;")
+        self.perimeter.setFont(font_1)
 
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(160, 170, 20, 20)
+        self.mm_result_perimeret.setGeometry(255, 450, 50, 20)
+        self.mm_result_perimeret.setStyleSheet("color: #8B00FF;")
+        self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
-        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.setGeometry(10, 200, 200, 25)
+        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
-
+        self.btn_add_perimeter.setGeometry(10, 480, 350, 30)      
+        self.btn_add_perimeter.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
         self.window_shape.show()
 
     #Периметер рівносторонього трикутника через сторону
     def perim_eq_riangle_a(self) -> None:
         side_a_list = self.check_number_new(self.eq_tr_side_velue.text())
-        print(side_a_list[0], " ", type(side_a_list[0]))
         self.message_eq_tr_side.setText(side_a_list[1])
 
         if side_a_list[0] != 0:
