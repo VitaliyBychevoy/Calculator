@@ -2515,75 +2515,132 @@ class MainWindow(QMainWindow):
     def oblong(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
         self.window_shape.setWindowTitle(shape)
-        self.window_shape.setGeometry(950, 200, 600, 600)
+        self.window_shape.setGeometry(950, 200, 370, 410)
         self.window_shape.setStyleSheet("background-color: white;")
+        self.window_shape.setFixedSize(370, 410)
 
         self.image_round = gui.QPixmap("img/oblong.jpg")
         self.image_lable = QLabel(self.window_shape)
-        self.image_lable.setGeometry(230, 30, int(200 / 0.577), 200)
+        self.image_lable.setGeometry(12, 10, int(200 / 0.577), 200)
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
 
+
         #Сторона A
         #Заголовок сторони а
-        self.oblong_side_a_lalel = QLabel("A", self.window_shape)
-        self.oblong_side_a_lalel.setGeometry(10, 50, 10, 20)
+        self.oblong_side_a_label = QLabel("A", self.window_shape)
+        self.oblong_side_a_label.setGeometry(15, 240, 15, 20)
+        self.oblong_side_a_label.setStyleSheet("color: #800080;")
+        self.oblong_side_a_label.setFont(font_1)
 
         #Значення сторони а
         self.oblong_side_a_velue = QLineEdit("0.0", self.window_shape)
-        self.oblong_side_a_velue.setGeometry(25, 50, 40, 20)
+        self.oblong_side_a_velue.setGeometry(35, 240, 80, 20)
+        self.oblong_side_a_velue.setFont(font_3)
+        self.oblong_side_a_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.oblong_side_a_velue.setStyleSheet(
+            "background-color: #800080;"
+            "color: white;"
+            "border: 2px solid blue;"
+            "border-radius: 10px; text-align: center;"
+            )
+
 
         #Розмірність сторони а
         self.mm_label_oblong_side_a = QLabel("мм", self.window_shape)
-        self.mm_label_oblong_side_a.setGeometry(70, 50, 40, 20)
+        self.mm_label_oblong_side_a.setGeometry(120, 240, 70, 20)
+        self.mm_label_oblong_side_a.setStyleSheet("color: #800080;")
+        self.mm_label_oblong_side_a.setFont(font_1)
+
 
         #Статус сторони       
         self.message_oblong_side_a = QLabel(None, self.window_shape)
-        self.message_oblong_side_a.setGeometry(100, 50, 150, 20)
+        self.message_oblong_side_a.setGeometry(150, 240, 150, 20)
         if self.oblong_side_a_velue.text() in zero:
             self.message_oblong_side_a.setText("Відсутнє значення")
+            self.message_oblong_side_a.setFont(font_4)
+            self.message_oblong_side_a.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_oblong_side_a.setStyleSheet(error_value_style)  
 
         #Сторона B
         #Заголовок сторони b
-        self.oblong_side_b_lalel = QLabel("B", self.window_shape)
-        self.oblong_side_b_lalel.setGeometry(10, 80, 10, 20)
+        self.oblong_side_b_label = QLabel("B", self.window_shape)
+        self.oblong_side_b_label.setGeometry(15, 270, 15, 20)
+        self.oblong_side_b_label.setStyleSheet("color: #5F9EA0;")
+        self.oblong_side_b_label.setFont(font_1)
 
         #Значення сторони b
         self.oblong_side_b_velue = QLineEdit("0.0", self.window_shape)
-        self.oblong_side_b_velue.setGeometry(25, 80, 40, 20)
+        self.oblong_side_b_velue.setGeometry(35, 270, 80, 20)
+        self.oblong_side_b_velue.setFont(font_3)
+        self.oblong_side_b_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.oblong_side_b_velue.setStyleSheet(
+            "background-color: #5F9EA0;"
+            "color: #FFFFE0;"
+            "border: 2px solid blue;"
+            "border-radius: 10px; text-align: center;"
+            )
+
 
         #Розмірність сторони b
         self.mm_label_oblong_side_b = QLabel("мм", self.window_shape)
-        self.mm_label_oblong_side_b.setGeometry(70, 80, 40, 20)
+        self.mm_label_oblong_side_b.setGeometry(120, 270, 70, 20)
+        self.mm_label_oblong_side_b.setStyleSheet("color: #5F9EA0;")
+        self.mm_label_oblong_side_b.setFont(font_1)
 
         #Статус сторони       
         self.message_oblong_side_b = QLabel(None, self.window_shape)
-        self.message_oblong_side_b.setGeometry(100, 80, 150, 20)
+        #self.message_oblong_side_b.setGeometry(100, 80, 150, 20)
+        self.message_oblong_side_b.setGeometry(150, 270, 150, 20)
         if self.oblong_side_a_velue.text() in zero:
             self.message_oblong_side_b.setText("Відсутнє значення")
-        
+            self.message_oblong_side_b.setFont(font_4)
+            self.message_oblong_side_b.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_oblong_side_b.setStyleSheet(error_value_style) 
+
         #Кнопка розрахунку
         self.btn_oblong = QPushButton("Розрахувати периметр", self.window_shape)
-        self.btn_oblong.setGeometry(10, 110, 200, 20)
         self.btn_oblong.clicked.connect(self.perim_oblong)
+        self.btn_oblong.setGeometry(10, 300, 350, 30)
+        self.btn_oblong.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(107, 142, 35), stop:1 rgb(50, 205, 50));"
+        "border-radius: 10px;"
+        "font-size: 14px;"
+        "font-weight: bold;"
+        )
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_s_peremeter = QLabel("Периметр квадрата", self.window_shape)
-        self.Label_s_peremeter.setGeometry(15, 140, 120, 20)
-        
+        self.Label_s_peremeter = QLabel("Периметр", self.window_shape)
+        self.Label_s_peremeter.setGeometry(15, 340, 150, 20)
+        self.Label_s_peremeter.setStyleSheet("color: #8B00FF;")
+        self.Label_s_peremeter.setFont(font_1)
+
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
-        self.perimeter.setGeometry(130, 140, 40, 20)
+        self.perimeter.setGeometry(165, 340, 90, 20)
+        self.perimeter.setStyleSheet("color: #8B00FF;")
+        self.perimeter.setFont(font_1)
+
 
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(160, 140, 20, 20)
+        self.mm_result_perimeret.setGeometry(255, 340, 50, 20)
+        self.mm_result_perimeret.setStyleSheet("color: #8B00FF;")
+        self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
-        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.setGeometry(10, 170, 200, 25)
+        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
+        self.btn_add_perimeter.setGeometry(10, 370, 350, 30)      
+        self.btn_add_perimeter.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
 
         self.window_shape.show()
 
@@ -2596,15 +2653,33 @@ class MainWindow(QMainWindow):
         self.message_oblong_side_a.setText(oblong_a_list[1])
         self.message_oblong_side_b.setText(oblong_b_list[1])
 
-        if oblong_a_list[0] <= oblong_b_list[0]:
-            self.message_oblong_side_a.setText("Замале значення")
-            self.message_oblong_side_b.setText("Завелике значення")
-            self.perimeter.setText("?")
+        self.message_oblong_side_a.setGeometry(150, 240, oblong_a_list[2], 20)
+        self.message_oblong_side_b.setGeometry(150, 270, oblong_b_list[2], 20)
+        if oblong_a_list[0] != 0:
+            self.message_oblong_side_a.setStyleSheet(valide_value_style)
         else:
-            if oblong_a_list[0] != 0 and oblong_b_list[0] != 0:
-                self.perimeter.setText(str(g.Perimeter.oblong(oblong_a_list[0], oblong_b_list[0])))
-            else:
+            self.message_oblong_side_a.setStyleSheet(error_value_style)
+
+        if oblong_b_list[0] != 0:
+            self.message_oblong_side_b.setStyleSheet(valide_value_style)
+        else:
+            self.message_oblong_side_b.setStyleSheet(error_value_style)
+                      
+        if oblong_a_list[0] != 0 and oblong_b_list[0] != 0:
+            if oblong_a_list[0] < oblong_b_list[0]:
+                self.message_oblong_side_a.setStyleSheet(error_value_style)
+                self.message_oblong_side_b.setStyleSheet(error_value_style)
+                self.message_oblong_side_a.setGeometry(150, 240, 150, 20)
+                self.message_oblong_side_b.setGeometry(150, 270, 150, 20)
+                self.message_oblong_side_a.setText("Замале значення")
+                self.message_oblong_side_b.setText("Завелике значення")
                 self.perimeter.setText("?")
+            else:
+                self.message_oblong_side_a.setStyleSheet(valide_value_style)
+                self.message_oblong_side_b.setStyleSheet(valide_value_style)
+                self.perimeter.setText(str(g.Perimeter.oblong(oblong_a_list[0], oblong_b_list[0])))
+        else:
+            self.perimeter.setText("?")
     #КІНЕЦЬ ОВАЛ
 
     #ТРИКУТНИК РІВНОСТОРОННІЙ
