@@ -2694,6 +2694,7 @@ class MainWindow(QMainWindow):
         self.image_lable.setGeometry(13, 10, int(260 * 1.325), 260)
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
+        self.window_shape.setFixedSize( 370, 520)
 
         #Сторона A
         #Заголовок сторони а
@@ -2874,106 +2875,186 @@ class MainWindow(QMainWindow):
     #Вікно рівнобедреного трикутника
     def isosceles_triangle(self, shape: str) -> None:
         self.window_shape = QMdiSubWindow()
-        self.label_text = QLabel(shape, self.window_shape)
-        self.window_shape.setGeometry(950, 200, 600, 300)
-        self.label_text.setGeometry(10, 10, 200, 20)
+        self.window_shape.setWindowTitle(shape)
+        self.window_shape.setGeometry(950, 200, 370, 600)
+        self.window_shape.setStyleSheet("background-color: white;")
 
         self.image_round = gui.QPixmap("img/Treangle_.jpg")
         self.image_lable = QLabel(self.window_shape)
-        self.image_lable.setGeometry(230, 30, int(260 * 0.955), 260)
+        self.image_lable.setGeometry(61, 30, int(260 * 0.955), 260)
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
+
         #Сторона A
         #Заголовок сторони
         self.side_a_is_tr_lalel = QLabel("A", self.window_shape)
-        self.side_a_is_tr_lalel.setGeometry(10, 30, 10, 20)
+        self.side_a_is_tr_lalel.setGeometry(15, 320, 15, 20)
+        self.side_a_is_tr_lalel.setStyleSheet("color: #8B008B;")
+        self.side_a_is_tr_lalel.setFont(font_1)
 
         #Значення сторони
         self.side_a_is_tr_velue = QLineEdit("0.0", self.window_shape)
-        self.side_a_is_tr_velue.setGeometry(25, 30, 40, 20)
+        self.side_a_is_tr_velue.setGeometry(35, 320, 80, 20)
+        self.side_a_is_tr_velue.setFont(font_3)
+        self.side_a_is_tr_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_a_is_tr_velue.setStyleSheet(
+            "background-color: #8B008B;"
+            "color: #FFFFE0;"
+            "border: 2px solid blue;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність сторони
-        self.mm_side_a_is_tr_lalel = QLabel("мм", self.window_shape)
-        self.mm_side_a_is_tr_lalel.setGeometry(70, 30, 40, 20)
+        self.mm_side_a_is_tr_label = QLabel("мм", self.window_shape)
+        self.mm_side_a_is_tr_label.setGeometry(120, 320, 70, 20)
+        self.mm_side_a_is_tr_label.setStyleSheet("color: #8B008B;")
+        self.mm_side_a_is_tr_label.setFont(font_1)
+
 
         #Статус сторони       
         self.message_side_a_is_tr = QLabel(None, self.window_shape)
-        self.message_side_a_is_tr.setGeometry(100, 30, 150, 20)
+        self.message_side_a_is_tr.setGeometry(150, 320, 150, 20)
         if self.side_a_is_tr_velue.text() in zero:
             self.message_side_a_is_tr.setText("Відсутнє значення")
+            self.message_side_a_is_tr.setFont(font_4)
+            self.message_side_a_is_tr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_side_a_is_tr.setStyleSheet(error_value_style) 
 
         #Сторона B
         #Заголовок сторони
         self.side_b_is_tr_lalel = QLabel("B", self.window_shape)
-        self.side_b_is_tr_lalel.setGeometry(10, 60, 10, 20)
+        self.side_b_is_tr_lalel.setGeometry(15, 350, 15, 20)
+        self.side_b_is_tr_lalel.setStyleSheet("color: #4682B4;")
+        self.side_b_is_tr_lalel.setFont(font_1)
+
 
         #Значення сторони
         self.side_b_is_tr_velue = QLineEdit("0.0", self.window_shape)
-        self.side_b_is_tr_velue.setGeometry(25, 60, 40, 20)
+        self.side_b_is_tr_velue.setGeometry(35, 350, 80, 20)
+        self.side_b_is_tr_velue.setFont(font_3)
+        self.side_b_is_tr_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_b_is_tr_velue.setStyleSheet(
+            "background-color: #4682B4;"
+            "color: #FFFFE0;"
+            "border: 2px solid blue;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність сторони
-        self.mm_side_b_is_tr_lalel = QLabel("мм", self.window_shape)
-        self.mm_side_b_is_tr_lalel.setGeometry(70, 60, 40, 20)
+        self.mm_side_b_is_tr_label = QLabel("мм", self.window_shape)
+        self.mm_side_b_is_tr_label.setGeometry(120, 350, 70, 20)
+        self.mm_side_b_is_tr_label.setStyleSheet("color: #4682B4;")
+        self.mm_side_b_is_tr_label.setFont(font_1)
 
         #Статус сторони       
         self.message_side_b_is_tr = QLabel(None, self.window_shape)
-        self.message_side_b_is_tr.setGeometry(100, 60, 150, 20)
+        self.message_side_b_is_tr.setGeometry(150, 350, 150, 20)
         if self.side_b_is_tr_velue.text() in zero:
             self.message_side_b_is_tr.setText("Відсутнє значення")
+            self.message_side_b_is_tr.setFont(font_4)
+            self.message_side_b_is_tr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_side_b_is_tr.setStyleSheet(error_value_style) 
 
         #Висота H
         #Заголовок сторони
-        self.height_is_tr_lalel = QLabel("H", self.window_shape)
-        self.height_is_tr_lalel.setGeometry(10, 90, 10, 20)
+        self.height_is_tr_label = QLabel("H", self.window_shape)
+        self.height_is_tr_label.setGeometry(15, 380, 15, 20)
+        self.height_is_tr_label.setStyleSheet("color: #32CD32;")
+        self.height_is_tr_label.setFont(font_1)
 
         #Значення сторони
         self.height_is_tr_velue = QLineEdit("0.0", self.window_shape)
-        self.height_is_tr_velue.setGeometry(25, 90, 40, 20)
+        self.height_is_tr_velue.setGeometry(35, 380, 80, 20)
+        self.height_is_tr_velue.setFont(font_3)
+        self.height_is_tr_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.height_is_tr_velue.setStyleSheet(
+            "background-color: #32CD32;"
+            "color: #FFFFE0;"
+            "border: 2px solid blue;"
+            "border-radius: 10px; text-align: center;"
+            )
 
         #Розмірність сторони
-        self.mm_height_is_tr_lalel = QLabel("мм", self.window_shape)
-        self.mm_height_is_tr_lalel.setGeometry(70, 90, 40, 20)
+        self.mm_height_is_tr_label = QLabel("мм", self.window_shape)
+        self.mm_height_is_tr_label.setGeometry(120, 380, 70, 20)
+        self.mm_height_is_tr_label.setStyleSheet("color: #32CD32;")
+        self.mm_height_is_tr_label.setFont(font_1)
 
         #Статус сторони       
         self.message_height_is_tr = QLabel(None, self.window_shape)
-        self.message_height_is_tr.setGeometry(100, 90, 150, 20)
+        self.message_height_is_tr.setGeometry(150, 380, 150, 20)
         if self.height_is_tr_velue.text() in zero:
             self.message_height_is_tr.setText("Відсутнє значення")
+            self.message_height_is_tr.setFont(font_4)
+            self.message_height_is_tr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
+            self.message_height_is_tr.setStyleSheet(error_value_style) 
 
         #Кнопка розрахунку через сторону А та сторону В
-        self.btn_perim_is_tr_a_b = QPushButton("Розрахувати периметр (по А, В)", self.window_shape)
-        self.btn_perim_is_tr_a_b.setGeometry(10, 120, 200, 20)
+        self.btn_perim_is_tr_a_b = QPushButton("Розрахувати периметр по А та В", self.window_shape)
         self.btn_perim_is_tr_a_b.clicked.connect(self.perim_is_tr_a_b)
+        self.btn_perim_is_tr_a_b.setGeometry(10, 410, 350, 30)      
+        self.btn_perim_is_tr_a_b.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(218, 165, 32), stop:1 rgb(160, 82, 45));"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
 
         #Кнопка розрахунку через сторону А та сторону H
-        self.btn_perim_is_tr_a_h = QPushButton("Розрахувати периметр (по А, Н)", self.window_shape)
-        self.btn_perim_is_tr_a_h.setGeometry(10, 150, 200, 20)
+        self.btn_perim_is_tr_a_h = QPushButton("Розрахувати периметр по А та Н", self.window_shape)
         self.btn_perim_is_tr_a_h.clicked.connect(self.perim_is_tr_a_h)
+        self.btn_perim_is_tr_a_h.setGeometry(10, 450, 350, 30)      
+        self.btn_perim_is_tr_a_h.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(255, 140, 0));"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
 
         #Кнопка розрахунку через сторону B та сторону H
-        self.btn_perim_is_tr_b_h = QPushButton("Розрахувати периметр (по B, Н)", self.window_shape)
-        self.btn_perim_is_tr_b_h.setGeometry(10, 180, 200, 20)
+        self.btn_perim_is_tr_b_h = QPushButton("Розрахувати периметр по B та Н", self.window_shape)
         self.btn_perim_is_tr_b_h.clicked.connect(self.perim_is_tr_b_h)
-
+        self.btn_perim_is_tr_b_h.setGeometry(10, 490, 350, 30)      
+        self.btn_perim_is_tr_b_h.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(160, 82, 45), stop:1 rgb(186, 85, 211));"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.Label_s_peremeter = QLabel("Периметер квадрата", self.window_shape)
-        self.Label_s_peremeter.setGeometry(15, 210, 120, 20)
+        self.Label_s_peremeter = QLabel("Периметр", self.window_shape)
+        self.Label_s_peremeter.setGeometry(15, 530, 150, 20)
+        self.Label_s_peremeter.setStyleSheet("color: #8B00FF;")
+        self.Label_s_peremeter.setFont(font_1)
         
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
-        self.perimeter.setGeometry(130, 210, 40, 20)
+        self.perimeter.setGeometry(165, 530, 90, 20)
+        self.perimeter.setStyleSheet("color: #8B00FF;")
+        self.perimeter.setFont(font_1)
 
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(160, 210, 20, 20)
+        self.mm_result_perimeret.setGeometry(255, 530, 50, 20)
+        self.mm_result_perimeret.setStyleSheet("color: #8B00FF;")
+        self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
-        self.btn_add_perimeter = QPushButton("Додати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.setGeometry(10, 240, 200, 25)
+        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
-
+        self.btn_add_perimeter.setGeometry(10, 560, 350, 30)      
+        self.btn_add_perimeter.setStyleSheet(
+        "color: #FFEFD5; "
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));"
+        "border-radius: 10px;"
+        "font-size: 16px;"
+        "font-weight: bold;"
+        )
         self.window_shape.show()
 
     #Периметер рівнобедреного трикутника через дві сторони
@@ -2985,19 +3066,48 @@ class MainWindow(QMainWindow):
         self.message_side_a_is_tr.setText(side_a_list[1])
         self.message_side_b_is_tr.setText(side_b_list[1])
 
+        self.message_side_a_is_tr.setGeometry(150, 320, side_a_list[2], 20)
+        self.message_side_b_is_tr.setGeometry(150, 350, side_b_list[2], 20)
+
+        if side_a_list[0] != 0:
+            self.message_side_a_is_tr.setStyleSheet(valide_value_style)
+        else:
+            self.message_side_a_is_tr.setStyleSheet(error_value_style)
+            self.message_height_is_tr.setStyleSheet(error_value_style)
+            self.height_is_tr_velue.setText("0.0")
+            self.message_height_is_tr.setText("Відсутнє значення")
+
+        if side_b_list[0] != 0:
+            self.message_side_b_is_tr.setStyleSheet(valide_value_style)
+        else:
+            self.message_side_b_is_tr.setStyleSheet(error_value_style)
+            self.message_height_is_tr.setStyleSheet(error_value_style)
+            self.height_is_tr_velue.setText("0.0")
+            self.message_height_is_tr.setText("Відсутнє значення")
 
         if side_a_list[0] != 0 and side_b_list[0] != 0:
             if side_a_list[0] * 2 <= side_b_list[0]:
+                self.message_side_a_is_tr.setStyleSheet(error_value_style)
+                self.message_side_b_is_tr.setStyleSheet(error_value_style)
+                self.message_height_is_tr.setStyleSheet(error_value_style)
                 self.message_side_a_is_tr.setText("Завелика сторона")
                 self.message_side_b_is_tr.setText("Замала сторона")
-                self.height_is_tr_velue.setText("?")
+                self.height_is_tr_velue.setText("0.0")
+                self.message_height_is_tr.setText("Відсутнє значення")
                 self.perimeter.setText("?")
             else:
+                self.message_side_a_is_tr.setStyleSheet(valide_value_style)
+                self.message_side_b_is_tr.setStyleSheet(valide_value_style)
+                self.message_height_is_tr.setText("Валідне значення")
+                self.message_height_is_tr.setStyleSheet(valide_value_style)
+                self.side_a_is_tr_velue.setText(str(round(side_a_list[0], 2)))
+                self.side_b_is_tr_velue.setText(str(round(side_b_list[0], 2)))
                 self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
-                self.perimeter.setGeometry(125, 210, 40, 20)
                 self.height_is_tr_velue.setText(str(g.Isosceles_triangle.height_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
         else:
             self.perimeter.setText("?")
+            self.height_is_tr_velue.setText("0.0")
+            self.message_height_is_tr.setStyleSheet(error_value_style)
 
     #Периметер рівнобедреного трикутника через довгу сторону та висоту
     def perim_is_tr_a_h(self) -> None:
@@ -3008,18 +3118,38 @@ class MainWindow(QMainWindow):
         self.message_side_a_is_tr.setText(side_a_list[1]) 
         self.message_height_is_tr.setText(height_list[1])
 
+        self.message_side_a_is_tr.setGeometry(150, 320, side_a_list[2], 20)
+        self.message_height_is_tr.setGeometry(150, 380, height_list[2], 20)
+
+        if side_a_list[0] != 0:
+            self.message_side_a_is_tr.setStyleSheet(valide_value_style)
+        else:
+            self.message_side_a_is_tr.setStyleSheet(error_value_style)
+
+        if height_list[0] != 0:
+            pass
+        else:
+            pass            
+        
         if side_a_list[0] != 0 and height_list[0] != 0:
             if side_a_list[0] <= height_list[0]:
+                self.message_side_a_is_tr.setStyleSheet(error_value_style)
+                self.message_side_b_is_tr.setStyleSheet(error_value_style)
+                self.message_height_is_tr.setStyleSheet(error_value_style)
                 self.message_side_a_is_tr.setText("Замала сторона")
-                self.message_side_b_is_tr.setText("?")
+                self.message_side_b_is_tr.setText("Відсутнє значення")
                 self.message_height_is_tr.setText("Завелика сторона")
+                self.side_b_is_tr_velue.setText("0.0")
                 self.perimeter.setText("?")
             else:
-                self.perimeter.setGeometry(125, 210, 40, 20)
+                self.message_side_a_is_tr.setStyleSheet(valide_value_style)
+                self.message_side_b_is_tr.setStyleSheet(valide_value_style)
+                self.message_height_is_tr.setStyleSheet(valide_value_style)
                 self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_height(side_a_list[0], height_list[0])))
                 self.side_b_is_tr_velue.setText(str(g.Isosceles_triangle.side_b_is_tr_side_a_height(side_a_list[0], height_list[0])))       
         else:
             self.perimeter.setText("?")
+            self.message_side_b_is_tr.setText("0.0")
 
     #Периметер рівнобедреного трикутника через коротку сторону та висоту
     def perim_is_tr_b_h(self) -> None:
@@ -3030,11 +3160,17 @@ class MainWindow(QMainWindow):
         self.message_height_is_tr.setText(height_list[1])
 
         if side_b_list[0] != 0 and height_list[0]:
-            self.perimeter.setGeometry(125, 210, 40, 20)
+            self.message_side_a_is_tr.setStyleSheet(valide_value_style)
+            self.message_side_b_is_tr.setStyleSheet(valide_value_style)
+            self.message_height_is_tr.setStyleSheet(valide_value_style)
             self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_height_side_b(height_list[0], side_b_list[0])))
             self.side_a_is_tr_velue.setText(str(g.Isosceles_triangle.side_a_is_tr_side_b_height(side_b_list[0], height_list[0])))  
         else:
+            self.message_side_a_is_tr.setStyleSheet(error_value_style)
+            self.message_side_b_is_tr.setStyleSheet(error_value_style)
+            self.message_height_is_tr.setStyleSheet(error_value_style)
             self.perimeter.setText("?")
+            self.side_a_is_tr_velue.setText("0.0")
 
     #Передаэмо з вікна форми до головного вікна периметер
     def add_value(self):
