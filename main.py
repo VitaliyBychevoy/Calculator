@@ -2824,6 +2824,8 @@ class MainWindow(QMainWindow):
         side_a_list = self.check_number_new(self.eq_tr_side_velue.text())
         self.message_eq_tr_side.setText(side_a_list[1])
 
+        self.message_eq_tr_side.setGeometry(150, 300, side_a_list[2], 20)
+
         if side_a_list[0] != 0:
             self.perimeter.setText(str(g.Equilateral_triangle.perim_eq_tr_side(side_a_list[0])))
             self.eq_tr_height_velue.setText(str(g.Equilateral_triangle.height_eq_tr_side(side_a_list[0])))        
@@ -2836,13 +2838,17 @@ class MainWindow(QMainWindow):
         height_h_list = self.check_number_new(self.eq_tr_height_velue.text())
 
         self.message_eq_tr_height.setText(height_h_list[1])
+        self.message_eq_tr_height.setGeometry(150, 380, height_h_list[2], 20)
 
         if height_h_list[0] != 0:
+            self.message_eq_tr_height.setStyleSheet(valide_value_style)
             self.perimeter.setText(str(g.Equilateral_triangle.perim_eq_tr_height(height_h_list[0])))
             self.eq_tr_side_velue.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
         else:
+            self.message_eq_tr_height.setStyleSheet(error_value_style)
             self.eq_tr_side_velue.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
             self.perimeter.setText("?")
+
     #КІНЕЦЬ ТРИКУТНИК РІВНОСТОРОННІЙ
 
     #РІВНОБЕДРЕНИЙ ТРИКУТНИК
