@@ -2827,9 +2827,19 @@ class MainWindow(QMainWindow):
         self.message_eq_tr_side.setGeometry(150, 300, side_a_list[2], 20)
 
         if side_a_list[0] != 0:
+            self.message_eq_tr_side.setGeometry(150, 300, 150, 20)
+            self.message_eq_tr_height.setGeometry(150, 380, 150, 20)
+            self.message_eq_tr_side.setStyleSheet(valide_value_style)
+            self.message_eq_tr_height.setStyleSheet(valide_value_style)
+            self.message_eq_tr_height.setText("Валідне значення")      
             self.perimeter.setText(str(g.Equilateral_triangle.perim_eq_tr_side(side_a_list[0])))
             self.eq_tr_height_velue.setText(str(g.Equilateral_triangle.height_eq_tr_side(side_a_list[0])))        
         else:
+            self.message_eq_tr_side.setGeometry(150, 300, side_a_list[2], 20)
+            self.message_eq_tr_height.setGeometry(150, 380, 150, 20)
+            self.message_eq_tr_side.setStyleSheet(error_value_style)
+            self.message_eq_tr_height.setStyleSheet(error_value_style)
+            self.message_eq_tr_height.setText("Відсутнє значення")  
             self.eq_tr_height_velue.setText("0.0")
             self.perimeter.setText("?")
 
@@ -2841,11 +2851,20 @@ class MainWindow(QMainWindow):
         self.message_eq_tr_height.setGeometry(150, 380, height_h_list[2], 20)
 
         if height_h_list[0] != 0:
+            self.message_eq_tr_side.setGeometry(150, 300, 150, 20)
+            self.message_eq_tr_height.setGeometry(150, 380, 150, 20)
             self.message_eq_tr_height.setStyleSheet(valide_value_style)
+            self.message_eq_tr_side.setStyleSheet(valide_value_style)
+            self.message_eq_tr_side.setText("Валідне значення")            
             self.perimeter.setText(str(g.Equilateral_triangle.perim_eq_tr_height(height_h_list[0])))
             self.eq_tr_side_velue.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
         else:
+            self.message_eq_tr_side.setGeometry(150, 300, 150, 20)
+            self.message_eq_tr_height.setGeometry(150, 380, height_h_list[2], 20)
+            self.eq_tr_side_velue.setText("0.0")
             self.message_eq_tr_height.setStyleSheet(error_value_style)
+            self.message_eq_tr_side.setStyleSheet(error_value_style)
+            self.message_eq_tr_side.setText("Відсутнє значення")
             self.eq_tr_side_velue.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
             self.perimeter.setText("?")
 
