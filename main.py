@@ -30,14 +30,31 @@ valid_width: int = 150
 message_width: int = 150
 
 #Стиль для кнопки розрахунку зусилля
-force_button_style: str = 
+force_button_style: str = "color: white; " + \
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(127,255,212), stop:1 rgb(100,149,237));" + \
+        "border-radius: 10px;" + \
+        "font-size: 16px;" + \
+        "font-weight: bold;"
 
 #Стиль кнопки для передачі периметра у розрахунок
-add_button_style: str = "color: #FFEFD5; " +\
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));"+\
-        "border-radius: 10px;"+\
-        "font-size: 16px;"+\
-        "font-weight: bold;"
+# add_button_style: str = "color: #FFEFD5; " 
+#         "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));"
+#         "border-radius: 10px;" 
+#         "font-size: 16px;" 
+
+#         "font-weight: bold;"
+add_button_style: str = """
+        QPushButton {
+            color: #FFEFD5;
+            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));
+            "border-radius: 10px; 
+            "font-size: 16px; 
+            "font-weight: bold;
+        }
+        QPushButton:hover {
+            color: green;
+        }
+    """
 
 #Стиль для першої кнопки розрахунку периметра 
 
@@ -157,13 +174,7 @@ class MainWindow(QMainWindow):
         #КНОПКА ДЛЯ РОЗРАХУВАННЯ ЗУСИЛЛЯ
         self.btn = QPushButton("Розрахувати зусилля", self)
         self.btn.setGeometry(120, 150, 320, 40)
-        self.btn.setStyleSheet(
-        "color: white; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(127,255,212), stop:1 rgb(100,149,237));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn.setStyleSheet(force_button_style)
 
         self.btn.clicked.connect(self.calculate_tonage_new)
 
@@ -2988,7 +2999,18 @@ class MainWindow(QMainWindow):
         self.btn_add_perimetr = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimetr.clicked.connect(self.add_value)
         self.btn_add_perimetr.setGeometry(10, 560, 350, 30)      
-        self.btn_add_perimetr.setStyleSheet(add_button_style)
+        self.btn_add_perimetr.setStyleSheet("""
+        QPushButton {
+            color: #FFEFD5;
+            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));
+            "border-radius: 10px; 
+            "font-size: 16px; 
+            "font-weight: bold;
+        }
+        QPushButton:hover {
+            color: green;
+        }
+        """)
         self.window_shape.show()
 
     #Периметер рівнобедреного трикутника через дві сторони
@@ -3084,15 +3106,15 @@ class MainWindow(QMainWindow):
                 self.message_side_b_is_tr.setText("Відсутнє значення")
                 self.message_height_is_tr.setText("Завелика сторона")
                 self.side_b_is_tr_velue.setText("0.0")
-                self.perimeter.setText("?")
+                self.perimetr.setText("?")
             else:
                 self.message_side_a_is_tr.setStyleSheet(valide_value_style)
                 self.message_side_b_is_tr.setStyleSheet(valide_value_style)
                 self.message_height_is_tr.setStyleSheet(valide_value_style)
-                self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_height(side_a_list[0], height_list[0])))
+                self.perimetr.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_height(side_a_list[0], height_list[0])))
                 self.side_b_is_tr_velue.setText(str(g.Isosceles_triangle.side_b_is_tr_side_a_height(side_a_list[0], height_list[0])))       
         else:
-            self.perimeter.setText("?")
+            self.perimetr.setText("?")
             self.side_b_is_tr_velue.setText("0.0")
             self.message_side_b_is_tr.setStyleSheet(error_value_style)
 
@@ -3114,7 +3136,7 @@ class MainWindow(QMainWindow):
             self.message_side_a_is_tr.setStyleSheet(error_value_style)
             self.message_side_a_is_tr.setText("Відсутнє значення")
             self.side_a_is_tr_velue.setText("0.0")
-            self.perimeter.setText("?")
+            self.perimetr.setText("?")
 
         if height_list[0] != 0:
             self.message_height_is_tr.setStyleSheet(valide_value_style)
@@ -3123,16 +3145,16 @@ class MainWindow(QMainWindow):
             self.message_height_is_tr.setStyleSheet(error_value_style)
             self.message_side_a_is_tr.setText("Відсутнє значення")
             self.side_a_is_tr_velue.setText("0.0")
-            self.perimeter.setText("?")           
+            self.perimetr.setText("?")           
 
         if side_b_list[0] != 0 and height_list[0] != 0:
             self.message_side_a_is_tr.setStyleSheet(valide_value_style)
             self.message_side_b_is_tr.setStyleSheet(valide_value_style)
             self.message_height_is_tr.setStyleSheet(valide_value_style)
-            self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_height_side_b(height_list[0], side_b_list[0])))
+            self.perimetr.setText(str(g.Isosceles_triangle.perim_is_tr_height_side_b(height_list[0], side_b_list[0])))
             self.side_a_is_tr_velue.setText(str(g.Isosceles_triangle.side_a_is_tr_side_b_height(side_b_list[0], height_list[0])))  
         else:
-            self.perimeter.setText("?")
+            self.perimetr.setText("?")
             self.side_a_is_tr_velue.setText("0.0")
             self.message_side_a_is_tr.setStyleSheet(error_value_style)
 
