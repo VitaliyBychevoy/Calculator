@@ -13,17 +13,37 @@ material = {
     "Сталь нержавіюча": 1.5
  }
 
+#Допустимі символи
 exceptable_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.']
 
+#Можливі нульові значення
 zero = ['0', '0,0', '0.0', '', '.', ',']
 
+#Стилі відображення повідомлення про стан введеної інформації
 error_value_style: str = "background-color: red; color: white; border-radius: 10px;"
 valide_value_style: str = "background-color: green; color: white; border-radius: 10px;"
+
+#Довжина фону повідомлення про стан введеної інформації
 error_width_1: int = 150
 error_width_2: int = 210
 valid_width: int = 150
-
 message_width: int = 150
+
+#Стиль для кнопки розрахунку зусилля
+force_button_style: str = 
+
+#Стиль кнопки для передачі периметра у розрахунок
+add_button_style: str = "color: #FFEFD5; " +\
+        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));"+\
+        "border-radius: 10px;"+\
+        "font-size: 16px;"+\
+        "font-weight: bold;"
+
+#Стиль для першої кнопки розрахунку периметра 
+
+#Стиль для другої кнопки розрахунку периметра 
+
+#Стиль для третьої кнопки розрахунку периметра 
 
 class MainWindow(QMainWindow):
 
@@ -43,16 +63,16 @@ class MainWindow(QMainWindow):
         self.perimeter_lalel.setFont(font_1)
 
         #Значення периметра
-        self.perimeter_velue = QLineEdit("0.0", self)
-        self.perimeter_velue.setGeometry(120, 50, 70, 20)
-        self.perimeter_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.perimeter_velue.setStyleSheet(
+        self.perimetr_velue = QLineEdit("0.0", self)
+        self.perimetr_velue.setGeometry(120, 50, 70, 20)
+        self.perimetr_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.perimetr_velue.setStyleSheet(
             "background-color: lightgreen;"
             "color: #008CBA;"
             "border: 2px solid blue;"
             "border-radius: 10px; text-align: center;"
             )
-        self.perimeter_velue.setFont(font_3)
+        self.perimetr_velue.setFont(font_3)
 
 
         #Розмірність периметра
@@ -65,7 +85,7 @@ class MainWindow(QMainWindow):
         self.message_perimeter = QLabel(None, self)
         self.message_perimeter.setGeometry(230, 50, 150, 20)
         self.message_perimeter.setFont(font_4)
-        if self.perimeter_velue.text() in zero:
+        if self.perimetr_velue.text() in zero:
             self.message_perimeter.setText("Відсутнє значення")
             self.message_perimeter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             self.message_perimeter.setGeometry(230, 50, message_width, 20)
@@ -234,7 +254,7 @@ class MainWindow(QMainWindow):
             result = result * perimetr_list[0]
             result = result * thickness_list[0]
             result = round(result * float(self.amount_holes.currentText()), 2)
-            self.perimeter_velue.setText(str(round(perimetr_list[0], 1)))
+            self.perimetr_velue.setText(str(round(perimetr_list[0], 1)))
             self.thickness_velue.setText(str(round(thickness_list[0], 2)))
             self.message_perimeter.setStyleSheet(valide_value_style)
             self.message_thickness.setStyleSheet(valide_value_style)
@@ -425,16 +445,10 @@ class MainWindow(QMainWindow):
         self.mm_result_perimeret.setStyleSheet("color: YellowGreen;")
         self.mm_result_perimeret.setFont(font_1)
         #Кнопка периметер кола до загального розраунку
-        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.setGeometry(10, 450, 350, 30)
-        self.btn_add_perimeter.clicked.connect(self.add_value)
-        self.btn_add_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(34,139,34), stop:1 rgb(127,255,0));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimetr = QPushButton("Передати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimetr.setGeometry(10, 450, 350, 30)
+        self.btn_add_perimetr.clicked.connect(self.add_value)
+        self.btn_add_perimetr.setStyleSheet(add_button_style)
 
         self.window_shape.show()
     #Периметер кола  
@@ -589,16 +603,10 @@ class MainWindow(QMainWindow):
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер кола до загального розраунку
-        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.clicked.connect(self.add_value)
-        self.btn_add_perimeter.setGeometry(10, 450, 350, 30)
-        self.btn_add_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimetr = QPushButton("Передати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimetr.clicked.connect(self.add_value)
+        self.btn_add_perimetr.setGeometry(10, 450, 350, 30)
+        self.btn_add_perimetr.setStyleSheet(add_button_style)
 
         self.window_shape.show()
 
@@ -737,13 +745,7 @@ class MainWindow(QMainWindow):
         self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.setGeometry(10, 450, 350, 30)
         self.btn_add_perimeter.clicked.connect(self.add_value)
-        self.btn_add_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimeter.setStyleSheet(add_button_style)
 
         self.window_shape.show()
 
@@ -878,16 +880,10 @@ class MainWindow(QMainWindow):
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
-        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.clicked.connect(self.add_value)
-        self.btn_add_perimeter.setGeometry(10, 450, 350, 30)      
-        self.btn_add_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimetr = QPushButton("Передати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimetr.clicked.connect(self.add_value)
+        self.btn_add_perimetr.setGeometry(10, 450, 350, 30)      
+        self.btn_add_perimetr.setStyleSheet(add_button_style)
 
         self.window_shape.show()
     
@@ -1148,13 +1144,7 @@ class MainWindow(QMainWindow):
         self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
         self.btn_add_perimeter.setGeometry(10, 520, 370, 30)      
-        self.btn_add_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimeter.setStyleSheet(add_button_style)
 
         self.window_shape.show()
 
@@ -1380,13 +1370,7 @@ class MainWindow(QMainWindow):
         self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
         self.btn_add_perimeter.setGeometry(10, 450, 350, 30)      
-        self.btn_add_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimeter.setStyleSheet(add_button_style)
 
         self.window_shape.show()
     
@@ -1559,13 +1543,7 @@ class MainWindow(QMainWindow):
         self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
         self.btn_add_perimeter.setGeometry(10, 450, 350, 30)      
-        self.btn_add_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimeter.setStyleSheet(add_button_style)
 
         self.window_shape.show() 
 
@@ -1755,13 +1733,7 @@ class MainWindow(QMainWindow):
         self.btn_add_perimeter_req = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter_req.clicked.connect(self.add_value)
         self.btn_add_perimeter_req.setGeometry(10, 470, 350, 30)      
-        self.btn_add_perimeter_req.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimeter_req.setStyleSheet(add_button_style)
 
         self.window_shape.show()
     
@@ -2057,13 +2029,7 @@ class MainWindow(QMainWindow):
         self.btn_rectangle_four_radius = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_rectangle_four_radius.clicked.connect(self.perim_rectangle_four_radius)
         self.btn_rectangle_four_radius.setGeometry(10, 450, 370, 30)
-        self.btn_rectangle_four_radius.setStyleSheet(
-        "color: #FFEFD5;"
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
-        "border-radius: 10px;"
-        "font-size: 14px;"
-        "font-weight: bold;"
-        )
+        self.btn_rectangle_four_radius.setStyleSheet(add_button_style)
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
@@ -2085,16 +2051,10 @@ class MainWindow(QMainWindow):
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
-        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.clicked.connect(self.add_value)
-        self.btn_add_perimeter.setGeometry(10, 520, 370, 30)      
-        self.btn_add_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimetr = QPushButton("Передати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimetr.clicked.connect(self.add_value)
+        self.btn_add_perimetr.setGeometry(10, 520, 370, 30)      
+        self.btn_add_perimetr.setStyleSheet(add_button_style)
 
         self.window_shape.show()             
 
@@ -2415,13 +2375,7 @@ class MainWindow(QMainWindow):
         self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimeter.clicked.connect(self.add_value)
         self.btn_add_perimeter.setGeometry(10, 560, 370, 30)      
-        self.btn_add_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(32, 178, 170), stop:1 rgb(186, 85, 211));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimeter.setStyleSheet(add_button_style)
 
         self.window_shape.show()
     
@@ -2627,16 +2581,10 @@ class MainWindow(QMainWindow):
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
-        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.clicked.connect(self.add_value)
-        self.btn_add_perimeter.setGeometry(10, 370, 350, 30)      
-        self.btn_add_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimetr = QPushButton("Передати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimetr.clicked.connect(self.add_value)
+        self.btn_add_perimetr.setGeometry(10, 370, 350, 30)      
+        self.btn_add_perimetr.setStyleSheet(add_button_style)
 
         self.window_shape.show()
 
@@ -2807,16 +2755,10 @@ class MainWindow(QMainWindow):
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
-        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.clicked.connect(self.add_value)
-        self.btn_add_perimeter.setGeometry(10, 480, 350, 30)      
-        self.btn_add_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimetr = QPushButton("Передати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimetr.clicked.connect(self.add_value)
+        self.btn_add_perimetr.setGeometry(10, 480, 350, 30)      
+        self.btn_add_perimetr.setStyleSheet(add_button_style)
         self.window_shape.show()
 
     #Периметер рівносторонього трикутника через сторону
@@ -3043,16 +2985,10 @@ class MainWindow(QMainWindow):
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
-        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimeter.clicked.connect(self.add_value)
-        self.btn_add_perimeter.setGeometry(10, 560, 350, 30)      
-        self.btn_add_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_add_perimetr = QPushButton("Передати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimetr.clicked.connect(self.add_value)
+        self.btn_add_perimetr.setGeometry(10, 560, 350, 30)      
+        self.btn_add_perimetr.setStyleSheet(add_button_style)
         self.window_shape.show()
 
     #Периметер рівнобедреного трикутника через дві сторони
