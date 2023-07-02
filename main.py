@@ -254,7 +254,6 @@ class MainWindow(QMainWindow):
             self.message_thickness.setStyleSheet(valide_value_style)
             self.message_thickness.setGeometry(230, 75, thickness_list[2], 20)
 
-
     #Функція вертає коефіцієнт матеріала
     def coefficient_material(self) -> float:
         coeff = 0.0
@@ -2868,7 +2867,6 @@ class MainWindow(QMainWindow):
             self.message_eq_tr_side.setText("Відсутнє значення")
             self.eq_tr_side_velue.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
             self.perimeter.setText("?")
-
     #КІНЕЦЬ ТРИКУТНИК РІВНОСТОРОННІЙ
 
     #РІВНОБЕДРЕНИЙ ТРИКУТНИК
@@ -3076,6 +3074,7 @@ class MainWindow(QMainWindow):
             self.message_height_is_tr.setStyleSheet(error_value_style)
             self.height_is_tr_velue.setText("0.0")
             self.message_height_is_tr.setText("Відсутнє значення")
+            self.perimeter.setText("?")
 
         if side_b_list[0] != 0:
             self.message_side_b_is_tr.setStyleSheet(valide_value_style)
@@ -3084,6 +3083,7 @@ class MainWindow(QMainWindow):
             self.message_height_is_tr.setStyleSheet(error_value_style)
             self.height_is_tr_velue.setText("0.0")
             self.message_height_is_tr.setText("Відсутнє значення")
+            self.perimeter.setText("?")
 
         if side_a_list[0] != 0 and side_b_list[0] != 0:
             if side_a_list[0] * 2 <= side_b_list[0]:
@@ -3125,11 +3125,19 @@ class MainWindow(QMainWindow):
             self.message_side_a_is_tr.setStyleSheet(valide_value_style)
         else:
             self.message_side_a_is_tr.setStyleSheet(error_value_style)
+            self.message_side_b_is_tr.setStyleSheet(error_value_style)
+            self.message_side_b_is_tr.setText("Відсутнє значення")
+            self.side_b_is_tr_velue.setText("0.0")
+            self.perimeter.setText("?")
 
         if height_list[0] != 0:
-            pass
+            self.message_height_is_tr.setStyleSheet(valide_value_style)
         else:
-            pass            
+            self.message_height_is_tr.setStyleSheet(error_value_style)
+            self.message_side_b_is_tr.setStyleSheet(error_value_style)
+            self.message_side_b_is_tr.setText("Відсутнє значення")
+            self.side_b_is_tr_velue.setText("0.0")
+            self.perimeter.setText("?")            
         
         if side_a_list[0] != 0 and height_list[0] != 0:
             if side_a_list[0] <= height_list[0]:
@@ -3149,7 +3157,8 @@ class MainWindow(QMainWindow):
                 self.side_b_is_tr_velue.setText(str(g.Isosceles_triangle.side_b_is_tr_side_a_height(side_a_list[0], height_list[0])))       
         else:
             self.perimeter.setText("?")
-            self.message_side_b_is_tr.setText("0.0")
+            self.side_b_is_tr_velue.setText("0.0")
+            self.message_side_b_is_tr.setStyleSheet(error_value_style)
 
     #Периметер рівнобедреного трикутника через коротку сторону та висоту
     def perim_is_tr_b_h(self) -> None:
@@ -3159,18 +3168,37 @@ class MainWindow(QMainWindow):
         self.message_side_b_is_tr.setText(side_b_list[1]) 
         self.message_height_is_tr.setText(height_list[1])
 
-        if side_b_list[0] != 0 and height_list[0]:
+        self.message_side_b_is_tr.setGeometry(150, 350, side_b_list[2], 20)
+        self.message_height_is_tr.setGeometry(150, 380, height_list[2], 20)
+
+        if side_b_list[0] != 0:
+            self.message_side_b_is_tr.setStyleSheet(valide_value_style)
+        else:
+            self.message_side_b_is_tr.setStyleSheet(error_value_style)
+            self.message_side_a_is_tr.setStyleSheet(error_value_style)
+            self.message_side_a_is_tr.setText("Відсутнє значення")
+            self.side_a_is_tr_velue.setText("0.0")
+            self.perimeter.setText("?")
+
+        if height_list[0] != 0:
+            self.message_height_is_tr.setStyleSheet(valide_value_style)
+        else:
+            self.message_side_a_is_tr.setStyleSheet(error_value_style)
+            self.message_height_is_tr.setStyleSheet(error_value_style)
+            self.message_side_a_is_tr.setText("Відсутнє значення")
+            self.side_a_is_tr_velue.setText("0.0")
+            self.perimeter.setText("?")           
+
+        if side_b_list[0] != 0 and height_list[0] != 0:
             self.message_side_a_is_tr.setStyleSheet(valide_value_style)
             self.message_side_b_is_tr.setStyleSheet(valide_value_style)
             self.message_height_is_tr.setStyleSheet(valide_value_style)
             self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_height_side_b(height_list[0], side_b_list[0])))
             self.side_a_is_tr_velue.setText(str(g.Isosceles_triangle.side_a_is_tr_side_b_height(side_b_list[0], height_list[0])))  
         else:
-            self.message_side_a_is_tr.setStyleSheet(error_value_style)
-            self.message_side_b_is_tr.setStyleSheet(error_value_style)
-            self.message_height_is_tr.setStyleSheet(error_value_style)
             self.perimeter.setText("?")
             self.side_a_is_tr_velue.setText("0.0")
+            self.message_side_a_is_tr.setStyleSheet(error_value_style)
 
     #Передаэмо з вікна форми до головного вікна периметер
     def add_value(self):
