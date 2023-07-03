@@ -19,6 +19,25 @@ exceptable_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.']
 #Можливі нульові значення
 zero = ['0', '0,0', '0.0', '', '.', ',']
 
+
+#Стилі для головного вікна
+FORM_LIST_COLOR = "Cornsilk"
+
+#Стиль для QComgoBox з формами
+form_style_shape = "" +\
+    "QComboBox {" +\
+        "color: Green;" +\
+        "background-color: Cornsilk;" +\
+        "border: 2px solid blue;" +\
+    "}" +\
+    "QComboBox:hover {" +\
+        "border: 3px solid #00FF00" +\
+    "}" +\
+    "QComboBox QAbstractItemView {" +\
+        "color: Green;" +\
+        "background-color: Cornsilk;" +\
+    "}"
+
 #Стилі відображення повідомлення про стан введеної інформації
 error_value_style: str = "background-color: red; color: white; border-radius: 10px;"
 valide_value_style: str = "background-color: green; color: white; border-radius: 10px;"
@@ -29,7 +48,9 @@ error_width_2: int = 210
 valid_width: int = 150
 message_width: int = 150
 
-#Кольори параметрів
+
+#Стилі для вікна форм
+#Кольори параметрів 
 FIRST_PARAMETER_COLOR = "#7B68EE"
 
 SECOND_PARAMETER_COLOR = "#00BFFF"  
@@ -42,7 +63,7 @@ FIFTH_PARAMETER_COLOR = "#3CB371"
 
 SIXTH_PARAMETER_COLOR = "#228B22"
 
-SUBRESULT_COLOR = "#1E90FF"
+SUBRESULT_COLOR = "#FFA500"
 
 PERIMETER_COLOR = "#8B00FF"
 
@@ -57,8 +78,7 @@ force_button_style: str = ""+\
         "}" +\
         "QPushButton:hover {" +\
             "background-color: #32CD32;" +\
-        "}"
-
+        "}"      
 #Стиль кнопки для передачі периметра у розрахунок
 add_button_style: str = ""+\
         "QPushButton {" +\
@@ -119,8 +139,11 @@ q_line_edit_style_1: str = "" +\
             "border-radius: 10px; text-align: center;" +\
         "}" +\
         "QLineEdit:hover {" +\
-            "border: 3px solid #00FF00" +\
-        "}"           
+            "border: 3px solid #00FF00;" +\
+        "}" +\
+        "QLineEdit:focus {" +\
+            "border: 3px solid #00FA9A;" +\
+        "}"
 
 #Стиль для першого параметра форми
 q_line_edit_style_2: str = "" +\
@@ -132,6 +155,9 @@ q_line_edit_style_2: str = "" +\
         "}" +\
         "QLineEdit:hover {" +\
             "border: 3px solid #00FF00" +\
+        "}" +\
+        "QLineEdit:focus {" +\
+            "border: 3px solid #00FA9A;" +\
         "}"
 
 #Стиль для третього параметра форми
@@ -144,6 +170,9 @@ q_line_edit_style_3: str = "" +\
         "}" +\
         "QLineEdit:hover {" +\
             "border: 3px solid #00FF00" +\
+        "}" +\
+        "QLineEdit:focus {" +\
+            "border: 3px solid #00FA9A;" +\
         "}"
 
 #Стиль для четвертого параметра форми
@@ -156,6 +185,9 @@ q_line_edit_style_4: str = "" +\
         "}" +\
         "QLineEdit:hover {" +\
             "border: 3px solid #00FF00" +\
+        "}" +\
+        "QLineEdit:focus {" +\
+            "border: 3px solid #00FA9A;" +\
         "}"
 
 #Стиль для п'ятого параметра форми
@@ -168,6 +200,9 @@ q_line_edit_style_5: str = "" +\
         "}" +\
         "QLineEdit:hover {" +\
             "border: 3px solid #00FF00" +\
+        "}" +\
+        "QLineEdit:focus {" +\
+            "border: 3px solid #00FA9A;" +\
         "}"
 
 #Стиль для шостого параметра форми
@@ -180,6 +215,9 @@ q_line_edit_style_6: str = "" +\
         "}" +\
         "QLineEdit:hover {" +\
             "border: 3px solid #00FF00" +\
+        "}" +\
+        "QLineEdit:focus {" +\
+            "border: 3px solid #00FA9A;" +\
         "}"
 
 class MainWindow(QMainWindow):
@@ -192,12 +230,41 @@ class MainWindow(QMainWindow):
 
 
         gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
+
+        #ФОРМИ
+        #Заголовок форми
+        self.force_result_label = QLabel("Форма", self)
+        self.force_result_label.setGeometry(10, 20, 80, 20)
+        self.force_result_label.setStyleSheet(f"color: {FORM_LIST_COLOR};")
+        self.force_result_label.setFont(font_1)
+
+        #Cписок форм
+        self.shape = QComboBox(self)
+        self.shape.addItem("")
+        self.shape.addItem("Коло")
+        self.shape.addItem("Напівколо")
+        self.shape.addItem("Квадрат")
+        self.shape.addItem("Квадрат з однаковими радіусами")
+        self.shape.addItem("Квадрат з різними радіусами")
+        self.shape.addItem("Квадрат у колі")
+        self.shape.addItem("Прямокутник")
+        self.shape.addItem("Прямокутник з радіусом")
+        self.shape.addItem("Прямокутник з радіусами")
+        self.shape.addItem("Шестигранник")
+        self.shape.addItem("Овал з паралельними сторонами")
+        self.shape.addItem("Трикутник рівносторонній")
+        self.shape.addItem("Трикутник рівнобедрений")        
+        self.shape.setGeometry(120, 20, 320, 25)
+        self.shape.currentTextChanged.connect(self.shape_handler)
+        self.shape.setStyleSheet(form_style_shape)
+        self.shape.setFont(font_2)
+
         #ПЕРИМЕТЕР
         #Заголовок периметра
-        self.perimeter_lalel = QLabel("Периметр", self)
-        self.perimeter_lalel.setGeometry(10, 50, 100, 20)
-        self.perimeter_lalel.setStyleSheet("color: lightgreen;")
-        self.perimeter_lalel.setFont(font_1)
+        self.perimeter_label = QLabel("Периметр", self)
+        self.perimeter_label.setGeometry(10, 50, 100, 20)
+        self.perimeter_label.setStyleSheet("color: lightgreen;")
+        self.perimeter_label.setFont(font_1)
 
         #Значення периметра
         self.perimetr_velue = QLineEdit("0.0", self)
@@ -324,38 +391,6 @@ class MainWindow(QMainWindow):
         self.tonage_label_force.setStyleSheet(
             "color: #F0F8FF;"
         )
-
-        #ФОРМІ
-        #Заголовок форми
-        self.force_result_label = QLabel("Форма", self)
-        self.force_result_label.setGeometry(10, 20, 80, 20)
-        self.force_result_label.setStyleSheet("color: Cornsilk;")
-        self.force_result_label.setFont(font_1)
-
-        #Cписок форм
-        self.shape = QComboBox(self)
-        self.shape.addItem("")
-        self.shape.addItem("Коло")
-        self.shape.addItem("Напівколо")
-        self.shape.addItem("Квадрат")
-        self.shape.addItem("Квадрат з однаковими радіусами")
-        self.shape.addItem("Квадрат з різними радіусами")
-        self.shape.addItem("Квадрат у колі")
-        self.shape.addItem("Прямокутник")
-        self.shape.addItem("Прямокутник з радіусом")
-        self.shape.addItem("Прямокутник з радіусами")
-        self.shape.addItem("Шестигранник")
-        self.shape.addItem("Овал з паралельними сторонами")
-        self.shape.addItem("Трикутник рівносторонній")
-        self.shape.addItem("Трикутник рівнобедрений")        
-        self.shape.setGeometry(120, 20, 320, 25)
-        self.shape.currentTextChanged.connect(self.shape_handler)
-        self.shape.setStyleSheet(
-            "color: DarkGreen; "
-            "background-color: Cornsilk; "
-            "border: 2px solid blue; "
-            )
-        self.shape.setFont(font_2)
 
     def paintEvent(self, a0: gui.QPaintEvent) -> None:
         painter = gui.QPainter(self)
@@ -532,13 +567,11 @@ class MainWindow(QMainWindow):
         self.message_diameter = QLabel(None, self.window_shape)
         self.message_diameter.setGeometry(150, 350, 150, 20)
 
-
         if self.diameter_velue.text() in zero:
             self.message_diameter.setText("Відсутнє значення")
             self.message_diameter.setFont(font_4)
             self.message_diameter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
             self.message_diameter.setStyleSheet(error_value_style)
-
 
         #Кнопка розрахунку
         self.btn_d = QPushButton("Розрахувати периметр", self.window_shape)
@@ -552,12 +585,14 @@ class MainWindow(QMainWindow):
         self.Label_d_peremeter.setGeometry(15, 420, 150, 20)
         self.Label_d_peremeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.Label_d_peremeter.setFont(font_1)
+
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
         self.perimeter.setGeometry(165, 420, 90, 20)
         self.perimeter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.perimeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.perimeter.setFont(font_1)
+
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
         self.mm_result_perimeret.setGeometry(255, 420, 50, 20)
@@ -628,10 +663,10 @@ class MainWindow(QMainWindow):
 
         #Висота
         #Заголовок висоти
-        self.height_hr_lalel = QLabel("H", self.window_shape)
-        self.height_hr_lalel.setGeometry(15, 320, 15, 20)
-        self.height_hr_lalel.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
-        self.height_hr_lalel.setFont(font_1)
+        self.height_hr_label = QLabel("H", self.window_shape)
+        self.height_hr_label.setGeometry(15, 320, 15, 20)
+        self.height_hr_label.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
+        self.height_hr_label.setFont(font_1)
 
         #Значення висоти
         self.height_hr_velue = QLineEdit("0.0", self.window_shape)
@@ -657,10 +692,10 @@ class MainWindow(QMainWindow):
             self.message_height_hr.setStyleSheet(error_value_style)         
 
         self.image_half_round = gui.QPixmap("img/Half_round_1.jpg")
-        self.image_lable = QLabel(self.window_shape)
-        self.image_lable.setGeometry(12, 10, int(250 * 1.387 ), 250)
-        self.image_lable.setPixmap(self.image_half_round )
-        self.image_lable.setScaledContents(True)
+        self.image_label = QLabel(self.window_shape)
+        self.image_label.setGeometry(12, 10, int(250 * 1.387 ), 250)
+        self.image_label.setPixmap(self.image_half_round )
+        self.image_label.setScaledContents(True)
 
         #Кнопка розрахунку
         self.btn_perim = QPushButton("Розрахувати периметр та довжину хорди", self.window_shape)
@@ -670,10 +705,10 @@ class MainWindow(QMainWindow):
 
         #ХОРДА
         #Заголовок хорди
-        self.lenght_hr_lalel = QLabel("Хорда L", self.window_shape)
-        self.lenght_hr_lalel.setGeometry(15, 390, 150, 20)
-        self.lenght_hr_lalel.setStyleSheet(f"color: {SUBRESULT_COLOR};")
-        self.lenght_hr_lalel.setFont(font_1)
+        self.lenght_hr_label = QLabel("Хорда L", self.window_shape)
+        self.lenght_hr_label.setGeometry(15, 390, 150, 20)
+        self.lenght_hr_label.setStyleSheet(f"color: {SUBRESULT_COLOR};")
+        self.lenght_hr_label.setFont(font_1)
 
         #Значення хорди
         self.lenght_hr_velue = QLabel("0.0", self.window_shape)
@@ -701,16 +736,16 @@ class MainWindow(QMainWindow):
         self.perimeter.setFont(font_1)
 
         #Розмірність периметра
-        self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(255, 420, 50, 20)
-        self.mm_result_perimeret.setStyleSheet(f"color: {PERIMETER_COLOR};")
-        self.mm_result_perimeret.setFont(font_1)
+        self.mm_result_perimeter = QLabel("мм", self.window_shape)
+        self.mm_result_perimeter.setGeometry(255, 420, 50, 20)
+        self.mm_result_perimeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
+        self.mm_result_perimeter.setFont(font_1)
 
         #Кнопка периметер кола до загального розраунку
-        self.btn_add_perimetr = QPushButton("Передати периметр у розрахунок", self.window_shape)
-        self.btn_add_perimetr.clicked.connect(self.add_value)
-        self.btn_add_perimetr.setGeometry(10, 450, 350, 30)
-        self.btn_add_perimetr.setStyleSheet(add_button_style)
+        self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
+        self.btn_add_perimeter.clicked.connect(self.add_value)
+        self.btn_add_perimeter.setGeometry(10, 450, 350, 30)
+        self.btn_add_perimeter.setStyleSheet(add_button_style)
 
         self.window_shape.show()
 
@@ -775,17 +810,17 @@ class MainWindow(QMainWindow):
         self.window_shape.setFixedSize(370, 500)
 
         self.image_round = gui.QPixmap("img/square.jpg")
-        self.image_lable = QLabel(self.window_shape)
-        self.image_lable.setGeometry(52, 30, int(260 / 1.023), 260)
-        self.image_lable.setPixmap(self.image_round)
-        self.image_lable.setScaledContents(True)
+        self.image_label = QLabel(self.window_shape)
+        self.image_label.setGeometry(52, 30, int(260 / 1.023), 260)
+        self.image_label.setPixmap(self.image_round)
+        self.image_label.setScaledContents(True)
         
         #Сторона
         #Заголовок сторони
-        self.side_lalel = QLabel("A", self.window_shape)
-        self.side_lalel.setGeometry(15, 350, 15, 20)
-        self.side_lalel.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
-        self.side_lalel.setFont(font_1)
+        self.side_label = QLabel("A", self.window_shape)
+        self.side_label.setGeometry(15, 350, 15, 20)
+        self.side_label.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
+        self.side_label.setFont(font_1)
 
         #Значення диаметра
         self.side_velue = QLineEdit("0.0", self.window_shape)
@@ -829,10 +864,10 @@ class MainWindow(QMainWindow):
         self.perimeter.setFont(font_1)
 
         #Розмірність диаметра
-        self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(255, 420, 50, 20)
-        self.mm_result_perimeret.setStyleSheet(f"color: {PERIMETER_COLOR};")
-        self.mm_result_perimeret.setFont(font_1)
+        self.mm_result_perimeter = QLabel("мм", self.window_shape)
+        self.mm_result_perimeter.setGeometry(255, 420, 50, 20)
+        self.mm_result_perimeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
+        self.mm_result_perimeter.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
         self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
@@ -1317,7 +1352,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони
         self.side_sir_label = QLabel("A", self.window_shape)
         self.side_sir_label.setGeometry(15, 320, 15, 20)
-        self.side_sir_label.setStyleSheet("color: #5F9EA0;")
+        self.side_sir_label.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.side_sir_label.setFont(font_1)
 
         #Значення сторони
@@ -1325,17 +1360,12 @@ class MainWindow(QMainWindow):
         self.side_sir_velue.setGeometry(35, 320, 80, 20)
         self.side_sir_velue.setFont(font_3)
         self.side_sir_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_sir_velue.setStyleSheet(
-            "background-color: #5F9EA0;"
-            "color: #00FFFF;"
-            "border: 2px solid #00FF00;"
-            "border-radius: 10px; text-align: center;"
-            )
+        self.side_sir_velue.setStyleSheet(q_line_edit_style_1)
 
         #Розмірність сторони
         self.mm_label_sir = QLabel("мм", self.window_shape)
         self.mm_label_sir.setGeometry(120, 320, 70, 20)
-        self.mm_label_sir.setStyleSheet("color: #5F9EA0;")
+        self.mm_label_sir.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.mm_label_sir.setFont(font_1)
 
         #Статус сторони       
@@ -1351,7 +1381,7 @@ class MainWindow(QMainWindow):
         #Заголовок 
         self.diameter_sir_lalel = QLabel("D", self.window_shape)
         self.diameter_sir_lalel.setGeometry(15, 350, 15, 20)
-        self.diameter_sir_lalel.setStyleSheet("color: #8A2BE2;")
+        self.diameter_sir_lalel.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.diameter_sir_lalel.setFont(font_1)
 
         #Значення діаметра
@@ -1359,17 +1389,12 @@ class MainWindow(QMainWindow):
         self.diameter_sir_value.setGeometry(35, 350, 80, 20)
         self.diameter_sir_value.setFont(font_3)
         self.diameter_sir_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.diameter_sir_value.setStyleSheet(
-            "background-color: #8A2BE2;"
-            "color: #00FFFF;"
-            "border: 2px solid #00FF00;"
-            "border-radius: 10px; text-align: center;"
-            )
+        self.diameter_sir_value.setStyleSheet(q_line_edit_style_2)
 
         #Розмірність діаметра
         self.mm_label_diameter_sir = QLabel("мм", self.window_shape)
         self.mm_label_diameter_sir.setGeometry(120, 350, 70, 20)
-        self.mm_label_diameter_sir.setStyleSheet("color: #8A2BE2;")
+        self.mm_label_diameter_sir.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.mm_label_diameter_sir.setFont(font_1)
 
         #Статус діаметра    
@@ -1391,19 +1416,19 @@ class MainWindow(QMainWindow):
         #Заголовок периметра
         self.Label_sfr_peremeter = QLabel("Периметр", self.window_shape)
         self.Label_sfr_peremeter.setGeometry(15, 420, 150, 20)
-        self.Label_sfr_peremeter.setStyleSheet("color: #4682B4;")
+        self.Label_sfr_peremeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.Label_sfr_peremeter.setFont(font_1)
         
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
         self.perimeter.setGeometry(165, 420, 90, 20)
-        self.perimeter.setStyleSheet("color: #4682B4;")
+        self.perimeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.perimeter.setFont(font_1)
     
         #Розмірність приметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
         self.mm_result_perimeret.setGeometry(255, 420, 50, 20)
-        self.mm_result_perimeret.setStyleSheet("color: #4682B4;")
+        self.mm_result_perimeret.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
@@ -1484,7 +1509,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони
         self.side_a_lalel = QLabel("A", self.window_shape)
         self.side_a_lalel.setGeometry(15, 320, 15, 20)
-        self.side_a_lalel.setStyleSheet("color: #00BFFF;")
+        self.side_a_lalel.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.side_a_lalel.setFont(font_1)
 
         #Значення сторони
@@ -1492,17 +1517,12 @@ class MainWindow(QMainWindow):
         self.side_a_velue.setGeometry(35, 320, 80, 20)
         self.side_a_velue.setFont(font_3)
         self.side_a_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_a_velue.setStyleSheet(
-            "background-color: #00BFFF;"
-            "color: white;"
-            "border: 2px solid blue;"
-            "border-radius: 10px; text-align: center;"
-            )
+        self.side_a_velue.setStyleSheet(q_line_edit_style_1)
 
         #Розмірність сторони
         self.mm_label_side_a = QLabel("мм", self.window_shape)
         self.mm_label_side_a.setGeometry(120, 320, 70, 20)
-        self.mm_label_side_a.setStyleSheet("color: #00BFFF;")
+        self.mm_label_side_a.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.mm_label_side_a.setFont(font_1)
 
         #Статус сторони       
@@ -1518,7 +1538,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони
         self.side_b_lalel = QLabel("B", self.window_shape)
         self.side_b_lalel.setGeometry(15, 350, 15, 20)
-        self.side_b_lalel.setStyleSheet("color: #3CB371;")
+        self.side_b_lalel.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.side_b_lalel.setFont(font_1)
 
         #Значення сторони
@@ -1526,17 +1546,12 @@ class MainWindow(QMainWindow):
         self.side_b_velue.setGeometry(35, 350, 80, 20)
         self.side_b_velue.setFont(font_3)
         self.side_b_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_b_velue.setStyleSheet(
-            "background-color: #3CB371;"
-            "color: #FFFFE0;"
-            "border: 2px solid blue;"
-            "border-radius: 10px; text-align: center;"
-            )
+        self.side_b_velue.setStyleSheet(q_line_edit_style_2)
 
         #Розмірність сторони
         self.mm_label_side_b = QLabel("мм", self.window_shape)
         self.mm_label_side_b.setGeometry(120, 350, 70, 20)
-        self.mm_label_side_b.setStyleSheet("color: #3CB371;")
+        self.mm_label_side_b.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.mm_label_side_b.setFont(font_1)
 
         #Статус сторони       
@@ -1558,19 +1573,19 @@ class MainWindow(QMainWindow):
         #Заголовок периметра
         self.Label_rect_peremeter = QLabel("Периметр", self.window_shape)
         self.Label_rect_peremeter.setGeometry(15, 420, 150, 20)
-        self.Label_rect_peremeter.setStyleSheet("color: #4682B4;")
+        self.Label_rect_peremeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.Label_rect_peremeter.setFont(font_1)
         
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
         self.perimeter.setGeometry(165, 420, 90, 20)
-        self.perimeter.setStyleSheet("color: #4682B4;")
+        self.perimeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.perimeter.setFont(font_1)
 
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
         self.mm_result_perimeret.setGeometry(255, 420, 50, 20)
-        self.mm_result_perimeret.setStyleSheet("color: #4682B4;")
+        self.mm_result_perimeret.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
@@ -1631,7 +1646,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони а
         self.side_a_lalel_req = QLabel("A", self.window_shape)
         self.side_a_lalel_req.setGeometry(15, 310, 15, 20)
-        self.side_a_lalel_req.setStyleSheet("color: #00BFFF;")
+        self.side_a_lalel_req.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.side_a_lalel_req.setFont(font_1)
 
         #Значення сторони а
@@ -1640,18 +1655,12 @@ class MainWindow(QMainWindow):
         self.side_a_velue_req.setGeometry(35, 310, 80, 20)
         self.side_a_velue_req.setFont(font_3)
         self.side_a_velue_req.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_a_velue_req.setStyleSheet(
-            "background-color: #00BFFF;"
-            "color: white;"
-            "border: 2px solid blue;"
-            "border-radius: 10px; text-align: center;"
-            )
-
+        self.side_a_velue_req.setStyleSheet(q_line_edit_style_1)
 
         #Розмірність сторони а
         self.mm_label_side_a_req = QLabel("мм", self.window_shape)
         self.mm_label_side_a_req.setGeometry(120, 310, 70, 20)
-        self.mm_label_side_a_req.setStyleSheet("color: #00BFFF;")
+        self.mm_label_side_a_req.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.mm_label_side_a_req.setFont(font_1)
 
         #Статус сторони       
@@ -1667,7 +1676,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони
         self.side_b_lalel_req = QLabel("B", self.window_shape)
         self.side_b_lalel_req.setGeometry(15, 340, 15, 20)
-        self.side_b_lalel_req.setStyleSheet("color: #914EDE;")
+        self.side_b_lalel_req.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.side_b_lalel_req.setFont(font_1)
 
         #Значення сторони
@@ -1675,17 +1684,12 @@ class MainWindow(QMainWindow):
         self.side_b_velue_req.setGeometry(35, 340, 80, 20)
         self.side_b_velue_req.setFont(font_3)
         self.side_b_velue_req.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_b_velue_req.setStyleSheet(
-            "background-color: #914EDE;"
-            "color: #FFFFE0;"
-            "border: 2px solid blue;"
-            "border-radius: 10px; text-align: center;"
-            )
+        self.side_b_velue_req.setStyleSheet(q_line_edit_style_2)
 
         #Розмірність сторони
         self.mm_label_side_b_req = QLabel("мм", self.window_shape)
         self.mm_label_side_b_req.setGeometry(120, 340, 70, 20)
-        self.mm_label_side_b_req.setStyleSheet("color: #914EDE;")
+        self.mm_label_side_b_req.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.mm_label_side_b_req.setFont(font_1)
 
         #Статус сторони       
@@ -1701,7 +1705,7 @@ class MainWindow(QMainWindow):
         #Заголовок радіуса
         self.r_lalel_req = QLabel("R", self.window_shape)
         self.r_lalel_req.setGeometry(15, 370, 15, 20)
-        self.r_lalel_req.setStyleSheet("color: #3CB371;")
+        self.r_lalel_req.setStyleSheet(f"color: {THIRD_PARAMETER_COLOR};")
         self.r_lalel_req.setFont(font_1)
 
         #Значення радіуса
@@ -1709,17 +1713,12 @@ class MainWindow(QMainWindow):
         self.r_velue_req.setGeometry(35, 370, 80, 20)
         self.r_velue_req.setFont(font_3)
         self.r_velue_req.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.r_velue_req.setStyleSheet(
-            "background-color: #3CB371;"
-            "color: #FFFFE0;"
-            "border: 2px solid blue;"
-            "border-radius: 10px; text-align: center;"
-            )
+        self.r_velue_req.setStyleSheet(q_line_edit_style_3)
 
         #Розмірність радіуса
         self.mm_label_r = QLabel("мм", self.window_shape)
         self.mm_label_r.setGeometry(120, 370, 70, 20)
-        self.mm_label_r.setStyleSheet("color: #3CB371;")
+        self.mm_label_r.setStyleSheet(f"color: {THIRD_PARAMETER_COLOR};")
         self.mm_label_r.setFont(font_1)
 
         #Статус радіуса       
@@ -1742,19 +1741,19 @@ class MainWindow(QMainWindow):
         #Заголовок периметра
         self.Label_s_peremeter_req = QLabel("Периметр", self.window_shape)
         self.Label_s_peremeter_req.setGeometry(15, 440, 150, 20)
-        self.Label_s_peremeter_req.setStyleSheet("color: #4682B4;")
+        self.Label_s_peremeter_req.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.Label_s_peremeter_req.setFont(font_1)
 
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
         self.perimeter.setGeometry(165, 440, 90, 20)
-        self.perimeter.setStyleSheet("color: #4682B4;")
+        self.perimeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.perimeter.setFont(font_1)
 
         #Розмірність диаметра
         self.mm_result_perimeret_req = QLabel("мм", self.window_shape)
         self.mm_result_perimeret_req.setGeometry(255, 440, 50, 20)
-        self.mm_result_perimeret_req.setStyleSheet("color: #4682B4;")
+        self.mm_result_perimeret_req.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.mm_result_perimeret_req.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
@@ -1850,7 +1849,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони
         self.side_a_four_radius_label_rfr = QLabel("A", self.window_shape)
         self.side_a_four_radius_label_rfr.setGeometry(15, 270, 30, 20)
-        self.side_a_four_radius_label_rfr.setStyleSheet("color: #DAA520;")
+        self.side_a_four_radius_label_rfr.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.side_a_four_radius_label_rfr.setFont(font_1)
 
         #Значення сторони
@@ -1862,7 +1861,7 @@ class MainWindow(QMainWindow):
         #Розмірність сторони
         self.mm_label_side_a_four_radius_lalel = QLabel("мм", self.window_shape)
         self.mm_label_side_a_four_radius_lalel.setGeometry(135, 270, 70, 20)
-        self.mm_label_side_a_four_radius_lalel.setStyleSheet("color: #DAA520;")
+        self.mm_label_side_a_four_radius_lalel.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.mm_label_side_a_four_radius_lalel.setFont(font_1)
 
         #Статус сторони       
@@ -1878,7 +1877,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони
         self.side_b_four_radius_lalel_rfr = QLabel("B", self.window_shape)
         self.side_b_four_radius_lalel_rfr.setGeometry(15, 300, 30, 20)
-        self.side_b_four_radius_lalel_rfr.setStyleSheet("color: #FF7F00;")
+        self.side_b_four_radius_lalel_rfr.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.side_b_four_radius_lalel_rfr.setFont(font_1)
 
         #Значення сторони
@@ -1891,7 +1890,7 @@ class MainWindow(QMainWindow):
         #Розмірність сторони
         self.mm_label_side_b_four_radius_lalel = QLabel("мм", self.window_shape)
         self.mm_label_side_b_four_radius_lalel.setGeometry(135, 300, 70, 20)
-        self.mm_label_side_b_four_radius_lalel.setStyleSheet("color: #FF7F00;")
+        self.mm_label_side_b_four_radius_lalel.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.mm_label_side_b_four_radius_lalel.setFont(font_1)
 
 
@@ -1908,7 +1907,7 @@ class MainWindow(QMainWindow):
         #Заголовок радіуса
         self.r1_square_lalel_rfr = QLabel("R1", self.window_shape)
         self.r1_square_lalel_rfr.setGeometry(15, 330, 30, 20)
-        self.r1_square_lalel_rfr.setStyleSheet("color: #FFD700;")
+        self.r1_square_lalel_rfr.setStyleSheet(f"color: {THIRD_PARAMETER_COLOR};")
         self.r1_square_lalel_rfr.setFont(font_1)
 
         #Значення радіуса
@@ -1921,7 +1920,7 @@ class MainWindow(QMainWindow):
         #Розмірність радіуса
         self.mm_label_r1_rfr = QLabel("мм", self.window_shape)
         self.mm_label_r1_rfr.setGeometry(135, 330, 70, 20)
-        self.mm_label_r1_rfr.setStyleSheet("color: #FFD700;")
+        self.mm_label_r1_rfr.setStyleSheet(f"color: {THIRD_PARAMETER_COLOR};")
         self.mm_label_r1_rfr.setFont(font_1)
 
         #Статус радіуса       
@@ -1937,7 +1936,7 @@ class MainWindow(QMainWindow):
         #Заголовок радіуса
         self.r2_square_lalel_rfr = QLabel("R2", self.window_shape)
         self.r2_square_lalel_rfr.setGeometry(15, 360, 30, 20)
-        self.r2_square_lalel_rfr.setStyleSheet("color: #3CB371;")
+        self.r2_square_lalel_rfr.setStyleSheet(f"color: {FOURTH_PARAMETER_COLOR};")
         self.r2_square_lalel_rfr.setFont(font_1)
 
         #Значення радіуса
@@ -1950,7 +1949,7 @@ class MainWindow(QMainWindow):
         #Розмірність радіуса
         self.mm_label_r2_rfr= QLabel("мм", self.window_shape)
         self.mm_label_r2_rfr.setGeometry(135, 360, 70, 20)
-        self.mm_label_r2_rfr.setStyleSheet("color: #3CB371;")
+        self.mm_label_r2_rfr.setStyleSheet(f"color: {FOURTH_PARAMETER_COLOR};")
         self.mm_label_r2_rfr.setFont(font_1)
 
         #Статус радіуса       
@@ -1965,7 +1964,7 @@ class MainWindow(QMainWindow):
         #Заголовок радіуса
         self.r3_square_lalel_rfr = QLabel("R3", self.window_shape)
         self.r3_square_lalel_rfr.setGeometry(15, 390, 30, 20)
-        self.r3_square_lalel_rfr.setStyleSheet("color: #0000FF;")
+        self.r3_square_lalel_rfr.setStyleSheet(f"color: {FIFTH_PARAMETER_COLOR};")
         self.r3_square_lalel_rfr.setFont(font_1)
 
         #Значення радіуса
@@ -1978,7 +1977,7 @@ class MainWindow(QMainWindow):
         #Розмірність радіуса
         self.mm_label_r3_rfr = QLabel("мм", self.window_shape)
         self.mm_label_r3_rfr.setGeometry(135, 390, 70, 20)
-        self.mm_label_r3_rfr.setStyleSheet("color: #0000FF;")
+        self.mm_label_r3_rfr.setStyleSheet(f"color: {FIFTH_PARAMETER_COLOR};")
         self.mm_label_r3_rfr.setFont(font_1)
 
         #Статус радіуса       
@@ -1994,7 +1993,7 @@ class MainWindow(QMainWindow):
         #Заголовок радіуса
         self.r4_square_lalel_rfr = QLabel("R4", self.window_shape)
         self.r4_square_lalel_rfr.setGeometry(15, 420, 30, 20)
-        self.r4_square_lalel_rfr.setStyleSheet("color: #2E2B5F;")
+        self.r4_square_lalel_rfr.setStyleSheet(f"color: {SIXTH_PARAMETER_COLOR};")
         self.r4_square_lalel_rfr.setFont(font_1)
 
 
@@ -2008,7 +2007,7 @@ class MainWindow(QMainWindow):
         #Розмірність радіуса
         self.mm_label_r4_rfr = QLabel("мм", self.window_shape)
         self.mm_label_r4_rfr.setGeometry(135, 420, 70, 20)
-        self.mm_label_r4_rfr.setStyleSheet("color: #2E2B5F;")
+        self.mm_label_r4_rfr.setStyleSheet(f"color: {SIXTH_PARAMETER_COLOR};")
         self.mm_label_r4_rfr.setFont(font_1)
 
         #Статус радіуса       
@@ -2030,19 +2029,19 @@ class MainWindow(QMainWindow):
         #Заголовок периметра
         self.Label_rfr_peremeter = QLabel("Периметр", self.window_shape)
         self.Label_rfr_peremeter.setGeometry(15, 490, 150, 20)
-        self.Label_rfr_peremeter.setStyleSheet("color: #8B00FF;")
+        self.Label_rfr_peremeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.Label_rfr_peremeter.setFont(font_1)
         
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
         self.perimeter.setGeometry(165, 490, 90, 20)
-        self.perimeter.setStyleSheet("color: #8B00FF;")
+        self.perimeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.perimeter.setFont(font_1)
         
         #Розмірність приметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
         self.mm_result_perimeret.setGeometry(255, 490, 50, 20)
-        self.mm_result_perimeret.setStyleSheet("color: #8B00FF;")
+        self.mm_result_perimeret.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
@@ -2211,7 +2210,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони
         self.hex_a_label = QLabel("A", self.window_shape)
         self.hex_a_label.setGeometry(15, 270, 30, 20)
-        self.hex_a_label.setStyleSheet("color: #4682B4;")
+        self.hex_a_label.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.hex_a_label.setFont(font_1)        
 
         #Значення сторони
@@ -2219,17 +2218,12 @@ class MainWindow(QMainWindow):
         self.hex_a_velue.setGeometry(50, 270, 80, 20)
         self.hex_a_velue.setFont(font_3)
         self.hex_a_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.hex_a_velue.setStyleSheet(
-            "background-color: #4682B4;"
-            "color: white;"
-            "border: 2px solid #00FF00;"
-            "border-radius: 10px; text-align: center;"
-            )        
+        self.hex_a_velue.setStyleSheet(q_line_edit_style_1)        
 
         #Розмірність сторони
         self.mm_hex_a_label = QLabel("мм", self.window_shape)
         self.mm_hex_a_label.setGeometry(135, 270, 70, 20)
-        self.mm_hex_a_label.setStyleSheet("color: #4682B4;")
+        self.mm_hex_a_label.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.mm_hex_a_label.setFont(font_1)
 
         #Статус сторони       
@@ -2251,7 +2245,7 @@ class MainWindow(QMainWindow):
         #Заголовок висоти
         self.hex_h_label = QLabel("H", self.window_shape)
         self.hex_h_label.setGeometry(15, 360, 30, 20)
-        self.hex_h_label.setStyleSheet("color: #FF8C00;")
+        self.hex_h_label.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.hex_h_label.setFont(font_1)
 
         #Значення висоти
@@ -2259,17 +2253,12 @@ class MainWindow(QMainWindow):
         self.hex_h_velue.setGeometry(50, 360, 80, 20)
         self.hex_h_velue.setFont(font_3)
         self.hex_h_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.hex_h_velue.setStyleSheet(
-            "background-color: #FF8C00;"
-            "color: white;"
-            "border: 2px solid #00FF00;"
-            "border-radius: 10px; text-align: center;"
-            )        
+        self.hex_h_velue.setStyleSheet(q_line_edit_style_2)        
 
         #Розмірність сторони
         self.mm_hex_h_label = QLabel("мм", self.window_shape)
         self.mm_hex_h_label.setGeometry(135, 360, 70, 20)
-        self.mm_hex_h_label.setStyleSheet("color: #FF8C00;")
+        self.mm_hex_h_label.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.mm_hex_h_label.setFont(font_1)
 
         #Статус сторони       
@@ -2292,7 +2281,7 @@ class MainWindow(QMainWindow):
         #Заголовок діаметра
         self.hex_d_label = QLabel("D", self.window_shape)
         self.hex_d_label.setGeometry(15, 450, 30, 20)
-        self.hex_d_label.setStyleSheet("color: #008080;")
+        self.hex_d_label.setStyleSheet(f"color: {THIRD_PARAMETER_COLOR};")
         self.hex_d_label.setFont(font_1)
 
         #Значення висоти
@@ -2300,17 +2289,12 @@ class MainWindow(QMainWindow):
         self.hex_d_velue.setGeometry(50, 450, 80, 20)
         self.hex_d_velue.setFont(font_3)
         self.hex_d_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.hex_d_velue.setStyleSheet(
-            "background-color: #008080;"
-            "color: white;"
-            "border: 2px solid #00FF00;"
-            "border-radius: 10px; text-align: center;"
-            )        
+        self.hex_d_velue.setStyleSheet(q_line_edit_style_3)        
 
         #Розмірність сторони
         self.mm_hex_d_label = QLabel("мм", self.window_shape)
         self.mm_hex_d_label.setGeometry(135, 450, 70, 20)
-        self.mm_hex_d_label.setStyleSheet("color: #008080;")
+        self.mm_hex_d_label.setStyleSheet(f"color: {THIRD_PARAMETER_COLOR};")
         self.mm_hex_d_label.setFont(font_1)
 
         #Статус сторони       
@@ -2332,20 +2316,20 @@ class MainWindow(QMainWindow):
         #Заголовок периметра
         self.Label_d_peremeter = QLabel("Периметр", self.window_shape)
         self.Label_d_peremeter.setGeometry(15, 530, 150, 20)
-        self.Label_d_peremeter.setStyleSheet("color: #8B00FF;")
+        self.Label_d_peremeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.Label_d_peremeter.setFont(font_1)
 
 
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
         self.perimeter.setGeometry(165, 530, 90, 20)
-        self.perimeter.setStyleSheet("color: #8B00FF;")
+        self.perimeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.perimeter.setFont(font_1)
 
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
         self.mm_result_perimeret.setGeometry(255, 530, 50, 20)
-        self.mm_result_perimeret.setStyleSheet("color: #8B00FF;")
+        self.mm_result_perimeret.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер кола до загального розраунку
@@ -2459,7 +2443,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони а
         self.oblong_side_a_label = QLabel("A", self.window_shape)
         self.oblong_side_a_label.setGeometry(15, 240, 15, 20)
-        self.oblong_side_a_label.setStyleSheet("color: #800080;")
+        self.oblong_side_a_label.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.oblong_side_a_label.setFont(font_1)
 
         #Значення сторони а
@@ -2467,17 +2451,12 @@ class MainWindow(QMainWindow):
         self.oblong_side_a_velue.setGeometry(35, 240, 80, 20)
         self.oblong_side_a_velue.setFont(font_3)
         self.oblong_side_a_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.oblong_side_a_velue.setStyleSheet(
-            "background-color: #800080;"
-            "color: white;"
-            "border: 2px solid blue;"
-            "border-radius: 10px; text-align: center;"
-            )
+        self.oblong_side_a_velue.setStyleSheet(q_line_edit_style_1)
 
         #Розмірність сторони а
         self.mm_label_oblong_side_a = QLabel("мм", self.window_shape)
         self.mm_label_oblong_side_a.setGeometry(120, 240, 70, 20)
-        self.mm_label_oblong_side_a.setStyleSheet("color: #800080;")
+        self.mm_label_oblong_side_a.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.mm_label_oblong_side_a.setFont(font_1)
 
 
@@ -2494,7 +2473,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони b
         self.oblong_side_b_label = QLabel("B", self.window_shape)
         self.oblong_side_b_label.setGeometry(15, 270, 15, 20)
-        self.oblong_side_b_label.setStyleSheet("color: #5F9EA0;")
+        self.oblong_side_b_label.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.oblong_side_b_label.setFont(font_1)
 
         #Значення сторони b
@@ -2502,18 +2481,13 @@ class MainWindow(QMainWindow):
         self.oblong_side_b_velue.setGeometry(35, 270, 80, 20)
         self.oblong_side_b_velue.setFont(font_3)
         self.oblong_side_b_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.oblong_side_b_velue.setStyleSheet(
-            "background-color: #5F9EA0;"
-            "color: #FFFFE0;"
-            "border: 2px solid blue;"
-            "border-radius: 10px; text-align: center;"
-            )
+        self.oblong_side_b_velue.setStyleSheet(q_line_edit_style_2)
 
 
         #Розмірність сторони b
         self.mm_label_oblong_side_b = QLabel("мм", self.window_shape)
         self.mm_label_oblong_side_b.setGeometry(120, 270, 70, 20)
-        self.mm_label_oblong_side_b.setStyleSheet("color: #5F9EA0;")
+        self.mm_label_oblong_side_b.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.mm_label_oblong_side_b.setFont(font_1)
 
         #Статус сторони       
@@ -2542,13 +2516,13 @@ class MainWindow(QMainWindow):
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
         self.perimeter.setGeometry(165, 340, 90, 20)
-        self.perimeter.setStyleSheet("color: #8B00FF;")
+        self.perimeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.perimeter.setFont(font_1)
 
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
         self.mm_result_perimeret.setGeometry(255, 340, 50, 20)
-        self.mm_result_perimeret.setStyleSheet("color: #8B00FF;")
+        self.mm_result_perimeret.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
@@ -2618,7 +2592,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони а
         self.eq_tr_side_lalel = QLabel("A", self.window_shape)
         self.eq_tr_side_lalel.setGeometry(15, 300, 15, 20)
-        self.eq_tr_side_lalel.setStyleSheet("color:  #DAA520;")
+        self.eq_tr_side_lalel.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.eq_tr_side_lalel.setFont(font_1)
         
         #Значення сторони
@@ -2626,12 +2600,7 @@ class MainWindow(QMainWindow):
         self.eq_tr_side_velue.setGeometry(35, 300, 80, 20)
         self.eq_tr_side_velue.setFont(font_3)
         self.eq_tr_side_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.eq_tr_side_velue.setStyleSheet(
-            "background-color: #DAA520;"
-            "color: #FFFFE0;"
-            "border: 2px solid blue;"
-            "border-radius: 10px; text-align: center;"
-            )
+        self.eq_tr_side_velue.setStyleSheet(q_line_edit_style_1)
 
         #Розмірність сторони
         self.mm_eq_tr_side_lalel = QLabel("мм", self.window_shape)
@@ -2658,7 +2627,7 @@ class MainWindow(QMainWindow):
         #Заголовок висоти h
         self.eq_tr_height_label = QLabel("H", self.window_shape)
         self.eq_tr_height_label.setGeometry(15, 380, 15, 20)
-        self.eq_tr_height_label.setStyleSheet("color: #5F9EA0;")
+        self.eq_tr_height_label.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.eq_tr_height_label.setFont(font_1)
 
         #Значення висоти
@@ -2666,17 +2635,12 @@ class MainWindow(QMainWindow):
         self.eq_tr_height_velue.setGeometry(35, 380, 80, 20)
         self.eq_tr_height_velue.setFont(font_3)
         self.eq_tr_height_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.eq_tr_height_velue.setStyleSheet(
-            "background-color: #5F9EA0;"
-            "color: #FFFFE0;"
-            "border: 2px solid blue;"
-            "border-radius: 10px; text-align: center;"
-            )
+        self.eq_tr_height_velue.setStyleSheet(q_line_edit_style_2)
 
         #Розмірність висоти
         self.mm_eq_tr_height_label = QLabel("мм", self.window_shape)
         self.mm_eq_tr_height_label.setGeometry(120, 380, 70, 20)
-        self.mm_eq_tr_height_label.setStyleSheet("color: #5F9EA0;")
+        self.mm_eq_tr_height_label.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.mm_eq_tr_height_label.setFont(font_1)
         #Статус сторони       
         self.message_eq_tr_height = QLabel(None, self.window_shape)
@@ -2697,19 +2661,19 @@ class MainWindow(QMainWindow):
         #Заголовок периметра
         self.Label_s_peremeter = QLabel("Периметр", self.window_shape)
         self.Label_s_peremeter.setGeometry(15, 450, 150, 20)
-        self.Label_s_peremeter.setStyleSheet("color: #8B00FF;")
+        self.Label_s_peremeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.Label_s_peremeter.setFont(font_1)
         
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
         self.perimeter.setGeometry(165, 450, 90, 20)
-        self.perimeter.setStyleSheet("color: #8B00FF;")
+        self.perimeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.perimeter.setFont(font_1)
 
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
         self.mm_result_perimeret.setGeometry(255, 450, 50, 20)
-        self.mm_result_perimeret.setStyleSheet("color: #8B00FF;")
+        self.mm_result_perimeret.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
@@ -2787,7 +2751,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони
         self.side_a_is_tr_lalel = QLabel("A", self.window_shape)
         self.side_a_is_tr_lalel.setGeometry(15, 320, 15, 20)
-        self.side_a_is_tr_lalel.setStyleSheet("color: #8B008B;")
+        self.side_a_is_tr_lalel.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.side_a_is_tr_lalel.setFont(font_1)
 
         #Значення сторони
@@ -2800,7 +2764,7 @@ class MainWindow(QMainWindow):
         #Розмірність сторони
         self.mm_side_a_is_tr_label = QLabel("мм", self.window_shape)
         self.mm_side_a_is_tr_label.setGeometry(120, 320, 70, 20)
-        self.mm_side_a_is_tr_label.setStyleSheet("color: #8B008B;")
+        self.mm_side_a_is_tr_label.setStyleSheet(f"color: {FIRST_PARAMETER_COLOR};")
         self.mm_side_a_is_tr_label.setFont(font_1)
 
 
@@ -2817,7 +2781,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони
         self.side_b_is_tr_lalel = QLabel("B", self.window_shape)
         self.side_b_is_tr_lalel.setGeometry(15, 350, 15, 20)
-        self.side_b_is_tr_lalel.setStyleSheet("color: #4682B4;")
+        self.side_b_is_tr_lalel.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.side_b_is_tr_lalel.setFont(font_1)
 
 
@@ -2831,7 +2795,7 @@ class MainWindow(QMainWindow):
         #Розмірність сторони
         self.mm_side_b_is_tr_label = QLabel("мм", self.window_shape)
         self.mm_side_b_is_tr_label.setGeometry(120, 350, 70, 20)
-        self.mm_side_b_is_tr_label.setStyleSheet("color: #4682B4;")
+        self.mm_side_b_is_tr_label.setStyleSheet(f"color: {SECOND_PARAMETER_COLOR};")
         self.mm_side_b_is_tr_label.setFont(font_1)
 
         #Статус сторони       
@@ -2847,7 +2811,7 @@ class MainWindow(QMainWindow):
         #Заголовок сторони
         self.height_is_tr_label = QLabel("H", self.window_shape)
         self.height_is_tr_label.setGeometry(15, 380, 15, 20)
-        self.height_is_tr_label.setStyleSheet("color: #32CD32;")
+        self.height_is_tr_label.setStyleSheet(f"color: {THIRD_PARAMETER_COLOR};")
         self.height_is_tr_label.setFont(font_1)
 
         #Значення сторони
@@ -2860,7 +2824,7 @@ class MainWindow(QMainWindow):
         #Розмірність сторони
         self.mm_height_is_tr_label = QLabel("мм", self.window_shape)
         self.mm_height_is_tr_label.setGeometry(120, 380, 70, 20)
-        self.mm_height_is_tr_label.setStyleSheet("color: #32CD32;")
+        self.mm_height_is_tr_label.setStyleSheet(f"color: {THIRD_PARAMETER_COLOR};")
         self.mm_height_is_tr_label.setFont(font_1)
 
         #Статус сторони       
@@ -2894,28 +2858,26 @@ class MainWindow(QMainWindow):
         #Заголовок периметра
         self.Label_s_peremeter = QLabel("Периметр", self.window_shape)
         self.Label_s_peremeter.setGeometry(15, 530, 150, 20)
-        self.Label_s_peremeter.setStyleSheet("color: #8B00FF;")
+        self.Label_s_peremeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.Label_s_peremeter.setFont(font_1)
         
         #Значення периметра
         self.perimeter= QLabel("0.0", self.window_shape)
         self.perimeter.setGeometry(165, 530, 90, 20)
-        self.perimeter.setStyleSheet("color: #8B00FF;")
+        self.perimeter.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.perimeter.setFont(font_1)
 
         #Розмірність диаметра
         self.mm_result_perimeret = QLabel("мм", self.window_shape)
         self.mm_result_perimeret.setGeometry(255, 530, 50, 20)
-        self.mm_result_perimeret.setStyleSheet("color: #8B00FF;")
+        self.mm_result_perimeret.setStyleSheet(f"color: {PERIMETER_COLOR};")
         self.mm_result_perimeret.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
         self.btn_add_perimetr = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimetr.clicked.connect(self.add_value)
         self.btn_add_perimetr.setGeometry(10, 560, 350, 30)
-
         self.btn_add_perimetr.setStyleSheet(add_button_style)        
-
         self.window_shape.show()
 
     #Периметер рівнобедреного трикутника через дві сторони
@@ -3041,7 +3003,7 @@ class MainWindow(QMainWindow):
             self.message_side_a_is_tr.setStyleSheet(error_value_style)
             self.message_side_a_is_tr.setText("Відсутнє значення")
             self.side_a_is_tr_velue.setText("0.0")
-            self.perimetr.setText("?")
+            self.perimeter.setText("?")
 
         if height_list[0] != 0:
             self.message_height_is_tr.setStyleSheet(valide_value_style)
