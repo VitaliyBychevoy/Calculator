@@ -36,8 +36,39 @@ form_style_shape = "" +\
     "QComboBox QAbstractItemView {" +\
         "color: Green;" +\
         "background-color: Cornsilk;" +\
+        "border: 2px solid #00FF00;" +\
     "}"
 
+#Стиль для QComgoBox з матеріалом
+materials_style = "" +\
+    "QComboBox {" +\
+        "color: MediumAquaMarine;" +\
+        "background-color: Yellow;" +\
+        "border: 2px solid blue;" +\
+    "}" +\
+    "QComboBox:hover {" +\
+        "border: 3px solid #00FF00" +\
+    "}" +\
+    "QComboBox QAbstractItemView {" +\
+        "color: Green;" +\
+        "background-color: Cornsilk;" +\
+        "border: 2px solid #00FF00;" +\
+    "}"
+
+#Стиль для QComgoBox з отворів
+holes_style = "" +\
+    "QComboBox {" +\
+        "color: Olive; background-color: MediumAquaMarine; border: 2px solid blue;" +\
+    "}" +\
+    "QComboBox:hover {" +\
+        "border: 3px solid #00FF00" +\
+    "}" +\
+    "QComboBox QAbstractItemView {" +\
+        "color: Olive;" +\
+        "background-color: MediumAquaMarine;" +\
+        "border: 2px solid #00FF00;" +\
+    "}"
+    
 #Стилі відображення повідомлення про стан введеної інформації
 error_value_style: str = "background-color: red; color: white; border-radius: 10px;"
 valide_value_style: str = "background-color: green; color: white; border-radius: 10px;"
@@ -340,7 +371,7 @@ class MainWindow(QMainWindow):
         self.material.addItem("Алюміній")
         self.material.addItem("Мідь")
         self.material.setGeometry(120, 100, 320, 20)
-        self.material.setStyleSheet("color: MediumAquaMarine; background-color: Yellow; border: 2px solid blue; ")
+        self.material.setStyleSheet(materials_style)
         self.material.setFont(font_4)
 
         #ОТВОРИ
@@ -355,7 +386,7 @@ class MainWindow(QMainWindow):
         for i in range(1, 37):
             self.amount_holes.addItem(str(i))
         self.amount_holes.setGeometry(120, 125, 60, 20)
-        self.amount_holes.setStyleSheet("color: Olive; background-color: MediumAquaMarine; border: 2px solid blue;")
+        self.amount_holes.setStyleSheet(holes_style)
         self.amount_holes.setFont(font_3)
 
         #КНОПКА ДЛЯ РОЗРАХУВАННЯ ЗУСИЛЛЯ
