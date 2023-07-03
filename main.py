@@ -30,37 +30,68 @@ valid_width: int = 150
 message_width: int = 150
 
 #Стиль для кнопки розрахунку зусилля
-force_button_style: str = "color: white; " + \
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(127,255,212), stop:1 rgb(100,149,237));" + \
-        "border-radius: 10px;" + \
-        "font-size: 16px;" + \
-        "font-weight: bold;"
+force_button_style: str = ""+\
+        "QPushButton {" +\
+            "color: #FFEFD5;" +\
+            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(100,149,237));" +\
+            "border-radius: 10px;" +\
+            "font-size: 16px;" +\
+            "font-weight: bold;" +\
+        "}" +\
+        "QPushButton:hover {" +\
+            "background-color: #32CD32;" +\
+        "}"
 
 #Стиль кнопки для передачі периметра у розрахунок
-# add_button_style: str = "color: #FFEFD5; " 
-#         "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));"
-#         "border-radius: 10px;" 
-#         "font-size: 16px;" 
+add_button_style: str = ""+\
+        "QPushButton {" +\
+            "color: #FFEFD5;" +\
+            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));" +\
+            "border-radius: 10px;" +\
+            "font-size: 16px;" +\
+            "font-weight: bold;" +\
+        "}" +\
+        "QPushButton:hover {" +\
+            "background-color: #32CD32;" +\
+        "}"
+        
+#Стиль для першої кнопки розрахунку периметра
+btn_perimetr_1: str = "" +\
+        "QPushButton {" +\
+            "color: #FFEFD5;" +\
+            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(34, 139, 34), stop:1 rgb(60, 179, 113));" +\
+            "border-radius: 10px;" +\
+            "font-size: 16px;" +\
+            "font-weight: bold;" +\
+        "}" +\
+        "QPushButton:hover {" +\
+            "background-color: #32CD32;" +\
+        "}"
+#Стиль для другої кнопки розрахунку периметра
+btn_perimetr_2: str = "" +\
+        "QPushButton {" +\
+            "color: #FFEFD5;" +\
+            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 69, 0), stop:1 rgb(255, 127, 80));" +\
+            "border-radius: 10px;" +\
+            "font-size: 16px;" +\
+            "font-weight: bold;" +\
+        "}" +\
+        "QPushButton:hover {" +\
+            "background-color: #32CD32;" +\
+        "}"
 
-#         "font-weight: bold;"
-add_button_style: str = """
-        QPushButton {
-            color: #FFEFD5;
-            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));
-            "border-radius: 10px; 
-            "font-size: 16px; 
-            "font-weight: bold;
-        }
-        QPushButton:hover {
-            color: green;
-        }
-    """
-
-#Стиль для першої кнопки розрахунку периметра 
-
-#Стиль для другої кнопки розрахунку периметра 
-
-#Стиль для третьої кнопки розрахунку периметра 
+#Стиль для третьої кнопки розрахунку периметра
+btn_perimetr_3: str = "" +\
+        "QPushButton {" +\
+            "color: #FFEFD5;" +\
+            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(123, 104, 238), stop:1 rgb(70, 130, 180));" +\
+            "border-radius: 10px;" +\
+            "font-size: 16px;" +\
+            "font-weight: bold;" +\
+        "}" +\
+        "QPushButton:hover {" +\
+            "background-color: #32CD32;" +\
+        "}"
 
 class MainWindow(QMainWindow):
 
@@ -184,9 +215,7 @@ class MainWindow(QMainWindow):
         self.force_result_label = QLabel("Зусилля", self)
         self.force_result_label.setGeometry(10, 195, 100, 25)
         self.force_result_label.setFont(font_0)
-        self.force_result_label.setStyleSheet(
-            "color: #F0F8FF;"
-        )
+        self.force_result_label.setStyleSheet("color: #F0F8FF;")
 
         #Значеня зусилля
         self.force_result_value = QLineEdit('?', self)
@@ -431,13 +460,8 @@ class MainWindow(QMainWindow):
         self.btn_d = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_d.setGeometry(10, 380, 350, 30)
         self.btn_d.clicked.connect(self.perim_round)
-        self.btn_d.setStyleSheet(
-        "color: #E6E6FA;"
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(106,90,205), stop:1 rgb(0,255,255));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_d.setStyleSheet(btn_perimetr_1)
+
         #ПЕРИМЕТР
         #Заголовок периметра
         self.Label_d_peremeter = QLabel("Периметр кола", self.window_shape)
@@ -567,13 +591,7 @@ class MainWindow(QMainWindow):
         self.btn_perim = QPushButton("Розрахувати периметр та довжину хорди", self.window_shape)
         self.btn_perim.clicked.connect(self.perim_half_round_height)
         self.btn_perim.setGeometry(10, 350, 350, 30)
-        self.btn_perim.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
-        "border-radius: 10px;"
-        "font-size: 14px;"
-        "font-weight: bold;"
-        )
+        self.btn_perim.setStyleSheet(btn_perimetr_1)
 
         #ХОРДА
         #Заголовок хорди
@@ -725,13 +743,7 @@ class MainWindow(QMainWindow):
         self.btn_s = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_s.clicked.connect(self.perim_square)
         self.btn_s.setGeometry(10, 380, 350, 30)
-        self.btn_s.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
-        "border-radius: 10px;"
-        "font-size: 14px;"
-        "font-weight: bold;"
-        )
+        self.btn_s.setStyleSheet(btn_perimetr_1)
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
@@ -863,13 +875,7 @@ class MainWindow(QMainWindow):
         self.btn_square_one_radius = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_square_one_radius.clicked.connect(self.perim_square_one_radius)
         self.btn_square_one_radius.setGeometry(10, 380, 350, 30)
-        self.btn_square_one_radius.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
-        "border-radius: 10px;"
-        "font-size: 14px;"
-        "font-weight: bold;"
-        )
+        self.btn_square_one_radius.setStyleSheet(btn_perimetr_1)
         
         #ПЕРИМЕТЕР
         #Заголовок периметра
@@ -1124,13 +1130,7 @@ class MainWindow(QMainWindow):
         self.btn_square_four_radius = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_square_four_radius.clicked.connect(self.perim_square_four_radius)
         self.btn_square_four_radius.setGeometry(10, 450, 370, 30)
-        self.btn_square_four_radius.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
-        "border-radius: 10px;"
-        "font-size: 14px;"
-        "font-weight: bold;"
-        )
+        self.btn_square_four_radius.setStyleSheet(btn_perimetr_1)
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
@@ -1146,10 +1146,10 @@ class MainWindow(QMainWindow):
         self.perimeter.setFont(font_1)
         
         #Розмірність приметра
-        self.mm_result_perimeret = QLabel("мм", self.window_shape)
-        self.mm_result_perimeret.setGeometry(255, 490, 50, 20)
-        self.mm_result_perimeret.setStyleSheet("color: #8B00FF;")
-        self.mm_result_perimeret.setFont(font_1)
+        self.mm_result_perimetr = QLabel("мм", self.window_shape)
+        self.mm_result_perimetr.setGeometry(255, 490, 50, 20)
+        self.mm_result_perimetr.setStyleSheet("color: #8B00FF;")
+        self.mm_result_perimetr.setFont(font_1)
 
         #Кнопка периметер квадрата до загального розраунку
         self.btn_add_perimeter = QPushButton("Передати периметр у розрахунок", self.window_shape)
@@ -1350,13 +1350,7 @@ class MainWindow(QMainWindow):
         self.btn_perimeter = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_perimeter.clicked.connect(self.perim_sir)
         self.btn_perimeter.setGeometry(10, 380, 350, 30)
-        self.btn_perimeter.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
-        "border-radius: 10px;"
-        "font-size: 14px;"
-        "font-weight: bold;"
-        )
+        self.btn_perimeter.setStyleSheet(btn_perimetr_1)
 
         #ПЕРИМЕТР
         #Заголовок периметра
@@ -1523,13 +1517,7 @@ class MainWindow(QMainWindow):
         self.btn_rectangle = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_rectangle.clicked.connect(self.perim_rectangle)
         self.btn_rectangle.setGeometry(10, 380, 350, 30)
-        self.btn_rectangle.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
-        "border-radius: 10px;"
-        "font-size: 14px;"
-        "font-weight: bold;"
-        )
+        self.btn_rectangle.setStyleSheet(btn_perimetr_1)
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
@@ -1713,13 +1701,7 @@ class MainWindow(QMainWindow):
         self.btn_s_req = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_s_req.clicked.connect(self.req_one_radius)
         self.btn_s_req.setGeometry(10, 400, 350, 30)
-        self.btn_s_req.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 140, 0), stop:1 rgb(128, 0, 128));"
-        "border-radius: 10px;"
-        "font-size: 14px;"
-        "font-weight: bold;"
-        )
+        self.btn_s_req.setStyleSheet(btn_perimetr_1)
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
@@ -2040,7 +2022,7 @@ class MainWindow(QMainWindow):
         self.btn_rectangle_four_radius = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_rectangle_four_radius.clicked.connect(self.perim_rectangle_four_radius)
         self.btn_rectangle_four_radius.setGeometry(10, 450, 370, 30)
-        self.btn_rectangle_four_radius.setStyleSheet(add_button_style)
+        self.btn_rectangle_four_radius.setStyleSheet(btn_perimetr_1)
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
@@ -2261,13 +2243,7 @@ class MainWindow(QMainWindow):
         self.btn_hex_a = QPushButton("Розрахувати периметр по А", self.window_shape)
         self.btn_hex_a.setGeometry(10, 300, 370, 30)
         self.btn_hex_a.clicked.connect(self.perim_hex_a)
-        self.btn_hex_a.setStyleSheet(
-        "color: #FFEFD5;"
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(188, 143, 143), stop:1 rgb(123, 104, 238));"
-        "border-radius: 10px;"
-        "font-size: 14px;"
-        "font-weight: bold;"
-        )
+        self.btn_hex_a.setStyleSheet(btn_perimetr_1)
 
         #Висота
         #Заголовок висоти
@@ -2564,13 +2540,7 @@ class MainWindow(QMainWindow):
         self.btn_oblong = QPushButton("Розрахувати периметр", self.window_shape)
         self.btn_oblong.clicked.connect(self.perim_oblong)
         self.btn_oblong.setGeometry(10, 300, 350, 30)
-        self.btn_oblong.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(107, 142, 35), stop:1 rgb(50, 205, 50));"
-        "border-radius: 10px;"
-        "font-size: 14px;"
-        "font-weight: bold;"
-        )
+        self.btn_oblong.setStyleSheet(btn_perimetr_1)
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
@@ -2693,13 +2663,7 @@ class MainWindow(QMainWindow):
         self.btn_eq_tr_a = QPushButton("Розрахувати периметр по A", self.window_shape)
         self.btn_eq_tr_a.clicked.connect(self.perim_eq_riangle_a)
         self.btn_eq_tr_a.setGeometry(10, 330, 350, 30)
-        self.btn_eq_tr_a.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 99, 71), stop:1 rgb(30, 144, 255));"
-        "border-radius: 10px;"
-        "font-size: 14px;"
-        "font-weight: bold;"
-        )
+        self.btn_eq_tr_a.setStyleSheet(btn_perimetr_1)
 
         #Сторона H
         #Заголовок висоти h
@@ -2944,37 +2908,19 @@ class MainWindow(QMainWindow):
         self.btn_perim_is_tr_a_b = QPushButton("Розрахувати периметр по А та В", self.window_shape)
         self.btn_perim_is_tr_a_b.clicked.connect(self.perim_is_tr_a_b)
         self.btn_perim_is_tr_a_b.setGeometry(10, 410, 350, 30)      
-        self.btn_perim_is_tr_a_b.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(218, 165, 32), stop:1 rgb(160, 82, 45));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_perim_is_tr_a_b.setStyleSheet(btn_perimetr_1)
 
         #Кнопка розрахунку через сторону А та сторону H
         self.btn_perim_is_tr_a_h = QPushButton("Розрахувати периметр по А та Н", self.window_shape)
         self.btn_perim_is_tr_a_h.clicked.connect(self.perim_is_tr_a_h)
         self.btn_perim_is_tr_a_h.setGeometry(10, 450, 350, 30)      
-        self.btn_perim_is_tr_a_h.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(255, 140, 0));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_perim_is_tr_a_h.setStyleSheet(btn_perimetr_2)
 
         #Кнопка розрахунку через сторону B та сторону H
         self.btn_perim_is_tr_b_h = QPushButton("Розрахувати периметр по B та Н", self.window_shape)
         self.btn_perim_is_tr_b_h.clicked.connect(self.perim_is_tr_b_h)
         self.btn_perim_is_tr_b_h.setGeometry(10, 490, 350, 30)      
-        self.btn_perim_is_tr_b_h.setStyleSheet(
-        "color: #FFEFD5; "
-        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(160, 82, 45), stop:1 rgb(186, 85, 211));"
-        "border-radius: 10px;"
-        "font-size: 16px;"
-        "font-weight: bold;"
-        )
+        self.btn_perim_is_tr_b_h.setStyleSheet(btn_perimetr_3)
 
         #ПЕРИМЕТЕР
         #Заголовок периметра
@@ -2998,19 +2944,10 @@ class MainWindow(QMainWindow):
         #Кнопка периметер квадрата до загального розраунку
         self.btn_add_perimetr = QPushButton("Передати периметр у розрахунок", self.window_shape)
         self.btn_add_perimetr.clicked.connect(self.add_value)
-        self.btn_add_perimetr.setGeometry(10, 560, 350, 30)      
-        self.btn_add_perimetr.setStyleSheet("""
-        QPushButton {
-            color: #FFEFD5;
-            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));
-            "border-radius: 10px; 
-            "font-size: 16px; 
-            "font-weight: bold;
-        }
-        QPushButton:hover {
-            color: green;
-        }
-        """)
+        self.btn_add_perimetr.setGeometry(10, 560, 350, 30)
+
+        self.btn_add_perimetr.setStyleSheet(add_button_style)        
+
         self.window_shape.show()
 
     #Периметер рівнобедреного трикутника через дві сторони
