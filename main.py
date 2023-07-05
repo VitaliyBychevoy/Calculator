@@ -39,7 +39,7 @@ class MainWindow(QMainWindow):
 
         #Cписок форм
         self.shape = QComboBox(self)
-        self.shape.addItem("")
+        self.shape.addItem("Оберіть форму одного отвору")
         self.shape.addItem("Коло")
         self.shape.addItem("Напівколо")
         self.shape.addItem("Квадрат")
@@ -72,7 +72,6 @@ class MainWindow(QMainWindow):
         self.perimeter_value.setGeometry(120, 50, 70, 20)
         self.perimeter_value.setStyleSheet(s.perimeter_main_window_style)
         self.perimeter_value.setFont(font_3)
-
 
         #Розмірність периметра
         self.mm_label_perimeter = QLabel("мм", self)
@@ -290,6 +289,7 @@ class MainWindow(QMainWindow):
     #Обробка списку форм
     def shape_handler(self):
         shape: str = self.shape.currentText()
+
         if shape == "Коло":
             self.round_handler(shape)
         elif shape == "Напівколо":            
@@ -320,7 +320,7 @@ class MainWindow(QMainWindow):
     #КОЛО
     #Вікно для кола
     def round_handler(self, shape: str) -> None:
-        self.window_shape = QMdiSubWindow()
+        self.window_shape = ShapeWindow()
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
         self.image_round = gui.QPixmap("img/Round.jpg")
@@ -328,7 +328,6 @@ class MainWindow(QMainWindow):
         self.image_lable.setGeometry(40, 30, 290, 300)
         self.image_lable.setPixmap(self.image_round)
         self.image_lable.setScaledContents(True)
-        self.window_shape.setStyleSheet("background-color: white;")
         self.window_shape.setFixedSize(370, 500)
 
         #ДІАМЕТР
@@ -413,9 +412,8 @@ class MainWindow(QMainWindow):
 
     #НАПІВКОЛО
     def half_round_heandler(self, shape: str) -> None:
-        self.window_shape = QMdiSubWindow()
+        self.window_shape = ShapeWindow()
         self.window_shape.setWindowTitle(shape)
-        self.window_shape.setStyleSheet("background-color: white;")
         self.window_shape.setGeometry(950, 200, 370, 490)
         self.window_shape.setFixedSize(370, 490)
 
@@ -590,10 +588,9 @@ class MainWindow(QMainWindow):
     #КВАДРАТ
     #Вікно квадрата
     def square(self, shape: str) -> None:
-        self.window_shape = QMdiSubWindow()
+        self.window_shape = ShapeWindow()
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
-        self.window_shape.setStyleSheet("background-color: white;")
         self.window_shape.setFixedSize(370, 500)
 
         self.image_round = gui.QPixmap("img/square.jpg")
@@ -683,10 +680,9 @@ class MainWindow(QMainWindow):
     #КВАДРАТ З ОДНАКОВИМИ РАДІУСАМИ
     #Вікно квадрата з однаковими радіусами
     def square_one_radius(self, shape: str) -> None:
-        self.window_shape = QMdiSubWindow()
+        self.window_shape = ShapeWindow()
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
-        self.window_shape.setStyleSheet("background-color: white;")
 
         self.image_round = gui.QPixmap("img/square_one_radius.jpg")
         self.image_lable = QLabel(self.window_shape)
@@ -820,10 +816,9 @@ class MainWindow(QMainWindow):
     #КВАДРАТ З РІЗНИМИ РАДІУСАМИ
     #Вікно квадрата з різними радіусами
     def square_four_radius(self, shape: str) -> None:
-        self.window_shape = QMdiSubWindow()
+        self.window_shape = ShapeWindow()
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 390, 560)
-        self.window_shape.setStyleSheet("background-color: white;")
         self.window_shape.setFixedSize(390, 560)
 
 
@@ -1118,10 +1113,9 @@ class MainWindow(QMainWindow):
     #КВАДРАТ УКОЛІ
     #Вікно квадрата у колі
     def square_in_round(self, shape: str) -> None:
-        self.window_shape = QMdiSubWindow()
+        self.window_shape = ShapeWindow()
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
-        self.window_shape.setStyleSheet("background-color: white;")
         self.window_shape.setFixedSize(370, 500)
 
         self.image_round = gui.QPixmap("img/square_in_round.jpg")
@@ -1275,10 +1269,9 @@ class MainWindow(QMainWindow):
     #ПРЯМОКУТНИК
     #вікно прямокутника
     def rectangle(self, shape: str) -> None:        
-        self.window_shape = QMdiSubWindow()
+        self.window_shape = ShapeWindow()
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
-        self.window_shape.setStyleSheet("background-color: white;")
         self.window_shape.setFixedSize(370, 500)
 
         self.image_round = gui.QPixmap("img/rectangle.jpg")
@@ -1412,10 +1405,9 @@ class MainWindow(QMainWindow):
     #ПРЯМОКУТНИК З ОДНИМ РАДІУСОМ
     #Вікно прямокутника з одним радіусом
     def rectangle_one_round(self, shape: str) -> None:
-        self.window_shape = QMdiSubWindow()
+        self.window_shape = ShapeWindow()
         self.window_shape.setGeometry(950, 200, 380, 510)
         self.window_shape.setWindowTitle(shape)
-        self.window_shape.setStyleSheet("background-color: white;")
         self.window_shape.setFixedSize(370, 510)
 
         self.image_round = gui.QPixmap("img/rectangle_one_radius.jpg")
@@ -1615,11 +1607,10 @@ class MainWindow(QMainWindow):
     #ПРЯМОКУТНИК З РІНИМИ РАДИУСАМИ
     #Вікно прямокутника з різними радіусами
     def rectangle_four_round(self, shape: str) -> None:
-        self.window_shape = QMdiSubWindow()
+        self.window_shape = ShapeWindow()
         self.window_shape.setGeometry(950, 200, 390, 560)
         self.window_shape.setFixedSize(390, 560)
         self.window_shape.setWindowTitle(shape)
-        self.window_shape.setStyleSheet("background-color: white;")
         self.image_round = gui.QPixmap("img/rectangle_four_radius.jpg")
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(47, 10, int(250 * 1.131), 250)
@@ -1973,12 +1964,9 @@ class MainWindow(QMainWindow):
     #ШЕСТИГАРННИК
     #Вікно шестигранника
     def hexagon(self, shape: str) -> None:
-        self.window_shape = QMdiSubWindow()
-
+        self.window_shape = ShapeWindow()
         self.window_shape.setGeometry(950, 200, 390, 600)
-
         self.window_shape.setWindowTitle(shape)
-        self.window_shape.setStyleSheet("background-color: white;")
         self.image_round = gui.QPixmap("img/hexagon.jpg")
 
         self.image_lable = QLabel(self.window_shape)
@@ -2207,10 +2195,9 @@ class MainWindow(QMainWindow):
     #ОВАЛ
     #Вікно овала
     def oblong(self, shape: str) -> None:
-        self.window_shape = QMdiSubWindow()
+        self.window_shape = ShapeWindow()
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 410)
-        self.window_shape.setStyleSheet("background-color: white;")
         self.window_shape.setFixedSize(370, 410)
 
         self.image_round = gui.QPixmap("img/oblong.jpg")
@@ -2356,10 +2343,9 @@ class MainWindow(QMainWindow):
     #ТРИКУТНИК РІВНОСТОРОННІЙ
     #Вікно трикутника рівносоторонній
     def equilateral_triangle(self, shape: str) -> None:
-        self.window_shape = QMdiSubWindow()
+        self.window_shape = ShapeWindow()
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 520)
-        self.window_shape.setStyleSheet("background-color: white;")
 
         self.image_round = gui.QPixmap("img/Triangle_60.jpg")
         self.image_lable = QLabel(self.window_shape)
@@ -2516,10 +2502,9 @@ class MainWindow(QMainWindow):
     #РІВНОБЕДРЕНИЙ ТРИКУТНИК
     #Вікно рівнобедреного трикутника
     def isosceles_triangle(self, shape: str) -> None:
-        self.window_shape = QMdiSubWindow()
+        self.window_shape = ShapeWindow()
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 600)
-        self.window_shape.setStyleSheet("background-color: white;")
 
         self.image_round = gui.QPixmap("img/Treangle_.jpg")
         self.image_lable = QLabel(self.window_shape)
@@ -2804,6 +2789,7 @@ class MainWindow(QMainWindow):
             self.perimeter.setText("?")
             self.side_a_is_tr_value.setText("0.0")
             self.message_side_a_is_tr.setStyleSheet(s.btn_perimeter_3error_value_style)
+    #КІНЕЦЬ РІВНОБЕДРЕНИЙ ТРИКУТНИК
 
     #Передаэмо з вікна форми до головного вікна периметер
     def add_value(self):
@@ -2818,8 +2804,14 @@ class MainWindow(QMainWindow):
             self.message_perimeter.setGeometry(230, 50, 150, 20)
             self.message_perimeter.setStyleSheet(s.error_value_style)
 
-    #КІНЕЦЬ РІВНОБЕДРЕНИЙ ТРИКУТНИК
 
+class ShapeWindow(QMdiSubWindow):
+    def __init__(self):
+        super(ShapeWindow, self).__init__()
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
+        self.setStyleSheet("background-color: white;")
+    
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
     gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
@@ -2832,6 +2824,8 @@ if __name__ == '__main__':
     font_3 = gui.QFont("v_CCYadaYadaYadaInt", 12)
     font_4 = gui.QFont("v_WhizBang", 10)
     main_window = MainWindow()
+    main_window.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+    main_window.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
     main_window.setFixedSize(450, 230)
     main_window.show()
     sys.exit(my_app.exec_())
