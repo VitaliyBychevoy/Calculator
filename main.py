@@ -66,12 +66,13 @@ class MainWindow(QMainWindow):
         self.perimeter_label.setFont(font_1)
 
         #Значення периметра
-        self.perimeter_velue = QLineEdit("0.0", self)
-        self.perimeter_velue.setGeometry(120, 50, 70, 20)
-        self.perimeter_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.perimeter_velue.setGeometry(120, 50, 70, 20)
-        self.perimeter_velue.setStyleSheet(s.perimeter_main_window_style)
-        self.perimeter_velue.setFont(font_3)
+        self.perimeter_value = QLineEdit("0.0", self)
+        self.perimeter_value.setGeometry(120, 50, 70, 20)
+        self.perimeter_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.perimeter_value.setGeometry(120, 50, 70, 20)
+        self.perimeter_value.setStyleSheet(s.perimeter_main_window_style)
+        self.perimeter_value.setFont(font_3)
+
 
         #Розмірність периметра
         self.mm_label_perimeter = QLabel("мм", self)
@@ -83,7 +84,7 @@ class MainWindow(QMainWindow):
         self.message_perimeter = QLabel(None, self)
         self.message_perimeter.setGeometry(230, 50, 150, 20)
         self.message_perimeter.setFont(font_4)
-        if self.perimeter_velue.text() in zero:
+        if self.perimeter_value.text() in zero:
             self.message_perimeter.setText("Відсутнє значення")
             self.message_perimeter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             self.message_perimeter.setGeometry(230, 50, s.message_width, 20)
@@ -97,11 +98,11 @@ class MainWindow(QMainWindow):
         self.thickness_label.setFont(font_1)
 
         #Значення товщини
-        self.thickness_velue = QLineEdit("0.0", self)
-        self.thickness_velue.setGeometry(120, 75, 70, 20)
-        self.thickness_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.thickness_velue.setStyleSheet(s.material_thickness_style)
-        self.thickness_velue.setFont(font_3)
+        self.thickness_value = QLineEdit("0.0", self)
+        self.thickness_value.setGeometry(120, 75, 70, 20)
+        self.thickness_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.thickness_value.setStyleSheet(s.material_thickness_style)
+        self.thickness_value.setFont(font_3)
 
         #Розмірність товщини
         self.mm_label_thickness = QLabel("мм", self)
@@ -114,7 +115,7 @@ class MainWindow(QMainWindow):
         self.message_thickness.setGeometry(230, 75, s.message_width, 20)
         self.message_thickness.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)      
         self.message_thickness.setFont(font_4)
-        if self.thickness_velue.text() in zero:
+        if self.thickness_value.text() in zero:
             self.message_thickness.setText("Відсутнє значення")
             self.message_thickness.setStyleSheet(s.error_value_style)
 
@@ -186,8 +187,8 @@ class MainWindow(QMainWindow):
     def calculate_tonage_new(self):
         coeff_material = self.coefficient_material()
         
-        perimeter_list = self.check_number_new(self.perimeter_velue.text())
-        thickness_list = self.check_number_new(self.thickness_velue.text()) 
+        perimeter_list = self.check_number_new(self.perimeter_value.text())
+        thickness_list = self.check_number_new(self.thickness_value.text()) 
 
         self.message_perimeter.setText(perimeter_list[1])
         self.message_thickness.setText(thickness_list[1])
@@ -210,8 +211,8 @@ class MainWindow(QMainWindow):
             result = result * perimeter_list[0]
             result = result * thickness_list[0]
             result = round(result * float(self.amount_holes.currentText()), 2)
-            self.perimeter_velue.setText(str(round(perimeter_list[0], 1)))
-            self.thickness_velue.setText(str(round(thickness_list[0], 2)))
+            self.perimeter_value.setText(str(round(perimeter_list[0], 1)))
+            self.thickness_value.setText(str(round(thickness_list[0], 2)))
             self.message_perimeter.setStyleSheet(s.valide_value_style)
             self.message_thickness.setStyleSheet(s.valide_value_style)
             self.force_result_value.setText(str(result))
@@ -338,11 +339,11 @@ class MainWindow(QMainWindow):
         self.diameter_label.setFont(font_1)
 
         #Значення диаметра
-        self.diameter_velue = QLineEdit("0.0", self.window_shape)
-        self.diameter_velue.setGeometry(35, 350, 80, 20)
-        self.diameter_velue.setFont(font_3)
-        self.diameter_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.diameter_velue.setStyleSheet(s.q_line_edit_style_1)
+        self.diameter_value = QLineEdit("0.0", self.window_shape)
+        self.diameter_value.setGeometry(35, 350, 80, 20)
+        self.diameter_value.setFont(font_3)
+        self.diameter_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.diameter_value.setStyleSheet(s.q_line_edit_style_1)
 
         #Розмірність диаметра
         self.mm_label_d = QLabel("мм", self.window_shape)
@@ -354,7 +355,7 @@ class MainWindow(QMainWindow):
         self.message_diameter = QLabel(None, self.window_shape)
         self.message_diameter.setGeometry(150, 350, 150, 20)
 
-        if self.diameter_velue.text() in zero:
+        if self.diameter_value.text() in zero:
             self.message_diameter.setText("Відсутнє значення")
             self.message_diameter.setFont(font_4)
             self.message_diameter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -391,12 +392,12 @@ class MainWindow(QMainWindow):
         self.btn_add_perimeter.setGeometry(10, 450, 350, 30)
         self.btn_add_perimeter.clicked.connect(self.add_value)
         self.btn_add_perimeter.setStyleSheet(s.add_button_style)
-
         self.window_shape.show()
+
     #Периметер кола  
     def perim_round(self):
 
-        diameter_list_d = self.check_number_new(self.diameter_velue.text())
+        diameter_list_d = self.check_number_new(self.diameter_value.text())
         self.message_diameter.setText(diameter_list_d[1])
 
         if diameter_list_d[0] == 0:
@@ -405,7 +406,7 @@ class MainWindow(QMainWindow):
             self.perimeter.setText("?")
         else:
             self.perimeter.setText(str(g.Round.perimeter_round(diameter_list_d[0])))
-            self.diameter_velue.setText(str(round(diameter_list_d[0], 2)))
+            self.diameter_value.setText(str(round(diameter_list_d[0], 2)))
             self.message_diameter.setGeometry(150, 350, diameter_list_d[2], 20)
             self.message_diameter.setStyleSheet(s.valide_value_style)
     #КІНЕЦЬ КОЛО
@@ -415,8 +416,8 @@ class MainWindow(QMainWindow):
         self.window_shape = QMdiSubWindow()
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setStyleSheet("background-color: white;")
-        self.window_shape.setGeometry(950, 200, 370, 500)
-        self.window_shape.setFixedSize(370, 500)
+        self.window_shape.setGeometry(950, 200, 370, 490)
+        self.window_shape.setFixedSize(370, 490)
 
         #ДІАМЕТР
         #Заголовок диаметра
@@ -426,11 +427,11 @@ class MainWindow(QMainWindow):
         self.diameter_hr_label.setFont(font_1)
 
         #Значення диаметра
-        self.diameter_hr_velue = QLineEdit("0.0", self.window_shape)
-        self.diameter_hr_velue.setGeometry(35, 290, 80, 20)
-        self.diameter_hr_velue.setFont(font_3)
-        self.diameter_hr_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.diameter_hr_velue.setStyleSheet(s.q_line_edit_style_1)
+        self.diameter_hr_value = QLineEdit("0.0", self.window_shape)
+        self.diameter_hr_value.setGeometry(35, 290, 80, 20)
+        self.diameter_hr_value.setFont(font_3)
+        self.diameter_hr_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.diameter_hr_value.setStyleSheet(s.q_line_edit_style_1)
 
         #Розмірність диаметра
         self.mm_label_d_hr = QLabel("мм", self.window_shape)
@@ -441,7 +442,7 @@ class MainWindow(QMainWindow):
         #Статус діаметра         
         self.message_diameter_hr = QLabel(None, self.window_shape)
         self.message_diameter_hr.setGeometry(150, 290, 150, 20)
-        if self.diameter_hr_velue.text() in zero:
+        if self.diameter_hr_value.text() in zero:
             self.message_diameter_hr.setText("Відсутнє значення")
             self.message_diameter_hr.setFont(font_4)
             self.message_diameter_hr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -455,11 +456,11 @@ class MainWindow(QMainWindow):
         self.height_hr_label.setFont(font_1)
 
         #Значення висоти
-        self.height_hr_velue = QLineEdit("0.0", self.window_shape)
-        self.height_hr_velue.setGeometry(35, 320, 80, 20)
-        self.height_hr_velue.setFont(font_3)
-        self.height_hr_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.height_hr_velue.setStyleSheet(s.q_line_edit_style_2)
+        self.height_hr_value = QLineEdit("0.0", self.window_shape)
+        self.height_hr_value.setGeometry(35, 320, 80, 20)
+        self.height_hr_value.setFont(font_3)
+        self.height_hr_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.height_hr_value.setStyleSheet(s.q_line_edit_style_2)
         
         #Розмірність висоти
         self.mm_label_h_hr = QLabel("мм", self.window_shape)
@@ -471,7 +472,7 @@ class MainWindow(QMainWindow):
         self.message_height_hr = QLabel(None, self.window_shape)
         self.message_height_hr.setGeometry(150, 320, 150, 20)
 
-        if self.height_hr_velue.text() in zero:
+        if self.height_hr_value.text() in zero:
             self.message_height_hr.setText("Відсутнє значення")
             self.message_height_hr.setFont(font_4)
             self.message_height_hr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -497,10 +498,10 @@ class MainWindow(QMainWindow):
         self.lenght_hr_label.setFont(font_1)
 
         #Значення хорди
-        self.lenght_hr_velue = QLabel("0.0", self.window_shape)
-        self.lenght_hr_velue.setGeometry(165, 390, 90, 20)
-        self.lenght_hr_velue.setStyleSheet(f"color: {s.SUBRESULT_COLOR};")
-        self.lenght_hr_velue.setFont(font_1)
+        self.lenght_hr_value = QLabel("0.0", self.window_shape)
+        self.lenght_hr_value.setGeometry(165, 390, 90, 20)
+        self.lenght_hr_value.setStyleSheet(f"color: {s.SUBRESULT_COLOR};")
+        self.lenght_hr_value.setFont(font_1)
 
         #Розмірність хорди
         self.mm_label_length_hr = QLabel("мм", self.window_shape)
@@ -538,27 +539,27 @@ class MainWindow(QMainWindow):
     #Периметер напівкільця
     def perim_half_round_height(self):
 
-        diameter_list = self.check_number_new(self.diameter_hr_velue.text())
-        height_list = self.check_number_new(self.height_hr_velue.text())
+        diameter_list = self.check_number_new(self.diameter_hr_value.text())
+        height_list = self.check_number_new(self.height_hr_value.text())
 
         self.message_diameter_hr.setText(diameter_list[1])
         self.message_height_hr.setText(height_list[1])
 
-        self.message_diameter_hr.setGeometry(145, 290, diameter_list[2], 20)
+        self.message_diameter_hr.setGeometry(150, 290, diameter_list[2], 20)
         self.message_diameter_hr.setStyleSheet(s.error_value_style)
-        self.message_height_hr.setGeometry(145, 320, height_list[2], 20)
+        self.message_height_hr.setGeometry(150, 320, height_list[2], 20)
         self.message_height_hr.setStyleSheet(s.error_value_style)
-        self.lenght_hr_velue.setText("?")
+        self.lenght_hr_value.setText("?")
         self.perimeter.setText("?")
 
         if diameter_list[0] != 0:
             self.message_diameter_hr.setGeometry(150, 290, diameter_list[2], 20)
             self.message_diameter_hr.setStyleSheet(s.valide_value_style)
-            self.diameter_hr_velue.setText(str(round(diameter_list[0], 2)))
+            self.diameter_hr_value.setText(str(round(diameter_list[0], 2)))
         if height_list[0] != 0:
             self.message_height_hr.setGeometry(150, 320, height_list[2], 20)
             self.message_height_hr.setStyleSheet(s.valide_value_style)
-            self.height_hr_velue.setText(str(round(height_list[0], 2)))
+            self.height_hr_value.setText(str(round(height_list[0], 2)))
 
         if diameter_list[0] != 0 and height_list[0] != 0:
             if diameter_list[0] <= height_list[0]:
@@ -573,15 +574,15 @@ class MainWindow(QMainWindow):
                     #Висота більша за радіус
                     self.perimeter.setText(str(g.Incomplete_circle.perim_in_circle(diameter_list[0], height_list[0])))
                     l = round(g.Incomplete_circle.lenght_chold(diameter_list[0], height_list[0]), 2)
-                    self.lenght_hr_velue.setText(str(l))
+                    self.lenght_hr_value.setText(str(l))
                 elif height_list[0] == (diameter_list[0] / 2):
                     #Висота дорівнює радіусу
                     self.perimeter.setText(str(g.Incomplete_circle.perim_half_round(diameter_list[0], height_list[0])))
-                    self.lenght_hr_velue.setText(str(height_list[0] * 2))
+                    self.lenght_hr_value.setText(str(height_list[0] * 2))
                 elif height_list[0] < (diameter_list[0] / 2):
                     #Висота меньша за радіус
                     l = round(g.Incomplete_circle.lenght_chold(diameter_list[0], height_list[0]), 2)
-                    self.lenght_hr_velue.setText(str(l))
+                    self.lenght_hr_value.setText(str(l))
                     p = round((g.Incomplete_circle.perim_half_round_height_less_radius(diameter_list[0], height_list[0])), 2)
                     self.perimeter.setText(str(p))
     #КІНЕЦЬ НАПІВКОЛО 
@@ -609,11 +610,11 @@ class MainWindow(QMainWindow):
         self.side_label.setFont(font_1)
 
         #Значення диаметра
-        self.side_velue = QLineEdit("0.0", self.window_shape)
-        self.side_velue.setGeometry(35, 350, 80, 20)
-        self.side_velue.setFont(font_3)
-        self.side_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_velue.setStyleSheet(s.q_line_edit_style_1)
+        self.side_value = QLineEdit("0.0", self.window_shape)
+        self.side_value.setGeometry(35, 350, 80, 20)
+        self.side_value.setFont(font_3)
+        self.side_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_value.setStyleSheet(s.q_line_edit_style_1)
         
         #Розмірність диаметра
         self.mm_label_side = QLabel("мм", self.window_shape)
@@ -624,7 +625,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_side = QLabel(None, self.window_shape)
         self.message_side.setGeometry(150, 350, 150, 20)
-        if self.side_velue.text() in zero:
+        if self.side_value.text() in zero:
             self.message_side.setText("Відсутнє значення")
             self.message_side.setFont(font_4)
             self.message_side.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -665,7 +666,7 @@ class MainWindow(QMainWindow):
 
     #Периметр квадрата
     def perim_square(self) -> None:
-        square_list = self.check_number_new(self.side_velue.text())
+        square_list = self.check_number_new(self.side_vlue.text())
         self.message_side.setText(square_list[1])
 
         self.message_side.setGeometry(150, 350, square_list[2], 20)
@@ -674,7 +675,7 @@ class MainWindow(QMainWindow):
             self.message_side.setStyleSheet(s.error_value_style)   
             self.perimeter.setText("?")
         else:
-            self.side_velue.setText(str(round(square_list[0], 2)))
+            self.side_value.setText(str(round(square_list[0], 2)))
             self.message_side.setStyleSheet(s.valide_value_style)      
             self.perimeter.setText(str(g.Perimeter.square(float(square_list[0]))))                        
     #КІНЕЦЬ КВАДРАТ
@@ -702,11 +703,11 @@ class MainWindow(QMainWindow):
         self.side_one_round_square_label.setFont(font_1)
 
         #Значення сторони
-        self.side_one_round_square_velue = QLineEdit("0.0", self.window_shape)
-        self.side_one_round_square_velue.setGeometry(35, 320, 80, 20)
-        self.side_one_round_square_velue.setFont(font_3)
-        self.side_one_round_square_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_one_round_square_velue.setStyleSheet(s.q_line_edit_style_1)
+        self.side_one_round_square_value = QLineEdit("0.0", self.window_shape)
+        self.side_one_round_square_value.setGeometry(35, 320, 80, 20)
+        self.side_one_round_square_value.setFont(font_3)
+        self.side_one_round_square_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_one_round_square_value.setStyleSheet(s.q_line_edit_style_1)
         
         #Розмірність сторони
         self.mm_label_side_one_round_square = QLabel("мм", self.window_shape)
@@ -717,7 +718,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_side_one_round_square = QLabel(None, self.window_shape)
         self.message_side_one_round_square.setGeometry(150, 320, 150, 20)
-        if self.side_one_round_square_velue.text() in zero:
+        if self.side_one_round_square_value.text() in zero:
             self.message_side_one_round_square.setText("Відсутнє значення")
             self.message_side_one_round_square.setFont(font_4)
             self.message_side_one_round_square.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -731,11 +732,11 @@ class MainWindow(QMainWindow):
         self.radius_one_round_square_label.setFont(font_1)
 
         #Значення радіуса
-        self.radius_one_round_square_velue = QLineEdit("0.0", self.window_shape)
-        self.radius_one_round_square_velue.setGeometry(35, 350, 80, 20)
-        self.radius_one_round_square_velue.setFont(font_3)
-        self.radius_one_round_square_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.radius_one_round_square_velue.setStyleSheet(s.q_line_edit_style_2)
+        self.radius_one_round_square_value = QLineEdit("0.0", self.window_shape)
+        self.radius_one_round_square_value.setGeometry(35, 350, 80, 20)
+        self.radius_one_round_square_value.setFont(font_3)
+        self.radius_one_round_square_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.radius_one_round_square_value.setStyleSheet(s.q_line_edit_style_2)
 
         #Розмірність радіуса
         self.mm_label_radius_one_round_square = QLabel("мм", self.window_shape)
@@ -746,7 +747,7 @@ class MainWindow(QMainWindow):
         #Статус радіуса       
         self.message_radius_one_round_square = QLabel(None, self.window_shape)
         self.message_radius_one_round_square.setGeometry(150, 350, 150, 20)
-        if self.radius_one_round_square_velue.text() in zero:
+        if self.radius_one_round_square_value.text() in zero:
             self.message_radius_one_round_square.setText("Відсутнє значення")
             self.message_radius_one_round_square.setFont(font_4)
             self.message_radius_one_round_square.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -782,14 +783,13 @@ class MainWindow(QMainWindow):
         self.btn_add_perimeter.clicked.connect(self.add_value)
         self.btn_add_perimeter.setGeometry(10, 450, 350, 30)      
         self.btn_add_perimeter.setStyleSheet(s.add_button_style)
-
         self.window_shape.show()
     
     #Периметер квадрата з однаковими радіусами
     def perim_square_one_radius(self):
 
-        side_list_qor = self.check_number_new(self.side_one_round_square_velue.text())
-        radius_list_qor = self.check_number_new(self.radius_one_round_square_velue.text())
+        side_list_qor = self.check_number_new(self.side_one_round_square_value.text())
+        radius_list_qor = self.check_number_new(self.radius_one_round_square_value.text())
 
         self.message_side_one_round_square.setText(side_list_qor[1])
         self.message_side_one_round_square.setGeometry(150, 320, side_list_qor[2], 20)
@@ -810,14 +810,11 @@ class MainWindow(QMainWindow):
                 self.message_side_one_round_square.setStyleSheet(s.error_value_style)
                 self.perimeter.setText("?")
             else:
-                print(side_list_qor[0], " ", type(side_list_qor[0]))
-                print(radius_list_qor[0], " ", type(radius_list_qor[0]))
                 self.perimeter.setText(str(g.Perimeter.square_one_radius(side_list_qor[0], radius_list_qor[0])))
                 self.message_side_one_round_square.setStyleSheet(s.valide_value_style)
                 self.message_radius_one_round_square.setStyleSheet(s.valide_value_style)
         else:
             self.perimeter.setText("?")
-
     #КІНЕЦЬ КВАДРАТ З ОДНАКОВИМИ РАДІУСАМИ
 
     #КВАДРАТ З РІЗНИМИ РАДІУСАМИ
@@ -844,11 +841,11 @@ class MainWindow(QMainWindow):
         self.side_four_radius_label.setFont(font_1)
 
         #Значення сторони
-        self.side_four_radius_velue = QLineEdit("0.0", self.window_shape)
-        self.side_four_radius_velue.setGeometry(50, 300, 80, 20)
-        self.side_four_radius_velue.setFont(font_3)
-        self.side_four_radius_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_four_radius_velue.setStyleSheet(s.q_line_edit_style_1)
+        self.side_four_radius_value = QLineEdit("0.0", self.window_shape)
+        self.side_four_radius_value.setGeometry(50, 300, 80, 20)
+        self.side_four_radius_value.setFont(font_3)
+        self.side_four_radius_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_four_radius_value.setStyleSheet(s.q_line_edit_style_1)
 
         #Розмірність сторони
         self.mm_label_side_four_radius_label = QLabel("мм", self.window_shape)
@@ -873,11 +870,11 @@ class MainWindow(QMainWindow):
         self.r1_square_label.setFont(font_1)
 
         #Значення радіуса
-        self.r1_square_velue = QLineEdit("0.0", self.window_shape)
-        self.r1_square_velue.setGeometry(50, 330, 80, 20)
-        self.r1_square_velue.setFont(font_3)
-        self.r1_square_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.r1_square_velue.setStyleSheet(s.q_line_edit_style_2)
+        self.r1_square_value = QLineEdit("0.0", self.window_shape)
+        self.r1_square_value.setGeometry(50, 330, 80, 20)
+        self.r1_square_value.setFont(font_3)
+        self.r1_square_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.r1_square_value.setStyleSheet(s.q_line_edit_style_2)
 
         #Розмірність радіуса
         self.mm_label_r1 = QLabel("мм", self.window_shape)
@@ -888,7 +885,7 @@ class MainWindow(QMainWindow):
         #Статус радіуса       
         self.message_r1_square = QLabel(None, self.window_shape)
         self.message_r1_square.setGeometry(170, 330, 150, 20)
-        if self.r1_square_velue.text() in zero:
+        if self.r1_square_value.text() in zero:
             self.message_r1_square.setText("Відсутнє значення")
             self.message_r1_square.setFont(font_4)
             self.message_r1_square.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -902,11 +899,11 @@ class MainWindow(QMainWindow):
         self.r2_square_label.setFont(font_1)
 
         #Значення радіуса
-        self.r2_square_velue = QLineEdit("0.0", self.window_shape)
-        self.r2_square_velue.setGeometry(50, 360, 80, 20)
-        self.r2_square_velue.setFont(font_3)
-        self.r2_square_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.r2_square_velue.setStyleSheet(s.q_line_edit_style_3)
+        self.r2_square_value = QLineEdit("0.0", self.window_shape)
+        self.r2_square_value.setGeometry(50, 360, 80, 20)
+        self.r2_square_value.setFont(font_3)
+        self.r2_square_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.r2_square_value.setStyleSheet(s.q_line_edit_style_3)
 
         #Розмірність радіуса
         self.mm_label_r2 = QLabel("мм", self.window_shape)
@@ -917,7 +914,7 @@ class MainWindow(QMainWindow):
         #Статус радіуса       
         self.message_r2_square = QLabel(None, self.window_shape)
         self.message_r2_square.setGeometry(170, 360, 150, 20)
-        if self.r2_square_velue.text() in zero:
+        if self.r2_square_value.text() in zero:
             self.message_r2_square.setText("Відсутнє значення")
             self.message_r2_square.setFont(font_4)
             self.message_r2_square.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -931,11 +928,11 @@ class MainWindow(QMainWindow):
         self.r3_square_label.setFont(font_1)
 
         #Значення радіуса
-        self.r3_square_velue = QLineEdit("0.0", self.window_shape)
-        self.r3_square_velue.setGeometry(50, 390, 80, 20)
-        self.r3_square_velue.setFont(font_3)
-        self.r3_square_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.r3_square_velue.setStyleSheet(s.q_line_edit_style_4)
+        self.r3_square_value = QLineEdit("0.0", self.window_shape)
+        self.r3_square_value.setGeometry(50, 390, 80, 20)
+        self.r3_square_value.setFont(font_3)
+        self.r3_square_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.r3_square_value.setStyleSheet(s.q_line_edit_style_4)
 
         #Розмірність радіуса
         self.mm_label_r3 = QLabel("мм", self.window_shape)
@@ -947,7 +944,7 @@ class MainWindow(QMainWindow):
         #Статус радіуса       
         self.message_r3_square = QLabel(None, self.window_shape)
         self.message_r3_square.setGeometry(170, 390, 150, 20)
-        if self.r3_square_velue.text() in zero:
+        if self.r3_square_value.text() in zero:
             self.message_r3_square.setText("Відсутнє значення")
             self.message_r3_square.setFont(font_4)
             self.message_r3_square.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -961,11 +958,11 @@ class MainWindow(QMainWindow):
         self.r4_square_label.setFont(font_1)
 
         #Значення радіуса
-        self.r4_square_velue = QLineEdit("0.0", self.window_shape)
-        self.r4_square_velue.setGeometry(50, 420, 80, 20)
-        self.r4_square_velue.setFont(font_3)
-        self.r4_square_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.r4_square_velue.setStyleSheet(s.q_line_edit_style_5)
+        self.r4_square_value = QLineEdit("0.0", self.window_shape)
+        self.r4_square_value.setGeometry(50, 420, 80, 20)
+        self.r4_square_value.setFont(font_3)
+        self.r4_square_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.r4_square_value.setStyleSheet(s.q_line_edit_style_5)
 
         #Розмірність радіуса
         self.mm_label_r4 = QLabel("мм", self.window_shape)
@@ -976,7 +973,7 @@ class MainWindow(QMainWindow):
         #Статус радіуса       
         self.message_r4_square = QLabel(None, self.window_shape)
         self.message_r4_square.setGeometry(170, 420, 150, 20)
-        if self.r4_square_velue.text() in zero:
+        if self.r4_square_value.text() in zero:
             self.message_r4_square.setText("Відсутнє значення")  
             self.message_r4_square.setFont(font_4)
             self.message_r4_square.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -1018,11 +1015,11 @@ class MainWindow(QMainWindow):
     #Периметер квадрата з різними радіусами
     def perim_square_four_radius(self) -> None:
 
-        side_sfr_list = self.check_number_new(self.side_four_radius_velue.text())
-        r1_sfr_list = self.check_number_new(self.r1_square_velue.text())
-        r2_sfr_list = self.check_number_new(self.r2_square_velue.text())
-        r3_sfr_list = self.check_number_new(self.r3_square_velue.text())
-        r4_sfr_list = self.check_number_new(self.r4_square_velue.text())
+        side_sfr_list = self.check_number_new(self.side_four_radius_value.text())
+        r1_sfr_list = self.check_number_new(self.r1_square_value.text())
+        r2_sfr_list = self.check_number_new(self.r2_square_value.text())
+        r3_sfr_list = self.check_number_new(self.r3_square_value.text())
+        r4_sfr_list = self.check_number_new(self.r4_square_value.text())
 
         self.message_side_four_radius.setText(side_sfr_list[1])
         self.message_side_four_radius.setGeometry(170, 300, side_sfr_list[2], 20) 
@@ -1070,43 +1067,43 @@ class MainWindow(QMainWindow):
                 self.message_side_four_radius.setText("Замала сторона")
                 self.message_side_four_radius.setStyleSheet(s.error_value_style)
                 if s1 < 0:
-                    self.r3_square_velue.setText(str(round(r3_sfr_list[0],2)))
-                    self.r4_square_velue.setText(str(round(r4_sfr_list[0],2)))
+                    self.r3_square_value.setText(str(round(r3_sfr_list[0],2)))
+                    self.r4_square_value.setText(str(round(r4_sfr_list[0],2)))
                     self.perimeter.setText('?')
                     self.message_r1_square.setText("Завеликий радіус")
                     self.message_r1_square.setStyleSheet(s.error_value_style)
                     self.message_r2_square.setText("Завеликий радіус")
                     self.message_r2_square.setStyleSheet(s.error_value_style)
                 if s2 < 0:
-                    self.r1_square_velue.setText(str(round(r1_sfr_list[0],2)))
-                    self.r4_square_velue.setText(str(round(r4_sfr_list[0],2)))
+                    self.r1_square_value.setText(str(round(r1_sfr_list[0],2)))
+                    self.r4_square_value.setText(str(round(r4_sfr_list[0],2)))
                     self.perimeter.setText('?')
                     self.message_r2_square.setText("Завеликий радіус")
                     self.message_r2_square.setStyleSheet(s.error_value_style)
                     self.message_r3_square.setText("Завеликий радіус")
                     self.message_r3_square.setStyleSheet(s.error_value_style)
                 if s3 < 0:
-                    self.r1_square_velue.setText(str(round(r1_sfr_list[0],2)))
-                    self.r2_square_velue.setText(str(round(r2_sfr_list[0],2)))
+                    self.r1_square_value.setText(str(round(r1_sfr_list[0],2)))
+                    self.r2_square_value.setText(str(round(r2_sfr_list[0],2)))
                     self.perimeter.setText('?')
                     self.message_r3_square.setText("Завеликий радіус")
                     self.message_r3_square.setStyleSheet(s.error_value_style)
                     self.message_r4_square.setText("Завеликий радіус")
                     self.message_r4_square.setStyleSheet(s.error_value_style)
                 if s4 < 0:
-                    self.r2_square_velue.setText(str(round(r2_sfr_list[0],2)))
-                    self.r3_square_velue.setText(str(round(r3_sfr_list[0],2)))
+                    self.r2_square_value.setText(str(round(r2_sfr_list[0],2)))
+                    self.r3_square_value.setText(str(round(r3_sfr_list[0],2)))
                     self.perimeter.setText('?')
                     self.message_r4_square.setText("Завеликий радіус")
                     self.message_r4_square.setStyleSheet(s.error_value_style)
                     self.message_r1_square.setText("Завеликий радіус")
                     self.message_r1_square.setStyleSheet(s.error_value_style)
             else:
-                self.side_sir_velue.setText(str(round(side_sfr_list[0], 2)))
-                self.r1_square_velue.setText(str(round(r1_sfr_list[0],2)))
-                self.r2_square_velue.setText(str(round(r2_sfr_list[0],2)))
-                self.r3_square_velue.setText(str(round(r3_sfr_list[0],2)))
-                self.r4_square_velue.setText(str(round(r4_sfr_list[0],2)))
+                self.side_four_radius_value.setText(str(round(side_sfr_list[0], 2)))
+                self.r1_square_value.setText(str(round(r1_sfr_list[0],2)))
+                self.r2_square_value.setText(str(round(r2_sfr_list[0],2)))
+                self.r3_square_value.setText(str(round(r3_sfr_list[0],2)))
+                self.r4_square_value.setText(str(round(r4_sfr_list[0],2)))
                 self.perimeter.setText(str(g.Perimeter.square_four_radius(
                     side_sfr_list[0], 
                     r1_sfr_list[0],
@@ -1141,11 +1138,11 @@ class MainWindow(QMainWindow):
         self.side_sir_label.setFont(font_1)
 
         #Значення сторони
-        self.side_sir_velue = QLineEdit("0.0", self.window_shape)
-        self.side_sir_velue.setGeometry(35, 320, 80, 20)
-        self.side_sir_velue.setFont(font_3)
-        self.side_sir_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_sir_velue.setStyleSheet(s.q_line_edit_style_1)
+        self.side_sir_value = QLineEdit("0.0", self.window_shape)
+        self.side_sir_value.setGeometry(35, 320, 80, 20)
+        self.side_sir_value.setFont(font_3)
+        self.side_sir_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_sir_value.setStyleSheet(s.q_line_edit_style_1)
 
         #Розмірність сторони
         self.mm_label_sir = QLabel("мм", self.window_shape)
@@ -1156,7 +1153,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_side_sir = QLabel(None, self.window_shape)
         self.message_side_sir.setGeometry(150, 320, 150, 20)
-        if self.side_sir_velue.text() in zero:
+        if self.side_sir_value.text() in zero:
             self.message_side_sir.setText("Відсутнє значення")
             self.message_side_sir.setFont(font_4)
             self.message_side_sir.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -1227,7 +1224,7 @@ class MainWindow(QMainWindow):
     #Периметер квадрата у колі
     def perim_sir(self) -> None:
 
-        list_side_sir = self.check_number_new(self.side_sir_velue.text())
+        list_side_sir = self.check_number_new(self.side_sir_value.text())
         list_diameter = self.check_number_new(self.diameter_sir_value.text())
 
         self.message_side_sir.setText(list_side_sir[1])
@@ -1266,7 +1263,7 @@ class MainWindow(QMainWindow):
                 self.message_side_sir.setGeometry(150, 320, 150, 20)
                 self.message_diameter_sir.setGeometry(150, 350, 150, 20)            
             else:
-                self.side_sir_velue.setText(str(round(list_side_sir[0], 2)))
+                self.side_sir_value.setText(str(round(list_side_sir[0], 2)))
                 self.diameter_sir_value.setText(str(round(list_diameter[0], 2)))
                 self.perimeter.setText(str(g.Square_in_round.perimeter_square_in_round(list_side_sir[0], list_diameter[0])))
                 self.message_side_sir.setStyleSheet(s.valide_value_style)
@@ -1298,11 +1295,11 @@ class MainWindow(QMainWindow):
         self.side_a_label.setFont(font_1)
 
         #Значення сторони
-        self.side_a_velue = QLineEdit("0.0", self.window_shape)
-        self.side_a_velue.setGeometry(35, 320, 80, 20)
-        self.side_a_velue.setFont(font_3)
-        self.side_a_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_a_velue.setStyleSheet(s.q_line_edit_style_1)
+        self.side_a_value = QLineEdit("0.0", self.window_shape)
+        self.side_a_value.setGeometry(35, 320, 80, 20)
+        self.side_a_value.setFont(font_3)
+        self.side_a_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_a_value.setStyleSheet(s.q_line_edit_style_1)
 
         #Розмірність сторони
         self.mm_label_side_a = QLabel("мм", self.window_shape)
@@ -1313,7 +1310,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_side_a = QLabel(None, self.window_shape)
         self.message_side_a.setGeometry(150, 320, 150, 20)
-        if self.side_a_velue.text() in zero:
+        if self.side_a_value.text() in zero:
             self.message_side_a.setText("Відсутнє значення")
             self.message_side_a.setFont(font_4)
             self.message_side_a.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -1327,11 +1324,11 @@ class MainWindow(QMainWindow):
         self.side_b_label.setFont(font_1)
 
         #Значення сторони
-        self.side_b_velue = QLineEdit("0.0", self.window_shape)
-        self.side_b_velue.setGeometry(35, 350, 80, 20)
-        self.side_b_velue.setFont(font_3)
-        self.side_b_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_b_velue.setStyleSheet(s.q_line_edit_style_2)
+        self.side_b_value = QLineEdit("0.0", self.window_shape)
+        self.side_b_value.setGeometry(35, 350, 80, 20)
+        self.side_b_value.setFont(font_3)
+        self.side_b_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_b_value.setStyleSheet(s.q_line_edit_style_2)
 
         #Розмірність сторони
         self.mm_label_side_b = QLabel("мм", self.window_shape)
@@ -1342,7 +1339,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_side_b = QLabel(None, self.window_shape)
         self.message_side_b.setGeometry(150, 350, 150, 20)
-        if self.side_b_velue.text() in zero:
+        if self.side_b_value.text() in zero:
             self.message_side_b.setText("Відсутнє значення")
             self.message_side_b.setFont(font_4)
             self.message_side_b.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -1384,8 +1381,8 @@ class MainWindow(QMainWindow):
     #Периметер прямокутника
     def perim_rectangle(self):
 
-        side_a_list = self.check_number_new(self.side_a_velue.text())
-        side_b_list = self.check_number_new(self.side_b_velue.text())
+        side_a_list = self.check_number_new(self.side_a_value.text())
+        side_b_list = self.check_number_new(self.side_b_value.text())
 
         self.message_side_a.setText(side_a_list[1])
         self.message_side_b.setText(side_b_list[1])
@@ -1404,8 +1401,8 @@ class MainWindow(QMainWindow):
             self.message_side_b.setStyleSheet(s.valide_value_style)  
 
         if side_a_list[0] != 0 and side_b_list[0] != 0:
-            self.side_a_velue.setText(str(round(side_a_list[0], 2)))
-            self.side_b_velue.setText(str(round(side_b_list[0], 2)))
+            self.side_a_value.setText(str(round(side_a_list[0], 2)))
+            self.side_b_value.setText(str(round(side_b_list[0], 2)))
             p = g.Perimeter.rectangle(side_a_list[0], side_b_list[0])
             self.perimeter.setText(str(round(p, 2)))
         else:
@@ -1435,12 +1432,11 @@ class MainWindow(QMainWindow):
         self.side_a_label_req.setFont(font_1)
 
         #Значення сторони а
-        self.side_a_velue_req = QLineEdit("0.0", self.window_shape)
-        #self.side_a_velue_req.setGeometry(25, 50, 40, 20)
-        self.side_a_velue_req.setGeometry(35, 310, 80, 20)
-        self.side_a_velue_req.setFont(font_3)
-        self.side_a_velue_req.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_a_velue_req.setStyleSheet(s.q_line_edit_style_1)
+        self.side_a_value_req = QLineEdit("0.0", self.window_shape)
+        self.side_a_value_req.setGeometry(35, 310, 80, 20)
+        self.side_a_value_req.setFont(font_3)
+        self.side_a_value_req.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_a_value_req.setStyleSheet(s.q_line_edit_style_1)
 
         #Розмірність сторони а
         self.mm_label_side_a_req = QLabel("мм", self.window_shape)
@@ -1451,7 +1447,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_side_a_req = QLabel(None, self.window_shape)
         self.message_side_a_req.setGeometry(150, 310, 150, 20)
-        if self.side_a_velue_req.text() in zero:
+        if self.side_a_value_req.text() in zero:
             self.message_side_a_req.setText("Відсутнє значення")
             self.message_side_a_req.setFont(font_4)
             self.message_side_a_req.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -1465,11 +1461,11 @@ class MainWindow(QMainWindow):
         self.side_b_label_req.setFont(font_1)
 
         #Значення сторони
-        self.side_b_velue_req = QLineEdit("0.0", self.window_shape)
-        self.side_b_velue_req.setGeometry(35, 340, 80, 20)
-        self.side_b_velue_req.setFont(font_3)
-        self.side_b_velue_req.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_b_velue_req.setStyleSheet(s.q_line_edit_style_2)
+        self.side_b_value_req = QLineEdit("0.0", self.window_shape)
+        self.side_b_value_req.setGeometry(35, 340, 80, 20)
+        self.side_b_value_req.setFont(font_3)
+        self.side_b_value_req.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_b_value_req.setStyleSheet(s.q_line_edit_style_2)
 
         #Розмірність сторони
         self.mm_label_side_b_req = QLabel("мм", self.window_shape)
@@ -1480,7 +1476,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_side_b_req = QLabel(None, self.window_shape)
         self.message_side_b_req.setGeometry(150, 340, 150, 20)
-        if self.side_b_velue_req.text() in zero:
+        if self.side_b_value_req.text() in zero:
             self.message_side_b_req.setText("Відсутнє значення")
             self.message_side_b_req.setFont(font_4)
             self.message_side_b_req.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -1494,11 +1490,11 @@ class MainWindow(QMainWindow):
         self.r_label_req.setFont(font_1)
 
         #Значення радіуса
-        self.r_velue_req = QLineEdit("0.0", self.window_shape)
-        self.r_velue_req.setGeometry(35, 370, 80, 20)
-        self.r_velue_req.setFont(font_3)
-        self.r_velue_req.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.r_velue_req.setStyleSheet(s.q_line_edit_style_3)
+        self.r_value_req = QLineEdit("0.0", self.window_shape)
+        self.r_value_req.setGeometry(35, 370, 80, 20)
+        self.r_value_req.setFont(font_3)
+        self.r_value_req.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.r_value_req.setStyleSheet(s.q_line_edit_style_3)
 
         #Розмірність радіуса
         self.mm_label_r = QLabel("мм", self.window_shape)
@@ -1509,7 +1505,7 @@ class MainWindow(QMainWindow):
         #Статус радіуса       
         self.message_side_r_req = QLabel(None, self.window_shape)
         self.message_side_r_req.setGeometry(150, 370, 150, 20)
-        if self.r_velue_req.text() in zero:
+        if self.r_value_req.text() in zero:
             self.message_side_r_req.setText("Відсутнє значення")
             self.message_side_r_req.setFont(font_4)
             self.message_side_r_req.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -1551,9 +1547,9 @@ class MainWindow(QMainWindow):
     
     #Периметр прямокутника с однаковими радіусами
     def req_one_radius(self):
-        side_a_req_list = self.check_number_new(self.side_a_velue_req.text()) 
-        side_b_req_list = self.check_number_new(self.side_b_velue_req.text())
-        side_r_req_list = self.check_number_new(self.r_velue_req.text())
+        side_a_req_list = self.check_number_new(self.side_a_value_req.text()) 
+        side_b_req_list = self.check_number_new(self.side_b_value_req.text())
+        side_r_req_list = self.check_number_new(self.r_value_req.text())
 
         self.message_side_a_req.setText(side_a_req_list[1])
         self.message_side_b_req.setText(side_b_req_list[1])
@@ -1638,11 +1634,11 @@ class MainWindow(QMainWindow):
         self.side_a_four_radius_label_rfr.setFont(font_1)
 
         #Значення сторони
-        self.side_a_four_radius_velue = QLineEdit("0.0", self.window_shape)
-        self.side_a_four_radius_velue.setGeometry(50, 270, 80, 20)
-        self.side_a_four_radius_velue.setFont(font_3)
-        self.side_a_four_radius_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_a_four_radius_velue.setStyleSheet(s.q_line_edit_style_1)
+        self.side_a_four_radius_value = QLineEdit("0.0", self.window_shape)
+        self.side_a_four_radius_value.setGeometry(50, 270, 80, 20)
+        self.side_a_four_radius_value.setFont(font_3)
+        self.side_a_four_radius_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_a_four_radius_value.setStyleSheet(s.q_line_edit_style_1)
         #Розмірність сторони
         self.mm_label_side_a_four_radius_label = QLabel("мм", self.window_shape)
         self.mm_label_side_a_four_radius_label.setGeometry(135, 270, 70, 20)
@@ -1666,11 +1662,11 @@ class MainWindow(QMainWindow):
         self.side_b_four_radius_label_rfr.setFont(font_1)
 
         #Значення сторони
-        self.side_b_four_radius_velue = QLineEdit("0.0", self.window_shape)
-        self.side_b_four_radius_velue.setGeometry(50, 300, 80, 20)
-        self.side_b_four_radius_velue.setFont(font_3)
-        self.side_b_four_radius_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_b_four_radius_velue.setStyleSheet(s.q_line_edit_style_2)
+        self.side_b_four_radius_value = QLineEdit("0.0", self.window_shape)
+        self.side_b_four_radius_value.setGeometry(50, 300, 80, 20)
+        self.side_b_four_radius_value.setFont(font_3)
+        self.side_b_four_radius_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_b_four_radius_value.setStyleSheet(s.q_line_edit_style_2)
 
         #Розмірність сторони
         self.mm_label_side_b_four_radius_label = QLabel("мм", self.window_shape)
@@ -1696,11 +1692,11 @@ class MainWindow(QMainWindow):
         self.r1_square_label_rfr.setFont(font_1)
 
         #Значення радіуса
-        self.r1_square_velue_rfr = QLineEdit("0.0", self.window_shape)
-        self.r1_square_velue_rfr.setGeometry(50, 330, 80, 20)
-        self.r1_square_velue_rfr.setFont(font_3)
-        self.r1_square_velue_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.r1_square_velue_rfr.setStyleSheet(s.q_line_edit_style_3)
+        self.r1_square_value_rfr = QLineEdit("0.0", self.window_shape)
+        self.r1_square_value_rfr.setGeometry(50, 330, 80, 20)
+        self.r1_square_value_rfr.setFont(font_3)
+        self.r1_square_value_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.r1_square_value_rfr.setStyleSheet(s.q_line_edit_style_3)
 
         #Розмірність радіуса
         self.mm_label_r1_rfr = QLabel("мм", self.window_shape)
@@ -1711,7 +1707,7 @@ class MainWindow(QMainWindow):
         #Статус радіуса       
         self.message_r1_square_rfr = QLabel(None, self.window_shape)
         self.message_r1_square_rfr.setGeometry(170, 330, 150, 20)
-        if self.r1_square_velue_rfr.text() in zero:
+        if self.r1_square_value_rfr.text() in zero:
             self.message_r1_square_rfr.setText("Відсутнє значення")
             self.message_r1_square_rfr.setFont(font_4)
             self.message_r1_square_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -1725,11 +1721,11 @@ class MainWindow(QMainWindow):
         self.r2_square_label_rfr.setFont(font_1)
 
         #Значення радіуса
-        self.r2_square_velue_rfr = QLineEdit("0.0", self.window_shape)
-        self.r2_square_velue_rfr.setGeometry(50, 360, 80, 20)
-        self.r2_square_velue_rfr.setFont(font_3)
-        self.r2_square_velue_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.r2_square_velue_rfr.setStyleSheet(s.q_line_edit_style_4)
+        self.r2_square_value_rfr = QLineEdit("0.0", self.window_shape)
+        self.r2_square_value_rfr.setGeometry(50, 360, 80, 20)
+        self.r2_square_value_rfr.setFont(font_3)
+        self.r2_square_value_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.r2_square_value_rfr.setStyleSheet(s.q_line_edit_style_4)
 
         #Розмірність радіуса
         self.mm_label_r2_rfr= QLabel("мм", self.window_shape)
@@ -1740,7 +1736,7 @@ class MainWindow(QMainWindow):
         #Статус радіуса       
         self.message_r2_square_rfr = QLabel(None, self.window_shape)
         self.message_r2_square_rfr.setGeometry(170, 360, 150, 20)
-        if self.r2_square_velue_rfr.text() in zero:
+        if self.r2_square_value_rfr.text() in zero:
             self.message_r2_square_rfr.setText("Відсутнє значення")
             self.message_r2_square_rfr.setFont(font_4)
             self.message_r2_square_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -1753,11 +1749,11 @@ class MainWindow(QMainWindow):
         self.r3_square_label_rfr.setFont(font_1)
 
         #Значення радіуса
-        self.r3_square_velue_rfr = QLineEdit("0.0", self.window_shape)
-        self.r3_square_velue_rfr.setGeometry(50, 390, 80, 20)
-        self.r3_square_velue_rfr.setFont(font_3)
-        self.r3_square_velue_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.r3_square_velue_rfr.setStyleSheet(s.q_line_edit_style_5)
+        self.r3_square_value_rfr = QLineEdit("0.0", self.window_shape)
+        self.r3_square_value_rfr.setGeometry(50, 390, 80, 20)
+        self.r3_square_value_rfr.setFont(font_3)
+        self.r3_square_value_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.r3_square_value_rfr.setStyleSheet(s.q_line_edit_style_5)
 
         #Розмірність радіуса
         self.mm_label_r3_rfr = QLabel("мм", self.window_shape)
@@ -1768,7 +1764,7 @@ class MainWindow(QMainWindow):
         #Статус радіуса       
         self.message_r3_square_rfr = QLabel(None, self.window_shape)
         self.message_r3_square_rfr.setGeometry(170, 390, 150, 20)
-        if self.r3_square_velue_rfr.text() in zero:
+        if self.r3_square_value_rfr.text() in zero:
             self.message_r3_square_rfr.setText("Відсутнє значення")
             self.message_r3_square_rfr.setFont(font_4)
             self.message_r3_square_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -1783,11 +1779,11 @@ class MainWindow(QMainWindow):
 
 
         #Значення радіуса
-        self.r4_square_velue_rfr = QLineEdit("0.0", self.window_shape)
-        self.r4_square_velue_rfr.setGeometry(50, 420, 80, 20)
-        self.r4_square_velue_rfr.setFont(font_3)
-        self.r4_square_velue_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.r4_square_velue_rfr.setStyleSheet(s.q_line_edit_style_6)
+        self.r4_square_value_rfr = QLineEdit("0.0", self.window_shape)
+        self.r4_square_value_rfr.setGeometry(50, 420, 80, 20)
+        self.r4_square_value_rfr.setFont(font_3)
+        self.r4_square_value_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.r4_square_value_rfr.setStyleSheet(s.q_line_edit_style_6)
 
         #Розмірність радіуса
         self.mm_label_r4_rfr = QLabel("мм", self.window_shape)
@@ -1798,7 +1794,7 @@ class MainWindow(QMainWindow):
         #Статус радіуса       
         self.message_r4_square_rfr = QLabel(None, self.window_shape)
         self.message_r4_square_rfr.setGeometry(170, 420, 150, 20)
-        if self.r4_square_velue_rfr.text() in zero:
+        if self.r4_square_value_rfr.text() in zero:
             self.message_r4_square_rfr.setText("Відсутнє значення")
             self.message_r4_square_rfr.setFont(font_4)
             self.message_r4_square_rfr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -1839,12 +1835,12 @@ class MainWindow(QMainWindow):
 
     #Периметер прямокутника з різними радіусами
     def perim_rectangle_four_radius(self) -> None:
-        list_s1 = self.check_number_new(self.side_a_four_radius_velue.text())
-        list_s2 = self.check_number_new(self.side_b_four_radius_velue.text())
-        list_r1 = self.check_number_new(self.r1_square_velue_rfr.text())
-        list_r2 = self.check_number_new(self.r2_square_velue_rfr.text())
-        list_r3 = self.check_number_new(self.r3_square_velue_rfr.text())
-        list_r4 = self.check_number_new(self.r4_square_velue_rfr.text())
+        list_s1 = self.check_number_new(self.side_a_four_radius_value.text())
+        list_s2 = self.check_number_new(self.side_b_four_radius_value.text())
+        list_r1 = self.check_number_new(self.r1_square_value_rfr.text())
+        list_r2 = self.check_number_new(self.r2_square_value_rfr.text())
+        list_r3 = self.check_number_new(self.r3_square_value_rfr.text())
+        list_r4 = self.check_number_new(self.r4_square_value_rfr.text())
 
         self.message_side_a_four_radius.setText(list_s1[1])
         self.message_side_b_four_radius.setText(list_s2[1])
@@ -1862,37 +1858,37 @@ class MainWindow(QMainWindow):
 
         if list_s1[0] != 0:
             self.message_side_a_four_radius.setStyleSheet(s.valide_value_style)
-            self.side_a_four_radius_velue.setText(str(float(round(list_s1[0], 2))))
+            self.side_a_four_radius_value.setText(str(float(round(list_s1[0], 2))))
         else:
             self.message_side_a_four_radius.setStyleSheet(s.error_value_style)
 
         if list_s2[0] != 0:
             self.message_side_b_four_radius.setStyleSheet(s.valide_value_style)
-            self.side_b_four_radius_velue.setText(str(float(round(list_s2[0], 2))))
+            self.side_b_four_radius_value.setText(str(float(round(list_s2[0], 2))))
         else:
             self.message_side_b_four_radius.setStyleSheet(s.error_value_style)
 
         if list_r1[0] != 0:
             self.message_r1_square_rfr.setStyleSheet(s.valide_value_style)
-            self.r1_square_velue_rfr.setText(str(float(round(list_r1[0], 2))))
+            self.r1_square_value_rfr.setText(str(float(round(list_r1[0], 2))))
         else:
             self.message_r1_square_rfr.setStyleSheet(s.error_value_style)
 
         if list_r2[0] != 0:
             self.message_r2_square_rfr.setStyleSheet(s.valide_value_style)
-            self.r2_square_velue_rfr.setText(str(float(round(list_r2[0], 2))))
+            self.r2_square_value_rfr.setText(str(float(round(list_r2[0], 2))))
         else:
             self.message_r2_square_rfr.setStyleSheet(s.error_value_style) 
 
         if list_r3[0] != 0:
             self.message_r3_square_rfr.setStyleSheet(s.valide_value_style)
-            self.r3_square_velue_rfr.setText(str(float(round(list_r3[0], 2))))
+            self.r3_square_value_rfr.setText(str(float(round(list_r3[0], 2))))
         else:
             self.message_r3_square_rfr.setStyleSheet(s.error_value_style) 
 
         if list_r4[0] != 0:
             self.message_r4_square_rfr.setStyleSheet(s.valide_value_style)
-            self.r4_square_velue_rfr.setText(str(float(round(list_r4[0], 2))))
+            self.r4_square_value_rfr.setText(str(float(round(list_r4[0], 2))))
         else:
             self.message_r4_square_rfr.setStyleSheet(s.error_value_style)
 
@@ -1998,11 +1994,11 @@ class MainWindow(QMainWindow):
         self.hex_a_label.setFont(font_1)        
 
         #Значення сторони
-        self.hex_a_velue = QLineEdit("0.0", self.window_shape)
-        self.hex_a_velue.setGeometry(50, 270, 80, 20)
-        self.hex_a_velue.setFont(font_3)
-        self.hex_a_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.hex_a_velue.setStyleSheet(s.q_line_edit_style_1)        
+        self.hex_a_value = QLineEdit("0.0", self.window_shape)
+        self.hex_a_value.setGeometry(50, 270, 80, 20)
+        self.hex_a_value.setFont(font_3)
+        self.hex_a_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.hex_a_value.setStyleSheet(s.q_line_edit_style_1)        
 
         #Розмірність сторони
         self.mm_hex_a_label = QLabel("мм", self.window_shape)
@@ -2013,7 +2009,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_hex_a = QLabel(None, self.window_shape)
         self.message_hex_a.setGeometry(170, 270, 150, 20)
-        if self.hex_a_velue.text() in zero:
+        if self.hex_a_value.text() in zero:
             self.message_hex_a.setText("Відсутнє значення")
             self.message_hex_a.setFont(font_4)
             self.message_hex_a.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -2033,11 +2029,11 @@ class MainWindow(QMainWindow):
         self.hex_h_label.setFont(font_1)
 
         #Значення висоти
-        self.hex_h_velue = QLineEdit("0.0", self.window_shape)
-        self.hex_h_velue.setGeometry(50, 360, 80, 20)
-        self.hex_h_velue.setFont(font_3)
-        self.hex_h_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.hex_h_velue.setStyleSheet(s.q_line_edit_style_2)        
+        self.hex_h_value = QLineEdit("0.0", self.window_shape)
+        self.hex_h_value.setGeometry(50, 360, 80, 20)
+        self.hex_h_value.setFont(font_3)
+        self.hex_h_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.hex_h_value.setStyleSheet(s.q_line_edit_style_2)        
 
         #Розмірність сторони
         self.mm_hex_h_label = QLabel("мм", self.window_shape)
@@ -2048,7 +2044,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_hex_h = QLabel(None, self.window_shape)
         self.message_hex_h.setGeometry(170, 360, 150, 20)
-        if self.hex_h_velue.text() in zero:
+        if self.hex_h_value.text() in zero:
             self.message_hex_h.setText("Відсутнє значення")
             self.message_hex_h.setFont(font_4)
             self.message_hex_h.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -2069,11 +2065,11 @@ class MainWindow(QMainWindow):
         self.hex_d_label.setFont(font_1)
 
         #Значення висоти
-        self.hex_d_velue = QLineEdit("0.0", self.window_shape)
-        self.hex_d_velue.setGeometry(50, 450, 80, 20)
-        self.hex_d_velue.setFont(font_3)
-        self.hex_d_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.hex_d_velue.setStyleSheet(s.q_line_edit_style_3)        
+        self.hex_d_value = QLineEdit("0.0", self.window_shape)
+        self.hex_d_value.setGeometry(50, 450, 80, 20)
+        self.hex_d_value.setFont(font_3)
+        self.hex_d_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.hex_d_value.setStyleSheet(s.q_line_edit_style_3)        
 
         #Розмірність сторони
         self.mm_hex_d_label = QLabel("мм", self.window_shape)
@@ -2084,7 +2080,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_hex_d = QLabel(None, self.window_shape)
         self.message_hex_d.setGeometry(170, 450, 150, 20)
-        if self.hex_d_velue.text() in zero:
+        if self.hex_d_value.text() in zero:
             self.message_hex_d.setText("Відсутнє значення")
             self.message_hex_d.setFont(font_4)
             self.message_hex_d.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -2126,7 +2122,7 @@ class MainWindow(QMainWindow):
     
     #Периметр шестирганника по стороні А
     def perim_hex_a(self):
-        hex_a_list = self.check_number_new(self.hex_a_velue.text())
+        hex_a_list = self.check_number_new(self.hex_a_value.text())
         self.message_hex_a.setText(hex_a_list[1])
         self.message_hex_a.setGeometry(170, 270, hex_a_list[2], 20)
         self.message_hex_h.setGeometry(170, 360, 150, 20)
@@ -2139,9 +2135,9 @@ class MainWindow(QMainWindow):
             self.message_hex_h.setText("Валідне значення")
             self.message_hex_d.setText("Валідне значення")
             self.message_hex_d.setStyleSheet(s.valide_value_style)
-            self.hex_a_velue.setText(str(round(hex_a_list[0], 2)))
-            self.hex_h_velue.setText(str(g.Hexagon.h_hexagon_a(hex_a_list[0])))
-            self.hex_d_velue.setText(str(g.Hexagon.d_hexagon_a(hex_a_list[0])))
+            self.hex_a_value.setText(str(round(hex_a_list[0], 2)))
+            self.hex_h_value.setText(str(g.Hexagon.h_hexagon_a(hex_a_list[0])))
+            self.hex_d_value.setText(str(g.Hexagon.d_hexagon_a(hex_a_list[0])))
             self.perimeter.setText(str(g.Perimeter.hexagon_a(hex_a_list[0])))
         else:
             self.message_hex_a.setStyleSheet(s.error_value_style)
@@ -2149,13 +2145,13 @@ class MainWindow(QMainWindow):
             self.message_hex_h.setStyleSheet(s.error_value_style)
             self.message_hex_h.setText("Відсутнє значення")
             self.message_hex_d.setText("Відсутнє значення")
-            self.hex_h_velue.setText("0.0")
-            self.hex_d_velue.setText("0.0")
+            self.hex_h_value.setText("0.0")
+            self.hex_d_value.setText("0.0")
             self.perimeter.setText("?")      
 
     #Периметр шестирганника по відстані проміж паралельними сторонами H
     def perim_hex_h(self):
-        hex_h_list = self.check_number_new(self.hex_h_velue.text())
+        hex_h_list = self.check_number_new(self.hex_h_value.text())
         self.message_hex_h.setText(hex_h_list[1])
         self.message_hex_h.setGeometry(170, 360, hex_h_list[2], 20)
         self.message_hex_a.setGeometry(170, 270, 150, 20)
@@ -2166,9 +2162,9 @@ class MainWindow(QMainWindow):
             self.message_hex_d.setStyleSheet(s.valide_value_style)
             self.message_hex_a.setText("Валідне значення")
             self.message_hex_d.setText("Валідне значення")
-            self.hex_h_velue.setText(str(round(hex_h_list[0], 2)))
-            self.hex_a_velue.setText(str(g.Hexagon.a_hexagon_h(hex_h_list[0])))
-            self.hex_d_velue.setText(str(g.Hexagon.d_hexagon_h(hex_h_list[0])))
+            self.hex_h_value.setText(str(round(hex_h_list[0], 2)))
+            self.hex_a_value.setText(str(g.Hexagon.a_hexagon_h(hex_h_list[0])))
+            self.hex_d_value.setText(str(g.Hexagon.d_hexagon_h(hex_h_list[0])))
             self.perimeter.setText(str(g.Perimeter.hexagon_h(hex_h_list[0])))
         else:
             self.message_hex_h.setStyleSheet(s.error_value_style)
@@ -2176,13 +2172,13 @@ class MainWindow(QMainWindow):
             self.message_hex_a.setStyleSheet(s.error_value_style)
             self.message_hex_a.setText("Відсутнє значення")
             self.message_hex_d.setText("Відсутнє значення")
-            self.hex_a_velue.setText("0.0")
-            self.hex_d_velue.setText("0.0")
+            self.hex_a_value.setText("0.0")
+            self.hex_d_value.setText("0.0")
             self.perimeter.setText("?") 
 
     #Периметр шестирганника по діаметру описаного кола
     def perim_hex_d(self):
-        hex_d_list = self.check_number_new(self.hex_d_velue.text())
+        hex_d_list = self.check_number_new(self.hex_d_value.text())
         self.message_hex_d.setText(hex_d_list[1])
         self.message_hex_d.setGeometry(170, 450, hex_d_list[2], 20)
         self.message_hex_h.setGeometry(170, 360, 150, 20)
@@ -2193,9 +2189,9 @@ class MainWindow(QMainWindow):
             self.message_hex_h.setStyleSheet(s.valide_value_style)
             self.message_hex_a.setText("Валідне значення")
             self.message_hex_h.setText("Валідне значення")
-            self.hex_d_velue.setText(str(round(hex_d_list[0], 2)))
-            self.hex_a_velue.setText(str(g.Hexagon.a_hexagon_d(hex_d_list[0])))
-            self.hex_h_velue.setText(str(g.Hexagon.h_hexagon_d(hex_d_list[0])))
+            self.hex_d_value.setText(str(round(hex_d_list[0], 2)))
+            self.hex_a_value.setText(str(g.Hexagon.a_hexagon_d(hex_d_list[0])))
+            self.hex_h_value.setText(str(g.Hexagon.h_hexagon_d(hex_d_list[0])))
             self.perimeter.setText(str(g.Perimeter.hexagon_d(hex_d_list[0])))               
         else:
             self.message_hex_d.setStyleSheet(s.error_value_style)
@@ -2203,8 +2199,8 @@ class MainWindow(QMainWindow):
             self.message_hex_h.setStyleSheet(s.error_value_style)
             self.message_hex_a.setText("Відсутнє значення")
             self.message_hex_h.setText("Відсутнє значення")
-            self.hex_a_velue.setText("0.0")
-            self.hex_h_velue.setText("0.0")
+            self.hex_a_value.setText("0.0")
+            self.hex_h_value.setText("0.0")
             self.perimeter.setText("?")   
     #КІНЕЦЬ ШЕСТИГАРННИК
 
@@ -2231,11 +2227,11 @@ class MainWindow(QMainWindow):
         self.oblong_side_a_label.setFont(font_1)
 
         #Значення сторони а
-        self.oblong_side_a_velue = QLineEdit("0.0", self.window_shape)
-        self.oblong_side_a_velue.setGeometry(35, 240, 80, 20)
-        self.oblong_side_a_velue.setFont(font_3)
-        self.oblong_side_a_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.oblong_side_a_velue.setStyleSheet(s.q_line_edit_style_1)
+        self.oblong_side_a_value = QLineEdit("0.0", self.window_shape)
+        self.oblong_side_a_value.setGeometry(35, 240, 80, 20)
+        self.oblong_side_a_value.setFont(font_3)
+        self.oblong_side_a_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.oblong_side_a_value.setStyleSheet(s.q_line_edit_style_1)
 
         #Розмірність сторони а
         self.mm_label_oblong_side_a = QLabel("мм", self.window_shape)
@@ -2247,7 +2243,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_oblong_side_a = QLabel(None, self.window_shape)
         self.message_oblong_side_a.setGeometry(150, 240, 150, 20)
-        if self.oblong_side_a_velue.text() in zero:
+        if self.oblong_side_a_value.text() in zero:
             self.message_oblong_side_a.setText("Відсутнє значення")
             self.message_oblong_side_a.setFont(font_4)
             self.message_oblong_side_a.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -2261,11 +2257,11 @@ class MainWindow(QMainWindow):
         self.oblong_side_b_label.setFont(font_1)
 
         #Значення сторони b
-        self.oblong_side_b_velue = QLineEdit("0.0", self.window_shape)
-        self.oblong_side_b_velue.setGeometry(35, 270, 80, 20)
-        self.oblong_side_b_velue.setFont(font_3)
-        self.oblong_side_b_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.oblong_side_b_velue.setStyleSheet(s.q_line_edit_style_2)
+        self.oblong_side_b_value = QLineEdit("0.0", self.window_shape)
+        self.oblong_side_b_value.setGeometry(35, 270, 80, 20)
+        self.oblong_side_b_value.setFont(font_3)
+        self.oblong_side_b_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.oblong_side_b_value.setStyleSheet(s.q_line_edit_style_2)
 
 
         #Розмірність сторони b
@@ -2278,7 +2274,7 @@ class MainWindow(QMainWindow):
         self.message_oblong_side_b = QLabel(None, self.window_shape)
         #self.message_oblong_side_b.setGeometry(100, 80, 150, 20)
         self.message_oblong_side_b.setGeometry(150, 270, 150, 20)
-        if self.oblong_side_a_velue.text() in zero:
+        if self.oblong_side_a_value.text() in zero:
             self.message_oblong_side_b.setText("Відсутнє значення")
             self.message_oblong_side_b.setFont(font_4)
             self.message_oblong_side_b.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -2320,8 +2316,8 @@ class MainWindow(QMainWindow):
     #Периметер овала
     def perim_oblong(self) -> None:
 
-        oblong_a_list = self.check_number_new(self.oblong_side_a_velue.text())
-        oblong_b_list = self.check_number_new(self.oblong_side_b_velue.text())
+        oblong_a_list = self.check_number_new(self.oblong_side_a_value.text())
+        oblong_b_list = self.check_number_new(self.oblong_side_b_value.text())
 
         self.message_oblong_side_a.setText(oblong_a_list[1])
         self.message_oblong_side_b.setText(oblong_b_list[1])
@@ -2351,8 +2347,8 @@ class MainWindow(QMainWindow):
                 self.message_oblong_side_a.setStyleSheet(s.valide_value_style)
                 self.message_oblong_side_b.setStyleSheet(s.valide_value_style)
                 self.perimeter.setText(str(g.Perimeter.oblong(oblong_a_list[0], oblong_b_list[0])))
-                self.oblong_side_a_velue.setText(str(round(oblong_a_list[0], 2)))
-                self.oblong_side_b_velue.setText(str(round(oblong_b_list[0], 2)))
+                self.oblong_side_a_value.setText(str(round(oblong_a_list[0], 2)))
+                self.oblong_side_b_value.setText(str(round(oblong_b_list[0], 2)))
         else:
             self.perimeter.setText("?")
     #КІНЕЦЬ ОВАЛ
@@ -2380,11 +2376,11 @@ class MainWindow(QMainWindow):
         self.eq_tr_side_label.setFont(font_1)
         
         #Значення сторони
-        self.eq_tr_side_velue = QLineEdit("0.0", self.window_shape)
-        self.eq_tr_side_velue.setGeometry(35, 300, 80, 20)
-        self.eq_tr_side_velue.setFont(font_3)
-        self.eq_tr_side_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.eq_tr_side_velue.setStyleSheet(s.q_line_edit_style_1)
+        self.eq_tr_side_value = QLineEdit("0.0", self.window_shape)
+        self.eq_tr_side_value.setGeometry(35, 300, 80, 20)
+        self.eq_tr_side_value.setFont(font_3)
+        self.eq_tr_side_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.eq_tr_side_value.setStyleSheet(s.q_line_edit_style_1)
 
         #Розмірність сторони
         self.mm_eq_tr_side_label = QLabel("мм", self.window_shape)
@@ -2395,7 +2391,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_eq_tr_side = QLabel(None, self.window_shape)
         self.message_eq_tr_side.setGeometry(150, 300, 150, 20)
-        if self.eq_tr_side_velue.text() in zero:
+        if self.eq_tr_side_value.text() in zero:
             self.message_eq_tr_side.setText("Відсутнє значення")
             self.message_eq_tr_side.setFont(font_4)
             self.message_eq_tr_side.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -2415,11 +2411,11 @@ class MainWindow(QMainWindow):
         self.eq_tr_height_label.setFont(font_1)
 
         #Значення висоти
-        self.eq_tr_height_velue = QLineEdit("0.0", self.window_shape)
-        self.eq_tr_height_velue.setGeometry(35, 380, 80, 20)
-        self.eq_tr_height_velue.setFont(font_3)
-        self.eq_tr_height_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.eq_tr_height_velue.setStyleSheet(s.q_line_edit_style_2)
+        self.eq_tr_height_value = QLineEdit("0.0", self.window_shape)
+        self.eq_tr_height_value.setGeometry(35, 380, 80, 20)
+        self.eq_tr_height_value.setFont(font_3)
+        self.eq_tr_height_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.eq_tr_height_value.setStyleSheet(s.q_line_edit_style_2)
 
         #Розмірність висоти
         self.mm_eq_tr_height_label = QLabel("мм", self.window_shape)
@@ -2429,7 +2425,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_eq_tr_height = QLabel(None, self.window_shape)
         self.message_eq_tr_height.setGeometry(150, 380, 150, 20)
-        if self.eq_tr_height_velue.text() in zero:
+        if self.eq_tr_height_value.text() in zero:
             self.message_eq_tr_height.setText("Відсутнє значення")
             self.message_eq_tr_height.setFont(font_4)
             self.message_eq_tr_height.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -2469,7 +2465,7 @@ class MainWindow(QMainWindow):
 
     #Периметер рівносторонього трикутника через сторону
     def perim_eq_riangle_a(self) -> None:
-        side_a_list = self.check_number_new(self.eq_tr_side_velue.text())
+        side_a_list = self.check_number_new(self.eq_tr_side_value.text())
         self.message_eq_tr_side.setText(side_a_list[1])
 
         self.message_eq_tr_side.setGeometry(150, 300, side_a_list[2], 20)
@@ -2481,19 +2477,19 @@ class MainWindow(QMainWindow):
             self.message_eq_tr_height.setStyleSheet(s.valide_value_style)
             self.message_eq_tr_height.setText("Валідне значення")      
             self.perimeter.setText(str(g.Equilateral_triangle.perim_eq_tr_side(side_a_list[0])))
-            self.eq_tr_height_velue.setText(str(g.Equilateral_triangle.height_eq_tr_side(side_a_list[0])))        
+            self.eq_tr_height_value.setText(str(g.Equilateral_triangle.height_eq_tr_side(side_a_list[0])))        
         else:
             self.message_eq_tr_side.setGeometry(150, 300, side_a_list[2], 20)
             self.message_eq_tr_height.setGeometry(150, 380, 150, 20)
             self.message_eq_tr_side.setStyleSheet(s.error_value_style)
             self.message_eq_tr_height.setStyleSheet(s.error_value_style)
             self.message_eq_tr_height.setText("Відсутнє значення")  
-            self.eq_tr_height_velue.setText("0.0")
+            self.eq_tr_height_value.setText("0.0")
             self.perimeter.setText("?")
 
     #Периметер рівносторонього трикутника через висоту
     def perim_eq_riangle_h(self) -> None:
-        height_h_list = self.check_number_new(self.eq_tr_height_velue.text())
+        height_h_list = self.check_number_new(self.eq_tr_height_value.text())
 
         self.message_eq_tr_height.setText(height_h_list[1])
         self.message_eq_tr_height.setGeometry(150, 380, height_h_list[2], 20)
@@ -2505,15 +2501,15 @@ class MainWindow(QMainWindow):
             self.message_eq_tr_side.setStyleSheet(s.valide_value_style)
             self.message_eq_tr_side.setText("Валідне значення")            
             self.perimeter.setText(str(g.Equilateral_triangle.perim_eq_tr_height(height_h_list[0])))
-            self.eq_tr_side_velue.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
+            self.eq_tr_side_value.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
         else:
             self.message_eq_tr_side.setGeometry(150, 300, 150, 20)
             self.message_eq_tr_height.setGeometry(150, 380, height_h_list[2], 20)
-            self.eq_tr_side_velue.setText("0.0")
+            self.eq_tr_side_value.setText("0.0")
             self.message_eq_tr_height.setStyleSheet(s.error_value_style)
             self.message_eq_tr_side.setStyleSheet(s.error_value_style)
             self.message_eq_tr_side.setText("Відсутнє значення")
-            self.eq_tr_side_velue.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
+            self.eq_tr_side_value.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
             self.perimeter.setText("?")
     #КІНЕЦЬ ТРИКУТНИК РІВНОСТОРОННІЙ
 
@@ -2539,11 +2535,11 @@ class MainWindow(QMainWindow):
         self.side_a_is_tr_label.setFont(font_1)
 
         #Значення сторони
-        self.side_a_is_tr_velue = QLineEdit("0.0", self.window_shape)
-        self.side_a_is_tr_velue.setGeometry(35, 320, 80, 20)
-        self.side_a_is_tr_velue.setFont(font_3)
-        self.side_a_is_tr_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_a_is_tr_velue.setStyleSheet(s.q_line_edit_style_1)
+        self.side_a_is_tr_value = QLineEdit("0.0", self.window_shape)
+        self.side_a_is_tr_value.setGeometry(35, 320, 80, 20)
+        self.side_a_is_tr_value.setFont(font_3)
+        self.side_a_is_tr_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_a_is_tr_value.setStyleSheet(s.q_line_edit_style_1)
 
         #Розмірність сторони
         self.mm_side_a_is_tr_label = QLabel("мм", self.window_shape)
@@ -2555,7 +2551,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_side_a_is_tr = QLabel(None, self.window_shape)
         self.message_side_a_is_tr.setGeometry(150, 320, 150, 20)
-        if self.side_a_is_tr_velue.text() in zero:
+        if self.side_a_is_tr_value.text() in zero:
             self.message_side_a_is_tr.setText("Відсутнє значення")
             self.message_side_a_is_tr.setFont(font_4)
             self.message_side_a_is_tr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -2570,11 +2566,11 @@ class MainWindow(QMainWindow):
 
 
         #Значення сторони
-        self.side_b_is_tr_velue = QLineEdit("0.0", self.window_shape)
-        self.side_b_is_tr_velue.setGeometry(35, 350, 80, 20)
-        self.side_b_is_tr_velue.setFont(font_3)
-        self.side_b_is_tr_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.side_b_is_tr_velue.setStyleSheet(s.q_line_edit_style_2)
+        self.side_b_is_tr_value = QLineEdit("0.0", self.window_shape)
+        self.side_b_is_tr_value.setGeometry(35, 350, 80, 20)
+        self.side_b_is_tr_value.setFont(font_3)
+        self.side_b_is_tr_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.side_b_is_tr_value.setStyleSheet(s.q_line_edit_style_2)
 
         #Розмірність сторони
         self.mm_side_b_is_tr_label = QLabel("мм", self.window_shape)
@@ -2585,7 +2581,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_side_b_is_tr = QLabel(None, self.window_shape)
         self.message_side_b_is_tr.setGeometry(150, 350, 150, 20)
-        if self.side_b_is_tr_velue.text() in zero:
+        if self.side_b_is_tr_value.text() in zero:
             self.message_side_b_is_tr.setText("Відсутнє значення")
             self.message_side_b_is_tr.setFont(font_4)
             self.message_side_b_is_tr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -2599,11 +2595,11 @@ class MainWindow(QMainWindow):
         self.height_is_tr_label.setFont(font_1)
 
         #Значення сторони
-        self.height_is_tr_velue = QLineEdit("0.0", self.window_shape)
-        self.height_is_tr_velue.setGeometry(35, 380, 80, 20)
-        self.height_is_tr_velue.setFont(font_3)
-        self.height_is_tr_velue.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.height_is_tr_velue.setStyleSheet(s.q_line_edit_style_3)
+        self.height_is_tr_value = QLineEdit("0.0", self.window_shape)
+        self.height_is_tr_value.setGeometry(35, 380, 80, 20)
+        self.height_is_tr_value.setFont(font_3)
+        self.height_is_tr_value.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.height_is_tr_value.setStyleSheet(s.q_line_edit_style_3)
 
         #Розмірність сторони
         self.mm_height_is_tr_label = QLabel("мм", self.window_shape)
@@ -2614,7 +2610,7 @@ class MainWindow(QMainWindow):
         #Статус сторони       
         self.message_height_is_tr = QLabel(None, self.window_shape)
         self.message_height_is_tr.setGeometry(150, 380, 150, 20)
-        if self.height_is_tr_velue.text() in zero:
+        if self.height_is_tr_value.text() in zero:
             self.message_height_is_tr.setText("Відсутнє значення")
             self.message_height_is_tr.setFont(font_4)
             self.message_height_is_tr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
@@ -2667,8 +2663,8 @@ class MainWindow(QMainWindow):
     #Периметер рівнобедреного трикутника через дві сторони
     def perim_is_tr_a_b(self) -> None:
         
-        side_a_list = self.check_number_new(self.side_a_is_tr_velue.text())
-        side_b_list = self.check_number_new(self.side_b_is_tr_velue.text())
+        side_a_list = self.check_number_new(self.side_a_is_tr_value.text())
+        side_b_list = self.check_number_new(self.side_b_is_tr_value.text())
         
         self.message_side_a_is_tr.setText(side_a_list[1])
         self.message_side_b_is_tr.setText(side_b_list[1])
@@ -2681,7 +2677,7 @@ class MainWindow(QMainWindow):
         else:
             self.message_side_a_is_tr.setStyleSheet(s.error_value_style)
             self.message_height_is_tr.setStyleSheet(s.error_value_style)
-            self.height_is_tr_velue.setText("0.0")
+            self.height_is_tr_value.setText("0.0")
             self.message_height_is_tr.setText("Відсутнє значення")
             self.perimeter.setText("?")
 
@@ -2690,7 +2686,7 @@ class MainWindow(QMainWindow):
         else:
             self.message_side_b_is_tr.setStyleSheet(s.error_value_style)
             self.message_height_is_tr.setStyleSheet(s.error_value_style)
-            self.height_is_tr_velue.setText("0.0")
+            self.height_is_tr_value.setText("0.0")
             self.message_height_is_tr.setText("Відсутнє значення")
             self.perimeter.setText("?")
 
@@ -2701,7 +2697,7 @@ class MainWindow(QMainWindow):
                 self.message_height_is_tr.setStyleSheet(s.error_value_style)
                 self.message_side_a_is_tr.setText("Завелика сторона")
                 self.message_side_b_is_tr.setText("Замала сторона")
-                self.height_is_tr_velue.setText("0.0")
+                self.height_is_tr_value.setText("0.0")
                 self.message_height_is_tr.setText("Відсутнє значення")
                 self.perimeter.setText("?")
             else:
@@ -2709,20 +2705,20 @@ class MainWindow(QMainWindow):
                 self.message_side_b_is_tr.setStyleSheet(s.valide_value_style)
                 self.message_height_is_tr.setText("Валідне значення")
                 self.message_height_is_tr.setStyleSheet(s.valide_value_style)
-                self.side_a_is_tr_velue.setText(str(round(side_a_list[0], 2)))
-                self.side_b_is_tr_velue.setText(str(round(side_b_list[0], 2)))
+                self.side_a_is_tr_value.setText(str(round(side_a_list[0], 2)))
+                self.side_b_is_tr_value.setText(str(round(side_b_list[0], 2)))
                 self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
-                self.height_is_tr_velue.setText(str(g.Isosceles_triangle.height_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
+                self.height_is_tr_value.setText(str(g.Isosceles_triangle.height_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
         else:
             self.perimeter.setText("?")
-            self.height_is_tr_velue.setText("0.0")
+            self.height_is_tr_value.setText("0.0")
             self.message_height_is_tr.setStyleSheet(s.error_value_style)
 
     #Периметер рівнобедреного трикутника через довгу сторону та висоту
     def perim_is_tr_a_h(self) -> None:
 
-        side_a_list = self.check_number_new(self.side_a_is_tr_velue.text())
-        height_list = self.check_number_new(self.height_is_tr_velue.text())
+        side_a_list = self.check_number_new(self.side_a_is_tr_value.text())
+        height_list = self.check_number_new(self.height_is_tr_value.text())
         
         self.message_side_a_is_tr.setText(side_a_list[1]) 
         self.message_height_is_tr.setText(height_list[1])
@@ -2736,7 +2732,7 @@ class MainWindow(QMainWindow):
             self.message_side_a_is_tr.setStyleSheet(s.error_value_style)
             self.message_side_b_is_tr.setStyleSheet(s.error_value_style)
             self.message_side_b_is_tr.setText("Відсутнє значення")
-            self.side_b_is_tr_velue.setText("0.0")
+            self.side_b_is_tr_value.setText("0.0")
             self.perimeter.setText("?")
 
         if height_list[0] != 0:
@@ -2745,7 +2741,7 @@ class MainWindow(QMainWindow):
             self.message_height_is_tr.setStyleSheet(s.error_value_style)
             self.message_side_b_is_tr.setStyleSheet(s.error_value_style)
             self.message_side_b_is_tr.setText("Відсутнє значення")
-            self.side_b_is_tr_velue.setText("0.0")
+            self.side_b_is_tr_value.setText("0.0")
             self.perimeter.setText("?")            
         
         if side_a_list[0] != 0 and height_list[0] != 0:
@@ -2756,23 +2752,23 @@ class MainWindow(QMainWindow):
                 self.message_side_a_is_tr.setText("Замала сторона")
                 self.message_side_b_is_tr.setText("Відсутнє значення")
                 self.message_height_is_tr.setText("Завелика сторона")
-                self.side_b_is_tr_velue.setText("0.0")
+                self.side_b_is_tr_value.setText("0.0")
                 self.perimeter.setText("?")
             else:
                 self.message_side_a_is_tr.setStyleSheet(s.valide_value_style)
                 self.message_side_b_is_tr.setStyleSheet(s.valide_value_style)
                 self.message_height_is_tr.setStyleSheet(s.valide_value_style)
                 self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_height(side_a_list[0], height_list[0])))
-                self.side_b_is_tr_velue.setText(str(g.Isosceles_triangle.side_b_is_tr_side_a_height(side_a_list[0], height_list[0])))       
+                self.side_b_is_tr_value.setText(str(g.Isosceles_triangle.side_b_is_tr_side_a_height(side_a_list[0], height_list[0])))       
         else:
             self.perimeter.setText("?")
-            self.side_b_is_tr_velue.setText("0.0")
+            self.side_b_is_tr_value.setText("0.0")
             self.message_side_b_is_tr.setStyleSheet(s.error_value_style)
 
     #Периметер рівнобедреного трикутника через коротку сторону та висоту
     def perim_is_tr_b_h(self) -> None:
-        side_b_list = self.check_number_new(self.side_b_is_tr_velue.text())
-        height_list = self.check_number_new(self.height_is_tr_velue.text())
+        side_b_list = self.check_number_new(self.side_b_is_tr_value.text())
+        height_list = self.check_number_new(self.height_is_tr_value.text())
 
         self.message_side_b_is_tr.setText(side_b_list[1]) 
         self.message_height_is_tr.setText(height_list[1])
@@ -2786,7 +2782,7 @@ class MainWindow(QMainWindow):
             self.message_side_b_is_tr.setStyleSheet(s.error_value_style)
             self.message_side_a_is_tr.setStyleSheet(s.error_value_style)
             self.message_side_a_is_tr.setText("Відсутнє значення")
-            self.side_a_is_tr_velue.setText("0.0")
+            self.side_a_is_tr_value.setText("0.0")
             self.perimeter.setText("?")
 
         if height_list[0] != 0:
@@ -2795,7 +2791,7 @@ class MainWindow(QMainWindow):
             self.message_side_a_is_tr.setStyleSheet(s.error_value_style)
             self.message_height_is_tr.setStyleSheet(s.error_value_style)
             self.message_side_a_is_tr.setText("Відсутнє значення")
-            self.side_a_is_tr_velue.setText("0.0")
+            self.side_a_is_tr_value.setText("0.0")
             self.perimeter.setText("?")           
 
         if side_b_list[0] != 0 and height_list[0] != 0:
@@ -2803,20 +2799,20 @@ class MainWindow(QMainWindow):
             self.message_side_b_is_tr.setStyleSheet(s.valide_value_style)
             self.message_height_is_tr.setStyleSheet(s.valide_value_style)
             self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_height_side_b(height_list[0], side_b_list[0])))
-            self.side_a_is_tr_velue.setText(str(g.Isosceles_triangle.side_a_is_tr_side_b_height(side_b_list[0], height_list[0])))  
+            self.side_a_is_tr_value.setText(str(g.Isosceles_triangle.side_a_is_tr_side_b_height(side_b_list[0], height_list[0])))  
         else:
             self.perimeter.setText("?")
-            self.side_a_is_tr_velue.setText("0.0")
+            self.side_a_is_tr_value.setText("0.0")
             self.message_side_a_is_tr.setStyleSheet(s.btn_perimeter_3error_value_style)
 
     #Передаэмо з вікна форми до головного вікна периметер
     def add_value(self):
         if self.perimeter.text() != "?":
-            self.perimeter_velue.setText(self.perimeter.text())
+            self.perimeter_value.setText(self.perimeter.text())
             self.message_perimeter.setStyleSheet(s.valide_value_style)
             self.message_perimeter.setText("Валідне значення")
             self.message_perimeter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        if self.perimeter_velue.text() in zero:
+        if self.perimeter_value.text() in zero:
             self.message_perimeter.setText("Відсутнє значення")
             self.message_perimeter.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             self.message_perimeter.setGeometry(230, 50, 150, 20)
