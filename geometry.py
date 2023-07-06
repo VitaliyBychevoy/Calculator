@@ -207,6 +207,9 @@ class Rectangel_Four_Radius():
 #Шестикутник
 class Hexagon():
 
+    def perimeter_hexagon_a(a: float) -> float:
+        return round(a * 6, 1)
+
     #Сторона шестикутника по описаному діаметру кола
     def a_hexagon_d(d: float) -> float:
         return round(d * 0.5, 1)

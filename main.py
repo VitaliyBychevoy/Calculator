@@ -42,6 +42,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(500, 200, 450, 300)
         self.setWindowTitle("Розрахунок зусилля для кластера")
         gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
+        self.setWindowIcon(gui.QIcon('img/Кластер.ico'))
 
         #ФОРМИ
         #Заголовок форми
@@ -691,7 +692,7 @@ class MainWindow(QMainWindow):
         else:
             self.side_value.setText(str(round(square_list[0], 2)))
             self.message_side.setStyleSheet(s.valide_value_style)      
-            self.perimeter.setText(str(g.Perimeter.square(float(square_list[0]))))                        
+            self.perimeter.setText(str(g.Square.perimeter_square(float(square_list[0]))))                        
     #КІНЕЦЬ КВАДРАТ
 
     #КВАДРАТ З ОДНАКОВИМИ РАДІУСАМИ
@@ -823,7 +824,7 @@ class MainWindow(QMainWindow):
                 self.message_side_one_round_square.setStyleSheet(s.error_value_style)
                 self.perimeter.setText("?")
             else:
-                self.perimeter.setText(str(g.Perimeter.square_one_radius(side_list_qor[0], radius_list_qor[0])))
+                self.perimeter.setText(str(g.Square_One_Radius.perimeter_square_one_radius(side_list_qor[0], radius_list_qor[0])))
                 self.message_side_one_round_square.setStyleSheet(s.valide_value_style)
                 self.message_radius_one_round_square.setStyleSheet(s.valide_value_style)
         else:
@@ -1116,7 +1117,7 @@ class MainWindow(QMainWindow):
                 self.r2_square_value.setText(str(round(r2_sfr_list[0],2)))
                 self.r3_square_value.setText(str(round(r3_sfr_list[0],2)))
                 self.r4_square_value.setText(str(round(r4_sfr_list[0],2)))
-                self.perimeter.setText(str(g.Perimeter.square_four_radius(
+                self.perimeter.setText(str(g.Square_four_Radius.perimeter_square_four_radius(
                     side_sfr_list[0], 
                     r1_sfr_list[0],
                     r2_sfr_list[0],
@@ -1413,7 +1414,7 @@ class MainWindow(QMainWindow):
         if side_a_list[0] != 0 and side_b_list[0] != 0:
             self.side_a_value.setText(str(round(side_a_list[0], 2)))
             self.side_b_value.setText(str(round(side_b_list[0], 2)))
-            p = g.Perimeter.rectangle(side_a_list[0], side_b_list[0])
+            p = g.Rectangle.perimeter_rectangle(side_a_list[0], side_b_list[0])
             self.perimeter.setText(str(round(p, 2)))
         else:
             self.perimeter.setText("?")                      
@@ -1612,7 +1613,7 @@ class MainWindow(QMainWindow):
                 self.message_side_r_req.setStyleSheet(s.error_value_style) 
                 self.perimeter.setText("?")                
             else:
-                self.perimeter.setText(str(g.Perimeter.rectangle_one_radius(
+                self.perimeter.setText(str(g.Rectangle_One_Radius.parimeter_rectangle_one_radius(
                     side_a_req_list[0], 
                     side_b_req_list[0], 
                     side_r_req_list[0]
@@ -1965,7 +1966,7 @@ class MainWindow(QMainWindow):
                     self.message_r1_square_rfr.setStyleSheet(s.error_value_style)
                     self.message_r1_square_rfr.setGeometry(170, 330, 150, 20)                                  
             else:
-                self.perimeter.setText(str(g.Perimeter.rectangle_four_radius(
+                self.perimeter.setText(str(g.Rectangel_Four_Radius.perimeter_rectangle_four_radius(
                     list_s1[0], 
                     list_s2[0], 
                     list_r1[0], 
@@ -2142,7 +2143,7 @@ class MainWindow(QMainWindow):
             self.hex_a_value.setText(str(round(hex_a_list[0], 2)))
             self.hex_h_value.setText(str(g.Hexagon.h_hexagon_a(hex_a_list[0])))
             self.hex_d_value.setText(str(g.Hexagon.d_hexagon_a(hex_a_list[0])))
-            self.perimeter.setText(str(g.Perimeter.hexagon_a(hex_a_list[0])))
+            self.perimeter.setText(str(g.Hexagon.perimeter_hexagon_a(hex_a_list[0])))
         else:
             self.message_hex_a.setStyleSheet(s.error_value_style)
             self.message_hex_d.setStyleSheet(s.error_value_style)
@@ -2818,14 +2819,13 @@ class MainWindow(QMainWindow):
             self.message_perimeter.setGeometry(230, 50, 150, 20)
             self.message_perimeter.setStyleSheet(s.error_value_style)
 
-
 class ShapeWindow(QMdiSubWindow):
     def __init__(self):
         super(ShapeWindow, self).__init__()
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
         self.setStyleSheet("background-color: white;")
-
+        self.setWindowIcon(gui.QIcon('img/Кластер.ico'))
 
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
