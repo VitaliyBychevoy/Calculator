@@ -20,6 +20,19 @@ exceptable_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.']
 #Можливі нульові значення
 zero = ['0', '0,0', '0.0', '', '.', ',']
 
+ROUND_IMAGE_PATH = "img/Round.jpg"
+HALFROUND_IMAGE_PATH = "img/Half_round_1.jpg"
+SQUARE_IMAGE_PATH = "img/square.jpg"
+SQUARE_ONE_RADIUS_IMAGE_PATH = "img/square_one_radius.jpg"
+SQUARE_FOUR_RADIUS_IMAGE_PATH = "img/square_four_radiuses.jpg"
+SQUARE_IN_ROUND_IMAGE_PATH = "img/square_in_round.jpg"
+RECTANGE_IMAGE_PATH = "img/rectangle.jpg"
+RECTANGLE_ONE_RADIUS_IMAGE_PATH = "img/rectangle_one_radius.jpg"
+RECTANGLE_FOUR_RADIUS_IMAGE_PATH = "img/rectangle_four_radius.jpg"
+HEXAGON_IMAGE_PATH = "img/hexagon.jpg"
+OBLONG_IMAGE_PATH = "img/oblong.jpg"
+TRIANGLE_IMAGE_PATH = "img/Triangle_60.jpg"
+ISOSCELES_TRIANGLE_IMAGE_PATH = "img/Treangle_.jpg"
 
 class MainWindow(QMainWindow):
 
@@ -140,7 +153,7 @@ class MainWindow(QMainWindow):
         #Заголовок отворів
         self.amount_holes_label = QLabel("Отворiв", self)
         self.amount_holes_label.setGeometry(10, 125, 100, 20)
-        self.amount_holes_label.setStyleSheet("color: MediumAquaMarine;")
+        self.amount_holes_label.setStyleSheet(f"color: {s.HOLES_COLOR};")
         self.amount_holes_label.setFont(font_1)
 
         #Список отворів
@@ -176,6 +189,10 @@ class MainWindow(QMainWindow):
         self.tonage_label_force.setGeometry(230, 195, 100, 20)
         self.tonage_label_force.setFont(font_0)
         self.tonage_label_force.setStyleSheet(f"color: {s.RESULT_FORCE_COLOR};")
+
+    def closeEvent(self, event):
+        QApplication.closeAllWindows()
+        event.accept()
 
     def paintEvent(self, a0: gui.QPaintEvent) -> None:
         painter = gui.QPainter(self)
@@ -323,7 +340,7 @@ class MainWindow(QMainWindow):
         self.window_shape = ShapeWindow()
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
-        self.image_round = gui.QPixmap("img/Round.jpg")
+        self.image_round = gui.QPixmap(f"{ROUND_IMAGE_PATH}")
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(40, 30, 290, 300)
         self.image_lable.setPixmap(self.image_round)
@@ -476,7 +493,7 @@ class MainWindow(QMainWindow):
             self.message_height_hr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter) 
             self.message_height_hr.setStyleSheet(s.error_value_style)         
 
-        self.image_half_round = gui.QPixmap("img/Half_round_1.jpg")
+        self.image_half_round = gui.QPixmap(f"{HALFROUND_IMAGE_PATH}")
         self.image_label = QLabel(self.window_shape)
         self.image_label.setGeometry(12, 10, int(250 * 1.387 ), 250)
         self.image_label.setPixmap(self.image_half_round )
@@ -593,7 +610,7 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(950, 200, 370, 500)
         self.window_shape.setFixedSize(370, 500)
 
-        self.image_round = gui.QPixmap("img/square.jpg")
+        self.image_round = gui.QPixmap(f"{SQUARE_IMAGE_PATH}")
         self.image_label = QLabel(self.window_shape)
         self.image_label.setGeometry(52, 30, int(260 / 1.023), 260)
         self.image_label.setPixmap(self.image_round)
@@ -684,7 +701,7 @@ class MainWindow(QMainWindow):
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
 
-        self.image_round = gui.QPixmap("img/square_one_radius.jpg")
+        self.image_round = gui.QPixmap(f"{SQUARE_ONE_RADIUS_IMAGE_PATH}")
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(34, 30, int(260 * 1.16), 260)
         self.image_lable.setPixmap(self.image_round)
@@ -822,7 +839,7 @@ class MainWindow(QMainWindow):
         self.window_shape.setFixedSize(390, 560)
 
 
-        self.image_round = gui.QPixmap("img/square_four_radiuses.jpg")
+        self.image_round = gui.QPixmap(f"{SQUARE_FOUR_RADIUS_IMAGE_PATH}")
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(21, 30, int(260 * 1.336), 260)
         self.image_lable.setPixmap(self.image_round)
@@ -1118,7 +1135,7 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(950, 200, 370, 500)
         self.window_shape.setFixedSize(370, 500)
 
-        self.image_round = gui.QPixmap("img/square_in_round.jpg")
+        self.image_round = gui.QPixmap(f"{SQUARE_IN_ROUND_IMAGE_PATH}")
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(49, 30, int(260 * 1.045), 260)
         self.image_lable.setPixmap(self.image_round)
@@ -1274,7 +1291,7 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(950, 200, 370, 500)
         self.window_shape.setFixedSize(370, 500)
 
-        self.image_round = gui.QPixmap("img/rectangle.jpg")
+        self.image_round = gui.QPixmap(f"{RECTANGE_IMAGE_PATH}")
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(78, 30, int(260 * 0.823), 260)
         self.image_lable.setPixmap(self.image_round)
@@ -1410,7 +1427,7 @@ class MainWindow(QMainWindow):
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setFixedSize(370, 510)
 
-        self.image_round = gui.QPixmap("img/rectangle_one_radius.jpg")
+        self.image_round = gui.QPixmap(f"{RECTANGLE_ONE_RADIUS_IMAGE_PATH}")
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(62, 30, int(260 * 0.948), 260)
         self.image_lable.setPixmap(self.image_round)
@@ -1611,7 +1628,7 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(950, 200, 390, 560)
         self.window_shape.setFixedSize(390, 560)
         self.window_shape.setWindowTitle(shape)
-        self.image_round = gui.QPixmap("img/rectangle_four_radius.jpg")
+        self.image_round = gui.QPixmap(f"{RECTANGLE_FOUR_RADIUS_IMAGE_PATH}")
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(47, 10, int(250 * 1.131), 250)
         self.image_lable.setPixmap(self.image_round)
@@ -1664,7 +1681,6 @@ class MainWindow(QMainWindow):
         self.mm_label_side_b_four_radius_label.setGeometry(135, 300, 70, 20)
         self.mm_label_side_b_four_radius_label.setStyleSheet(f"color: {s.SECOND_PARAMETER_COLOR};")
         self.mm_label_side_b_four_radius_label.setFont(font_1)
-
 
         #Статус сторони       
         self.message_side_b_four_radius = QLabel(None, self.window_shape)
@@ -1967,7 +1983,7 @@ class MainWindow(QMainWindow):
         self.window_shape = ShapeWindow()
         self.window_shape.setGeometry(950, 200, 390, 600)
         self.window_shape.setWindowTitle(shape)
-        self.image_round = gui.QPixmap("img/hexagon.jpg")
+        self.image_round = gui.QPixmap(f"{HEXAGON_IMAGE_PATH}")
 
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(72, 10, int(250 / 1.131), 250)
@@ -2200,7 +2216,7 @@ class MainWindow(QMainWindow):
         self.window_shape.setGeometry(950, 200, 370, 410)
         self.window_shape.setFixedSize(370, 410)
 
-        self.image_round = gui.QPixmap("img/oblong.jpg")
+        self.image_round = gui.QPixmap(f"{OBLONG_IMAGE_PATH}")
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(12, 10, int(200 / 0.577), 200)
         self.image_lable.setPixmap(self.image_round)
@@ -2347,7 +2363,7 @@ class MainWindow(QMainWindow):
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 520)
 
-        self.image_round = gui.QPixmap("img/Triangle_60.jpg")
+        self.image_round = gui.QPixmap(f"{TRIANGLE_IMAGE_PATH}")
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(13, 10, int(260 * 1.325), 260)
         self.image_lable.setPixmap(self.image_round)
@@ -2506,7 +2522,7 @@ class MainWindow(QMainWindow):
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 600)
 
-        self.image_round = gui.QPixmap("img/Treangle_.jpg")
+        self.image_round = gui.QPixmap(f"{ISOSCELES_TRIANGLE_IMAGE_PATH}")
         self.image_lable = QLabel(self.window_shape)
         self.image_lable.setGeometry(61, 30, int(260 * 0.955), 260)
         self.image_lable.setPixmap(self.image_round)
@@ -2532,7 +2548,6 @@ class MainWindow(QMainWindow):
         self.mm_side_a_is_tr_label.setStyleSheet(f"color: {s.FIRST_PARAMETER_COLOR};")
         self.mm_side_a_is_tr_label.setFont(font_1)
 
-
         #Статус сторони       
         self.message_side_a_is_tr = QLabel(None, self.window_shape)
         self.message_side_a_is_tr.setGeometry(150, 320, 150, 20)
@@ -2548,7 +2563,6 @@ class MainWindow(QMainWindow):
         self.side_b_is_tr_label.setGeometry(15, 350, 15, 20)
         self.side_b_is_tr_label.setStyleSheet(f"color: {s.SECOND_PARAMETER_COLOR};")
         self.side_b_is_tr_label.setFont(font_1)
-
 
         #Значення сторони
         self.side_b_is_tr_value = QLineEdit("0.0", self.window_shape)
@@ -2811,7 +2825,8 @@ class ShapeWindow(QMdiSubWindow):
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
         self.setStyleSheet("background-color: white;")
-    
+
+
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
     gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
