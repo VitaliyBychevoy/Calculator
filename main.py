@@ -27,7 +27,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
 
         self.setGeometry(500, 200, 450, 300)
-        self.setWindowTitle("Cluster force")
+        self.setWindowTitle("Розрахунок зусилля для кластера")
         gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
 
         #ФОРМИ
@@ -663,7 +663,7 @@ class MainWindow(QMainWindow):
 
     #Периметр квадрата
     def perim_square(self) -> None:
-        square_list = self.check_number_new(self.side_vlue.text())
+        square_list = self.check_number_new(self.side_value.text())
         self.message_side.setText(square_list[1])
 
         self.message_side.setGeometry(150, 350, square_list[2], 20)

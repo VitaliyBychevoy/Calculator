@@ -7,6 +7,7 @@ FOCUS_COLOR: str  = "#00FFFF"
 FORM_LIST_COLOR: str  = "Cornsilk"
 PERIMETER_MAIN_WINDOW_COLOR: str  = "lightgreen"
 MATERIAL_THICKNESS_COLOR: str  = "coral"
+HOLES_COLOR: str = "MediumAquaMarine"
 RESULT_FORCE_COLOR: str  = "#F0F8FF"
 
 #Стиль для QComgoBox з формами
@@ -23,7 +24,13 @@ form_style_shape = "" +\
         "color: Green;" +\
         f"background-color: {FORM_LIST_COLOR};" +\
         "border: 2px solid #00FF00;" +\
-    "}"
+    "}"+\
+    "QScrollBar {" +\
+        f"background : {FORM_LIST_COLOR};" +\
+    "}"+\
+    "QScrollBar::handle::pressed {"+\
+            "background : lightgreen;"+\
+    "}"      
 
 #Стиль для периметра головного вікна
 perimeter_main_window_style: str = "" +\
@@ -74,7 +81,7 @@ materials_style = "" +\
 #Стиль для QComgoBox з отворів
 holes_style = "" +\
     "QComboBox {" +\
-        "color: Olive; background-color: MediumAquaMarine; border: 2px solid blue;" +\
+        f"color: Olive; background-color: MediumAquaMarine; border: 2px solid blue;" +\
     "}" +\
     "QComboBox:hover {" +\
         f"border: 3px solid {HOVER_COLOR};" +\
@@ -83,6 +90,12 @@ holes_style = "" +\
         "color: Olive;" +\
         "background-color: MediumAquaMarine;" +\
         f"border: 2px solid {FOCUS_COLOR};" +\
+    "}"+\
+    "QScrollBar {" +\
+        f"background : {HOLES_COLOR};" +\
+    "}"+\
+    "QScrollBar::handle::pressed {"+\
+        f"background : {HOVER_COLOR};"+\
     "}"
 
 #Стиль для результата
