@@ -3,6 +3,7 @@ import sys
 from PyQt5.QtWidgets import *
 import PyQt5.QtGui as gui
 from PyQt5 import QtCore
+from PyQt5.QtWinExtras import QWinTaskbarButton
 
 import geometry as g
 import style as s
@@ -34,6 +35,7 @@ OBLONG_IMAGE_PATH = "img/oblong.jpg"
 TRIANGLE_IMAGE_PATH = "img/Triangle_60.jpg"
 ISOSCELES_TRIANGLE_IMAGE_PATH = "img/Treangle_.jpg"
 
+ICON = 'img/Кластер.ico'
 class MainWindow(QMainWindow):
 
     def __init__(self):
@@ -42,7 +44,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(500, 200, 450, 300)
         self.setWindowTitle("Розрахунок зусилля для кластера")
         gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
-        self.setWindowIcon(gui.QIcon('img/Кластер.ico'))
+        self.setWindowIcon(gui.QIcon(f"{ICON}"))
 
         #ФОРМИ
         #Заголовок форми
@@ -335,10 +337,16 @@ class MainWindow(QMainWindow):
         elif shape == "Трикутник рівнобедрений":
             self.isosceles_triangle(shape)
 
+    #Закриваэмо вікно форми у разі якщо у списку форм головного вікна оберемо "Оберіть форму одного отвору"
+    def close_shape_window(self):
+        if self.shape.currentText() == "Оберіть форму одного отвору":
+            self.window_shape.close()
+
     #КОЛО
     #Вікно для кола
     def round_handler(self, shape: str) -> None:
         self.window_shape = ShapeWindow()
+        self.shape.currentTextChanged.connect(self.close_shape_window)
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
         self.image_round = gui.QPixmap(f"{ROUND_IMAGE_PATH}")
@@ -431,6 +439,7 @@ class MainWindow(QMainWindow):
     #НАПІВКОЛО
     def half_round_heandler(self, shape: str) -> None:
         self.window_shape = ShapeWindow()
+        self.shape.currentTextChanged.connect(self.close_shape_window)
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 490)
         self.window_shape.setFixedSize(370, 490)
@@ -607,6 +616,7 @@ class MainWindow(QMainWindow):
     #Вікно квадрата
     def square(self, shape: str) -> None:
         self.window_shape = ShapeWindow()
+        self.shape.currentTextChanged.connect(self.close_shape_window)
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
         self.window_shape.setFixedSize(370, 500)
@@ -699,6 +709,7 @@ class MainWindow(QMainWindow):
     #Вікно квадрата з однаковими радіусами
     def square_one_radius(self, shape: str) -> None:
         self.window_shape = ShapeWindow()
+        self.shape.currentTextChanged.connect(self.close_shape_window)
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
 
@@ -1132,6 +1143,7 @@ class MainWindow(QMainWindow):
     #Вікно квадрата у колі
     def square_in_round(self, shape: str) -> None:
         self.window_shape = ShapeWindow()
+        self.shape.currentTextChanged.connect(self.close_shape_window)
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
         self.window_shape.setFixedSize(370, 500)
@@ -1288,6 +1300,7 @@ class MainWindow(QMainWindow):
     #вікно прямокутника
     def rectangle(self, shape: str) -> None:        
         self.window_shape = ShapeWindow()
+        self.shape.currentTextChanged.connect(self.close_shape_window)
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 500)
         self.window_shape.setFixedSize(370, 500)
@@ -1424,6 +1437,7 @@ class MainWindow(QMainWindow):
     #Вікно прямокутника з одним радіусом
     def rectangle_one_round(self, shape: str) -> None:
         self.window_shape = ShapeWindow()
+        self.shape.currentTextChanged.connect(self.close_shape_window)
         self.window_shape.setGeometry(950, 200, 380, 510)
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setFixedSize(370, 510)
@@ -1613,6 +1627,9 @@ class MainWindow(QMainWindow):
                 self.message_side_r_req.setStyleSheet(s.error_value_style) 
                 self.perimeter.setText("?")                
             else:
+                self.side_a_value_req.setText(str(round(side_a_req_list[0], 2)))
+                self.side_b_value_req.setText(str(round(side_b_req_list[0], 2)))
+                self.r_value_req.setText(str(round(side_r_req_list[0], 2)))
                 self.perimeter.setText(str(g.Rectangle_One_Radius.parimeter_rectangle_one_radius(
                     side_a_req_list[0], 
                     side_b_req_list[0], 
@@ -1626,6 +1643,7 @@ class MainWindow(QMainWindow):
     #Вікно прямокутника з різними радіусами
     def rectangle_four_round(self, shape: str) -> None:
         self.window_shape = ShapeWindow()
+        self.shape.currentTextChanged.connect(self.close_shape_window)
         self.window_shape.setGeometry(950, 200, 390, 560)
         self.window_shape.setFixedSize(390, 560)
         self.window_shape.setWindowTitle(shape)
@@ -1982,6 +2000,7 @@ class MainWindow(QMainWindow):
     #Вікно шестигранника
     def hexagon(self, shape: str) -> None:
         self.window_shape = ShapeWindow()
+        self.shape.currentTextChanged.connect(self.close_shape_window)
         self.window_shape.setGeometry(950, 200, 390, 600)
         self.window_shape.setWindowTitle(shape)
         self.image_round = gui.QPixmap(f"{HEXAGON_IMAGE_PATH}")
@@ -2170,7 +2189,7 @@ class MainWindow(QMainWindow):
             self.hex_h_value.setText(str(round(hex_h_list[0], 2)))
             self.hex_a_value.setText(str(g.Hexagon.a_hexagon_h(hex_h_list[0])))
             self.hex_d_value.setText(str(g.Hexagon.d_hexagon_h(hex_h_list[0])))
-            self.perimeter.setText(str(g.Perimeter.hexagon_h(hex_h_list[0])))
+            self.perimeter.setText(str(g.Hexagon.perimeter_hexagon_h(hex_h_list[0])))
         else:
             self.message_hex_h.setStyleSheet(s.error_value_style)
             self.message_hex_d.setStyleSheet(s.error_value_style)
@@ -2197,7 +2216,7 @@ class MainWindow(QMainWindow):
             self.hex_d_value.setText(str(round(hex_d_list[0], 2)))
             self.hex_a_value.setText(str(g.Hexagon.a_hexagon_d(hex_d_list[0])))
             self.hex_h_value.setText(str(g.Hexagon.h_hexagon_d(hex_d_list[0])))
-            self.perimeter.setText(str(g.Perimeter.hexagon_d(hex_d_list[0])))               
+            self.perimeter.setText(str(g.Hexagon.perimeter_hexagon_d(hex_d_list[0])))               
         else:
             self.message_hex_d.setStyleSheet(s.error_value_style)
             self.message_hex_a.setStyleSheet(s.error_value_style)
@@ -2213,6 +2232,7 @@ class MainWindow(QMainWindow):
     #Вікно овала
     def oblong(self, shape: str) -> None:
         self.window_shape = ShapeWindow()
+        self.shape.currentTextChanged.connect(self.close_shape_window)
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 410)
         self.window_shape.setFixedSize(370, 410)
@@ -2350,7 +2370,7 @@ class MainWindow(QMainWindow):
             else:
                 self.message_oblong_side_a.setStyleSheet(s.valide_value_style)
                 self.message_oblong_side_b.setStyleSheet(s.valide_value_style)
-                self.perimeter.setText(str(g.Perimeter.oblong(oblong_a_list[0], oblong_b_list[0])))
+                self.perimeter.setText(str(g.Oblong.perimeter_oblong(oblong_a_list[0], oblong_b_list[0])))
                 self.oblong_side_a_value.setText(str(round(oblong_a_list[0], 2)))
                 self.oblong_side_b_value.setText(str(round(oblong_b_list[0], 2)))
         else:
@@ -2361,6 +2381,7 @@ class MainWindow(QMainWindow):
     #Вікно трикутника рівносоторонній
     def equilateral_triangle(self, shape: str) -> None:
         self.window_shape = ShapeWindow()
+        self.shape.currentTextChanged.connect(self.close_shape_window)
         self.window_shape.setWindowTitle(shape)
         self.window_shape.setGeometry(950, 200, 370, 520)
 
@@ -2803,7 +2824,7 @@ class MainWindow(QMainWindow):
         else:
             self.perimeter.setText("?")
             self.side_a_is_tr_value.setText("0.0")
-            self.message_side_a_is_tr.setStyleSheet(s.btn_perimeter_3error_value_style)
+            self.message_side_a_is_tr.setStyleSheet(s.error_value_style)
     #КІНЕЦЬ РІВНОБЕДРЕНИЙ ТРИКУТНИК
 
     #Передаэмо з вікна форми до головного вікна периметер
@@ -2825,8 +2846,8 @@ class ShapeWindow(QMdiSubWindow):
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
         self.setStyleSheet("background-color: white;")
-        self.setWindowIcon(gui.QIcon('img/Кластер.ico'))
-
+        self.setWindowIcon(gui.QIcon(f'{ICON}'))
+    
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
     gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
@@ -2843,4 +2864,5 @@ if __name__ == '__main__':
     main_window.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
     main_window.setFixedSize(450, 230)
     main_window.show()
+
     sys.exit(my_app.exec_())
