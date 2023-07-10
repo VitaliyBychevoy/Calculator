@@ -35,7 +35,7 @@ OBLONG_IMAGE_PATH = "img/oblong.jpg"
 TRIANGLE_IMAGE_PATH = "img/Triangle_60.jpg"
 ISOSCELES_TRIANGLE_IMAGE_PATH = "img/Treangle_.jpg"
 
-ICON = 'img/Кластер.ico'
+ICON = 'favicon.ico'
 class MainWindow(QMainWindow):
 
     def __init__(self):
@@ -43,7 +43,6 @@ class MainWindow(QMainWindow):
 
         self.setGeometry(500, 200, 450, 300)
         self.setWindowTitle("Розрахунок зусилля для кластера")
-        gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
         self.setWindowIcon(gui.QIcon(f"{ICON}"))
 
         #ФОРМИ
