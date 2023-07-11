@@ -2,3 +2,6 @@ Tooling manual.pdf
 venv/
 img/
 draft.py
+build/
+dist/
+ClusterCalc.spec

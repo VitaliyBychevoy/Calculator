@@ -35,7 +35,8 @@ OBLONG_IMAGE_PATH = "img/oblong.jpg"
 TRIANGLE_IMAGE_PATH = "img/Triangle_60.jpg"
 ISOSCELES_TRIANGLE_IMAGE_PATH = "img/Treangle_.jpg"
 
-ICON = 'favicon.ico'
+ICON = 'img/Cluster.png'
+
 class MainWindow(QMainWindow):
 
     def __init__(self):
@@ -2846,7 +2847,7 @@ class ShapeWindow(QMdiSubWindow):
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
         self.setStyleSheet("background-color: white;")
         self.setWindowIcon(gui.QIcon(f'{ICON}'))
-    
+        
 if __name__ == '__main__':
     my_app = QApplication(sys.argv)
     gui.QFontDatabase.addApplicationFont("fonts/Kareliac bold.otf")
