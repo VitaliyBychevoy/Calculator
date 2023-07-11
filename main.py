@@ -430,7 +430,9 @@ class MainWindow(QMainWindow):
             self.message_diameter.setStyleSheet(s.error_value_style)
             self.perimeter.setText("?")
         else:
-            self.perimeter.setText(str(g.Round.perimeter_round(diameter_list_d[0])))
+            r = g.Round()
+            self.perimeter.setText(str(r.perimeter_round(diameter = diameter_list_d[0])))
+            del(r)
             self.diameter_value.setText(str(round(diameter_list_d[0], 2)))
             self.message_diameter.setGeometry(150, 350, diameter_list_d[2], 20)
             self.message_diameter.setStyleSheet(s.valide_value_style)
