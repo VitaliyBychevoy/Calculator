@@ -597,21 +597,25 @@ class MainWindow(QMainWindow):
                 self.message_height_hr.setGeometry(150, 320, 190, 20)
                 self.message_height_hr.setStyleSheet(s.error_value_style)
             else:
+                incomplete_circle = g.Incomplete_circle()
                 if height_list[0] > (diameter_list[0] / 2):
                     #Висота більша за радіус
-                    self.perimeter.setText(str(g.Incomplete_circle.perim_in_circle(diameter_list[0], height_list[0])))
-                    l = round(g.Incomplete_circle.lenght_chold(diameter_list[0], height_list[0]), 2)
+                    self.perimeter.setText(str(incomplete_circle.perim_in_circle(diameter_list[0], height_list[0])))
+                    l = round(incomplete_circle.lenght_chold(diameter_list[0], height_list[0]), 2)
                     self.lenght_hr_value.setText(str(l))
+                    del(incomplete_circle)
                 elif height_list[0] == (diameter_list[0] / 2):
                     #Висота дорівнює радіусу
-                    self.perimeter.setText(str(g.Incomplete_circle.perim_half_round(diameter_list[0], height_list[0])))
+                    self.perimeter.setText(str(incomplete_circle.perim_half_round(diameter_list[0], height_list[0])))
                     self.lenght_hr_value.setText(str(height_list[0] * 2))
+                    del(incomplete_circle)
                 elif height_list[0] < (diameter_list[0] / 2):
                     #Висота меньша за радіус
-                    l = round(g.Incomplete_circle.lenght_chold(diameter_list[0], height_list[0]), 2)
+                    l = round(incomplete_circle.lenght_chold(diameter_list[0], height_list[0]), 2)
                     self.lenght_hr_value.setText(str(l))
-                    p = round((g.Incomplete_circle.perim_half_round_height_less_radius(diameter_list[0], height_list[0])), 2)
+                    p = round((incomplete_circle.perim_half_round_height_less_radius(diameter_list[0], height_list[0])), 2)
                     self.perimeter.setText(str(p))
+                    del(incomplete_circle)
     #КІНЕЦЬ НАПІВКОЛО 
 
     #КВАДРАТ
@@ -702,9 +706,10 @@ class MainWindow(QMainWindow):
             self.message_side.setStyleSheet(s.error_value_style)   
             self.perimeter.setText("?")
         else:
+            square = g.Square()
             self.side_value.setText(str(round(square_list[0], 2)))
             self.message_side.setStyleSheet(s.valide_value_style)      
-            self.perimeter.setText(str(g.Square.perimeter_square(float(square_list[0]))))                        
+            self.perimeter.setText(str(square.perimeter_square(float(square_list[0]))))                         
     #КІНЕЦЬ КВАДРАТ
 
     #КВАДРАТ З ОДНАКОВИМИ РАДІУСАМИ
@@ -837,9 +842,11 @@ class MainWindow(QMainWindow):
                 self.message_side_one_round_square.setStyleSheet(s.error_value_style)
                 self.perimeter.setText("?")
             else:
-                self.perimeter.setText(str(g.Square_One_Radius.perimeter_square_one_radius(side_list_qor[0], radius_list_qor[0])))
+                square_one_r = g.Square_One_Radius()
+                self.perimeter.setText(str(square_one_r.perimeter_square_one_radius(side_list_qor[0], radius_list_qor[0])))
                 self.message_side_one_round_square.setStyleSheet(s.valide_value_style)
                 self.message_radius_one_round_square.setStyleSheet(s.valide_value_style)
+                del(square_one_r)
         else:
             self.perimeter.setText("?")
     #КІНЕЦЬ КВАДРАТ З ОДНАКОВИМИ РАДІУСАМИ
@@ -1125,18 +1132,28 @@ class MainWindow(QMainWindow):
                     self.message_r1_square.setText("Завеликий радіус")
                     self.message_r1_square.setStyleSheet(s.error_value_style)
             else:
+                square_four_r = g.Square_four_Radius()
                 self.side_four_radius_value.setText(str(round(side_sfr_list[0], 2)))
                 self.r1_square_value.setText(str(round(r1_sfr_list[0],2)))
                 self.r2_square_value.setText(str(round(r2_sfr_list[0],2)))
                 self.r3_square_value.setText(str(round(r3_sfr_list[0],2)))
                 self.r4_square_value.setText(str(round(r4_sfr_list[0],2)))
-                self.perimeter.setText(str(g.Square_four_Radius.perimeter_square_four_radius(
+
+                self.perimeter.setText(str(square_four_r.perimeter_square_four_radius(
                     side_sfr_list[0], 
                     r1_sfr_list[0],
                     r2_sfr_list[0],
                     r3_sfr_list[0],
                     r4_sfr_list[0]
-                    )))                           
+                    )))
+                del(square_four_r)
+                # self.perimeter.setText(str(g.Square_four_Radius.perimeter_square_four_radius(
+                #     side_sfr_list[0], 
+                #     r1_sfr_list[0],
+                #     r2_sfr_list[0],
+                #     r3_sfr_list[0],
+                #     r4_sfr_list[0]
+                #     )))                           
         else:
             self.perimeter.setText('?')
     #КІНЕЦЬ КВАДРАТ З РІЗНИМИ РАДІУСАМИ
@@ -1289,11 +1306,13 @@ class MainWindow(QMainWindow):
                 self.message_side_sir.setGeometry(150, 320, 150, 20)
                 self.message_diameter_sir.setGeometry(150, 350, 150, 20)            
             else:
+                square_in_round = g.Square_in_round()
                 self.side_sir_value.setText(str(round(list_side_sir[0], 2)))
                 self.diameter_sir_value.setText(str(round(list_diameter[0], 2)))
-                self.perimeter.setText(str(g.Square_in_round.perimeter_square_in_round(list_side_sir[0], list_diameter[0])))
+                self.perimeter.setText(str(square_in_round.perimeter_square_in_round(list_side_sir[0], list_diameter[0])))
                 self.message_side_sir.setStyleSheet(s.valide_value_style)
                 self.message_diameter_sir.setStyleSheet(s.valide_value_style)
+                del(square_in_round)
         else:
             self.perimeter.setText("?")
     #КІНЕЦЬ КВАДРАТ УКОЛІ
@@ -1427,10 +1446,12 @@ class MainWindow(QMainWindow):
             self.message_side_b.setStyleSheet(s.valide_value_style)  
 
         if side_a_list[0] != 0 and side_b_list[0] != 0:
+            rectangle = g.Rectangle()
             self.side_a_value.setText(str(round(side_a_list[0], 2)))
             self.side_b_value.setText(str(round(side_b_list[0], 2)))
-            p = g.Rectangle.perimeter_rectangle(side_a_list[0], side_b_list[0])
+            p = rectangle.perimeter_rectangle(side_a_list[0], side_b_list[0])
             self.perimeter.setText(str(round(p, 2)))
+            del(rectangle)
         else:
             self.perimeter.setText("?")                      
     #КІНЕЦЬ ПРЯМОКУТНИК
@@ -1629,14 +1650,16 @@ class MainWindow(QMainWindow):
                 self.message_side_r_req.setStyleSheet(s.error_value_style) 
                 self.perimeter.setText("?")                
             else:
+                rectangle_one_r = g.Rectangle_One_Radius()
                 self.side_a_value_req.setText(str(round(side_a_req_list[0], 2)))
                 self.side_b_value_req.setText(str(round(side_b_req_list[0], 2)))
                 self.r_value_req.setText(str(round(side_r_req_list[0], 2)))
-                self.perimeter.setText(str(g.Rectangle_One_Radius.parimeter_rectangle_one_radius(
+                self.perimeter.setText(str(rectangle_one_r.parimeter_rectangle_one_radius(
                     side_a_req_list[0], 
                     side_b_req_list[0], 
                     side_r_req_list[0]
                     )))
+                del(rectangle_one_r)
         else:
             self.perimeter.setText("?")
     #КІНЕЦЬ ПРЯМОКУТНИК З ОДНИМ РАДІУСОМ
@@ -1986,14 +2009,16 @@ class MainWindow(QMainWindow):
                     self.message_r1_square_rfr.setStyleSheet(s.error_value_style)
                     self.message_r1_square_rfr.setGeometry(170, 330, 150, 20)                                  
             else:
-                self.perimeter.setText(str(g.Rectangel_Four_Radius.perimeter_rectangle_four_radius(
+                rectangle_four_r = g.Rectangel_Four_Radius()
+                self.perimeter.setText(str(rectangle_four_r.perimeter_rectangle_four_radius(
                     list_s1[0], 
                     list_s2[0], 
                     list_r1[0], 
                     list_r2[0], 
                     list_r3[0], 
                     list_r4[0]
-                    ))) 
+                    )))
+                del(rectangle_four_r) 
         else:
             self.perimeter.setText('?')
     #КІНЕЦЬ ПРЯМОКУТНИК З РІНИМИ РАДИУСАМИ
@@ -2155,6 +2180,7 @@ class MainWindow(QMainWindow):
         self.message_hex_d.setGeometry(170, 450, 150, 20)
         
         if hex_a_list[0] != 0:
+            hex_a = g.Hexagon()
             self.message_hex_a.setText(hex_a_list[1])
             self.message_hex_a.setStyleSheet(s.valide_value_style)
             self.message_hex_h.setStyleSheet(s.valide_value_style)
@@ -2162,9 +2188,10 @@ class MainWindow(QMainWindow):
             self.message_hex_d.setText("Валідне значення")
             self.message_hex_d.setStyleSheet(s.valide_value_style)
             self.hex_a_value.setText(str(round(hex_a_list[0], 2)))
-            self.hex_h_value.setText(str(g.Hexagon.h_hexagon_a(hex_a_list[0])))
-            self.hex_d_value.setText(str(g.Hexagon.d_hexagon_a(hex_a_list[0])))
-            self.perimeter.setText(str(g.Hexagon.perimeter_hexagon_a(hex_a_list[0])))
+            self.hex_h_value.setText(str(hex_a.h_hexagon_a(hex_a_list[0])))
+            self.hex_d_value.setText(str(hex_a.d_hexagon_a(hex_a_list[0])))
+            self.perimeter.setText(str(hex_a.perimeter_hexagon_a(hex_a_list[0])))
+            del(hex_a)
         else:
             self.message_hex_a.setStyleSheet(s.error_value_style)
             self.message_hex_d.setStyleSheet(s.error_value_style)
@@ -2183,15 +2210,17 @@ class MainWindow(QMainWindow):
         self.message_hex_a.setGeometry(170, 270, 150, 20)
         self.message_hex_d.setGeometry(170, 450, 150, 20)
         if hex_h_list[0] != 0:
+            hex_h = g.Hexagon()
             self.message_hex_h.setStyleSheet(s.valide_value_style)
             self.message_hex_a.setStyleSheet(s.valide_value_style)
             self.message_hex_d.setStyleSheet(s.valide_value_style)
             self.message_hex_a.setText("Валідне значення")
             self.message_hex_d.setText("Валідне значення")
             self.hex_h_value.setText(str(round(hex_h_list[0], 2)))
-            self.hex_a_value.setText(str(g.Hexagon.a_hexagon_h(hex_h_list[0])))
-            self.hex_d_value.setText(str(g.Hexagon.d_hexagon_h(hex_h_list[0])))
-            self.perimeter.setText(str(g.Hexagon.perimeter_hexagon_h(hex_h_list[0])))
+            self.hex_a_value.setText(str(hex_h.a_hexagon_h(hex_h_list[0])))
+            self.hex_d_value.setText(str(hex_h.d_hexagon_h(hex_h_list[0])))
+            self.perimeter.setText(str(hex_h.perimeter_hexagon_h(hex_h_list[0])))
+            del(hex_h)
         else:
             self.message_hex_h.setStyleSheet(s.error_value_style)
             self.message_hex_d.setStyleSheet(s.error_value_style)
@@ -2210,15 +2239,17 @@ class MainWindow(QMainWindow):
         self.message_hex_h.setGeometry(170, 360, 150, 20)
         self.message_hex_a.setGeometry(170, 270, 150, 20)
         if hex_d_list[0] != 0:
+            hex_d = g.Hexagon()
             self.message_hex_d.setStyleSheet(s.valide_value_style)
             self.message_hex_a.setStyleSheet(s.valide_value_style)
             self.message_hex_h.setStyleSheet(s.valide_value_style)
             self.message_hex_a.setText("Валідне значення")
             self.message_hex_h.setText("Валідне значення")
             self.hex_d_value.setText(str(round(hex_d_list[0], 2)))
-            self.hex_a_value.setText(str(g.Hexagon.a_hexagon_d(hex_d_list[0])))
-            self.hex_h_value.setText(str(g.Hexagon.h_hexagon_d(hex_d_list[0])))
-            self.perimeter.setText(str(g.Hexagon.perimeter_hexagon_d(hex_d_list[0])))               
+            self.hex_a_value.setText(str(hex_d.a_hexagon_d(hex_d_list[0])))
+            self.hex_h_value.setText(str(hex_d.h_hexagon_d(hex_d_list[0])))
+            self.perimeter.setText(str(hex_d.perimeter_hexagon_d(hex_d_list[0])))
+            del(hex_d)               
         else:
             self.message_hex_d.setStyleSheet(s.error_value_style)
             self.message_hex_a.setStyleSheet(s.error_value_style)
@@ -2370,11 +2401,13 @@ class MainWindow(QMainWindow):
                 self.message_oblong_side_b.setText("Завелике значення")
                 self.perimeter.setText("?")
             else:
+                oblong = g.Oblong()
                 self.message_oblong_side_a.setStyleSheet(s.valide_value_style)
                 self.message_oblong_side_b.setStyleSheet(s.valide_value_style)
-                self.perimeter.setText(str(g.Oblong.perimeter_oblong(oblong_a_list[0], oblong_b_list[0])))
+                self.perimeter.setText(str(oblong.perimeter_oblong(oblong_a_list[0], oblong_b_list[0])))
                 self.oblong_side_a_value.setText(str(round(oblong_a_list[0], 2)))
                 self.oblong_side_b_value.setText(str(round(oblong_b_list[0], 2)))
+                del(oblong)
         else:
             self.perimeter.setText("?")
     #КІНЕЦЬ ОВАЛ
@@ -2497,13 +2530,14 @@ class MainWindow(QMainWindow):
         self.message_eq_tr_side.setGeometry(150, 300, side_a_list[2], 20)
 
         if side_a_list[0] != 0:
+            triangle = g.Equilateral_triangle()
             self.message_eq_tr_side.setGeometry(150, 300, 150, 20)
             self.message_eq_tr_height.setGeometry(150, 380, 150, 20)
             self.message_eq_tr_side.setStyleSheet(s.valide_value_style)
             self.message_eq_tr_height.setStyleSheet(s.valide_value_style)
             self.message_eq_tr_height.setText("Валідне значення")      
-            self.perimeter.setText(str(g.Equilateral_triangle.perim_eq_tr_side(side_a_list[0])))
-            self.eq_tr_height_value.setText(str(g.Equilateral_triangle.height_eq_tr_side(side_a_list[0])))        
+            self.perimeter.setText(str(triangle.perim_eq_tr_side(side_a_list[0])))
+            self.eq_tr_height_value.setText(str(triangle.height_eq_tr_side(side_a_list[0])))        
         else:
             self.message_eq_tr_side.setGeometry(150, 300, side_a_list[2], 20)
             self.message_eq_tr_height.setGeometry(150, 380, 150, 20)
@@ -2521,13 +2555,14 @@ class MainWindow(QMainWindow):
         self.message_eq_tr_height.setGeometry(150, 380, height_h_list[2], 20)
 
         if height_h_list[0] != 0:
+            triangle = g.Equilateral_triangle()
             self.message_eq_tr_side.setGeometry(150, 300, 150, 20)
             self.message_eq_tr_height.setGeometry(150, 380, 150, 20)
             self.message_eq_tr_height.setStyleSheet(s.valide_value_style)
             self.message_eq_tr_side.setStyleSheet(s.valide_value_style)
             self.message_eq_tr_side.setText("Валідне значення")            
-            self.perimeter.setText(str(g.Equilateral_triangle.perim_eq_tr_height(height_h_list[0])))
-            self.eq_tr_side_value.setText(str(g.Equilateral_triangle.side_eq_tr_height(height_h_list[0])))
+            self.perimeter.setText(str(triangle.perim_eq_tr_height(height_h_list[0])))
+            self.eq_tr_side_value.setText(str(triangle.side_eq_tr_height(height_h_list[0])))
         else:
             self.message_eq_tr_side.setGeometry(150, 300, 150, 20)
             self.message_eq_tr_height.setGeometry(150, 380, height_h_list[2], 20)
