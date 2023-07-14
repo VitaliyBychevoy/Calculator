@@ -1,29 +1,43 @@
 import math
 
-class Round():
+class Shape():
 
-    def __init__(self, diameter: float = None):
+    def __init__(self, name_shape: str = None, class_shape: str = None) -> None:
+        self.name_shape = name_shape
+        self.class_shape = class_shape
+
+    def set_name_shape(self, new_name_shape) -> None:
+        self.name_shape = new_name_shape
+
+    def get_name_shape(self) -> str:
+        return self.name_shape
+    
+    def set_class_shape(self) -> None:
+        pass
+
+    def get_class_shape(self) -> str:
+        return self.class_shape
+
+#Коло
+class Round(Shape):
+
+    def __init__(self,  diameter: float = None) -> None:
+        super().__init__(name_shape="Коло", class_shape="Стандартна форма")
         self.diameter = diameter
 
     def perimeter_round(self, diameter: float) -> float:
         self.set_diameter(diameter_1 = diameter)
-        return self.perimeter()
+        return round(self.diameter * 3.1415, 2)
         
-    def perimeter(self) -> float:
-        if type(self.diameter) not in [float, int]:
-            raise ValueError("Діаметр має бути числом")
-        elif self.diameter < 0:
-            raise ValueError("Від'ємне число")
-        else:
-            return round(self.diameter * 3.1415, 2)
-
     def set_diameter(self, diameter_1: float) -> None:
         self.diameter = diameter_1
 
+
 #Напівколо
-class Incomplete_circle():
+class Incomplete_circle(Shape):
 
     def __init__(self, diameter: float = None, height: float = None) -> None:
+        super().__init__(name_shape="Напів коло", class_shape="Стандартна форма")
         self.diameter = diameter
         self.height = height
         self.lenght = None
@@ -119,9 +133,10 @@ class Incomplete_circle():
         return round(p, 2)
 
 #Квадрат
-class Square():
+class Square(Shape):
 
     def __init__(self, side:float = None):
+        super().__init__(name_shape="Кадрат", class_shape="Стандартна форма")
         self.side = side
 
     def set_side(self, new_side: float) -> None:
@@ -141,9 +156,10 @@ class Square():
         return round(0.707 * s, 1)
 
 #Квадрат з радіусом
-class Square_One_Radius():
+class Square_One_Radius(Shape):
     
     def __init__(self,side: float = None, radius: float = None) -> None:
+        super().__init__(name_shape="Квадрат з радіусом", class_shape="Стандартна форма")
         self.side = side
         self.radius = radius
 
@@ -169,7 +185,7 @@ class Square_One_Radius():
         return round((2 * 3.1415 * r) + (4 * (s - (r * 2))), 2)
 
 #Квадрат з 4 радіусами
-class Square_four_Radius():
+class Square_four_Radius(Shape):
 
     def __init__(
             self,
@@ -179,6 +195,7 @@ class Square_four_Radius():
             r3: float = None,
             r4: float = None
             ) -> None:
+        super().__init__(name_shape="Квадрат з чотирма різними радіусами", class_shape="Стандартна форма")
         self.side = side
         self.r1 = r1
         self.r2 = r2
@@ -250,9 +267,10 @@ class Square_four_Radius():
         return round(s1 + s2 + s3 + s4 + arc1 + arc2 + arc3 + arc4, 1)
 
 #Квадрат у колі
-class Square_in_round():
+class Square_in_round(Shape):
 
     def __init__(self, side_sir: float = None, diameter_sir: float = None) -> None:
+        super().__init__(name_shape="Квадрат у колі", class_shape="Стандартна форма")
         self.side_sir = side_sir
         self.diameter_sir = diameter_sir
 
@@ -285,9 +303,10 @@ class Square_in_round():
 
 
 #Прямокутник
-class Rectangle():
+class Rectangle(Shape):
 
     def __init__(self, side_1: float = None, side_2: float = None) -> None:
+        super().__init__(name_shape="Прямокутник", class_shape="Стандартна форма")
         self.side_a = side_1
         self.side_b = side_2 
         
@@ -314,9 +333,10 @@ class Rectangle():
         return round((s_a * 2) + (s_b * 2), 2)
 
 #Прямокутник з одним радіусом
-class Rectangle_One_Radius():
+class Rectangle_One_Radius(Shape):
     
     def __init__(self, side_a: float=None, side_b: float=None, radius: float=None) -> None:
+        super().__init__(name_shape="Прямокутник з одним радіусом", class_shape="Стандартна форма")
         self.side_a: float = side_a
         self.side_b: float = side_b
         self.radius: float = radius
@@ -353,7 +373,7 @@ class Rectangle_One_Radius():
         return round((r * 2 * 3.1415) + ((s_a - (2 * r)) * 2) + ((s_b - (2 * r)) * 2), 2)
 
 #Прямокутник з 4 радіусами
-class Rectangel_Four_Radius():
+class Rectangel_Four_Radius(Shape):
 
     def __init__(
             self, 
@@ -363,6 +383,10 @@ class Rectangel_Four_Radius():
             r2: float = None, 
             r3: float = None, 
             r4: float = None) -> None:
+        super().__init__(
+            name_shape="Прямокутник з радіусами",
+            class_shape="Стандарнта форма"
+        )
         self.side_1 = side_1
         self.side_2 = side_2
         self.r1 = r1
@@ -446,9 +470,10 @@ class Rectangel_Four_Radius():
         return round(s1 + s2 + s3 + s4 + arc1 + arc2 + arc3 + arc4, 2)
 
 #Шестикутник
-class Hexagon():
+class Hexagon(Shape):
 
     def __init__(self, a: float = None, h: float = None, d: float = None) -> None:
+        super().__init__(name_shape="Шестикутник", class_shape="Стандартна форма")
         self.a = a
         self.h = h
         self.d = d
@@ -524,9 +549,10 @@ class Hexagon():
         return round((h_ / 0.866), 2)
     
 #Овал
-class Oblong():
+class Oblong(Shape):
 
     def __init__(self, side_a: float=None, side_b: float=None) -> None:
+        super().__init__(name_shape="Овал", class_shape="Стандартна форма")
         self.side_a = side_a
         self.side_b = side_b
 
@@ -552,9 +578,10 @@ class Oblong():
         return round((((s_a - s_b) * 2)+ (s_b * 3.1415)), 2)
 
 #Рівносторонній трикутник
-class Equilateral_triangle():
+class Equilateral_triangle(Shape):
 
     def __init__(self, side: float = None, height: float = None) -> None:
+        super().__init__(name_shape="Рівностононній трикутник", class_shape="Форма класа А")
         self.side = side
         self.height = height
 
@@ -593,9 +620,18 @@ class Equilateral_triangle():
         return round((s * 0.866), 2)
 
 #Рівнобедрений трикутник
-class Isosceles_triangle():
+class Isosceles_triangle(Shape):
 
-    def __init__(self, side_a: float, side_b: float, height: float) -> None:
+    def __init__(
+            self, 
+            side_a: float = None, 
+            side_b: float = None, 
+            height: float = None
+            ) -> None:
+        super().__init__(
+            name_shape="Рівнобедрений трикутник", 
+            class_shape="Форма класа А"
+            )
         self.side_a = side_a
         self.side_b = side_b
         self.height = height
@@ -604,13 +640,13 @@ class Isosceles_triangle():
         self.side_a = new_side_a
 
     def get_side_a(self) -> float:
-        return self.get_side_a
+        return self.side_a
 
     def set_side_b(self, new_side_b: float) -> None:
         self.side_b = new_side_b
 
     def get_side_b(self) -> float:
-        return self.get_side_b
+        return self.side_b
     
     def set_height(self, new_height: float) -> None:
         self.height = new_height
@@ -621,6 +657,7 @@ class Isosceles_triangle():
 
     def perim_is_tr_side_a_b(self, side_a: float, side_b: float) -> float:
         
+
         self.set_side_a(new_side_a=side_a)
         s_a = self.get_side_a()
 
@@ -632,24 +669,49 @@ class Isosceles_triangle():
     def perim_is_tr_height_side_b(self, height: float, side_b: float) -> float:
 
         self.set_height(new_height=height)
-        h = self.get_side_a()
+        h = self.get_height()
 
         self.set_side_b(new_side_b=side_b)
         s_b = self.get_side_b()
 
         return round(2 * ((h ** 2 + (s_b * 0.5) ** 2) ** 0.5) + s_b, 2)
     
-    def perim_is_tr_side_a_height(side_a: float, height: float) -> float:
-        return round((side_a * 2) + 2 * (((side_a ** 2) - (height ** 2)) ** 0.5), 2)
+    def perim_is_tr_side_a_height(self, side_a: float, height: float) -> float:
+
+        self.set_height(new_height=height)
+        h = self.get_height()
+
+        self.set_side_a(new_side_a=side_a)
+        s_a = self.get_side_a()
+
+        return round((s_a * 2) + 2 * (((s_a ** 2) - (h ** 2)) ** 0.5), 2)
     
-    def height_is_tr_side_a_b(side_a:  float, side_b: float) -> float:
-        return round((((side_a ** 2) - ((side_b * 0.5) ** 2)) ** 0.5), 2)
+    def height_is_tr_side_a_b(self, side_a:  float, side_b: float) -> float:
+
+        self.set_side_a(new_side_a=side_a)
+        s_a = self.get_side_a()
+
+        self.set_side_b(new_side_b=side_b)
+        s_b = self.get_side_b()
+
+        return round((((s_a ** 2) - ((s_b * 0.5) ** 2)) ** 0.5), 2)
     
-    def side_a_is_tr_side_b_height(side_b: float, height: float) -> float:
-        return round( ((height ** 2) + ((side_b * 0.5) ** 2)) ** 0.5 , 2)
+    def side_a_is_tr_side_b_height(self, side_b: float, height: float) -> float:
+        self.set_height(new_height=height)
+        h = self.get_height()
+
+        self.set_side_b(new_side_b=side_b)
+        s_b = self.get_side_b()
+        return round( ((h ** 2) + ((s_b * 0.5) ** 2)) ** 0.5 , 2)
     
-    def side_b_is_tr_side_a_height(side_a: float, height: float) -> float:
-        return round(2 * (((side_a ** 2) - (height** 2)) ** 0.5) , 2)
+    def side_b_is_tr_side_a_height(self, side_a: float, height: float) -> float:
+
+        self.set_height(new_height=height)
+        h = self.get_side_a()
+
+        self.set_side_a(new_side_a=side_a)
+        s_a = self.get_side_a()
+        return round(2 * (((s_a ** 2) - (h ** 2)) ** 0.5) , 2)
 
 if __name__ == '__main__':
     pass

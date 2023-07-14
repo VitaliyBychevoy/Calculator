@@ -2759,14 +2759,16 @@ class MainWindow(QMainWindow):
                 self.message_height_is_tr.setText("Відсутнє значення")
                 self.perimeter.setText("?")
             else:
+                isosceles_triangle = g.Isosceles_triangle()
                 self.message_side_a_is_tr.setStyleSheet(s.valide_value_style)
                 self.message_side_b_is_tr.setStyleSheet(s.valide_value_style)
                 self.message_height_is_tr.setText("Валідне значення")
                 self.message_height_is_tr.setStyleSheet(s.valide_value_style)
                 self.side_a_is_tr_value.setText(str(round(side_a_list[0], 2)))
                 self.side_b_is_tr_value.setText(str(round(side_b_list[0], 2)))
-                self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
-                self.height_is_tr_value.setText(str(g.Isosceles_triangle.height_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
+                self.perimeter.setText(str(isosceles_triangle.perim_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
+                self.height_is_tr_value.setText(str(isosceles_triangle.height_is_tr_side_a_b(side_a_list[0], side_b_list[0])))
+                del(isosceles_triangle)
         else:
             self.perimeter.setText("?")
             self.height_is_tr_value.setText("0.0")
@@ -2813,11 +2815,13 @@ class MainWindow(QMainWindow):
                 self.side_b_is_tr_value.setText("0.0")
                 self.perimeter.setText("?")
             else:
+                isosceles_triangle = g.Isosceles_triangle()
                 self.message_side_a_is_tr.setStyleSheet(s.valide_value_style)
                 self.message_side_b_is_tr.setStyleSheet(s.valide_value_style)
                 self.message_height_is_tr.setStyleSheet(s.valide_value_style)
-                self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_side_a_height(side_a_list[0], height_list[0])))
-                self.side_b_is_tr_value.setText(str(g.Isosceles_triangle.side_b_is_tr_side_a_height(side_a_list[0], height_list[0])))       
+                self.perimeter.setText(str(isosceles_triangle.perim_is_tr_side_a_height(side_a_list[0], height_list[0])))
+                self.side_b_is_tr_value.setText(str(isosceles_triangle.side_b_is_tr_side_a_height(side_a_list[0], height_list[0])))
+                del(isosceles_triangle)      
         else:
             self.perimeter.setText("?")
             self.side_b_is_tr_value.setText("0.0")
@@ -2853,11 +2857,13 @@ class MainWindow(QMainWindow):
             self.perimeter.setText("?")           
 
         if side_b_list[0] != 0 and height_list[0] != 0:
+            isosceles_triangle = g.Isosceles_triangle()
             self.message_side_a_is_tr.setStyleSheet(s.valide_value_style)
             self.message_side_b_is_tr.setStyleSheet(s.valide_value_style)
             self.message_height_is_tr.setStyleSheet(s.valide_value_style)
-            self.perimeter.setText(str(g.Isosceles_triangle.perim_is_tr_height_side_b(height_list[0], side_b_list[0])))
-            self.side_a_is_tr_value.setText(str(g.Isosceles_triangle.side_a_is_tr_side_b_height(side_b_list[0], height_list[0])))  
+            self.perimeter.setText(str(isosceles_triangle.perim_is_tr_height_side_b(height_list[0], side_b_list[0])))
+            self.side_a_is_tr_value.setText(str(isosceles_triangle.side_a_is_tr_side_b_height(side_b_list[0], height_list[0])))
+            del(isosceles_triangle)
         else:
             self.perimeter.setText("?")
             self.side_a_is_tr_value.setText("0.0")
