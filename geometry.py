@@ -30,6 +30,13 @@ class Round(Shape):
         return round(self.diameter * 3.1415, 2)
         
     def set_diameter(self, diameter_1: float) -> None:
+        
+        if type(diameter_1) not in [float, int]:
+            raise TypeError("Потрибно вводити число")
+        
+        if diameter_1 < 0.01:
+            raise ValueError("Минімальне значення становить 0.01 мм")
+        
         self.diameter = diameter_1
 
 
@@ -43,12 +50,26 @@ class Incomplete_circle(Shape):
         self.lenght = None
 
     def set_diameter(self, new_diameter: float) -> None:
+
+        if type(new_diameter) not in [float, int]:
+            raise TypeError("Потрибно вводити число")
+        
+        if new_diameter < 0.01:
+            raise ValueError("Минімальне значення становить 0.01 мм")
+        
         self.diameter = new_diameter
 
     def get_diameter(self) -> float:
         return self.diameter
 
     def set_height(self, new_height: float) -> None:
+
+        if type(new_height) not in [float, int]:
+            raise TypeError("Потрибно вводити число")
+        
+        if  new_height < 0.01:
+            raise ValueError("Минімальне значення становить 0.01 мм")
+
         self.height = new_height
 
     def get_height(self) -> float:
@@ -140,6 +161,13 @@ class Square(Shape):
         self.side = side
 
     def set_side(self, new_side: float) -> None:
+
+        if type(new_side) not in [float, int]:
+            raise TypeError("Потрибно вводити число")
+        
+        if new_side < 0.01:
+            raise ValueError("Минімальне значення становить 0.01 мм")
+        
         self.side = new_side
 
     def get_side(self) -> float:
@@ -164,12 +192,24 @@ class Square_One_Radius(Shape):
         self.radius = radius
 
     def set_side(self, new_side: float) -> None:
+
+        if type(new_side) not in [float, int]:
+            raise TypeError("Потрибно вводити число")
+        
+        if new_side < 0.01:
+            raise ValueError("Минімальне значення становить 0.01 мм")
+        
         self.side = new_side
 
     def get_side(self) -> float:
         return self.side
     
     def set_radius(self, new_radius) -> None:
+        if type(new_radius) not in [float, int]:
+            raise TypeError("Потрибно вводити число")
+        
+        if new_radius < 0.01:
+            raise ValueError("Минімальне значення становить 0.01 мм")
         self.radius = new_radius
 
     def get_radius(self) -> float:
@@ -275,6 +315,7 @@ class Square_in_round(Shape):
         self.diameter_sir = diameter_sir
 
     def set_side_sir(self, new_side:float = None) -> None:
+        
         self.side_sir = new_side
     
     def get_side_sir(self) -> float:
