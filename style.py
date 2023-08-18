@@ -1,6 +1,10 @@
 #Кольри для усіх типов вікон
+COLOR: str = "white"
+BACKGROUND_COLOR = "#4863A0"
+
 HOVER_COLOR: str = "#32CD32"
 FOCUS_COLOR: str  = "#00FFFF" 
+LABEL_COLOR: str = ""
 #00FA9A
 
 #Стилі для головного вікна
@@ -13,8 +17,8 @@ RESULT_FORCE_COLOR: str  = "#F0F8FF"
 #Стиль для QComgoBox з формами
 form_style_shape = "" +\
     "QComboBox {" +\
-        "color: Green;" +\
-        f"background-color: {FORM_LIST_COLOR};" +\
+        "color: white;" +\
+        f"background-color: #7393ad;" +\
         "border: 2px solid blue;" +\
     "}" +\
     "QComboBox:hover {" +\
@@ -32,20 +36,42 @@ form_style_shape = "" +\
             "background : lightgreen;"+\
     "}"      
 
-#Стиль для периметра головного вікна
-perimeter_main_window_style: str = "" +\
+#Поля на головній сторінці
+line_edit_main_window_style: str = "" +\
     "QLineEdit{" +\
-        f"background-color: {PERIMETER_MAIN_WINDOW_COLOR};" +\
-        "color: #008CBA;"+\
+        f"background-color: {BACKGROUND_COLOR};" +\
+        "color: white;"+\
         "border: 2px solid blue;" +\
-        "border-radius: 10px; text-align: center;" +\
+        "border-radius: 3px; text-align: center;" +\
     "}" +\
     "QLineEdit:hover {" +\
-        f"border: 3px solid {HOVER_COLOR};" +\
+        f"border: 2px solid {HOVER_COLOR};" +\
     "}" +\
     "QLineEdit:focus {" +\
         f"border: 2px solid {FOCUS_COLOR};" +\
     "}"
+
+#Списки на головній сторінці
+qComboBox_style_Line_Edit: str = "" +\
+    "QComboBox {" +\
+        "color: white;" +\
+        f"background-color: {BACKGROUND_COLOR};" +\
+        "border: 2px solid blue;" +\
+    "}" +\
+    "QComboBox:hover {" +\
+        f"border: 2px solid {HOVER_COLOR};" +\
+    "}" +\
+    "QComboBox QAbstractItemView {" +\
+        "color: white;" +\
+        f"background-color: {BACKGROUND_COLOR};" +\
+        f"border: 2px solid {FOCUS_COLOR};" +\
+    "}"+\
+    "QScrollBar {" +\
+        f"background : {BACKGROUND_COLOR};" +\
+    "}"
+
+
+
 
 #Стиль для товщини матеріала
 material_thickness_style: str =  "" +\
@@ -56,7 +82,7 @@ material_thickness_style: str =  "" +\
         "border-radius: 10px; text-align: center;" +\
     "}" +\
     "QLineEdit:hover {" +\
-        f"border: 3px solid {HOVER_COLOR};" +\
+        f"border: 2px solid {HOVER_COLOR};" +\
     "}" +\
     "QLineEdit:focus {" +\
         f"border: 2px solid {FOCUS_COLOR};" +\
@@ -70,7 +96,7 @@ materials_style = "" +\
         "border: 2px solid blue;" +\
     "}" +\
     "QComboBox:hover {" +\
-        f"border: 3px solid {HOVER_COLOR};" +\
+        f"border: 2px solid {HOVER_COLOR};" +\
     "}" +\
     "QComboBox QAbstractItemView {" +\
         "color: Green;" +\
@@ -84,7 +110,7 @@ holes_style = "" +\
         f"color: Olive; background-color: MediumAquaMarine; border: 2px solid blue;" +\
     "}" +\
     "QComboBox:hover {" +\
-        f"border: 3px solid {HOVER_COLOR};" +\
+        f"border: 2px solid {HOVER_COLOR};" +\
     "}" +\
     "QComboBox QAbstractItemView {" +\
         "color: Olive;" +\
@@ -101,7 +127,7 @@ holes_style = "" +\
 #Стиль для результата
 result_style = "" +\
     "QLineEdit{" +\
-        "border-radius: 10px;" +\
+        "border-radius: 3px;" +\
         "border: 2px solid rgb(0, 255, 255);" +\
         "color: #660099;" +\
     "}"
@@ -119,7 +145,8 @@ message_width: int = 150
 
 #Стилі для вікна форм
 #Кольори параметрів 
-FIRST_PARAMETER_COLOR = "#7B68EE"
+PARAMETER_COLOR = "#7393ad"
+FIRST_PARAMETER_COLOR = "#7393ad"
 
 SECOND_PARAMETER_COLOR = "#00BFFF"  
 
@@ -140,7 +167,7 @@ force_button_style: str = ""+\
         "QPushButton {" +\
             "color: #FFEFD5;" +\
             "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(100,149,237));" +\
-            "border-radius: 10px;" +\
+            "border-radius: 3px;" +\
             "font-size: 16px;" +\
             "font-weight: bold;" +\
         "}" +\
@@ -151,8 +178,8 @@ force_button_style: str = ""+\
 add_button_style: str = ""+\
         "QPushButton {" +\
             "color: #FFEFD5;" +\
-            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(30, 144, 255), stop:1 rgb(128, 0, 128));" +\
-            "border-radius: 10px;" +\
+            "background-color: #312E63;" +\
+            "border-radius: 3px;" +\
             "font-size: 16px;" +\
             "font-weight: bold;" +\
         "}" +\
@@ -160,12 +187,13 @@ add_button_style: str = ""+\
             f"background-color: {HOVER_COLOR};" +\
         "}"
         
+#XXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXXXX
 #Стиль для першої кнопки розрахунку периметра
 btn_perimeter_1: str = "" +\
         "QPushButton {" +\
             "color: #FFEFD5;" +\
-            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(0, 100, 0), stop:1 rgb(60, 179, 113));" +\
-            "border-radius: 10px;" +\
+            "background-color: #6F61C0;" +\
+            "border-radius: 3px;" +\
             "font-size: 14px;" +\
             "font-weight: bold;" +\
         "}" +\
@@ -178,7 +206,7 @@ btn_perimeter_2: str = "" +\
         "QPushButton {" +\
             "color: #FFEFD5;" +\
             "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(255, 69, 0), stop:1 rgb(255, 127, 80));" +\
-            "border-radius: 10px;" +\
+            "border-radius: 3px;" +\
             "font-size: 14px;" +\
             "font-weight: bold;" +\
         "}" +\
@@ -191,7 +219,7 @@ btn_perimeter_3: str = "" +\
         "QPushButton {" +\
             "color: #FFEFD5;" +\
             "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(123, 104, 238), stop:1 rgb(70, 130, 180));" +\
-            "border-radius: 10px;" +\
+            "border-radius: 3px;" +\
             "font-size: 14px;" +\
             "font-weight: bold;" +\
         "}" +\
@@ -200,91 +228,21 @@ btn_perimeter_3: str = "" +\
         "}"
 
 #Стиль для першого параметра форми
-q_line_edit_style_1: str = "" +\
+#XXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXXXX
+
+q_line_edit_style: str = "" +\
         "QLineEdit {" +\
-            f"background-color: {FIRST_PARAMETER_COLOR};" +\
+            f"background-color: {PARAMETER_COLOR};" +\
             "color: #FFFFE0;" +\
             "border: 2px solid blue;" +\
-            "border-radius: 10px; text-align: center;" +\
+            "border-radius: 2px; text-align: center;" +\
         "}" +\
         "QLineEdit:hover {" +\
-            f"border: 3px solid {HOVER_COLOR};" +\
+            f"border: 2px solid {HOVER_COLOR};" +\
         "}" +\
         "QLineEdit:focus {" +\
-            f"border: 3px solid {FOCUS_COLOR};" +\
+            f"border: 2px solid {FOCUS_COLOR};" +\
         "}"
 
-#Стиль для першого параметра форми
-q_line_edit_style_2: str = "" +\
-        "QLineEdit {" +\
-            f"background-color: {SECOND_PARAMETER_COLOR};" +\
-            "color: #FFFFE0;" +\
-            "border: 2px solid blue;" +\
-            "border-radius: 10px; text-align: center;" +\
-        "}" +\
-        "QLineEdit:hover {" +\
-            f"border: 3px solid {HOVER_COLOR};" +\
-        "}" +\
-        "QLineEdit:focus {" +\
-            f"border: 3px solid {FOCUS_COLOR};" +\
-        "}"
 
-#Стиль для третього параметра форми
-q_line_edit_style_3: str = "" +\
-        "QLineEdit {" +\
-            f"background-color: {THIRD_PARAMETER_COLOR};" +\
-            "color: #FFFFE0;" +\
-            "border: 2px solid blue;" +\
-            "border-radius: 10px; text-align: center;" +\
-        "}" +\
-        "QLineEdit:hover {" +\
-            f"border: 3px solid {HOVER_COLOR};" +\
-        "}" +\
-        "QLineEdit:focus {" +\
-            f"border: 3px solid {FOCUS_COLOR};" +\
-        "}"
-
-#Стиль для четвертого параметра форми
-q_line_edit_style_4: str = "" +\
-        "QLineEdit {" +\
-            f"background-color: {FOURTH_PARAMETER_COLOR};" +\
-            "color: #FFFFE0;" +\
-            "border: 2px solid blue;" +\
-            "border-radius: 10px; text-align: center;" +\
-        "}" +\
-        "QLineEdit:hover {" +\
-           f"border: 3px solid {HOVER_COLOR};" +\
-        "}" +\
-        "QLineEdit:focus {" +\
-            f"border: 3px solid {FOCUS_COLOR};" +\
-        "}"
-
-#Стиль для п'ятого параметра форми
-q_line_edit_style_5: str = "" +\
-        "QLineEdit {" +\
-            f"background-color: {FIFTH_PARAMETER_COLOR};" +\
-            "color: #FFFFE0;" +\
-            "border: 2px solid blue;" +\
-            "border-radius: 10px; text-align: center;" +\
-        "}" +\
-        "QLineEdit:hover {" +\
-            f"border: 3px solid {HOVER_COLOR};" +\
-        "}" +\
-        "QLineEdit:focus {" +\
-            f"border: 3px solid {FOCUS_COLOR};" +\
-        "}"
-
-#Стиль для шостого параметра форми
-q_line_edit_style_6: str = "" +\
-        "QLineEdit {" +\
-            f"background-color: {SIXTH_PARAMETER_COLOR};" +\
-            "color: #FFFFE0;" +\
-            "border: 2px solid blue;" +\
-            "border-radius: 10px; text-align: center;" +\
-        "}" +\
-        "QLineEdit:hover {" +\
-            f"border: 3px solid {HOVER_COLOR};" +\
-        "}" +\
-        "QLineEdit:focus {" +\
-            f"border: 3px solid {FOCUS_COLOR};" +\
-        "}"
+all_labels_style = "color: #7393ad;"
